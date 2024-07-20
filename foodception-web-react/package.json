@@ -1,7 +1,7 @@
 {
   "name": "foodception-web-react",
-  "homepage2": "https://reyou.github.io/foodception-web-react",
   "homepage": "https://web.foodception.com",
+  "homepage2": "https://reyou.github.io/foodception-web-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
