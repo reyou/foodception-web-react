@@ -6,6 +6,7 @@ import {
   createRoutesFromElements
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/bootstrap-overrides.css';
 import './App.css';
 import Meals from './components/meals';
 import WindowUtils from './utils/WindowUtils';

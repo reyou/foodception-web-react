@@ -7,3 +7,21 @@ h1 {
   color: rgb(51, 57, 66);
   font-family: bodoni-moda, "bodoni moda", serif;
 }
+
+
+.foodception-card-container {
+  width: 100%; /* Default for small screens */
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) { /* Medium screens and up */
+  .foodception-card-container {
+    width: 300px;
+  }
+}
+
+@media (min-width: 992px) { /* Large screens and up */
+  .foodception-card-container {
+    width: 400px;
+  }
+}

@@ -1,6 +1,6 @@
 export default function Meals() {
   const cards = Array.from({ length: 10 }, (_, index) => (
-    <div className='col-md-3 mb-4' key={index}>
+    <div className='foodception-card-container' key={index}>
       <div className='card'>
         <img
           src='https://via.placeholder.com/75'
@@ -24,7 +24,7 @@ export default function Meals() {
   return (
     <div className='container-fluid'>
       <h1 className='text-center'>Meals</h1>
-      <div className='row'>{cards}</div>
+      <div className='row justify-content-center'>{cards}</div>
     </div>
   );
 }
