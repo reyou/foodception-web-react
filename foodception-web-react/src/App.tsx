@@ -12,6 +12,7 @@ import Meals from './components/meals';
 import WindowUtils from './utils/WindowUtils';
 import Recipes from './components/recipes';
 import Categories from './components/categories';
+import Layout from './Layout';
 
 function App() {
   useEffect(() => {
@@ -26,17 +27,19 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route
-          path='/'
-          element={
-            <div>
-              <h1 className='text-center'>Welcome to Foodception</h1>
-            </div>
-          }
-        />
-        <Route path='/meals' element={<Meals />} />
-        <Route path='/recipes' element={<Recipes />} />
-        <Route path='/categories' element={<Categories />} />
+        <Route path='/' element={<Layout />}>
+          <Route
+            index
+            element={
+              <div>
+                <h1 className='text-center'>Welcome to Foodception</h1>
+              </div>
+            }
+          />
+          <Route path='meals' element={<Meals />} />
+          <Route path='recipes' element={<Recipes />} />
+          <Route path='categories' element={<Categories />} />
+        </Route>
       </>
     )
   );

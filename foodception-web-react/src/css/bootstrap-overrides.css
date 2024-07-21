@@ -1,3 +1,21 @@
  .card {
     background-color: #F6F3F0;
  }
+
+ .btn-primary{
+   background-color: #F6F3F0;
+   color: rgb(51, 57, 66);
+   border-color: rgb(51, 57, 66);
+ }
+ .btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: rgb(51, 57, 66);
+  color: #F6F3F0;
+  border-color: rgb(51, 57, 66);
+}
+ :not(.btn-check)+.btn:active {
+   background-color: #F6F3F0;
+   color: rgb(51, 57, 66);
+   border-color: rgb(51, 57, 66);
+}
+ 

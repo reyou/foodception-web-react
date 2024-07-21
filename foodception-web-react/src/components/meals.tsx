@@ -1,30 +1,79 @@
+import React, { useEffect, useState } from 'react';
+import HttpProvider from '../providers/HttpProvider';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
+
 export default function Meals() {
-  const cards = Array.from({ length: 10 }, (_, index) => (
-    <div className='foodception-card-container' key={index}>
-      <div className='card'>
-        <img
-          src='https://via.placeholder.com/75'
-          className='card-img-top'
-          alt='...'
-        />
-        <div className='card-body'>
-          <h5 className='card-title'>Card title {index + 1}</h5>
-          <p className='card-text'>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href='https://via.placeholder.com/150' className='btn btn-primary'>
-            Go somewhere
-          </a>
+  const [data, setData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await HttpProvider.get(
+          'https://api.foodception.com/meals'
+        );
+        setData(result);
+      } catch (err) {
+        setError('Failed to fetch data');
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const renderCards = (meals: any[], mealImages: any[]) => {
+    const isInsideIframe = window.self !== window.top;
+    const handleLinkClick = (
+      event: React.MouseEvent<HTMLAnchorElement>,
+      link: string
+    ) => {
+      if (isInsideIframe) {
+        event.preventDefault();
+        window.parent.postMessage({ type: 'redirect', url: link }, '*');
+      }
+    };
+
+    return meals.map((meal: any) => {
+      let mealImage = mealImages.find((image: any) => image.mealId === meal.id);
+      const recipeLink = `/meals/${meal.id}/recipes`;
+      return (
+        <div className='foodception-card-container' key={meal.id}>
+          <div className='card'>
+            <img
+              src={mealImage.imageUrl}
+              className='card-img-top'
+              alt={meal.name}
+            />
+            <div className='card-body'>
+              <h5 className='card-title'>
+                {FrontEndUtils.capitalizeText(meal.name)}
+              </h5>
+              <p className='card-text'>{meal.description}</p>
+              <a
+                href={isInsideIframe ? '#' : recipeLink}
+                className='btn btn-primary'
+                onClick={(event) => handleLinkClick(event, recipeLink)}
+              >
+                View Recipes
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  ));
+      );
+    });
+  };
 
   return (
     <div className='container-fluid'>
-      <h1 className='text-center'>Meals</h1>
-      <div className='row justify-content-center'>{cards}</div>
+      {data ? (
+        <div className='row justify-content-center'>
+          {renderCards(data.meals, data.mealImages)}
+        </div>
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : (
+        <p className='text-center'>Loading...</p>
+      )}
     </div>
   );
 }
