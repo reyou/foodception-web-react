@@ -8,11 +8,11 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/bootstrap-overrides.css';
 import './App.css';
-import Meals from './components/meals';
-import WindowUtils from './utils/WindowUtils';
-import Recipes from './components/recipes';
-import Categories from './components/categories';
 import Layout from './Layout';
+import WindowUtils from './utils/WindowUtils';
+import Meals from './pages/meals';
+import Recipes from './pages/recipes';
+import Categories from './pages/categories';
 
 function App() {
   useEffect(() => {
