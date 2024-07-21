@@ -21,36 +21,54 @@ export default function Meals() {
     fetchData();
   }, []);
 
-  const renderCards = (meals: any[], mealImages: any[]) => {
-    const isInsideIframe = window.self !== window.top;
+  const renderMeals = (meals: any[], mealRecipesList: any[]) => {
+    return meals.map((meal: any) => {
+      const mealRecipes = mealRecipesList.find((q) => q.mealId === meal.id);
+      return (
+        <div key={meal.id}>
+          <h1 className='text-center'>
+            {FrontEndUtils.capitalizeText(meal.name)}
+          </h1>
+          <h5 className='text-center mb-4'>{meal.description}</h5>
+          <div className='row justify-content-center'>
+            {renderRecipes(mealRecipes.recipes, mealRecipes.recipeImages)}
+          </div>
+        </div>
+      );
+    });
+  };
+
+  const renderRecipes = (recipes: any[], recipeImages: any[]) => {
     const handleLinkClick = (
       event: React.MouseEvent<HTMLAnchorElement>,
       link: string
     ) => {
-      if (isInsideIframe) {
+      if (FrontEndUtils.isInsideIframe()) {
         event.preventDefault();
         window.parent.postMessage({ type: 'redirect', url: link }, '*');
       }
     };
 
-    return meals.map((meal: any) => {
-      let mealImage = mealImages.find((image: any) => image.mealId === meal.id);
-      const recipeLink = `/meals/${meal.id}/recipes`;
+    return recipes.map((recipe: any) => {
+      let mealImage = recipeImages.find(
+        (image: any) => image.recipeId === recipe.id
+      );
+      const recipeLink = `/meals/${recipe.id}/recipes`;
       return (
-        <div className='foodception-card-container' key={meal.id}>
+        <div className='foodception-card-container' key={recipe.id}>
           <div className='card'>
             <img
               src={mealImage.imageUrl}
               className='card-img-top'
-              alt={meal.name}
+              alt={recipe.title}
             />
             <div className='card-body'>
               <h5 className='card-title'>
-                {FrontEndUtils.capitalizeText(meal.name)}
+                {FrontEndUtils.capitalizeText(recipe.title)}
               </h5>
-              <p className='card-text'>{meal.description}</p>
+              <p className='card-text'>{recipe.description}</p>
               <a
-                href={isInsideIframe ? '#' : recipeLink}
+                href={FrontEndUtils.isInsideIframe() ? '#' : recipeLink}
                 className='btn btn-primary'
                 onClick={(event) => handleLinkClick(event, recipeLink)}
               >
@@ -66,9 +84,7 @@ export default function Meals() {
   return (
     <div className='container-fluid'>
       {data ? (
-        <div className='row justify-content-center'>
-          {renderCards(data.meals, data.mealImages)}
-        </div>
+        <>{renderMeals(data.meals, data.mealRecipes)}</>
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
