@@ -28,7 +28,11 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
           <div className='foodception-card-container' key={recipe.id}>
             <div key={recipe.id} className='card'>
               <img
-                src={mealImage?.imageUrl}
+                src={FrontEndUtils.getResizedImagePath(
+                  mealImage.imageUrl,
+                  400,
+                  400
+                )}
                 className='card-img-top'
                 alt={recipe.title}
               />
@@ -38,7 +42,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
                 </h5>
                 <p className='card-text'>{recipe.description}</p>
                 <a
-                  href={FrontEndUtils.isInsideIframe() ? '#' : recipeLink}
+                  href={recipeLink}
                   className='btn btn-primary'
                   onClick={(event) => handleLinkClick(event, recipeLink)}
                 >
