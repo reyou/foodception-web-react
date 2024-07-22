@@ -23,7 +23,9 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
         let mealImage = recipeImages.find(
           (image: any) => image.recipeId === recipe.id
         );
-        const recipeLink = `/meals/${recipe.id}/recipes`;
+        const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${
+          recipe.id
+        }`;
         const isInsideIframe = FrontEndUtils.isInsideIframe();
 
         return (
@@ -48,7 +50,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
                   className='btn btn-primary'
                   onClick={(event) => handleLinkClick(event, recipeLink)}
                 >
-                  View Recipes
+                  View Recipe
                 </a>
               </div>
             </div>
