@@ -24,9 +24,11 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
           (image: any) => image.recipeId === recipe.id
         );
         const recipeLink = `/meals/${recipe.id}/recipes`;
+        const isInsideIframe = FrontEndUtils.isInsideIframe();
+
         return (
           <div className='foodception-card-container' key={recipe.id}>
-            <div key={recipe.id} className='card'>
+            <div className='card'>
               <img
                 src={FrontEndUtils.getResizedImagePath(
                   mealImage.imageUrl,
@@ -42,7 +44,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
                 </h5>
                 <p className='card-text'>{recipe.description}</p>
                 <a
-                  href={recipeLink}
+                  href={isInsideIframe ? 'javascript:void(0)' : recipeLink}
                   className='btn btn-primary'
                   onClick={(event) => handleLinkClick(event, recipeLink)}
                 >
