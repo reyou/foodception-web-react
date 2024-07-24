@@ -12,7 +12,7 @@ import Layout from './Layout';
 import WindowUtils from './utils/WindowUtils';
 import Meals from './pages/meals';
 import Recipes from './pages/recipes';
-import Categories from './pages/categories';
+import RecipeCategories from './pages/recipe-categories';
 
 function App() {
   useEffect(() => {
@@ -38,7 +38,7 @@ function App() {
           />
           <Route path='meals' element={<Meals />} />
           <Route path='recipes' element={<Recipes />} />
-          <Route path='categories' element={<Categories />} />
+          <Route path='recipe-categories' element={<RecipeCategories />} />
         </Route>
       </>
     )

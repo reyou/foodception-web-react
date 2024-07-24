@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import RecipeList from '../components/recipeList';
 import HttpProvider from '../providers/HttpProvider';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
@@ -40,15 +40,19 @@ export default function Meals() {
     });
   };
 
-  return (
-    <div className='container-fluid'>
-      {data ? (
-        <>{renderMeals(data.meals, data.mealRecipes)}</>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <p className='text-center'>Loading...</p>
-      )}
-    </div>
-  );
+  const render = () => {
+    return (
+      <div className='container-fluid'>
+        {data ? (
+          <>{renderMeals(data.meals, data.mealRecipes)}</>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : (
+          <p className='text-center'>Loading...</p>
+        )}
+      </div>
+    );
+  };
+
+  return render();
 }

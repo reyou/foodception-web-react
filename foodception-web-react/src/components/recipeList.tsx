@@ -16,7 +16,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
       window.parent.postMessage({ type: 'redirect', url: link }, '*');
     }
   };
-
+  const isInsideIframe = FrontEndUtils.isInsideIframe();
   return (
     <div className='row justify-content-center'>
       {recipes.map((recipe: any) => {
@@ -26,10 +26,9 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
         const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${
           recipe.id
         }`;
-        const isInsideIframe = FrontEndUtils.isInsideIframe();
 
         return (
-          <div className='foodception-card-container' key={recipe.id}>
+          <div key={recipe.id} className='foodception-card-container'>
             <div className='card'>
               <img
                 src={FrontEndUtils.getResizedImagePath(
