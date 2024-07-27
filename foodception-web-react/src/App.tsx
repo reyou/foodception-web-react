@@ -17,8 +17,11 @@ import MealCategories from './pages/meal-categories';
 
 function App() {
   useEffect(() => {
+    // Get iframeId from the query string
+    const params = new URLSearchParams(window.location.search);
+    const iframeId = params.get('iframeId') || 'N/A';
     // Send the message on mount
-    WindowUtils.addResizeListener();
+    WindowUtils.addResizeListener(iframeId);
 
     // Cleanup listener on unmount
     return () => {
