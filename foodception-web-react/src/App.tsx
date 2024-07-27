@@ -38,7 +38,7 @@ function App() {
             }
           />
           <Route path='meals' element={<Meals />} />
-          <Route path='meal-categories' element={<MealCategories />} />
+          <Route path='meals/categories' element={<MealCategories />} />
           <Route path='recipes' element={<Recipes />} />
           <Route path='recipe-categories' element={<RecipeCategories />} />
         </Route>
