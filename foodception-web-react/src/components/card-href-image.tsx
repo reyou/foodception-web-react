@@ -19,11 +19,9 @@ const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
     }
   };
 
-  const isInsideIframe = FrontEndUtils.isInsideIframe();
-
   return (
     <a
-      href={isInsideIframe ? 'javascript:void(0)' : href}
+      href={FrontEndUtils.isInsideIframe() ? 'javascript:void(0)' : href}
       onClick={handleLinkClick}
     >
       <img src={src} alt={alt} className='card-img-top' />

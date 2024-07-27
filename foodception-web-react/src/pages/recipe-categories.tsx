@@ -15,7 +15,7 @@ export default function RecipeCategories() {
     const fetchData = async () => {
       try {
         const limitParam = searchParams.get('limit');
-        const limit = limitParam ? parseInt(limitParam, 10) : 10;
+        const limit = limitParam ? parseInt(limitParam, 10) : maxLimit;
         setLimit(limit);
         const result = await HttpProvider.get(
           `https://api.foodception.com/recipe-categories?limit=${limit}`
@@ -44,7 +44,7 @@ export default function RecipeCategories() {
           ></RecipeCategoriesList>
           {limit < maxLimit && (
             <div className='text-center'>
-              <FoodceptionHrefButton href=''>
+              <FoodceptionHrefButton href='/recipe-categories'>
                 View All Categories
               </FoodceptionHrefButton>
             </div>
