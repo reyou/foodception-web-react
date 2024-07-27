@@ -14,8 +14,9 @@ export default function Meals() {
           'https://api.foodception.com/meals'
         );
         setData(result);
-      } catch (err) {
+      } catch (error: any) {
         setError('Failed to fetch data');
+        console.error(error);
       }
     };
 
