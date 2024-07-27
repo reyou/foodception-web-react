@@ -1,5 +1,6 @@
 import React from 'react';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import ParentWindowUtils from '../utils/ParentWindowUtils';
 
 interface FoodceptionCardBodyProps {
   title: string;
@@ -20,7 +21,7 @@ const FoodceptionCardBody: React.FC<FoodceptionCardBodyProps> = ({
   ) => {
     if (FrontEndUtils.isInsideIframe()) {
       event.preventDefault();
-      window.parent.postMessage({ type: 'redirect', url: link }, '*');
+      ParentWindowUtils.postMessage({ type: 'redirect', url: link });
     }
   };
 

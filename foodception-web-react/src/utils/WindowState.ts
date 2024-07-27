@@ -1,4 +1,4 @@
-export default class WindowUtils {
+export default class WindowState {
   private static previousHeight: number | null = null;
   private static intervalId: number | null = null;
 
@@ -6,7 +6,7 @@ export default class WindowUtils {
     const height = document.documentElement.scrollHeight;
 
     // Only post message if height has changed
-    if (height !== WindowUtils.previousHeight) {
+    if (height !== WindowState.previousHeight) {
       window.parent.postMessage(
         {
           type: 'resizeIframe',
@@ -16,28 +16,28 @@ export default class WindowUtils {
         },
         '*'
       );
-      WindowUtils.previousHeight = height;
+      WindowState.previousHeight = height;
     }
   }
 
   static addResizeListener(iframeId: string): void {
     // Clear any existing interval to avoid multiple intervals running
-    WindowUtils.removeResizeListener();
+    WindowState.removeResizeListener();
 
     // Send the message initially
-    WindowUtils.sendMessage(iframeId);
+    WindowState.sendMessage(iframeId);
 
     // Start interval to send resize messages
-    WindowUtils.intervalId = window.setInterval(() => {
-      WindowUtils.sendMessage(iframeId);
+    WindowState.intervalId = window.setInterval(() => {
+      WindowState.sendMessage(iframeId);
     }, 200);
   }
 
   static removeResizeListener(): void {
     // Clear the interval if it exists
-    if (WindowUtils.intervalId !== null) {
-      window.clearInterval(WindowUtils.intervalId);
-      WindowUtils.intervalId = null;
+    if (WindowState.intervalId !== null) {
+      window.clearInterval(WindowState.intervalId);
+      WindowState.intervalId = null;
     }
   }
 }

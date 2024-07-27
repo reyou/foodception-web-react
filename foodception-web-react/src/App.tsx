@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/bootstrap-overrides.css';
 import './App.css';
 import Layout from './Layout';
-import WindowUtils from './utils/WindowUtils';
+import WindowState from './utils/WindowState';
 import Meals from './pages/meals';
 import Recipes from './pages/recipes';
 import RecipeCategories from './pages/recipe-categories';
@@ -21,11 +21,11 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     const iframeId = params.get('iframeId') || 'N/A';
     // Send the message on mount
-    WindowUtils.addResizeListener(iframeId);
+    WindowState.addResizeListener(iframeId);
 
     // Cleanup listener on unmount
     return () => {
-      WindowUtils.removeResizeListener();
+      WindowState.removeResizeListener();
     };
   }, []);
   const router = createBrowserRouter(

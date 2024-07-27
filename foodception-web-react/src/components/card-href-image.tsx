@@ -1,5 +1,6 @@
 import React from 'react';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import ParentWindowUtils from '../utils/ParentWindowUtils';
 
 interface FoodceptionCardHrefImageProps {
   href: string;
@@ -15,7 +16,7 @@ const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (FrontEndUtils.isInsideIframe()) {
       event.preventDefault();
-      window.parent.postMessage({ type: 'redirect', url: href }, '*');
+      ParentWindowUtils.postMessage({ type: 'redirect', url: href });
     }
   };
 

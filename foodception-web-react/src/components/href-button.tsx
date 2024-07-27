@@ -1,5 +1,6 @@
 import React from 'react';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import ParentWindowUtils from '../utils/ParentWindowUtils';
 
 interface FoodceptionHrefButtonProps {
   href: string;
@@ -13,7 +14,7 @@ const FoodceptionHrefButton: React.FC<FoodceptionHrefButtonProps> = ({
   const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (FrontEndUtils.isInsideIframe()) {
       event.preventDefault();
-      window.parent.postMessage({ type: 'redirect', url: href }, '*');
+      ParentWindowUtils.postMessage({ type: 'redirect', url: href });
     }
   };
   return (

@@ -1,4 +1,5 @@
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import ParentWindowUtils from '../utils/ParentWindowUtils';
 import FoodceptionCard from './card';
 import FoodceptionCardHrefImage from './card-href-image';
 
@@ -17,7 +18,7 @@ const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
   ) => {
     if (FrontEndUtils.isInsideIframe()) {
       event.preventDefault();
-      window.parent.postMessage({ type: 'redirect', url: link }, '*');
+      ParentWindowUtils.postMessage({ type: 'redirect', url: link });
     }
   };
 
