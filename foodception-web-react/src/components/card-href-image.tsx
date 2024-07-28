@@ -3,34 +3,38 @@ import { FrontEndUtils } from '../utils/FrontEndUtils';
 import ParentWindowUtils from '../utils/ParentWindowUtils';
 
 interface FoodceptionCardHrefImageProps {
-  href: string;
+  url: string;
   src: string;
   alt: string;
 }
 
 const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
-  href,
+  url,
   src,
   alt
 }) => {
   const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    url: string
   ) => {
     event.preventDefault();
-    ParentWindowUtils.postMessage({ type: 'redirect', url: href });
+    ParentWindowUtils.postMessage({ type: 'redirect', url: url });
   };
 
   if (FrontEndUtils.isInsideIframe()) {
     return (
-      <button onClick={handleLinkClick} className='btn-no-style'>
+      <a href={url}>
         <img src={src} alt={alt} className='card-img-top' />
-      </button>
+      </a>
     );
   } else {
     return (
-      <a href={href}>
+      <button
+        className='btn-no-style'
+        onClick={(event) => handleLinkClick(event, url)}
+      >
         <img src={src} alt={alt} className='card-img-top' />
-      </a>
+      </button>
     );
   }
 };

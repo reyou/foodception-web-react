@@ -47,7 +47,7 @@ export default function RecipeCategories() {
           ></RecipeCategoriesList>
           {limit < maxLimit && (
             <div className='text-center'>
-              <FoodceptionHrefButton href='/recipe-categories'>
+              <FoodceptionHrefButton url='/recipe-categories'>
                 View All Categories
               </FoodceptionHrefButton>
             </div>

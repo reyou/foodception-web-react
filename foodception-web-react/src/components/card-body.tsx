@@ -17,10 +17,10 @@ const FoodceptionCardBody: React.FC<FoodceptionCardBodyProps> = ({
 }) => {
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-    link: string
+    url: string
   ) => {
     event.preventDefault();
-    ParentWindowUtils.postMessage({ type: 'redirect', url: link });
+    ParentWindowUtils.postMessage({ type: 'redirect', url: url });
   };
 
   return (

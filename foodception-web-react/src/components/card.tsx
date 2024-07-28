@@ -22,7 +22,7 @@ const FoodceptionCard: React.FC<FoodceptionCardProps> = ({
     <div className='foodception-card-container'>
       <div className='card'>
         <FoodceptionCardHrefImage
-          href={url}
+          url={url}
           src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
           alt={title}
         />
