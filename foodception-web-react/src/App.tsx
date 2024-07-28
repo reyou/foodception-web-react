@@ -14,6 +14,7 @@ import Meals from './pages/meals';
 import Recipes from './pages/recipes';
 import RecipeCategories from './pages/recipe-categories';
 import MealCategories from './pages/meal-categories';
+import RecipeCategoryDetail from './pages/recipe-category-detail';
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
       WindowState.removeResizeListener();
     };
   }, []);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -44,6 +46,10 @@ function App() {
           <Route path='meals/categories' element={<MealCategories />} />
           <Route path='recipes' element={<Recipes />} />
           <Route path='recipe-categories' element={<RecipeCategories />} />
+          <Route
+            path='recipe-categories/:slug/:id'
+            element={<RecipeCategoryDetail />}
+          />
         </Route>
       </>
     )
