@@ -16,26 +16,29 @@ const FoodceptionCardBody: React.FC<FoodceptionCardBodyProps> = ({
   linkTitle
 }) => {
   const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
     link: string
   ) => {
-    if (FrontEndUtils.isInsideIframe()) {
-      event.preventDefault();
-      ParentWindowUtils.postMessage({ type: 'redirect', url: link });
-    }
+    event.preventDefault();
+    ParentWindowUtils.postMessage({ type: 'redirect', url: link });
   };
 
   return (
     <div className='card-body'>
       <h5 className='card-title'>{FrontEndUtils.capitalizeText(title)}</h5>
       <p className='card-text'>{description}</p>
-      <a
-        href={FrontEndUtils.isInsideIframe() ? 'javascript:void(0)' : url}
-        className='btn btn-primary'
-        onClick={(event) => handleLinkClick(event, url)}
-      >
-        {linkTitle}
-      </a>
+      {FrontEndUtils.isInsideIframe() ? (
+        <button
+          className='btn btn-primary'
+          onClick={(event) => handleLinkClick(event, url)}
+        >
+          {linkTitle}
+        </button>
+      ) : (
+        <a href={url} className='btn btn-primary'>
+          {linkTitle}
+        </a>
+      )}
     </div>
   );
 };

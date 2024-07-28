@@ -13,21 +13,26 @@ const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
   src,
   alt
 }) => {
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (FrontEndUtils.isInsideIframe()) {
-      event.preventDefault();
-      ParentWindowUtils.postMessage({ type: 'redirect', url: href });
-    }
+  const handleLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    ParentWindowUtils.postMessage({ type: 'redirect', url: href });
   };
 
-  return (
-    <a
-      href={FrontEndUtils.isInsideIframe() ? 'javascript:void(0)' : href}
-      onClick={handleLinkClick}
-    >
-      <img src={src} alt={alt} className='card-img-top' />
-    </a>
-  );
+  if (FrontEndUtils.isInsideIframe()) {
+    return (
+      <button onClick={handleLinkClick} className='btn-no-style'>
+        <img src={src} alt={alt} className='card-img-top' />
+      </button>
+    );
+  } else {
+    return (
+      <a href={href}>
+        <img src={src} alt={alt} className='card-img-top' />
+      </a>
+    );
+  }
 };
 
 export default FoodceptionCardHrefImage;

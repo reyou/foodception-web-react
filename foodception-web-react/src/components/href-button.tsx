@@ -11,23 +11,26 @@ const FoodceptionHrefButton: React.FC<FoodceptionHrefButtonProps> = ({
   href,
   children
 }) => {
-  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (FrontEndUtils.isInsideIframe()) {
-      event.preventDefault();
-      ParentWindowUtils.postMessage({ type: 'redirect', url: href });
-    }
+  const handleLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    ParentWindowUtils.postMessage({ type: 'redirect', url: href });
   };
-  return (
-    <div>
-      <a
-        className='btn btn-primary'
-        href={FrontEndUtils.isInsideIframe() ? 'javascript:void(0)' : href}
-        onClick={handleLinkClick}
-      >
+
+  if (FrontEndUtils.isInsideIframe()) {
+    return (
+      <button className='btn btn-primary' onClick={handleLinkClick}>
+        {children}
+      </button>
+    );
+  } else {
+    return (
+      <a className='btn btn-primary' href={href}>
         {children}
       </a>
-    </div>
-  );
+    );
+  }
 };
 
 export default FoodceptionHrefButton;
