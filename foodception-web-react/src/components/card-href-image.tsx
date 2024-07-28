@@ -14,7 +14,7 @@ const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
   alt
 }) => {
   const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    event: React.MouseEvent<HTMLAnchorElement | HTMLImageElement>,
     url: string
   ) => {
     event.preventDefault();
@@ -23,18 +23,18 @@ const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
 
   if (FrontEndUtils.isInsideIframe()) {
     return (
-      <a href={url}>
-        <img src={src} alt={alt} className='card-img-top' />
-      </a>
+      <img
+        src={src}
+        alt={alt}
+        className='card-img-top'
+        onClick={(event) => handleLinkClick(event, url)}
+      />
     );
   } else {
     return (
-      <button
-        className='btn-no-style'
-        onClick={(event) => handleLinkClick(event, url)}
-      >
+      <a href={url}>
         <img src={src} alt={alt} className='card-img-top' />
-      </button>
+      </a>
     );
   }
 };
