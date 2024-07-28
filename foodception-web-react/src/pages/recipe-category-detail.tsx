@@ -1,3 +1,45 @@
-export default function RecipeCategoryDetail() {
-  return <div>RecipeCategoryDetail</div>;
-}
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import RecipeList from '../components/recipeList';
+import HttpProvider from '../providers/HttpProvider';
+
+interface RecipeCategoryDetailProps {}
+
+const RecipeCategoryDetail: React.FC<RecipeCategoryDetailProps> = () => {
+  const { id } = useParams<{ id: string }>();
+  const [data, setData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await HttpProvider.get(
+          `https://api.foodception.com/recipe-categories/${id}/recipes`
+        );
+        setData(result);
+      } catch (err) {
+        setError('Failed to fetch data');
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  const render = () => {
+    if (error) {
+      return <div>Error: {error}</div>;
+    } else if (!data) {
+      return <div className='text-center'>Loading...</div>;
+    } else {
+      return (
+        <RecipeList
+          recipes={data.recipes}
+          recipeImages={data.recipeImages}
+        ></RecipeList>
+      );
+    }
+  };
+
+  return render();
+};
+
+export default RecipeCategoryDetail;
