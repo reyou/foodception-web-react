@@ -1,7 +1,5 @@
 import { FrontEndUtils } from '../utils/FrontEndUtils';
-import ParentWindowUtils from '../utils/ParentWindowUtils';
 import FoodceptionCard from './card';
-import FoodceptionCardHrefImage from './card-href-image';
 
 interface RecipeCategoriesListProps {
   recipeCategories: any[];
@@ -12,16 +10,6 @@ const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
   recipeCategories,
   recipeCategoryImages
 }) => {
-  const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    link: string
-  ) => {
-    if (FrontEndUtils.isInsideIframe()) {
-      event.preventDefault();
-      ParentWindowUtils.postMessage({ type: 'redirect', url: link });
-    }
-  };
-
   return (
     <div className='row justify-content-center'>
       {recipeCategories.map((category: any) => {

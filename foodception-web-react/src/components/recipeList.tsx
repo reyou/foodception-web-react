@@ -1,6 +1,5 @@
 import React from 'react';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
-import ParentWindowUtils from '../utils/ParentWindowUtils';
 import FoodceptionCard from './card';
 
 interface RecipeListProps {
@@ -9,16 +8,6 @@ interface RecipeListProps {
 }
 
 const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
-  const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    link: string
-  ) => {
-    if (FrontEndUtils.isInsideIframe()) {
-      event.preventDefault();
-      ParentWindowUtils.postMessage({ type: 'redirect', url: link });
-    }
-  };
-  const isInsideIframe = FrontEndUtils.isInsideIframe();
   return (
     <div className='row justify-content-center'>
       {recipes.map((recipe: any) => {

@@ -1,7 +1,5 @@
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import FoodceptionCard from './card';
-import FoodceptionCardBody from './card-body';
-import FoodceptionCardHrefImage from './card-href-image';
 
 interface MealCategoriesListProps {
   meals: any[];

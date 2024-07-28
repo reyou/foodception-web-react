@@ -30,7 +30,7 @@ export default function RecipeCategories() {
     };
 
     fetchData();
-  }, []);
+  }, [searchParams]);
 
   const render = () => {
     if (error) {
