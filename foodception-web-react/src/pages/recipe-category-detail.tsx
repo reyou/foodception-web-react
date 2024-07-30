@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import FoodceptionHrefButton from '../components/href-button';
 import RecipeList from '../components/recipeList';
 import HttpProvider from '../providers/HttpProvider';
 
@@ -31,10 +32,17 @@ const RecipeCategoryDetail: React.FC<RecipeCategoryDetailProps> = () => {
       return <div className='text-center'>Loading...</div>;
     } else {
       return (
-        <RecipeList
-          recipes={data.recipes}
-          recipeImages={data.recipeImages}
-        ></RecipeList>
+        <div>
+          <div className='mb-3 text-center'>
+            <FoodceptionHrefButton url='/recipe-categories'>
+              &lt;&lt; Back to Recipe Categories
+            </FoodceptionHrefButton>
+          </div>
+          <RecipeList
+            recipes={data.recipes}
+            recipeImages={data.recipeImages}
+          ></RecipeList>
+        </div>
       );
     }
   };
