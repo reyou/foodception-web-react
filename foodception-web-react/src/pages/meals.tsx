@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FoodceptionHrefButton from '../components/href-button';
 import RecipeList from '../components/recipeList';
 import HttpProvider from '../providers/HttpProvider';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
@@ -36,6 +37,15 @@ export default function Meals() {
             recipes={mealRecipes.recipes}
             recipeImages={mealRecipes.recipeImages}
           ></RecipeList>
+          <div className='text-center mb-4'>
+            <FoodceptionHrefButton
+              url={`/meals/${FrontEndUtils.slugify(meal.name)}/${
+                meal.id
+              }/recipes`}
+            >
+              View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
+            </FoodceptionHrefButton>
+          </div>
         </div>
       );
     });
