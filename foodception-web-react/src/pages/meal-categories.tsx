@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FoodceptionHrefButton from '../components/href-button';
 import MealCategoriesList from '../components/mealCategoriesList';
 import HttpProvider from '../providers/HttpProvider';
 export default function MealCategories() {
@@ -34,6 +35,11 @@ export default function MealCategories() {
             meals={data.meals}
             mealImages={data.mealImages}
           ></MealCategoriesList>
+          <div className='text-center'>
+            <FoodceptionHrefButton url='/meals'>
+              Browse All Meal Recipes
+            </FoodceptionHrefButton>
+          </div>
         </div>
       );
     }
