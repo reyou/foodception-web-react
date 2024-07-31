@@ -15,6 +15,7 @@ import Recipes from './pages/recipes';
 import RecipeCategories from './pages/recipe-categories';
 import MealCategories from './pages/meal-categories';
 import RecipeCategoryDetail from './pages/recipe-category-detail';
+import MealRecipes from './pages/meal-recipes';
 
 function App() {
   useEffect(() => {
@@ -44,6 +45,7 @@ function App() {
           />
           <Route path='meals' element={<Meals />} />
           <Route path='meals/categories' element={<MealCategories />} />
+          <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
           <Route path='recipes' element={<Recipes />} />
           <Route path='recipe-categories' element={<RecipeCategories />} />
           <Route
