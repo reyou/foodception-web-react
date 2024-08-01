@@ -8,6 +8,19 @@ h1 {
   font-family: bodoni-moda, "bodoni moda", serif;
 }
 
+/* Adjust font size for tablets */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 60px;
+  }
+}
+
+/* Adjust font size for mobile devices */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 40px;
+  }
+}
 
 .foodception-card-container {
   width: 100%; /* Default for small screens */
@@ -16,7 +29,7 @@ h1 {
 
 @media (min-width: 768px) { /* Medium screens and up */
   .foodception-card-container {
-    width: 300px;
+    width: 320px;
   }
 }
 

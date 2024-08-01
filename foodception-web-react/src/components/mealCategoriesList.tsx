@@ -15,7 +15,7 @@ const MealCategoriesList: React.FC<MealCategoriesListProps> = ({
       {meals.map((meal) => {
         const categoryLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
           meal.id
-        }`;
+        }/recipes`;
         const categoryImage = mealImages.find(
           (image: any) => image.mealId === meal.id
         );
