@@ -29,7 +29,7 @@ h1 {
 
 @media (min-width: 768px) { /* Medium screens and up */
   .foodception-card-container {
-    width: 320px;
+    width: 300px;
   }
 }
 
