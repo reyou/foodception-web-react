@@ -82,6 +82,7 @@ export default function RecipeDetails() {
       );
       return (
         <div className='container mt-4'>
+          {/* Side bar */}
           <FoodceptionHeader>{recipe.title}</FoodceptionHeader>
           <RecipeTimeInfo
             totalTime={recipe.totalTime}
