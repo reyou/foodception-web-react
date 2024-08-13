@@ -22,6 +22,27 @@ h1 {
   }
 }
 
+h2 {
+  font-size: 60px;
+  color: rgb(51, 57, 66); /* Matches the h1 color */
+  font-family: bodoni-moda, "bodoni moda", serif;
+}
+
+/* Adjust font size for tablets */
+@media (max-width: 1024px) {
+  h2 {
+    font-size: 45px;
+  }
+}
+
+/* Adjust font size for mobile devices */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 30px;
+  }
+}
+
+
 .foodception-card-container {
   width: 100%; /* Default for small screens */
   margin-bottom: 20px;

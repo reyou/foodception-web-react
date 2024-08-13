@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import FoodceptionHeader from '../components/header';
 import FoodceptionHrefButton from '../components/href-button';
 import RecipeCategoriesList from '../components/recipeCategoriesList';
 import HttpProvider from '../providers/HttpProvider';
@@ -24,7 +25,9 @@ export default function RecipeCategories() {
           `https://api.foodception.com/recipe-categories?limit=${limit}`
         );
         setData(result);
-      } catch (err) {
+      } catch (error) {
+        console.log('LogGuid: 0f04b5ca-7278-4d11-9779-0ae75d41ad61');
+        console.error(error);
         setError('Failed to fetch data');
       }
     };
@@ -40,7 +43,7 @@ export default function RecipeCategories() {
     } else {
       return (
         <div>
-          {showHeader && <h1 className='text-center'>Categories</h1>}
+          {showHeader && <FoodceptionHeader>Categories</FoodceptionHeader>}
           <RecipeCategoriesList
             recipeCategories={data.recipeCategories}
             recipeCategoryImages={data.recipeCategoryImages}

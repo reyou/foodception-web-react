@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FoodceptionHeader from '../components/header';
 import FoodceptionHrefButton from '../components/href-button';
 import RecipeList from '../components/recipeList';
 import HttpProvider from '../providers/HttpProvider';
@@ -29,9 +30,9 @@ export default function Meals() {
       const mealRecipes = mealRecipesList.find((q) => q.mealId === meal.id);
       return (
         <div key={meal.id}>
-          <h1 className='text-center'>
+          <FoodceptionHeader>
             {FrontEndUtils.capitalizeText(meal.name)}
-          </h1>
+          </FoodceptionHeader>
           <h5 className='text-center mb-4'>{meal.description}</h5>
           <RecipeList
             recipes={mealRecipes.recipes}

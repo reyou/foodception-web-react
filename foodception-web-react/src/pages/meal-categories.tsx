@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FoodceptionHeader from '../components/header';
 import FoodceptionHrefButton from '../components/href-button';
 import MealCategoriesList from '../components/mealCategoriesList';
 import HttpProvider from '../providers/HttpProvider';
@@ -30,7 +31,7 @@ export default function MealCategories() {
     } else {
       return (
         <div>
-          <h1 className='text-center'>Meals</h1>
+          <FoodceptionHeader>Meals</FoodceptionHeader>
           <MealCategoriesList
             meals={data.meals}
             mealImages={data.mealImages}
