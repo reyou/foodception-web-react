@@ -39,7 +39,7 @@ const FoodceptionTabs: React.FC<FoodceptionTabProps> = ({ children }) => {
             key={index}
             className={`tab-pane ${activeTab === index ? 'active' : ''}`}
           >
-            {child.content}
+            {activeTab === index && child.content}
           </div>
         ))}
       </div>
