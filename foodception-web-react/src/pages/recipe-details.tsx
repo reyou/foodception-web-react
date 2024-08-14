@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FoodceptionHeader from '../components/header';
 import FoodceptionImage from '../components/image';
+import IngredientGroups from '../components/ingredientGroups';
+import RecipeTimeInfo from '../components/recipe-time-info';
+import FoodceptionTab, { TabItem } from '../components/tab';
 import HttpProvider from '../providers/HttpProvider';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
@@ -24,41 +27,6 @@ export default function RecipeDetails() {
     fetchData();
   }, [id]);
 
-  interface RecipeTimeInfoProps {
-    totalTime: number;
-    prepTime: number;
-    cookTime: number;
-    servingSize: number;
-  }
-
-  const RecipeTimeInfo = ({
-    totalTime,
-    prepTime,
-    cookTime,
-    servingSize
-  }: RecipeTimeInfoProps) => {
-    return (
-      <div className='d-flex flex-wrap justify-content-center mt-3'>
-        <div className='me-3'>
-          <strong className='fs-5'>Total Time:</strong>{' '}
-          <span className='fs-5'>{totalTime} min</span>
-        </div>
-        <div className='me-3'>
-          <strong className='fs-5'>Prep Time:</strong>{' '}
-          <span className='fs-5'>{prepTime} min</span>
-        </div>
-        <div className='me-3'>
-          <strong className='fs-5'>Cook Time:</strong>{' '}
-          <span className='fs-5'>{cookTime} min</span>
-        </div>
-        <div>
-          <strong className='fs-5'>Serves:</strong>{' '}
-          <span className='fs-5'>{servingSize}</span>
-        </div>
-      </div>
-    );
-  };
-
   const render = () => {
     if (error) {
       return <div>Error: {error}</div>;
@@ -80,6 +48,23 @@ export default function RecipeDetails() {
         940,
         530
       );
+      const tabs: TabItem[] = [];
+      tabs.push({
+        title: 'List View',
+        content: (
+          <IngredientGroups
+            ingredientGroups={ingredientGroups}
+          ></IngredientGroups>
+        )
+      });
+      tabs.push({
+        title: 'Visual View',
+        content: (
+          <IngredientGroups
+            ingredientGroups={ingredientGroups}
+          ></IngredientGroups>
+        )
+      });
       return (
         <div className='container mt-4'>
           {/* Side bar */}
@@ -100,8 +85,11 @@ export default function RecipeDetails() {
             ></FoodceptionImage>
           </div>
           {/* Share Social Media Buttons */}
+          <div className='text-center'>Share Social Media Buttons</div>
           {/* Ingredients */}
           <h2 className='mt-3 text-center'>Ingredients</h2>
+          <FoodceptionTab>{tabs}</FoodceptionTab>
+
           {/* Directions */}
           <h2 className='mt-3 text-center'>Directions</h2>
           {/* Nutritional Information */}
