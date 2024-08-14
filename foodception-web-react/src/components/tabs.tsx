@@ -9,7 +9,7 @@ interface FoodceptionTabProps {
   children: TabItem[];
 }
 
-const FoodceptionTab: React.FC<FoodceptionTabProps> = ({ children }) => {
+const FoodceptionTabs: React.FC<FoodceptionTabProps> = ({ children }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabClick = (index: number) => {
@@ -39,7 +39,7 @@ const FoodceptionTab: React.FC<FoodceptionTabProps> = ({ children }) => {
             key={index}
             className={`tab-pane ${activeTab === index ? 'active' : ''}`}
           >
-            {activeTab === index && child.content}
+            {child.content}
           </div>
         ))}
       </div>
@@ -47,4 +47,4 @@ const FoodceptionTab: React.FC<FoodceptionTabProps> = ({ children }) => {
   );
 };
 
-export default FoodceptionTab;
+export default FoodceptionTabs;

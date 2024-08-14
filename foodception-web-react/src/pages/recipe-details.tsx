@@ -4,7 +4,7 @@ import FoodceptionHeader from '../components/header';
 import FoodceptionImage from '../components/image';
 import IngredientGroups from '../components/ingredientGroups';
 import RecipeTimeInfo from '../components/recipe-time-info';
-import FoodceptionTab, { TabItem } from '../components/tab';
+import FoodceptionTabs, { TabItem } from '../components/tabs';
 import HttpProvider from '../providers/HttpProvider';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
@@ -88,7 +88,7 @@ export default function RecipeDetails() {
           <div className='text-center'>Share Social Media Buttons</div>
           {/* Ingredients */}
           <h2 className='mt-3 text-center'>Ingredients</h2>
-          <FoodceptionTab>{tabs}</FoodceptionTab>
+          <FoodceptionTabs>{tabs}</FoodceptionTabs>
 
           {/* Directions */}
           <h2 className='mt-3 text-center'>Directions</h2>
