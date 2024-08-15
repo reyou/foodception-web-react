@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
-import Ingredients from './ingredients';
+import IngredientsVisual from './ingredientsVisual';
 
-interface IngredientGroupsProps {
+interface IngredientGroupsVisualProps {
   ingredientGroups: any[];
+  ingredientImages: any[];
 }
 
-const IngredientGroups: React.FC<IngredientGroupsProps> = ({
-  ingredientGroups
+const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
+  ingredientGroups,
+  ingredientImages
 }) => {
   const [checkedIngredients, setCheckedIngredients] = useState<{
     [key: string]: boolean[];
@@ -51,9 +53,8 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
           const isGroupChecked = checkedIngredients[group.id]?.every(
             (checked) => checked
           );
-
           return (
-            <div className='col-md-3' key={group.id}>
+            <div className='col-md-12' key={group.id}>
               <div className='p-2 h-100'>
                 <h3>{group.title}</h3>
                 <div className='form-check mb-2'>
@@ -70,16 +71,19 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
                     className='form-check-label'
                     htmlFor={`groupCheckAll-${group.id}`}
                   >
-                    <i>Have All</i>
+                    Have All
                   </label>
                 </div>
-                <Ingredients
-                  ingredients={group.ingredients}
-                  checkedIngredients={checkedIngredients[group.id] || []}
-                  onCheckboxChange={(ingredientIndex: number) =>
-                    handleCheckboxChange(group.id, ingredientIndex)
-                  }
-                />
+                {Object.hasOwn(checkedIngredients, group.id) && (
+                  <IngredientsVisual
+                    ingredients={group.ingredients}
+                    ingredientImages={ingredientImages}
+                    checkedIngredients={checkedIngredients[group.id]}
+                    onCheckboxChange={(ingredientIndex: number) =>
+                      handleCheckboxChange(group.id, ingredientIndex)
+                    }
+                  ></IngredientsVisual>
+                )}
               </div>
             </div>
           );
@@ -89,4 +93,4 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
   );
 };
 
-export default IngredientGroups;
+export default IngredientGroupsVisual;

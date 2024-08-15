@@ -22,3 +22,7 @@ border-color: rgb(51, 57, 66);
   border-color: rgb(51, 57, 66);
 }
  
+.nav {
+  --bs-nav-link-color: rgb(51, 57, 66);
+  --bs-nav-link-hover-color: rgb(51, 57, 66);
+}

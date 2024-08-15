@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import FoodceptionHeader from '../components/header';
 import FoodceptionImage from '../components/image';
 import IngredientGroups from '../components/ingredientGroups';
+import IngredientGroupsVisual from '../components/ingredientGroupsVisual';
 import RecipeTimeInfo from '../components/recipe-time-info';
 import FoodceptionTabs, { TabItem } from '../components/tabs';
 import HttpProvider from '../providers/HttpProvider';
@@ -51,6 +52,7 @@ export default function RecipeDetails() {
       const tabs: TabItem[] = [];
       tabs.push({
         title: 'List View',
+        icon: 'list',
         content: (
           <IngredientGroups
             ingredientGroups={ingredientGroups}
@@ -59,10 +61,12 @@ export default function RecipeDetails() {
       });
       tabs.push({
         title: 'Visual View',
+        icon: 'image',
         content: (
-          <IngredientGroups
+          <IngredientGroupsVisual
             ingredientGroups={ingredientGroups}
-          ></IngredientGroups>
+            ingredientImages={ingredientImages}
+          ></IngredientGroupsVisual>
         )
       });
       return (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 export interface TabItem {
   title: string;
+  icon: string;
   content: React.ReactNode;
 }
 
@@ -22,12 +23,13 @@ const FoodceptionTabs: React.FC<FoodceptionTabProps> = ({ children }) => {
       <ul className='nav nav-tabs'>
         {children.map((child, index) => (
           <li className='nav-item' key={index}>
-            <a
+            <button
               className={`nav-link ${activeTab === index ? 'active' : ''}`}
               onClick={() => handleTabClick(index)}
             >
+              <i className={`bi bi-${child.icon} me-2`}></i>
               {child.title}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
