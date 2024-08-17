@@ -6,6 +6,7 @@ import IngredientGroups from '../components/ingredientGroups';
 import IngredientGroupsVisual from '../components/ingredientGroupsVisual';
 import RecipeTimeInfo from '../components/recipe-time-info';
 import RecipeSteps from '../components/recipeSteps';
+import RecipeVideos from '../components/recipeVideos';
 import FoodceptionTabs, { TabItem } from '../components/tabs';
 import HttpProvider from '../providers/HttpProvider';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
@@ -14,9 +15,10 @@ export default function RecipeDetails() {
   const [error, setError] = useState<string | null>(null);
   const { id } = useParams<{ id: string }>();
   const [data, setData] = useState<any>(null);
+  const [recipeVideosData, setRecipeVideosData] = useState<any>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRecipeDetails = async () => {
       try {
         const result = await HttpProvider.get(
           `https://api.foodception.com/recipes/${id}`
@@ -26,13 +28,24 @@ export default function RecipeDetails() {
         setError('Failed to fetch data');
       }
     };
-    fetchData();
+    const fetchRecipeVideos = async () => {
+      try {
+        const result = await HttpProvider.get(
+          `https://api.foodception.com/recipes/${id}/videos`
+        );
+        setRecipeVideosData(result);
+      } catch (err) {
+        setError('Failed to fetch data');
+      }
+    };
+    fetchRecipeDetails();
+    fetchRecipeVideos();
   }, [id]);
 
   const render = () => {
     if (error) {
       return <div>Error: {error}</div>;
-    } else if (!data) {
+    } else if (!data || !recipeVideosData) {
       return <div className='text-center'>Loading...</div>;
     } else {
       const {
@@ -100,6 +113,9 @@ export default function RecipeDetails() {
           {/* Nutritional Information */}
           {/* RelatedVideos */}
           <h2 className='mt-3 text-center'>Related Videos</h2>
+          <RecipeVideos
+            recipeVideos={recipeVideosData.recipeVideos}
+          ></RecipeVideos>
           {/* RelatedRecipes */}
           <h2 className='mt-3 text-center'>Related Recipes</h2>
         </div>

@@ -27,24 +27,22 @@ const FoodceptionIngredientCard: React.FC<FoodceptionIngredientCardProps> = ({
   onCheckboxChange
 }) => {
   return (
-    <div>
-      <div className='card'>
-        <FoodceptionCardHrefImage
-          url={url}
-          src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
-          alt={title}
-        />
-        <FoodceptionCardIngredientBody
-          title={title}
-          description={description}
-          linkTitle={urlTitle}
-          url={url}
-          index={index}
-          ingredient={ingredient}
-          checked={checked}
-          onCheckboxChange={(index: number) => onCheckboxChange(index)}
-        ></FoodceptionCardIngredientBody>
-      </div>
+    <div className='card'>
+      <FoodceptionCardHrefImage
+        url={url}
+        src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
+        alt={title}
+      />
+      <FoodceptionCardIngredientBody
+        title={title}
+        description={description}
+        linkTitle={urlTitle}
+        url={url}
+        index={index}
+        ingredient={ingredient}
+        checked={checked}
+        onCheckboxChange={(index: number) => onCheckboxChange(index)}
+      ></FoodceptionCardIngredientBody>
     </div>
   );
 };
