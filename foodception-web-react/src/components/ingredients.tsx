@@ -24,7 +24,7 @@ const Ingredients: React.FC<IngredientsProps> = ({
               onChange={() => onCheckboxChange(index)}
             />
             <label
-              className='form-check-label'
+              className='form-check-label fs-5'
               htmlFor={`ingredient-${ingredient.id}`}
             >
               {FrontEndUtils.capitalizeText(ingredient.title)}

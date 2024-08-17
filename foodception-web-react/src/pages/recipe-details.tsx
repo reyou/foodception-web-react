@@ -5,6 +5,7 @@ import FoodceptionImage from '../components/image';
 import IngredientGroups from '../components/ingredientGroups';
 import IngredientGroupsVisual from '../components/ingredientGroupsVisual';
 import RecipeTimeInfo from '../components/recipe-time-info';
+import RecipeSteps from '../components/recipeSteps';
 import FoodceptionTabs, { TabItem } from '../components/tabs';
 import HttpProvider from '../providers/HttpProvider';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
@@ -93,9 +94,9 @@ export default function RecipeDetails() {
           {/* Ingredients */}
           <h2 className='mt-3 text-center'>Ingredients</h2>
           <FoodceptionTabs>{tabs}</FoodceptionTabs>
-
           {/* Directions */}
           <h2 className='mt-3 text-center'>Directions</h2>
+          <RecipeSteps steps={steps}></RecipeSteps>
           {/* Nutritional Information */}
           {/* RelatedVideos */}
           <h2 className='mt-3 text-center'>Related Videos</h2>
