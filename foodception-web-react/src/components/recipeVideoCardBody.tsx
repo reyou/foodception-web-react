@@ -3,7 +3,9 @@ import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionRecipeVideoCardBodyProps {
   youTubeChannelVideo: any;
-  onWatchClicked: () => void;
+  onWatchClicked: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
 }
 
 const FoodceptionRecipeVideoCardBody: React.FC<
@@ -15,13 +17,17 @@ const FoodceptionRecipeVideoCardBody: React.FC<
         {FrontEndUtils.capitalizeText(youTubeChannelVideo.title)}
       </h5>
       <p className='card-text'>{youTubeChannelVideo.description}</p>
-      <button className='btn btn-primary me-2' onClick={() => onWatchClicked()}>
+      <button
+        className='btn btn-primary me-2'
+        onClick={(event) => onWatchClicked(event)}
+      >
         Watch
       </button>
       <a
         className='btn btn-primary'
         href={`https://www.youtube.com/v/${youTubeChannelVideo.videoId}`}
         target='_blank'
+        rel='noreferrer'
       >
         Watch on YouTube
       </a>

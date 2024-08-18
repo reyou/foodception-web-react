@@ -9,10 +9,20 @@ interface RecipeVideosProps {
 const RecipeVideos: React.FC<RecipeVideosProps> = ({ recipeVideos }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [clickedElementY, setClickedElementY] = useState(0);
 
-  const handleWatchClicked = (videoData: any) => {
+  const handleWatchClicked = (
+    event:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.MouseEvent<HTMLImageElement, MouseEvent>,
+    videoData: any
+  ) => {
+    const targetElement = event.target as HTMLElement;
+    const yAxis = targetElement.getBoundingClientRect().top;
+
     setSelectedVideo(videoData);
     setShowModal(true);
+    setClickedElementY(yAxis);
   };
 
   const handleCloseModal = () => {
@@ -25,6 +35,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({ recipeVideos }) => {
       <FoodceptionModal
         show={showModal}
         videoData={selectedVideo}
+        clickedElementY={clickedElementY}
         onClose={handleCloseModal}
       />
 
@@ -36,8 +47,8 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({ recipeVideos }) => {
               youTubeChannelVideo={videoData.youTubeChannelVideo}
               youTubeChannelVideoImages={videoData.youTubeChannelVideoImages}
               youTubeChannel={videoData.youTubeChannel}
-              onWatchClicked={() =>
-                handleWatchClicked(videoData.youTubeChannelVideo)
+              onWatchClicked={(event) =>
+                handleWatchClicked(event, videoData.youTubeChannelVideo)
               }
             ></RecipeVideoCard>
           </div>

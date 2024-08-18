@@ -6,7 +6,11 @@ interface RecipeVideoCardProps {
   youTubeChannelVideo: any;
   youTubeChannelVideoImages: any[];
   youTubeChannel: any;
-  onWatchClicked: () => void;
+  onWatchClicked: (
+    event:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => void;
 }
 
 const RecipeVideoCard: React.FC<RecipeVideoCardProps> = ({
@@ -23,11 +27,11 @@ const RecipeVideoCard: React.FC<RecipeVideoCardProps> = ({
       <FoodceptionRecipeVideoCardImage
         src={imageUrl}
         alt={youTubeChannelVideo.title}
-        onWatchClicked={() => onWatchClicked()}
+        onWatchClicked={(event) => onWatchClicked(event)}
       />
       <FoodceptionRecipeVideoCardBody
         youTubeChannelVideo={youTubeChannelVideo}
-        onWatchClicked={() => onWatchClicked()}
+        onWatchClicked={(event) => onWatchClicked(event)}
       ></FoodceptionRecipeVideoCardBody>
     </div>
   );

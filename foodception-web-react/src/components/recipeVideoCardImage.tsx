@@ -3,7 +3,11 @@ import React from 'react';
 interface FoodceptionRecipeVideoCardImageProps {
   src: string;
   alt: string;
-  onWatchClicked: () => void;
+  onWatchClicked: (
+    event:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => void;
 }
 
 const FoodceptionRecipeVideoCardImage: React.FC<
@@ -14,7 +18,7 @@ const FoodceptionRecipeVideoCardImage: React.FC<
       src={src}
       alt={alt}
       className='card-img-top'
-      onClick={() => onWatchClicked()}
+      onClick={(event) => onWatchClicked(event)}
     />
   );
 };

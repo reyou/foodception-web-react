@@ -1,27 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import YouTube, { YouTubeProps } from 'react-youtube';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionModalProps {
   show: boolean;
   videoData: any;
+  clickedElementY: number;
   onClose: () => void;
 }
 
 const FoodceptionModal: React.FC<FoodceptionModalProps> = ({
   show,
   videoData,
+  clickedElementY,
   onClose
 }) => {
   const [fadeIn, setFadeIn] = useState(false);
+  const [modalStyle, setModalStyle] = useState<React.CSSProperties>({});
 
   // Handle the fade-in and fade-out effect
   useEffect(() => {
     if (show) {
       setFadeIn(true);
+      if (FrontEndUtils.isInsideIframe()) {
+        setTimeout(() => {
+          setModalStyle({
+            border: '2px solid transparent',
+            top: `${clickedElementY - 400}px`
+          });
+        }, 0);
+      }
     } else {
       setFadeIn(false);
     }
-  }, [show]);
+  }, [show, clickedElementY]);
 
   const opts: YouTubeProps['opts'] = {
     playerVars: {
@@ -40,7 +52,7 @@ const FoodceptionModal: React.FC<FoodceptionModalProps> = ({
             backgroundColor: fadeIn ? 'rgba(0,0,0,0.5)' : 'transparent'
           }}
         >
-          <div className='modal-dialog modal-lg'>
+          <div className='modal-dialog modal-lg' style={modalStyle}>
             <div className='modal-content'>
               <div className='modal-header'>
                 <h5 className='modal-title'>{videoData.title}</h5>
@@ -57,7 +69,7 @@ const FoodceptionModal: React.FC<FoodceptionModalProps> = ({
                   className='foodceptionYoutubeVideoPlayer'
                   iframeClassName='foodceptionYoutubeVideoPlayerIframe'
                   opts={opts}
-                ></YouTube>
+                />
                 <p>{videoData.description}</p>
               </div>
               <div className='modal-footer'>
