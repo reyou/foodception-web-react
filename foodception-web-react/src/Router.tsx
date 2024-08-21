@@ -6,14 +6,14 @@ import {
 } from 'react-router-dom';
 import FoodceptionHeader from './components/header';
 import Layout from './Layout';
-import MealCategories from './pages/meal-categories';
-import MealRecipes from './pages/meal-recipes';
+import MealCategories from './pages/mealCategories';
+import MealRecipes from './pages/mealRecipes';
 import Meals from './pages/meals';
-import RecipeCategories from './pages/recipe-categories';
-import RecipeCategoryDetail from './pages/recipe-category-detail';
-import RecipeDetails from './pages/recipe-details';
+import RecipeCategories from './pages/recipeCategories';
+import RecipeCategoryDetail from './pages/recipeCategoryDetail';
+import RecipeDetails from './pages/recipeDetails';
 import Recipes from './pages/recipes';
-import TrendingRecipeVideos from './pages/trending-recipe-videos';
+import TrendingRecipeVideos from './pages/trendingRecipeVideos';
 
 export default function FoodceptionRouter() {
   const router = createBrowserRouter(
