@@ -39,7 +39,10 @@ export default function TrendingRecipeVideos() {
           <FoodceptionHeader>Cooking Videos For Every Taste</FoodceptionHeader>
           <div className='row justify-content-center'>
             {data.trendingRecipeVideos.map((item: any) => (
-              <div key={item.recipeVideo.id} className='col-3 mb-2'>
+              <div
+                key={item.recipeVideo.id}
+                className='col-12 col-md-6 col-xl-4 mb-4'
+              >
                 <FoodceptionTrendingRecipeVideoCard
                   recipe={item.recipe}
                   recipeVideo={item.recipeVideo}
