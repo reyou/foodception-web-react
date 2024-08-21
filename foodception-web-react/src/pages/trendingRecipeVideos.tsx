@@ -49,7 +49,7 @@ export default function TrendingRecipeVideos() {
               </div>
             ))}
           </div>
-          <div className='text-center'>
+          <div className='text-center mt-2'>
             <FoodceptionHrefButton url={'/recipes/videos'}>
               See All Videos
             </FoodceptionHrefButton>
