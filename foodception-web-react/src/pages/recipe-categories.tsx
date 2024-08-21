@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import FoodceptionHeader from '../components/header';
-import FoodceptionHrefButton from '../components/href-button';
+import FoodceptionHrefButton from '../components/hrefButton';
 import RecipeCategoriesList from '../components/recipeCategoriesList';
 import HttpProvider from '../providers/HttpProvider';
 import TypeUtils from '../utils/TypeUtils';

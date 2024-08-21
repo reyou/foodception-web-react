@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import FoodceptionTrendingRecipeVideoCard from '../components/trending-recipe-video-card';
+import FoodceptionHeader from '../components/header';
+import FoodceptionTrendingRecipeVideoCard from '../components/trendingRecipeVideoCard';
 import HttpProvider from '../providers/HttpProvider';
 
 export default function TrendingRecipeVideos() {
@@ -28,22 +29,25 @@ export default function TrendingRecipeVideos() {
     }
 
     if (!data) {
-      return <div>Loading...</div>;
+      return <div className='text-center'>Loading...</div>;
     }
 
     return (
-      <div className='row'>
-        {data.trendingRecipeVideos.map((item: any) => (
-          <div key={item.recipeVideo.id} className='col-3 mb-2'>
-            <FoodceptionTrendingRecipeVideoCard
-              recipe={item.recipe}
-              recipeVideo={item.recipeVideo}
-              youTubeChannelVideo={item.youTubeChannelVideo}
-              youTubeChannelVideoImages={item.youTubeChannelVideoImages}
-            ></FoodceptionTrendingRecipeVideoCard>
-          </div>
-        ))}
-      </div>
+      <>
+        <FoodceptionHeader>Cooking Videos For Every Taste</FoodceptionHeader>
+        <div className='row'>
+          {data.trendingRecipeVideos.map((item: any) => (
+            <div key={item.recipeVideo.id} className='col-3 mb-2'>
+              <FoodceptionTrendingRecipeVideoCard
+                recipe={item.recipe}
+                recipeVideo={item.recipeVideo}
+                youTubeChannelVideo={item.youTubeChannelVideo}
+                youTubeChannelVideoImages={item.youTubeChannelVideoImages}
+              ></FoodceptionTrendingRecipeVideoCard>
+            </div>
+          ))}
+        </div>
+      </>
     );
   };
 

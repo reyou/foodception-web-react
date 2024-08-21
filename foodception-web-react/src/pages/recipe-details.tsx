@@ -4,7 +4,7 @@ import FoodceptionHeader from '../components/header';
 import FoodceptionImage from '../components/image';
 import IngredientGroups from '../components/ingredientGroups';
 import IngredientGroupsVisual from '../components/ingredientGroupsVisual';
-import RecipeTimeInfo from '../components/recipe-time-info';
+import RecipeTimeInfo from '../components/recipeTimeInfo';
 import RecipeSteps from '../components/recipeSteps';
 import RecipeVideos from '../components/recipeVideos';
 import FoodceptionTabs, { TabItem } from '../components/tabs';

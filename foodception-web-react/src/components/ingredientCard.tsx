@@ -1,7 +1,7 @@
 import React from 'react';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
-import FoodceptionCardHrefImage from './card-href-image';
-import FoodceptionCardIngredientBody from './card-ingredient-body';
+import FoodceptionCardHrefImage from './cardHrefImage';
+import FoodceptionCardIngredientBody from './cardIngredientBody';
 
 interface FoodceptionIngredientCardProps {
   title: string;

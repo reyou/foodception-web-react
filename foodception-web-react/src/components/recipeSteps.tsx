@@ -1,4 +1,4 @@
-import FoodceptionCardIngredientSteps from './card-ingredient-steps';
+import FoodceptionCardIngredientSteps from './cardIngredientSteps';
 
 interface RecipeStepsProps {
   steps: any[];

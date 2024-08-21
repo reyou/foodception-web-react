@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import FoodceptionHrefButton from '../components/href-button';
+import FoodceptionHrefButton from '../components/hrefButton';
 import RecipeList from '../components/recipeList';
 import HttpProvider from '../providers/HttpProvider';
 

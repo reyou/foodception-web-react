@@ -1,4 +1,3 @@
-import FoodceptionCard from './card';
 import FoodceptionIngredientCard from './ingredientCard';
 
 interface IngredientsVisualProps {
