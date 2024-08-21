@@ -41,7 +41,7 @@ export default function TrendingRecipeVideos() {
             {data.trendingRecipeVideos.map((item: any) => (
               <div
                 key={item.recipeVideo.id}
-                className='col-12 col-md-6 col-xl-4 mb-4'
+                className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4'
               >
                 <FoodceptionTrendingRecipeVideoCard
                   recipe={item.recipe}
