@@ -13,6 +13,7 @@ import RecipeCategories from './pages/recipeCategories';
 import RecipeCategoryDetail from './pages/recipeCategoryDetail';
 import RecipeDetails from './pages/recipeDetails';
 import Recipes from './pages/recipes';
+import RecipeVideos from './pages/recipeVideos';
 import TrendingRecipeVideos from './pages/trendingRecipeVideos';
 
 export default function FoodceptionRouter() {
@@ -42,6 +43,7 @@ export default function FoodceptionRouter() {
             path='recipe-categories/:slug/:id'
             element={<RecipeCategoryDetail />}
           />
+          <Route path='recipes/videos' element={<RecipeVideos />} />
         </Route>
       </>
     )

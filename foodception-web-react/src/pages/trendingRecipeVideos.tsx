@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import FoodceptionHeader from '../components/header';
+import FoodceptionHrefButton from '../components/hrefButton';
 import FoodceptionTrendingRecipeVideoCard from '../components/trendingRecipeVideoCard';
 import HttpProvider from '../providers/HttpProvider';
 
@@ -47,6 +48,11 @@ export default function TrendingRecipeVideos() {
                 ></FoodceptionTrendingRecipeVideoCard>
               </div>
             ))}
+          </div>
+          <div className='text-center'>
+            <FoodceptionHrefButton url={'/recipes/videos'}>
+              See All Videos
+            </FoodceptionHrefButton>
           </div>
         </div>
       </>
