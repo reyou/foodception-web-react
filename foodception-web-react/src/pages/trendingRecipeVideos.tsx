@@ -34,18 +34,20 @@ export default function TrendingRecipeVideos() {
 
     return (
       <>
-        <FoodceptionHeader>Cooking Videos For Every Taste</FoodceptionHeader>
-        <div className='row'>
-          {data.trendingRecipeVideos.map((item: any) => (
-            <div key={item.recipeVideo.id} className='col-3 mb-2'>
-              <FoodceptionTrendingRecipeVideoCard
-                recipe={item.recipe}
-                recipeVideo={item.recipeVideo}
-                youTubeChannelVideo={item.youTubeChannelVideo}
-                youTubeChannelVideoImages={item.youTubeChannelVideoImages}
-              ></FoodceptionTrendingRecipeVideoCard>
-            </div>
-          ))}
+        <div className='container-fluid'>
+          <FoodceptionHeader>Cooking Videos For Every Taste</FoodceptionHeader>
+          <div className='row justify-content-center'>
+            {data.trendingRecipeVideos.map((item: any) => (
+              <div key={item.recipeVideo.id} className='col-3 mb-2'>
+                <FoodceptionTrendingRecipeVideoCard
+                  recipe={item.recipe}
+                  recipeVideo={item.recipeVideo}
+                  youTubeChannelVideo={item.youTubeChannelVideo}
+                  youTubeChannelVideoImages={item.youTubeChannelVideoImages}
+                ></FoodceptionTrendingRecipeVideoCard>
+              </div>
+            ))}
+          </div>
         </div>
       </>
     );
