@@ -5,6 +5,7 @@ import {
   RouterProvider
 } from 'react-router-dom';
 import FoodceptionHeader from './components/header';
+import ErrorPage from './errorPage';
 import Layout from './Layout';
 import MealCategories from './pages/mealCategories';
 import MealRecipes from './pages/mealRecipes';
@@ -20,7 +21,7 @@ export default function FoodceptionRouter() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
-        <Route path='/' element={<Layout />}>
+        <Route path='/' element={<Layout />} errorElement={<ErrorPage />}>
           <Route
             index
             element={
