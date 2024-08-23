@@ -3,22 +3,22 @@ import { useSearchParams } from 'react-router-dom';
 import FoodceptionHeader from '../components/header';
 import FoodceptionHrefButton from '../components/hrefButton';
 import RecipeCategoriesList from '../components/recipeCategoriesList';
+import useShowHeader from '../hooks/useShowHeader';
 import HttpProvider from '../providers/HttpProvider';
-import TypeUtils from '../utils/TypeUtils';
 
 export default function RecipeCategories() {
   const maxLimit = 500;
   const [data, setData] = useState<any>(null);
   const [limit, setLimit] = useState<number>(maxLimit);
-  const [showHeader, setShowHeader] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
+  const showHeader = useShowHeader(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const limitParam = searchParams.get('limit');
-        setShowHeader(TypeUtils.getBool(searchParams.get('showHeader'), true));
+
         const limit = limitParam ? parseInt(limitParam, 10) : maxLimit;
         setLimit(limit);
         const result = await HttpProvider.get(

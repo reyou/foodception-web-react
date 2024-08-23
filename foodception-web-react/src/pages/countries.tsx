@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import CountriesList from '../components/countries/countriesList';
 import FoodceptionHeader from '../components/header';
+import useShowHeader from '../hooks/useShowHeader';
 import HttpProvider from '../providers/HttpProvider';
 
 export default function Countries() {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const showHeader = useShowHeader(true);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,7 +32,7 @@ export default function Countries() {
     }
     return (
       <div>
-        <FoodceptionHeader>Countries</FoodceptionHeader>
+        {showHeader && <FoodceptionHeader>Countries</FoodceptionHeader>}
         <CountriesList countries={data}></CountriesList>
       </div>
     );
