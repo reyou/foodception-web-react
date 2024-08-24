@@ -23,6 +23,7 @@ export default class HttpProvider {
       return await response.json();
     } catch (error) {
       console.error(`HTTP ${method} request to ${url} failed:`, error);
+      console.error(error);
       throw error;
     }
   }

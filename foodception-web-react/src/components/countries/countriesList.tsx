@@ -39,9 +39,9 @@ const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
     : countries;
 
   return (
-    <>
+    <div className='container-fluid'>
       <div className='row justify-content-center'>
-        <div className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4 mb-4'>
+        <div className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4'>
           <Select
             options={options}
             onChange={handleChange}
@@ -57,7 +57,7 @@ const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
           )}/${country.id}`;
           return (
             <div
-              className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4 mb-4'
+              className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4'
               key={country.id}
             >
               <div className='card'>
@@ -94,7 +94,7 @@ const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 

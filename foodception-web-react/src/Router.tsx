@@ -7,7 +7,8 @@ import {
 import FoodceptionHeader from './components/header';
 import ErrorPage from './errorPage';
 import Layout from './Layout';
-import Countries from './pages/countries';
+import Countries from './pages/countries/countries';
+import CountryDetails from './pages/countries/countryDetails';
 import MealCategories from './pages/mealCategories';
 import MealRecipes from './pages/mealRecipes';
 import Meals from './pages/meals';
@@ -47,6 +48,7 @@ export default function FoodceptionRouter() {
           />
           <Route path='recipes/videos' element={<RecipeVideos />} />
           <Route path='countries' element={<Countries />} />
+          <Route path='countries/:slug/:id' element={<CountryDetails />} />
         </Route>
       </>
     )
