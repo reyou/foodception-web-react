@@ -4,8 +4,14 @@ import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import FoodceptionCardHrefImage from '../cardHrefImage';
 import FoodceptionHrefButton from '../hrefButton';
 
+interface CountryCuisineImage {
+  countryId: string;
+  imageUrl: string;
+}
+
 interface CountriesListProps {
   countries: Country[];
+  countryCuisineImages: CountryCuisineImage[];
 }
 
 interface Country {
@@ -14,7 +20,6 @@ interface Country {
   flagImage: string;
   cuisineTitle: string;
   cuisineDescription: string;
-  mediaGallery: string[];
 }
 
 interface OptionType {
@@ -22,7 +27,10 @@ interface OptionType {
   label: string;
 }
 
-const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
+const CountriesList: React.FC<CountriesListProps> = ({
+  countries,
+  countryCuisineImages
+}) => {
   const [selectedCountry, setSelectedCountry] = useState<OptionType | null>(
     null
   );
@@ -52,6 +60,9 @@ const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
       </div>
       <div className='row justify-content-center'>
         {filteredCountries.map((country) => {
+          const imageUrl = countryCuisineImages.find(
+            (image) => image.countryId === country.id
+          )!.imageUrl;
           const url = `/countries/${FrontEndUtils.slugify(
             country.countryName
           )}/${country.id}`;
@@ -63,11 +74,7 @@ const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
               <div className='card'>
                 <FoodceptionCardHrefImage
                   url={url}
-                  src={FrontEndUtils.getResizedImagePath(
-                    country.mediaGallery[0],
-                    400,
-                    400
-                  )}
+                  src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
                   alt={`${country.countryName} cuisine`}
                 ></FoodceptionCardHrefImage>
                 <div className='card-body'>

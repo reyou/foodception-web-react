@@ -24,7 +24,10 @@ export default function Countries() {
   return (
     <div>
       {showHeader && <FoodceptionHeader>Countries</FoodceptionHeader>}
-      <CountriesList countries={data} />
+      <CountriesList
+        countries={data.countries}
+        countryCuisineImages={data.countryCuisineImages}
+      />
     </div>
   );
 }
