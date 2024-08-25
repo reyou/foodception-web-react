@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import FoodceptionHeader from '../../components/header';
+import HeaderLayout from '../../components/headerLayout';
 import RecipeList from '../../components/recipeList';
 import useFetch from '../../hooks/useFetch';
 
@@ -31,20 +32,28 @@ export default function CountryDetails() {
   if (!country || !countryRecipes) {
     return <div className='text-center'>No data available</div>;
   }
-  console.log(countryRecipes);
+
+  const title = (
+    <FoodceptionHeader>
+      <img
+        src={country.flagImage}
+        alt={`${country.countryName} flag`}
+        style={{ width: '60px', marginRight: '10px' }}
+      />
+      {country.countryName}
+    </FoodceptionHeader>
+  );
+
   return (
     <div className='container-fluid'>
-      <FoodceptionHeader>
-        <img
-          src={country.flagImage}
-          alt={`${country.countryName} flag`}
-          style={{ width: '60px', marginRight: '10px' }}
-        />
-        {country.countryName}
-      </FoodceptionHeader>
+      <HeaderLayout
+        backgroundImage={country.mediaGallery[0]}
+        title={title}
+        subTitle={country.cuisineTitle}
+      ></HeaderLayout>
+      <h2 className='text-center mt-2'>Recipes</h2>
       <div className='container'>
-        <h3 className='text-center'>{country.cuisineTitle}</h3>
-        <p className='fs-5'>{country.cuisineDescription}</p>
+        <p className='fs-5 mb-4'>{country.cuisineDescription}</p>
       </div>
       <div>
         <RecipeList
