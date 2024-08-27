@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import FoodceptionHeader from '../components/header';
+import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/hrefButton';
 import RecipeCategoriesList from '../components/recipeCategoriesList';
 import useShowHeader from '../hooks/useShowHeader';

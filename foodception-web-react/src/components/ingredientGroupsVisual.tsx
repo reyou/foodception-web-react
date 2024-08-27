@@ -54,7 +54,11 @@ const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
             (checked) => checked
           );
           return (
-            <div className='col-md-12' key={group.id}>
+            <div
+              className='col-md-12'
+              key={group.id}
+              data-guid='20916bd6-a969-4025-a38e-15d4291c9c1a'
+            >
               <div className='p-2 h-100'>
                 <h3>{group.title}</h3>
                 <div className='form-check mb-2'>

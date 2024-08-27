@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import FoodceptionHeader from '../../components/header';
-import HeaderLayout from '../../components/headerLayout';
+import FoodceptionHeader from '../../components/header/header';
+import HeaderLayout from '../../components/header/headerLayout';
 import RecipeList from '../../components/recipeList';
 import useFetch from '../../hooks/useFetch';
 
@@ -10,14 +10,12 @@ export default function CountryDetails() {
     data: countryDetails,
     loading: countryLoading,
     error: countryError
-  } = useFetch(`https://api.foodception.com/countries/${id}`);
+  } = useFetch(`/countries/${id}`);
   const {
     data: countryRecipes,
     loading: countryRecipesLoading,
     error: countryRecipesError
-  } = useFetch(
-    `https://api.foodception.com/countries/${id}/recipes?skip=0&limit=200`
-  );
+  } = useFetch(`/countries/${id}/recipes?skip=0&limit=200`);
   if (countryLoading || countryRecipesLoading) {
     return <div className='text-center'>Loading...</div>;
   }

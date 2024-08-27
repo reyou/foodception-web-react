@@ -1,13 +1,11 @@
 import CountriesList from '../../components/countries/countriesList';
-import FoodceptionHeader from '../../components/header';
+import FoodceptionHeader from '../../components/header/header';
 import useFetch from '../../hooks/useFetch';
 import useShowHeader from '../../hooks/useShowHeader';
 
 export default function Countries() {
   const showHeader = useShowHeader(true);
-  const { data, loading, error } = useFetch(
-    'https://api.foodception.com/countries'
-  );
+  const { data, loading, error } = useFetch('/countries');
 
   if (loading) {
     return <div className='text-center'>Loading...</div>;

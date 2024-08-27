@@ -1,4 +1,4 @@
-import FoodceptionIngredientCard from './ingredientCard';
+import FoodceptionIngredientCard from './recipeIngredientCard';
 
 interface IngredientsVisualProps {
   ingredients: any[];
@@ -21,11 +21,12 @@ const IngredientsVisual: React.FC<IngredientsVisualProps> = ({
           (q) => q.ingredientId === ingredient.id
         );
         return (
-          <div key={index} className='col-md-3 mb-3'>
+          <div
+            key={index}
+            className='col-md-3 mb-3'
+            data-guid='3949f5c3-cb19-460b-ba5f-576d3ea593c1'
+          >
             <FoodceptionIngredientCard
-              title={ingredient.title}
-              description={ingredient.description}
-              url={`/ingredients/${ingredient.id}`}
               urlTitle='Details'
               imageUrl={ingredientImage.imageUrl}
               index={index}

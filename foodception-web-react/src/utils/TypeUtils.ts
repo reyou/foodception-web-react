@@ -5,4 +5,7 @@ export default class TypeUtils {
     }
     return val.toLowerCase() === 'true';
   }
+  static getRandomFromArray(items: any[]) {
+    return items[Math.floor(Math.random() * items.length)];
+  }
 }

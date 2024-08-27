@@ -7,7 +7,9 @@ interface UseFetchResult {
   error: string | null;
 }
 
-function useFetch(url: string) {
+const BASE_URL = 'https://api.foodception.com';
+
+function useFetch(url: string): UseFetchResult {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,7 +17,8 @@ function useFetch(url: string) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await HttpProvider.get(url);
+        const fullUrl = `${BASE_URL}${url}`;
+        const response = await HttpProvider.get(fullUrl);
         setData(response);
       } catch (error) {
         if (error instanceof Error) {

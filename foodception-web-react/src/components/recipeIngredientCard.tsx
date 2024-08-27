@@ -4,9 +4,6 @@ import FoodceptionCardHrefImage from './cardHrefImage';
 import FoodceptionCardIngredientBody from './cardIngredientBody';
 
 interface FoodceptionIngredientCardProps {
-  title: string;
-  description: string;
-  url: string;
   urlTitle: string;
   imageUrl: string;
   index: number;
@@ -16,9 +13,6 @@ interface FoodceptionIngredientCardProps {
 }
 
 const FoodceptionIngredientCard: React.FC<FoodceptionIngredientCardProps> = ({
-  title,
-  description,
-  url,
   urlTitle,
   imageUrl,
   index,
@@ -26,16 +20,19 @@ const FoodceptionIngredientCard: React.FC<FoodceptionIngredientCardProps> = ({
   checked,
   onCheckboxChange
 }) => {
+  const url = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
+    ingredient.id
+  }`;
   return (
-    <div className='card'>
+    <div className='card' data-guid='f07f638d-7b54-4cfc-9014-febbebf2d9fb'>
       <FoodceptionCardHrefImage
         url={url}
         src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
-        alt={title}
+        alt={ingredient.title}
       />
       <FoodceptionCardIngredientBody
-        title={title}
-        description={description}
+        title={ingredient.title}
+        description={ingredient.description}
         linkTitle={urlTitle}
         url={url}
         index={index}

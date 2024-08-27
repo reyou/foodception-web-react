@@ -4,18 +4,19 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom';
-import FoodceptionHeader from './components/header';
+import FoodceptionHeader from './components/header/header';
 import ErrorPage from './errorPage';
 import Layout from './Layout';
 import Countries from './pages/countries/countries';
 import CountryDetails from './pages/countries/countryDetails';
+import IngredientsPage from './pages/ingredients/ingredients.page';
 import MealCategories from './pages/mealCategories';
 import MealRecipes from './pages/mealRecipes';
-import Meals from './pages/meals';
+import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipeCategories';
 import RecipeCategoryDetail from './pages/recipeCategoryDetail';
 import RecipeDetails from './pages/recipeDetails';
-import Recipes from './pages/recipes';
+import Recipes from './pages/recipes.page';
 import RecipeVideos from './pages/recipeVideos';
 import TrendingRecipeVideos from './pages/trendingRecipeVideos';
 
@@ -49,6 +50,7 @@ export default function FoodceptionRouter() {
           <Route path='recipes/videos' element={<RecipeVideos />} />
           <Route path='countries' element={<Countries />} />
           <Route path='countries/:slug/:id' element={<CountryDetails />} />
+          <Route path='ingredients' element={<IngredientsPage />} />
         </Route>
       </>
     )

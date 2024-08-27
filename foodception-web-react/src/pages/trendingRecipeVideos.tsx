@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import FoodceptionHeader from '../components/header';
+import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/hrefButton';
 import FoodceptionTrendingRecipeVideoCard from '../components/trendingRecipeVideoCard';
 import HttpProvider from '../providers/HttpProvider';

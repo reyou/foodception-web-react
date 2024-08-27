@@ -1,4 +1,4 @@
-import './HeaderLayout.css';
+import '../../css/components/HeaderLayout.css';
 
 interface HeaderLayoutProps {
   backgroundImage: string;

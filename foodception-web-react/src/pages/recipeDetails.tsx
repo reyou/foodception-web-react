@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import FoodceptionHeader from '../components/header';
+import FoodceptionHeader from '../components/header/header';
 import FoodceptionImage from '../components/image';
 import IngredientGroups from '../components/ingredientGroups';
 import IngredientGroupsVisual from '../components/ingredientGroupsVisual';
