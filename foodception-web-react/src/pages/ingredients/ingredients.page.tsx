@@ -44,10 +44,8 @@ function IngredientsPage() {
     );
   }
 
-  // Use custom useFetch hook to fetch ingredients data
   const { data, loading, error } = useFetch(`/ingredients?skip=${skip}`);
 
-  // Handle page change with a delay
   const onPageChanged = (newPage: number) => {
     if (FrontEndUtils.isInsideIframe()) {
       ParentWindowUtils.postMessage({ type: 'scrollTo', x: 0, y: 0 });
@@ -61,7 +59,6 @@ function IngredientsPage() {
     }, 1000);
   };
 
-  // Content rendering function
   const content = () => {
     if (loading || isNavigating) {
       return <div className='text-center mt-2'>Loading...</div>;
