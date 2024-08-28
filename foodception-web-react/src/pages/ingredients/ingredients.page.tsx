@@ -11,6 +11,8 @@ import { useQuery } from '../../hooks/useQuery';
 import TypeUtils from '../../utils/TypeUtils';
 import StorageUtils from '../../utils/StorageUtils';
 import DateUtils from '../../utils/DateUtils';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import ParentWindowUtils from '../../utils/ParentWindowUtils';
 
 function IngredientsPage() {
   const query = useQuery();
@@ -47,6 +49,10 @@ function IngredientsPage() {
 
   // Handle page change with a delay
   const onPageChanged = (newPage: number) => {
+    if (FrontEndUtils.isInsideIframe()) {
+      ParentWindowUtils.postMessage({ type: 'scrollTo', x: 0, y: 0 });
+    }
+
     setIsNavigating(true);
 
     setTimeout(() => {
