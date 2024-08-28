@@ -8,12 +8,27 @@ import {
 import useFetch from '../../hooks/useFetch';
 import { useQuery } from '../../hooks/useQuery';
 import TypeUtils from '../../utils/TypeUtils';
+import StorageUtils from '../../utils/StorageUtils';
+import DateUtils from '../../utils/DateUtils';
 
 function IngredientsPage() {
-  const title = <h1>Ingredients</h1>;
+  let subtitle = StorageUtils.getItemWithExpiry('subtitle');
+  let backgroundImage = StorageUtils.getItemWithExpiry('backgroundImage');
 
-  const subtitle = TypeUtils.getRandomFromArray(subtitles);
-  const backgroundImage = TypeUtils.getRandomFromArray(backgroundImages);
+  if (!subtitle) {
+    subtitle = TypeUtils.getRandomFromArray(subtitles);
+    StorageUtils.setItemWithExpiry('subtitle', subtitle, DateUtils.oneWeekInMs);
+  }
+
+  if (!backgroundImage) {
+    backgroundImage = TypeUtils.getRandomFromArray(backgroundImages);
+    StorageUtils.setItemWithExpiry(
+      'backgroundImage',
+      backgroundImage,
+      DateUtils.oneWeekInMs
+    );
+  }
+
   const { data, loading, error } = useFetch('/ingredients');
   const query = useQuery();
   const page = parseInt(query.get('page') || '1');
@@ -46,10 +61,11 @@ function IngredientsPage() {
       </div>
     );
   };
+
   return (
     <div className='container-fluid'>
       <HeaderLayout
-        title={title}
+        title={<h1>Ingredients</h1>}
         subTitle={subtitle}
         backgroundImage={backgroundImage}
       ></HeaderLayout>
