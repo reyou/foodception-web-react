@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import HeaderLayout from '../../components/header/headerLayout';
 import IngredientCard from '../../components/ingredients/ingredientCard';
 import Pagination from '../../components/pagination';
@@ -13,6 +14,17 @@ import DateUtils from '../../utils/DateUtils';
 
 function IngredientsPage() {
   const query = useQuery();
+
+  // Set initial page from query or default to 1
+  const [page, setPage] = useState(parseInt(query.get('page') || '1'));
+
+  // State to manage loading when navigating between pages
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  // Calculate skip based on the current page
+  const skip = (page - 1) * 20;
+
+  // Get subtitle and backgroundImage from storage or generate them
   let subtitle = StorageUtils.getItemWithExpiry('subtitle');
   let backgroundImage = StorageUtils.getItemWithExpiry('backgroundImage');
 
@@ -29,13 +41,24 @@ function IngredientsPage() {
       DateUtils.oneWeekInMs
     );
   }
-  const page = parseInt(query.get('page') || '1');
-  const skip = (page - 1) * 20;
+
+  // Use custom useFetch hook to fetch ingredients data
   const { data, loading, error } = useFetch(`/ingredients?skip=${skip}`);
 
+  // Handle page change with a delay
+  const onPageChanged = (newPage: number) => {
+    setIsNavigating(true);
+
+    setTimeout(() => {
+      setPage(newPage);
+      setIsNavigating(false);
+    }, 1000);
+  };
+
+  // Content rendering function
   const content = () => {
-    if (loading) {
-      return <div className='text-center'>Loading...</div>;
+    if (loading || isNavigating) {
+      return <div className='text-center mt-2'>Loading...</div>;
     }
     if (error) {
       return <div>Error: {error}</div>;
@@ -58,7 +81,10 @@ function IngredientsPage() {
             ></IngredientCard>
           );
         })}
-        <Pagination currentPage={page}></Pagination>
+        <Pagination
+          currentPage={page}
+          onPageChange={onPageChanged}
+        ></Pagination>
       </div>
     );
   };

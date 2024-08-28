@@ -2,30 +2,46 @@ import React from 'react';
 
 interface PaginationProps {
   currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
-  const createPageUrl = (page: number): string => {
-    return `?page=${page}`;
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  onPageChange
+}) => {
+  const handlePageChange = (page: number) => {
+    // Call the passed onPageChange function with the new page number
+    onPageChange(page);
   };
 
   return (
     <nav aria-label='Page navigation'>
       <ul className='pagination justify-content-center'>
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-          <a href={createPageUrl(1)} className='page-link'>
+          <button
+            className='page-link'
+            onClick={() => handlePageChange(1)}
+            disabled={currentPage === 1}
+          >
             First
-          </a>
+          </button>
         </li>
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-          <a href={createPageUrl(currentPage - 1)} className='page-link'>
+          <button
+            className='page-link'
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
             Previous
-          </a>
+          </button>
         </li>
         <li className='page-item'>
-          <a href={createPageUrl(currentPage + 1)} className='page-link'>
+          <button
+            className='page-link'
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
             Next
-          </a>
+          </button>
         </li>
       </ul>
     </nav>
