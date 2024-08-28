@@ -12,6 +12,7 @@ import StorageUtils from '../../utils/StorageUtils';
 import DateUtils from '../../utils/DateUtils';
 
 function IngredientsPage() {
+  const query = useQuery();
   let subtitle = StorageUtils.getItemWithExpiry('subtitle');
   let backgroundImage = StorageUtils.getItemWithExpiry('backgroundImage');
 
@@ -28,10 +29,10 @@ function IngredientsPage() {
       DateUtils.oneWeekInMs
     );
   }
-
-  const { data, loading, error } = useFetch('/ingredients');
-  const query = useQuery();
   const page = parseInt(query.get('page') || '1');
+  const skip = (page - 1) * 20;
+  const { data, loading, error } = useFetch(`/ingredients?skip=${skip}`);
+
   const content = () => {
     if (loading) {
       return <div className='text-center'>Loading...</div>;
