@@ -24,6 +24,9 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
   const url = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
     ingredient.id
   }`;
+  const recipesUrl = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
+    ingredient.id
+  }/recipes`;
   return (
     <div className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4'>
       <div className='card'>
@@ -38,16 +41,39 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
           </h5>
           <p className='card-text'>{ingredient.description}</p>
           {FrontEndUtils.isInsideIframe() ? (
-            <button
-              className='btn btn-primary'
-              onClick={(event) => handleLinkClick(event, url)}
-            >
-              View Ingredient
-            </button>
+            <>
+              <button
+                data-guid='11563fc9-0196-40fb-9193-0d230a42192e'
+                className='btn btn-primary me-2'
+                onClick={(event) => handleLinkClick(event, url)}
+              >
+                View Ingredient
+              </button>
+              <button
+                data-guid='70ff5b6e-4df0-4a49-847e-c4256622377b'
+                className='btn btn-primary'
+                onClick={(event) => handleLinkClick(event, recipesUrl)}
+              >
+                View Recipes
+              </button>
+            </>
           ) : (
-            <a href={url} className='btn btn-primary'>
-              View Ingredient
-            </a>
+            <>
+              <a
+                data-guid='f05a78f6-77be-44d4-bf58-22229bc5ea55'
+                href={url}
+                className='btn btn-primary me-2'
+              >
+                View Ingredient
+              </a>
+              <a
+                data-guid='4e85011d-890b-4a52-ab68-8ae298577b5b'
+                href={recipesUrl}
+                className='btn btn-primary'
+              >
+                View Recipes
+              </a>
+            </>
           )}
         </div>
       </div>
