@@ -1,16 +1,17 @@
 interface FoodceptionCardIngredientStepsProps {
   title: string;
-  substeps: any[];
+  substeps: string;
 }
 
 const FoodceptionCardIngredientSteps: React.FC<
   FoodceptionCardIngredientStepsProps
 > = ({ title, substeps }) => {
+  const substepsArray = JSON.parse(substeps);
   return (
     <div className='card mb-4'>
       <h4 className='card-header'>{title}</h4>
       <div className='card-body'>
-        {substeps.map((substep: any, index: number) => {
+        {substepsArray.map((substep: any, index: number) => {
           return (
             <div key={index}>
               <p className='fs-5'>

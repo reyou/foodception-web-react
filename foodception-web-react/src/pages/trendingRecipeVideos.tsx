@@ -16,8 +16,6 @@ export default function TrendingRecipeVideos() {
         );
         setData(result);
       } catch (error) {
-        console.log('LogGuid: 3d430497-cdcb-441d-bdd5-4458b9c26bf5');
-        console.error(error);
         setError('Failed to fetch data');
       }
     };

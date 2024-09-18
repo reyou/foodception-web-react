@@ -3,12 +3,10 @@ import IngredientsVisual from './ingredientsVisual';
 
 interface IngredientGroupsVisualProps {
   ingredientGroups: any[];
-  ingredientImages: any[];
 }
 
 const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
-  ingredientGroups,
-  ingredientImages
+  ingredientGroups
 }) => {
   const [checkedIngredients, setCheckedIngredients] = useState<{
     [key: string]: boolean[];
@@ -17,7 +15,7 @@ const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
   useEffect(() => {
     const initialCheckedState: { [key: string]: boolean[] } = {};
     ingredientGroups.forEach((group) => {
-      initialCheckedState[group.id] = group.ingredients.map(() => false);
+      initialCheckedState[group.id] = group.recipeIngredients.map(() => false);
     });
     setCheckedIngredients(initialCheckedState);
   }, [ingredientGroups]);
@@ -80,8 +78,7 @@ const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
                 </div>
                 {Object.hasOwn(checkedIngredients, group.id) && (
                   <IngredientsVisual
-                    ingredients={group.ingredients}
-                    ingredientImages={ingredientImages}
+                    recipeIngredients={group.recipeIngredients}
                     checkedIngredients={checkedIngredients[group.id]}
                     onCheckboxChange={(ingredientIndex: number) =>
                       handleCheckboxChange(group.id, ingredientIndex)

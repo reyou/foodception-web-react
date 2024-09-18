@@ -1,25 +1,20 @@
 import FoodceptionIngredientCard from './recipeIngredientCard';
 
 interface IngredientsVisualProps {
-  ingredients: any[];
-  ingredientImages: any[];
+  recipeIngredients: any[];
   checkedIngredients: boolean[];
   onCheckboxChange: (index: number) => void;
 }
 
 const IngredientsVisual: React.FC<IngredientsVisualProps> = ({
-  ingredients,
-  ingredientImages,
+  recipeIngredients,
   checkedIngredients,
   onCheckboxChange
 }) => {
   return (
     <div className='row'>
-      {ingredients.map((ingredient, index) => {
+      {recipeIngredients.map((recipeIngredient, index) => {
         const checked = checkedIngredients[index] || false;
-        const ingredientImage = ingredientImages.find(
-          (q) => q.ingredientId === ingredient.id
-        );
         return (
           <div
             key={index}
@@ -28,9 +23,11 @@ const IngredientsVisual: React.FC<IngredientsVisualProps> = ({
           >
             <FoodceptionIngredientCard
               urlTitle='Details'
-              imageUrl={ingredientImage.imageUrl}
+              imageUrl={
+                recipeIngredient.ingredient.ingredientImages[0].imageUrl
+              }
               index={index}
-              ingredient={ingredient}
+              recipeIngredient={recipeIngredient}
               checked={checked}
               onCheckboxChange={(index: number) => onCheckboxChange(index)}
             ></FoodceptionIngredientCard>

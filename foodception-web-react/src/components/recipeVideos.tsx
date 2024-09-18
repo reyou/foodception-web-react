@@ -3,10 +3,12 @@ import FoodceptionModal from './modal';
 import RecipeVideoCard from './recipeVideoCard';
 
 interface RecipeVideosProps {
-  recipeVideos: any[];
+  youtubeChannelVideos: any[];
 }
 
-const RecipeVideos: React.FC<RecipeVideosProps> = ({ recipeVideos }) => {
+const RecipeVideos: React.FC<RecipeVideosProps> = ({
+  youtubeChannelVideos
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [clickedElementY, setClickedElementY] = useState(0);
@@ -39,16 +41,17 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({ recipeVideos }) => {
         onClose={handleCloseModal}
       />
 
-      {recipeVideos.map((videoData) => {
+      {youtubeChannelVideos.map((youtubeChannelVideo) => {
         return (
-          <div key={videoData.recipeVideo.id} className='col-md-4 mb-3'>
+          <div key={youtubeChannelVideo.id} className='col-md-4 mb-3'>
             <RecipeVideoCard
-              recipeVideo={videoData.recipeVideo}
-              youTubeChannelVideo={videoData.youTubeChannelVideo}
-              youTubeChannelVideoImages={videoData.youTubeChannelVideoImages}
-              youTubeChannel={videoData.youTubeChannel}
+              youTubeChannelVideo={youtubeChannelVideo}
+              youTubeChannelVideoImages={
+                youtubeChannelVideo.youtubeChannelVideoImages
+              }
+              youTubeChannel={youtubeChannelVideo.youtubeChannel}
               onWatchClicked={(event) =>
-                handleWatchClicked(event, videoData.youTubeChannelVideo)
+                handleWatchClicked(event, youtubeChannelVideo)
               }
             ></RecipeVideoCard>
           </div>

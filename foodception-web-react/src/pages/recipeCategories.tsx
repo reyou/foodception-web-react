@@ -26,8 +26,6 @@ export default function RecipeCategories() {
         );
         setData(result);
       } catch (error) {
-        console.log('LogGuid: 0f04b5ca-7278-4d11-9779-0ae75d41ad61');
-        console.error(error);
         setError('Failed to fetch data');
       }
     };

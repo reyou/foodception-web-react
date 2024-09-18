@@ -7,7 +7,7 @@ interface FoodceptionIngredientCardProps {
   urlTitle: string;
   imageUrl: string;
   index: number;
-  ingredient: any;
+  recipeIngredient: any;
   checked: boolean;
   onCheckboxChange: (index: number) => void;
 }
@@ -16,27 +16,27 @@ const FoodceptionIngredientCard: React.FC<FoodceptionIngredientCardProps> = ({
   urlTitle,
   imageUrl,
   index,
-  ingredient,
+  recipeIngredient,
   checked,
   onCheckboxChange
 }) => {
-  const url = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
-    ingredient.id
-  }`;
+  const url = `/ingredients/${FrontEndUtils.slugify(
+    recipeIngredient.ingredient.title
+  )}/${recipeIngredient.ingredient.id}`;
   return (
     <div className='card' data-guid='f07f638d-7b54-4cfc-9014-febbebf2d9fb'>
       <FoodceptionCardHrefImage
         url={url}
         src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
-        alt={ingredient.title}
+        alt={recipeIngredient.ingredient.title}
       />
       <FoodceptionCardIngredientBody
-        title={ingredient.title}
-        description={ingredient.description}
+        title={recipeIngredient.ingredient.title}
+        description={recipeIngredient.ingredient.description}
         linkTitle={urlTitle}
         url={url}
         index={index}
-        ingredient={ingredient}
+        ingredient={recipeIngredient.ingredient}
         checked={checked}
         onCheckboxChange={(index: number) => onCheckboxChange(index)}
       ></FoodceptionCardIngredientBody>

@@ -2,7 +2,6 @@ import FoodceptionRecipeVideoCardBody from './recipeVideoCardBody';
 import FoodceptionRecipeVideoCardImage from './recipeVideoCardImage';
 
 interface RecipeVideoCardProps {
-  recipeVideo: any;
   youTubeChannelVideo: any;
   youTubeChannelVideoImages: any[];
   youTubeChannel: any;
@@ -14,7 +13,6 @@ interface RecipeVideoCardProps {
 }
 
 const RecipeVideoCard: React.FC<RecipeVideoCardProps> = ({
-  recipeVideo,
   youTubeChannelVideo,
   youTubeChannelVideoImages,
   youTubeChannel,

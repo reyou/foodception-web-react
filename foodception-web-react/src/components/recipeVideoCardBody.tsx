@@ -16,6 +16,18 @@ const FoodceptionRecipeVideoCardBody: React.FC<
       <h5 className='card-title'>
         {FrontEndUtils.capitalizeText(youTubeChannelVideo.title)}
       </h5>
+      <div>
+        <b className='me-2'>Channel:</b>
+        <a
+          href={`https://www.youtube.com/channel/${youTubeChannelVideo.youtubeChannel.channelId}`}
+          target='_blank'
+          className='link-button'
+          rel='noopener noreferrer'
+        >
+          {youTubeChannelVideo.youtubeChannel.channelTitle}
+        </a>
+      </div>
+
       <p className='card-text'>{youTubeChannelVideo.description}</p>
       <button
         className='btn btn-primary me-2'

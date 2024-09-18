@@ -15,7 +15,7 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
   useEffect(() => {
     const initialCheckedState: { [key: string]: boolean[] } = {};
     ingredientGroups.forEach((group) => {
-      initialCheckedState[group.id] = group.ingredients.map(() => false);
+      initialCheckedState[group.id] = group.recipeIngredients.map(() => false);
     });
     setCheckedIngredients(initialCheckedState);
   }, [ingredientGroups]);
@@ -74,7 +74,7 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
                   </label>
                 </div>
                 <Ingredients
-                  ingredients={group.ingredients}
+                  ingredients={group.recipeIngredients}
                   checkedIngredients={checkedIngredients[group.id] || []}
                   onCheckboxChange={(ingredientIndex: number) =>
                     handleCheckboxChange(group.id, ingredientIndex)

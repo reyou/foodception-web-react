@@ -7,7 +7,7 @@ interface UseFetchResult {
   error: string | null;
 }
 
-const BASE_URL = 'https://api.foodception.com';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function useFetch(url: string): UseFetchResult {
   const [data, setData] = useState<any>(null);

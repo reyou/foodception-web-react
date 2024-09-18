@@ -27,7 +27,7 @@ const Ingredients: React.FC<IngredientsProps> = ({
               className='form-check-label fs-5'
               htmlFor={`ingredient-${ingredient.id}`}
             >
-              {FrontEndUtils.capitalizeText(ingredient.title)}
+              {FrontEndUtils.capitalizeText(ingredient.ingredient.title)}
             </label>
           </div>
         </li>

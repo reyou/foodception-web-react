@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FoodceptionHeader from '../components/header/header';
 import FoodceptionImage from '../components/image';
@@ -8,54 +7,32 @@ import RecipeTimeInfo from '../components/recipeTimeInfo';
 import RecipeSteps from '../components/recipeSteps';
 import RecipeVideos from '../components/recipeVideos';
 import FoodceptionTabs, { TabItem } from '../components/tabs';
-import HttpProvider from '../providers/HttpProvider';
+
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import useFetch from '../hooks/useFetch';
 
 export default function RecipeDetails() {
-  const [error, setError] = useState<string | null>(null);
   const { id } = useParams<{ id: string }>();
-  const [data, setData] = useState<any>(null);
-  const [recipeVideosData, setRecipeVideosData] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchRecipeDetails = async () => {
-      try {
-        const result = await HttpProvider.get(
-          `https://api.foodception.com/recipes/${id}`
-        );
-        setData(result);
-      } catch (err) {
-        setError('Failed to fetch data');
-      }
-    };
-    const fetchRecipeVideos = async () => {
-      try {
-        const result = await HttpProvider.get(
-          `https://api.foodception.com/recipes/${id}/videos`
-        );
-        setRecipeVideosData(result);
-      } catch (err) {
-        setError('Failed to fetch data');
-      }
-    };
-    fetchRecipeDetails();
-    fetchRecipeVideos();
-  }, [id]);
+  const {
+    data: recipesData,
+    loading: recipesLoading,
+    error: recipesError
+  } = useFetch(`/recipes/${id}`);
+  const {
+    data: recipeVideosData,
+    loading: recipeVideosLoading,
+    error: recipeVideosError
+  } = useFetch(`/recipes/${id}/videos`);
 
   const render = () => {
-    if (error) {
-      return <div>Error: {error}</div>;
-    } else if (!data || !recipeVideosData) {
+    if (recipesError || recipeVideosError) {
+      return <div>Error: {recipesError || recipeVideosError}</div>;
+    } else if (recipesLoading || recipeVideosLoading) {
       return <div className='text-center'>Loading...</div>;
     } else {
-      const {
-        recipe,
-        recipeImages,
-        steps,
-        ingredientGroups,
-        ingredientImages
-      } = data;
-      const recipeImage = recipeImages.find((img: any) => {
+      const { recipe } = recipesData;
+      const recipeImage = recipe.recipeImages.find((img: any) => {
         return img.recipeId === recipe.id;
       });
       const imageUrl = FrontEndUtils.getResizedImagePath(
@@ -69,7 +46,7 @@ export default function RecipeDetails() {
         icon: 'list',
         content: (
           <IngredientGroups
-            ingredientGroups={ingredientGroups}
+            ingredientGroups={recipe.ingredientGroups}
           ></IngredientGroups>
         )
       });
@@ -78,8 +55,7 @@ export default function RecipeDetails() {
         icon: 'image',
         content: (
           <IngredientGroupsVisual
-            ingredientGroups={ingredientGroups}
-            ingredientImages={ingredientImages}
+            ingredientGroups={recipe.ingredientGroups}
           ></IngredientGroupsVisual>
         )
       });
@@ -109,12 +85,12 @@ export default function RecipeDetails() {
           <FoodceptionTabs>{tabs}</FoodceptionTabs>
           {/* Directions */}
           <h2 className='mt-3 text-center'>Directions</h2>
-          <RecipeSteps steps={steps}></RecipeSteps>
+          <RecipeSteps steps={recipe.recipeSteps}></RecipeSteps>
           {/* Nutritional Information */}
           {/* RelatedVideos */}
           <h2 className='mt-3 text-center'>Related Videos</h2>
           <RecipeVideos
-            recipeVideos={recipeVideosData.recipeVideos}
+            youtubeChannelVideos={recipeVideosData.youtubeChannelVideos}
           ></RecipeVideos>
           {/* RelatedRecipes */}
           <h2 className='mt-3 text-center'>Related Recipes</h2>
