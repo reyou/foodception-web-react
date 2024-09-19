@@ -3,25 +3,20 @@ import ParentWindowUtils from '../utils/ParentWindowUtils';
 import FoodceptionCardHrefImage from './cardHrefImage';
 
 interface FoodceptionTrendingRecipeVideoCardProps {
-  recipe: any;
   recipeVideo: any;
   youTubeChannelVideo: any;
-  youTubeChannelVideoImages: any[];
 }
 
 const FoodceptionTrendingRecipeVideoCard: React.FC<
   FoodceptionTrendingRecipeVideoCardProps
-> = ({
-  recipe,
-  recipeVideo,
-  youTubeChannelVideo,
-  youTubeChannelVideoImages
-}) => {
-  youTubeChannelVideoImages.sort((a, b) => b.width - a.width);
-  const imageUrl = youTubeChannelVideoImages[0].url;
-  const slug = FrontEndUtils.slugify(recipe.title);
+> = ({ recipeVideo, youTubeChannelVideo }) => {
+  youTubeChannelVideo.youtubeChannelVideoImages.sort(
+    (a: any, b: any) => b.width - a.width
+  );
+  const imageUrl = youTubeChannelVideo.youtubeChannelVideoImages[0].url;
+  const slug = FrontEndUtils.slugify(recipeVideo.recipe.title);
   const url = `/recipes/${slug}/videos/${recipeVideo.id}`;
-  const recipeUrl = `/recipes/${slug}/${recipe.id}`;
+  const recipeUrl = `/recipes/${slug}/${recipeVideo.recipe.id}`;
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
     url: string
@@ -40,25 +35,38 @@ const FoodceptionTrendingRecipeVideoCard: React.FC<
         <h5 className='card-title'>
           {FrontEndUtils.capitalizeText(youTubeChannelVideo.title)}
         </h5>
-        <p className='card-text'>
-          <b className='me-2'>Recipe:</b>
-          {FrontEndUtils.isInsideIframe() ? (
-            <button
-              className='link-button'
-              onClick={(event) => handleLinkClick(event, recipeUrl)}
-            >
-              {recipe.title}
-            </button>
-          ) : (
+        <div className='card-text'>
+          <div>
+            <b className='me-2'>Recipe:</b>
+            {FrontEndUtils.isInsideIframe() ? (
+              <button
+                className='link-button'
+                onClick={(event) => handleLinkClick(event, recipeUrl)}
+              >
+                {recipeVideo.recipe.title}
+              </button>
+            ) : (
+              <a
+                className='link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover'
+                href={recipeUrl}
+              >
+                {recipeVideo.recipe.title}
+              </a>
+            )}
+          </div>
+          <div>
+            <b className='me-2'>Channel:</b>
             <a
-              className='link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover'
-              href={recipeUrl}
+              href={`https://www.youtube.com/channel/${youTubeChannelVideo.youtubeChannel.channelId}`}
+              target='_blank'
+              className='link-button'
+              rel='noopener noreferrer'
             >
-              {recipe.title}
+              {youTubeChannelVideo.youtubeChannel.channelTitle}
             </a>
-          )}
-        </p>
-        <p className='card-text'>{youTubeChannelVideo.description}</p>
+          </div>
+        </div>
+        <p className='card-text pt-2'>{youTubeChannelVideo.description}</p>
         {FrontEndUtils.isInsideIframe() ? (
           <button
             className='btn btn-primary'
