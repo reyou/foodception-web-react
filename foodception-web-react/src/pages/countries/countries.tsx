@@ -1,4 +1,5 @@
 import CountriesList from '../../components/countries/countriesList';
+import ErrorPanel from '../../components/error_message';
 import FoodceptionHeader from '../../components/header/header';
 import useFetch from '../../hooks/useFetch';
 import useShowHeader from '../../hooks/useShowHeader';
@@ -12,7 +13,7 @@ export default function Countries() {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <ErrorPanel errorMessage={error}></ErrorPanel>;
   }
 
   if (!data) {
@@ -22,10 +23,7 @@ export default function Countries() {
   return (
     <div>
       {showHeader && <FoodceptionHeader>Countries</FoodceptionHeader>}
-      <CountriesList
-        countries={data.countries}
-        countryCuisineImages={data.countryCuisineImages}
-      />
+      <CountriesList countries={data.countries} />
     </div>
   );
 }

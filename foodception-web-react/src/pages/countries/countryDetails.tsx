@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import ErrorPanel from '../../components/error_message';
 import FoodceptionHeader from '../../components/header/header';
 import HeaderLayout from '../../components/header/headerLayout';
 import RecipeList from '../../components/recipeList';
@@ -16,15 +17,16 @@ export default function CountryDetails() {
     loading: countryRecipesLoading,
     error: countryRecipesError
   } = useFetch(`/countries/${id}/recipes?skip=0&limit=200`);
+
   if (countryLoading || countryRecipesLoading) {
     return <div className='text-center'>Loading...</div>;
   }
 
   if (countryError) {
-    return <div>Error: {countryError}</div>;
+    return <ErrorPanel errorMessage={countryError}></ErrorPanel>;
   }
   if (countryRecipesError) {
-    return <div>Error: {countryRecipesError}</div>;
+    return <ErrorPanel errorMessage={countryRecipesError}></ErrorPanel>;
   }
 
   if (!countryDetails || !countryRecipes) {
@@ -41,9 +43,11 @@ export default function CountryDetails() {
       {countryDetails.country.countryName}
     </FoodceptionHeader>
   );
-  const imageUrl = countryDetails.countryCuisineImages.find(
-    (q: any) => q.countryId === countryDetails.country.id
-  ).imageUrl;
+  const imageUrl = countryDetails.country.countryCuisineImages[0].imageUrl;
+  const recipes = countryRecipes.countryRecipes.map(
+    (countryRecipe: any) => countryRecipe.recipe
+  );
+
   return (
     <div className='container-fluid'>
       <HeaderLayout
@@ -56,10 +60,7 @@ export default function CountryDetails() {
         <p className='fs-5 mb-4'>{countryDetails.country.cuisineDescription}</p>
       </div>
       <div>
-        <RecipeList
-          recipes={countryRecipes.recipes}
-          recipeImages={countryRecipes.recipeImages}
-        ></RecipeList>
+        <RecipeList recipes={recipes} recipeImages={[]}></RecipeList>
       </div>
     </div>
   );

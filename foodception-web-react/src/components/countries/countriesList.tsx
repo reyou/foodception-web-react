@@ -1,25 +1,12 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import Country from '../../models/country';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import FoodceptionCardHrefImage from '../cardHrefImage';
 import FoodceptionHrefButton from '../hrefButton';
 
-interface CountryCuisineImage {
-  countryId: string;
-  imageUrl: string;
-}
-
 interface CountriesListProps {
   countries: Country[];
-  countryCuisineImages: CountryCuisineImage[];
-}
-
-interface Country {
-  id: string;
-  countryName: string;
-  flagImage: string;
-  cuisineTitle: string;
-  cuisineDescription: string;
 }
 
 interface OptionType {
@@ -27,10 +14,7 @@ interface OptionType {
   label: string;
 }
 
-const CountriesList: React.FC<CountriesListProps> = ({
-  countries,
-  countryCuisineImages
-}) => {
+const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
   const [selectedCountry, setSelectedCountry] = useState<OptionType | null>(
     null
   );
@@ -60,9 +44,7 @@ const CountriesList: React.FC<CountriesListProps> = ({
       </div>
       <div className='row justify-content-center'>
         {filteredCountries.map((country) => {
-          const imageUrl = countryCuisineImages.find(
-            (image) => image.countryId === country.id
-          )!.imageUrl;
+          const imageUrl = country.countryCuisineImages[0].imageUrl;
           const url = `/countries/${FrontEndUtils.slugify(
             country.countryName
           )}/${country.id}`;

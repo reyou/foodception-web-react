@@ -1,3 +1,6 @@
+import { FoodceptionHttpException } from '../exceptions/FoodceptionHttpException';
+import { ErrorUtils } from '../utils/ErrorUtils';
+
 export default class HttpProvider {
   private static async request(
     url: string,
@@ -21,10 +24,11 @@ export default class HttpProvider {
       }
 
       return await response.json();
-    } catch (error) {
-      console.error(`HTTP ${method} request to ${url} failed:`, error);
-      console.error(error);
-      throw error;
+    } catch (error: any) {
+      const message = `Error fetching ${url} with ${method} method. ${error.message}`;
+      console.error(message, error);
+      ErrorUtils.logErrorProperties(error);
+      throw new FoodceptionHttpException(message, 500, url, method);
     }
   }
 

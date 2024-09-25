@@ -11,9 +11,15 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
   return (
     <div className='row justify-content-center'>
       {recipes.map((recipe: any) => {
-        let mealImage = recipeImages.find(
-          (image: any) => image.recipeId === recipe.id
-        );
+        let recipeImage;
+        if (recipe.recipeImages && recipe.recipeImages.length > 0) {
+          recipeImage = recipe.recipeImages[0];
+        } else {
+          recipeImage = recipeImages.find(
+            (image: any) => image.recipeId === recipe.id
+          );
+        }
+
         const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${
           recipe.id
         }`;
@@ -25,7 +31,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
             description={recipe.description}
             url={recipeLink}
             urlTitle='View Recipe'
-            imageUrl={mealImage.imageUrl}
+            imageUrl={recipeImage.imageUrl}
           ></FoodceptionCard>
         );
       })}
