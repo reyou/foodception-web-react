@@ -13,6 +13,7 @@ import StorageUtils from '../../utils/StorageUtils';
 import DateUtils from '../../utils/DateUtils';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import ParentWindowUtils from '../../utils/ParentWindowUtils';
+import ErrorPanel from '../../components/error_message';
 
 function IngredientsPage() {
   const query = useQuery();
@@ -64,7 +65,7 @@ function IngredientsPage() {
       return <div className='text-center mt-2'>Loading...</div>;
     }
     if (error) {
-      return <div>Error: {error}</div>;
+      return <ErrorPanel errorMessage={error}></ErrorPanel>;
     }
     if (!data) {
       return <div className='text-center'>No data available</div>;
@@ -73,9 +74,7 @@ function IngredientsPage() {
     return (
       <div className='row justify-content-center mt-4'>
         {data.ingredients.map((ingredient: any) => {
-          const ingredientImage = data.ingredientImages.find(
-            (image: any) => image.ingredientId === ingredient.id
-          );
+          const ingredientImage = ingredient.ingredientImages[0];
           return (
             <IngredientCard
               key={ingredient.id}
