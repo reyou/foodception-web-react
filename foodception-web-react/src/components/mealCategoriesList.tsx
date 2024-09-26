@@ -3,22 +3,16 @@ import FoodceptionCard from './card';
 
 interface MealCategoriesListProps {
   meals: any[];
-  mealImages: any[];
 }
 
-const MealCategoriesList: React.FC<MealCategoriesListProps> = ({
-  meals,
-  mealImages
-}) => {
+const MealCategoriesList: React.FC<MealCategoriesListProps> = ({ meals }) => {
   return (
     <div className='row justify-content-center'>
       {meals.map((meal) => {
         const categoryLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
           meal.id
         }/recipes`;
-        const categoryImage = mealImages.find(
-          (image: any) => image.mealId === meal.id
-        );
+        const categoryImage = meal.mealImages[0];
         return (
           <FoodceptionCard
             key={meal.id}

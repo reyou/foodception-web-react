@@ -1,70 +1,46 @@
-import { useEffect, useState } from 'react';
+import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/hrefButton';
 import RecipeList from '../components/recipeList';
-import HttpProvider from '../providers/HttpProvider';
+import useFetch from '../hooks/useFetch';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 export default function Meals() {
-  const [data, setData] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { data, loading, error } = useFetch('/meals');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await HttpProvider.get(
-          'https://api.foodception.com/meals'
-        );
-        setData(result);
-      } catch (error: any) {
-        setError('Failed to fetch data');
-        console.error(error);
-      }
-    };
+  if (loading) {
+    return <div className='text-center'>Loading...</div>;
+  }
 
-    fetchData();
-  }, []);
+  if (error) {
+    return <ErrorPanel errorMessage={error}></ErrorPanel>;
+  }
 
-  const renderMeals = (meals: any[], mealRecipesList: any[]) => {
-    return meals.map((meal: any) => {
-      const mealRecipes = mealRecipesList.find((q) => q.mealId === meal.id);
-      return (
-        <div key={meal.id}>
-          <FoodceptionHeader>
-            {FrontEndUtils.capitalizeText(meal.name)}
-          </FoodceptionHeader>
-          <h5 className='text-center mb-4'>{meal.description}</h5>
-          <RecipeList
-            recipes={mealRecipes.recipes}
-            recipeImages={mealRecipes.recipeImages}
-          ></RecipeList>
-          <div className='text-center mb-4'>
-            <FoodceptionHrefButton
-              url={`/meals/${FrontEndUtils.slugify(meal.name)}/${
-                meal.id
-              }/recipes`}
-            >
-              View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
-            </FoodceptionHrefButton>
-          </div>
-        </div>
-      );
-    });
-  };
+  if (!data) {
+    return <div className='text-center'>No data available</div>;
+  }
 
-  const render = () => {
+  const meals = data.meals;
+
+  return meals.map((meal: any) => {
+    const recipes = meal.mealRecipes.map((q: any) => q.recipe);
     return (
-      <div className='container-fluid'>
-        {data ? (
-          <>{renderMeals(data.meals, data.mealRecipes)}</>
-        ) : error ? (
-          <p>Error: {error}</p>
-        ) : (
-          <p className='text-center'>Loading...</p>
-        )}
+      <div key={meal.id}>
+        <FoodceptionHeader>
+          {FrontEndUtils.capitalizeText(meal.name)}
+        </FoodceptionHeader>
+        <h5 className='text-center mb-4'>{meal.description}</h5>
+        <RecipeList recipes={recipes} recipeImages={[]}></RecipeList>
+        <div className='text-center mb-4'>
+          <FoodceptionHrefButton
+            url={`/meals/${FrontEndUtils.slugify(meal.name)}/${
+              meal.id
+            }/recipes`}
+          >
+            View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
+          </FoodceptionHrefButton>
+        </div>
       </div>
     );
-  };
-
-  return render();
+  });
 }

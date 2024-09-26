@@ -1,50 +1,33 @@
-import { useEffect, useState } from 'react';
+import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/hrefButton';
 import MealCategoriesList from '../components/mealCategoriesList';
-import HttpProvider from '../providers/HttpProvider';
+import useFetch from '../hooks/useFetch';
+
 export default function MealCategories() {
-  const [data, setData] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { data, loading, error } = useFetch('/meals/categories');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await HttpProvider.get(
-          'https://api.foodception.com/meals/categories'
-        );
-        setData(result);
-      } catch (error: any) {
-        setError('Failed to fetch data');
-        console.error(error);
-      }
-    };
+  if (loading) {
+    return <div className='text-center'>Loading...</div>;
+  }
 
-    fetchData();
-  }, []);
+  if (error) {
+    return <ErrorPanel errorMessage={error}></ErrorPanel>;
+  }
 
-  const render = () => {
-    if (error) {
-      return <div>Error: {error}</div>;
-    } else if (!data) {
-      return <div className='text-center'>Loading...</div>;
-    } else {
-      return (
-        <div>
-          <FoodceptionHeader>Meals</FoodceptionHeader>
-          <MealCategoriesList
-            meals={data.meals}
-            mealImages={data.mealImages}
-          ></MealCategoriesList>
-          <div className='text-center'>
-            <FoodceptionHrefButton url='/meals'>
-              Browse All Meal Recipes
-            </FoodceptionHrefButton>
-          </div>
-        </div>
-      );
-    }
-  };
+  if (!data) {
+    return <div className='text-center'>No data available</div>;
+  }
 
-  return render();
+  return (
+    <div>
+      <FoodceptionHeader>Meals</FoodceptionHeader>
+      <MealCategoriesList meals={data.meals}></MealCategoriesList>
+      <div className='text-center'>
+        <FoodceptionHrefButton url='/meals'>
+          Browse All Meal Recipes
+        </FoodceptionHrefButton>
+      </div>
+    </div>
+  );
 }
