@@ -40,12 +40,12 @@ export default function FoodceptionRouter() {
           <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
           <Route path='recipe-categories' element={<RecipeCategories />} />
           <Route
-            path='recipes/videos/trending'
-            element={<TrendingRecipeVideos />}
-          />
-          <Route
             path='recipe-categories/:slug/:id'
             element={<RecipeCategoryDetail />}
+          />
+          <Route
+            path='recipes/videos/trending'
+            element={<TrendingRecipeVideos />}
           />
           <Route path='recipes/videos' element={<RecipeVideos />} />
           <Route path='countries' element={<Countries />} />
