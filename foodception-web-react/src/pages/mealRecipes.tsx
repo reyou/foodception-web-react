@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import ErrorPanel from '../components/error_message';
-import FoodceptionHrefButton from '../components/hrefButton';
+import FoodceptionHrefButton from '../components/links/hrefButton';
 import RecipeList from '../components/recipeList';
 import useFetch from '../hooks/useFetch';
 

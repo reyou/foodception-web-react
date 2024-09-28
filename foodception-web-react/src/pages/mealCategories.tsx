@@ -1,6 +1,6 @@
 import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
-import FoodceptionHrefButton from '../components/hrefButton';
+import FoodceptionHrefButton from '../components/links/hrefButton';
 import MealCategoriesList from '../components/mealCategoriesList';
 import useFetch from '../hooks/useFetch';
 

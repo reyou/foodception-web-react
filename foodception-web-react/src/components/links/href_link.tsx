@@ -1,18 +1,18 @@
 import React from 'react';
-import { FrontEndUtils } from '../utils/FrontEndUtils';
-import ParentWindowUtils from '../utils/ParentWindowUtils';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import ParentWindowUtils from '../../utils/ParentWindowUtils';
 
-interface FoodceptionHrefButtonProps {
+interface FoodceptionHrefLinkProps {
   url: string;
   children: React.ReactNode;
 }
 
-const FoodceptionHrefButton: React.FC<FoodceptionHrefButtonProps> = ({
+const FoodceptionHrefLink: React.FC<FoodceptionHrefLinkProps> = ({
   url,
   children
 }) => {
   const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+    event: React.MouseEvent<HTMLAnchorElement>,
     url: string
   ) => {
     event.preventDefault();
@@ -21,20 +21,21 @@ const FoodceptionHrefButton: React.FC<FoodceptionHrefButtonProps> = ({
 
   if (FrontEndUtils.isInsideIframe()) {
     return (
-      <button
-        className='btn btn-primary'
+      <a
+        className='link-button'
+        href={url}
         onClick={(event) => handleLinkClick(event, url)}
       >
         {children}
-      </button>
+      </a>
     );
   } else {
     return (
-      <a className='btn btn-primary' href={url}>
+      <a className='link-button' href={url}>
         {children}
       </a>
     );
   }
 };
 
-export default FoodceptionHrefButton;
+export default FoodceptionHrefLink;

@@ -16,7 +16,7 @@ import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipeCategories';
 import RecipeCategoryDetail from './pages/recipeCategoryDetail';
 import RecipeDetails from './pages/recipeDetails';
-import Recipes from './pages/recipes.page';
+import Recipes from './pages/recipes/recipes.page';
 import RecipeVideos from './pages/recipeVideos';
 import TrendingRecipeVideos from './pages/trendingRecipeVideos';
 
