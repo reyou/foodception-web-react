@@ -2,6 +2,11 @@ export class FrontEndUtils {
   static isInsideIframe() {
     return window.self !== window.top;
   }
+
+  static async delay(milliSeconds: number) {
+    await new Promise((resolve) => setTimeout(resolve, milliSeconds));
+  }
+
   static slugify(text: string) {
     return text
       .toLowerCase() // Convert the string to lowercase
