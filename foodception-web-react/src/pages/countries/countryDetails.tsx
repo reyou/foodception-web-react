@@ -60,7 +60,7 @@ export default function CountryDetails() {
         <p className='fs-5 mb-4'>{countryDetails.country.cuisineDescription}</p>
       </div>
       <div>
-        <RecipeList recipes={recipes} recipeImages={[]}></RecipeList>
+        <RecipeList recipes={recipes}></RecipeList>
       </div>
     </div>
   );

@@ -4,22 +4,13 @@ import FoodceptionCard from './card';
 
 interface RecipeListProps {
   recipes: any[];
-  recipeImages: any[];
 }
 
-const RecipeList: React.FC<RecipeListProps> = ({ recipes, recipeImages }) => {
+const RecipeList: React.FC<RecipeListProps> = ({ recipes }) => {
   return (
     <div className='row justify-content-center'>
       {recipes.map((recipe: any) => {
-        let recipeImage;
-        if (recipe.recipeImages && recipe.recipeImages.length > 0) {
-          recipeImage = recipe.recipeImages[0];
-        } else {
-          recipeImage = recipeImages.find(
-            (image: any) => image.recipeId === recipe.id
-          );
-        }
-
+        let recipeImage = recipe.recipeImages[0];
         const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${
           recipe.id
         }`;

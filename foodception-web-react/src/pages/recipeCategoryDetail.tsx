@@ -30,7 +30,7 @@ const RecipeCategoryDetail: React.FC<RecipeCategoryDetailProps> = () => {
           &lt;&lt; Back to Recipe Categories
         </FoodceptionHrefButton>
       </div>
-      <RecipeList recipes={data.recipes} recipeImages={[]} />
+      <RecipeList recipes={data.recipes} />
     </div>
   );
 };

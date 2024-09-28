@@ -27,7 +27,7 @@ export default function MealRecipes() {
           &lt;&lt; Back to Meals
         </FoodceptionHrefButton>
       </div>
-      <RecipeList recipes={data.recipes} recipeImages={[]}></RecipeList>
+      <RecipeList recipes={data.recipes}></RecipeList>
     </div>
   );
 }

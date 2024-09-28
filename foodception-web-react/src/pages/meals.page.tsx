@@ -30,7 +30,7 @@ export default function Meals() {
           {FrontEndUtils.capitalizeText(meal.name)}
         </FoodceptionHeader>
         <h5 className='text-center mb-4'>{meal.description}</h5>
-        <RecipeList recipes={recipes} recipeImages={[]}></RecipeList>
+        <RecipeList recipes={recipes}></RecipeList>
         <div className='text-center mb-4'>
           <FoodceptionHrefButton
             url={`/meals/${FrontEndUtils.slugify(meal.name)}/${
