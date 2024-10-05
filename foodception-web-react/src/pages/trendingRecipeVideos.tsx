@@ -1,3 +1,4 @@
+import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/links/hrefButton';
 import FoodceptionTrendingRecipeVideoCard from '../components/trendingRecipeVideoCard';
@@ -8,7 +9,7 @@ export default function TrendingRecipeVideos() {
 
   const render = () => {
     if (error) {
-      return <div>Error: {error}</div>;
+      return <ErrorPanel errorMessage={error}></ErrorPanel>;
     }
 
     if (loading) {

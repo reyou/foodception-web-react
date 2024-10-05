@@ -1,5 +1,6 @@
 import FoodceptionHeader from '../../components/header/header';
 import HeaderLayout from '../../components/header/headerLayout';
+import TopDiets from './components/top_diets';
 import RandomPicks from './components/random_picks';
 import TopCategories from './components/top_categories';
 
@@ -20,6 +21,7 @@ export default function Recipes() {
       <div className='container-fluid'>
         <RandomPicks />
         <TopCategories />
+        <TopDiets />
       </div>
     </div>
   );
