@@ -1,6 +1,5 @@
 import React from 'react';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
-import ParentWindowUtils from '../utils/ParentWindowUtils';
 
 interface FoodceptionCardIngredientBodyProps {
   title: string;
@@ -25,13 +24,6 @@ const FoodceptionCardIngredientBody: React.FC<
   checked,
   onCheckboxChange
 }) => {
-  const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-    url: string
-  ) => {
-    event.preventDefault();
-    ParentWindowUtils.postMessage({ type: 'redirect', url: url });
-  };
   const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
 
   return (

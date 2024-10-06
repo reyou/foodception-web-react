@@ -1,5 +1,4 @@
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import ParentWindowUtils from '../../utils/ParentWindowUtils';
 import FoodceptionCardHrefImage from '../cardHrefImage';
 
 interface IngredientCardProps {
@@ -11,13 +10,6 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
   ingredient,
   ingredientImage
 }) => {
-  const handleLinkClick = (
-    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-    url: string
-  ) => {
-    event.preventDefault();
-    ParentWindowUtils.postMessage({ type: 'redirect', url: url });
-  };
   const imageUrl =
     ingredientImage?.imageUrl ||
     'https://static.wixstatic.com/media/f7bd72_c181cc79c3804725af9894a4245e292b~mv2.jpg';

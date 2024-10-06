@@ -1,5 +1,4 @@
 import { FrontEndUtils } from '../utils/FrontEndUtils';
-import ParentWindowUtils from '../utils/ParentWindowUtils';
 import FoodceptionCardHrefImage from './cardHrefImage';
 
 interface FoodceptionTrendingRecipeVideoCardProps {
