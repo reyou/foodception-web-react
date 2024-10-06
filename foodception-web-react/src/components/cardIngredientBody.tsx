@@ -32,6 +32,7 @@ const FoodceptionCardIngredientBody: React.FC<
     event.preventDefault();
     ParentWindowUtils.postMessage({ type: 'redirect', url: url });
   };
+  const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
 
   return (
     <div className='card-body' data-guid='6904dfea-b61f-4e60-8c67-c3dde6aa7acf'>
@@ -54,23 +55,15 @@ const FoodceptionCardIngredientBody: React.FC<
       <p className='card-text' data-guid='c918b681-9d93-4b75-af2f-865667a40642'>
         {description}
       </p>
-      {FrontEndUtils.isInsideIframe() ? (
-        <button
-          data-guid='00ef30de-eb46-4917-aec4-7f136f66f375'
-          className='btn btn-primary'
-          onClick={(event) => handleLinkClick(event, url)}
-        >
-          {linkTitle}
-        </button>
-      ) : (
-        <a
-          href={url}
-          className='btn btn-primary'
-          data-guid='4293f55b-825c-466b-952c-32614b8880ac'
-        >
-          {linkTitle}
-        </a>
-      )}
+      <a
+        href={adjustedUrl}
+        className='btn btn-primary'
+        onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
+        data-guid='4293f55b-825c-466b-952c-32614b8880ac'
+        rel='noopener noreferrer'
+      >
+        {linkTitle}
+      </a>
     </div>
   );
 };

@@ -18,23 +18,16 @@ const FoodceptionHrefButton: React.FC<FoodceptionHrefButtonProps> = ({
     event.preventDefault();
     ParentWindowUtils.postMessage({ type: 'redirect', url: url });
   };
-
-  if (FrontEndUtils.isInsideIframe()) {
-    return (
-      <button
-        className='btn btn-primary'
-        onClick={(event) => handleLinkClick(event, url)}
-      >
-        {children}
-      </button>
-    );
-  } else {
-    return (
-      <a className='btn btn-primary' href={url}>
-        {children}
-      </a>
-    );
-  }
+  const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
+  return (
+    <a
+      className='btn btn-primary'
+      href={adjustedUrl}
+      onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
+    >
+      {children}
+    </a>
+  );
 };
 
 export default FoodceptionHrefButton;

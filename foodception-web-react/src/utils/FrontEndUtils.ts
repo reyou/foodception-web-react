@@ -1,6 +1,32 @@
+import ParentWindowUtils from './ParentWindowUtils';
+
 export class FrontEndUtils {
+  static handleLinkClick(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    url: string
+  ): void {
+    // Short-circuit if not inside an iframe
+    if (!FrontEndUtils.isInsideIframe()) {
+      return; // Do nothing and let the default link behavior happen
+    }
+
+    // Only act if it's a left-click (event.button === 0) and inside iframe
+    if (event.button === 0) {
+      event.preventDefault(); // Prevent default navigation behavior
+      ParentWindowUtils.postMessage({ type: 'redirect', url: url }); // Send message to parent window
+    }
+  }
   static isInsideIframe() {
     return window.self !== window.top;
+  }
+
+  static getAdjustedUrl(url: string): string {
+    const baseUrl = FrontEndUtils.isInsideIframe()
+      ? 'https://www.foodception.com' // Use www.foodception.com if inside iframe
+      : window.location.origin; // Use current origin if not inside iframe
+
+    const adjustedUrl = `${baseUrl}${url}`; // Append relative path to base URL
+    return adjustedUrl;
   }
 
   static async delay(milliSeconds: number) {
