@@ -22,15 +22,17 @@ const FoodceptionHrefLink: React.FC<FoodceptionHrefLinkProps> = ({
     }
   };
 
-  // Adjust the URL if inside an iframe
-  const adjustedUrl = FrontEndUtils.isInsideIframe()
-    ? url.replace('web.foodception.com', 'www.foodception.com')
-    : url;
+  // Construct the full URL based on whether it's inside an iframe
+  const baseUrl = FrontEndUtils.isInsideIframe()
+    ? 'https://www.foodception.com' // Use www.foodception.com if inside iframe
+    : window.location.origin; // Use current origin if not inside iframe
+
+  const adjustedUrl = `${baseUrl}${url}`; // Append relative path to base URL
 
   if (FrontEndUtils.isInsideIframe()) {
     return (
       <a
-        data-guid='409a1aaf-a90c-4997-8a19-a5def439b9f2'
+        data-guid='7762e7e6-8ec9-419c-9a2a-a1ec4bdc4539'
         className='link-button'
         href={adjustedUrl}
         onClick={(event) => handleLinkClick(event, adjustedUrl)}
@@ -43,7 +45,7 @@ const FoodceptionHrefLink: React.FC<FoodceptionHrefLinkProps> = ({
   } else {
     return (
       <a
-        data-guid='8c3ab256-8ccf-4bd4-adab-60f7046dc288'
+        data-guid='47513874-85e1-47f2-a2c9-903fce6036d1'
         className='link-button'
         href={adjustedUrl}
         rel='noopener noreferrer'
