@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import HeaderLayout from '../../components/header/headerLayout';
 import IngredientCard from '../../components/ingredients/ingredientCard';
 import Pagination from '../../components/pagination';
@@ -11,21 +10,16 @@ import { useQuery } from '../../hooks/useQuery';
 import TypeUtils from '../../utils/TypeUtils';
 import StorageUtils from '../../utils/StorageUtils';
 import DateUtils from '../../utils/DateUtils';
-import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import ParentWindowUtils from '../../utils/ParentWindowUtils';
 import ErrorPanel from '../../components/error_message';
 
 function IngredientsPage() {
   const query = useQuery();
 
   // Set initial page from query or default to 1
-  const [page, setPage] = useState(parseInt(query.get('page') || '1'));
-
-  // State to manage loading when navigating between pages
-  const [isNavigating, setIsNavigating] = useState(false);
+  const page = parseInt(query.get('page') || '1');
+  const skip = (page - 1) * 20;
 
   // Calculate skip based on the current page
-  const skip = (page - 1) * 20;
 
   // Get subtitle and backgroundImage from storage or generate them
   let subtitle = StorageUtils.getItemWithExpiry('subtitle');
@@ -47,21 +41,8 @@ function IngredientsPage() {
 
   const { data, loading, error } = useFetch(`/ingredients?skip=${skip}`);
 
-  const onPageChanged = (newPage: number) => {
-    if (FrontEndUtils.isInsideIframe()) {
-      ParentWindowUtils.postMessage({ type: 'scrollTo', x: 0, y: 0 });
-    }
-
-    setIsNavigating(true);
-
-    setTimeout(() => {
-      setPage(newPage);
-      setIsNavigating(false);
-    }, 1000);
-  };
-
   const content = () => {
-    if (loading || isNavigating) {
+    if (loading) {
       return <div className='text-center mt-2'>Loading...</div>;
     }
     if (error) {
@@ -83,10 +64,7 @@ function IngredientsPage() {
             ></IngredientCard>
           );
         })}
-        <Pagination
-          currentPage={page}
-          onPageChange={onPageChanged}
-        ></Pagination>
+        <Pagination currentPage={page}></Pagination>
       </div>
     );
   };

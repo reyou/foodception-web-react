@@ -16,6 +16,7 @@ import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipeCategories';
 import RecipeCategoryDetail from './pages/recipeCategoryDetail';
 import RecipeDetails from './pages/recipeDetails';
+import RecipesList from './pages/recipes/list';
 import Recipes from './pages/recipes/recipes.page';
 import RecipeVideos from './pages/recipeVideos';
 import TrendingRecipeVideos from './pages/trendingRecipeVideos';
@@ -37,6 +38,7 @@ export default function FoodceptionRouter() {
           <Route path='meals/categories' element={<MealCategories />} />
           <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
           <Route path='recipes' element={<Recipes />} />
+          <Route path='recipes/list' element={<RecipesList />} />
           <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
           <Route path='recipe-categories' element={<RecipeCategories />} />
           <Route

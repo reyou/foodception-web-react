@@ -5,11 +5,7 @@ import RecipeList from '../../../components/recipeList';
 import useFetch from '../../../hooks/useFetch';
 
 const RandomPicks = () => {
-  const {
-    data: randomRecipes,
-    loading: randomRecipesLoading,
-    error: randomRecipesError
-  } = useFetch('/recipes/random');
+  const { data, loading, error } = useFetch('/recipes/random');
 
   return (
     <div>
@@ -22,15 +18,13 @@ const RandomPicks = () => {
           See all recipes
         </FoodceptionHrefLink>
       </div>
-      <LoadingPanel visible={randomRecipesLoading}></LoadingPanel>
-      {randomRecipesError && (
+      <LoadingPanel visible={loading}></LoadingPanel>
+      {error && (
         <div className='text-center'>
-          <ErrorPanel errorMessage={randomRecipesError}></ErrorPanel>
+          <ErrorPanel errorMessage={error}></ErrorPanel>
         </div>
       )}
-      {randomRecipes && (
-        <RecipeList recipes={randomRecipes.recipes}></RecipeList>
-      )}
+      {data && <RecipeList recipes={data.recipes}></RecipeList>}
     </div>
   );
 };

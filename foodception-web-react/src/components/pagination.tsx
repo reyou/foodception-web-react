@@ -1,47 +1,74 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
+import ParentWindowUtils from '../utils/ParentWindowUtils';
 
 interface PaginationProps {
   currentPage: number;
-  onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  onPageChange
-}) => {
-  const handlePageChange = (page: number) => {
-    // Call the passed onPageChange function with the new page number
-    onPageChange(page);
+const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
+  const location = useLocation();
+
+  // Helper function to construct a URL with the page parameter
+  const constructUrlWithPage = (page: number) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('page', page.toString());
+    return `${location.pathname}?${searchParams.toString()}`;
+  };
+
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    page: number
+  ) => {
+    const urlWithPage = constructUrlWithPage(page);
+    if (FrontEndUtils.isInsideIframe()) {
+      event.preventDefault();
+      const adjustedUrl = FrontEndUtils.getAdjustedUrl(urlWithPage);
+      ParentWindowUtils.postMessage({ type: 'redirect', url: adjustedUrl });
+    }
   };
 
   return (
     <nav aria-label='Page navigation'>
       <ul className='pagination justify-content-center'>
+        {/* First Page Link */}
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-          <button
+          <a
             className='page-link'
-            onClick={() => handlePageChange(1)}
-            disabled={currentPage === 1}
+            href={constructUrlWithPage(1)}
+            onClick={(e) => {
+              handlePageChange(e, 1);
+            }}
           >
             First
-          </button>
+          </a>
         </li>
+
+        {/* Previous Page Link */}
         <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-          <button
+          <a
             className='page-link'
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
+            href={constructUrlWithPage(currentPage - 1)}
+            onClick={(e) => {
+              handlePageChange(e, currentPage - 1);
+            }}
           >
             Previous
-          </button>
+          </a>
         </li>
+
+        {/* Next Page Link */}
         <li className='page-item'>
-          <button
+          <a
             className='page-link'
-            onClick={() => handlePageChange(currentPage + 1)}
+            href={constructUrlWithPage(currentPage + 1)}
+            onClick={(e) => {
+              handlePageChange(e, currentPage + 1); // Call the callback function
+            }}
           >
             Next
-          </button>
+          </a>
         </li>
       </ul>
     </nav>
