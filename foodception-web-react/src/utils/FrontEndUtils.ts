@@ -22,8 +22,8 @@ export class FrontEndUtils {
 
   static getAdjustedUrl(url: string): string {
     const baseUrl = FrontEndUtils.isInsideIframe()
-      ? 'https://www.foodception.com' // Use www.foodception.com if inside iframe
-      : window.location.origin; // Use current origin if not inside iframe
+      ? process.env.REACT_APP_WEB_URL // Use www.foodception.com if inside iframe
+      : window.location.origin; // Use current origin if not inside iframe (https://web.foodception.com)
 
     const adjustedUrl = `${baseUrl}${url}`; // Append relative path to base URL
     return adjustedUrl;
