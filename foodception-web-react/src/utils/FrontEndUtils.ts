@@ -22,10 +22,11 @@ export class FrontEndUtils {
 
   static getAdjustedUrl(url: string): string {
     const baseUrl = FrontEndUtils.isInsideIframe()
-      ? process.env.REACT_APP_WEB_URL // Use www.foodception.com if inside iframe
+      ? process.env.REACT_APP_WEB_URL // Use environment variable for iframe case
       : window.location.origin; // Use current origin if not inside iframe (https://web.foodception.com)
 
-    const adjustedUrl = `${baseUrl}${url}`; // Append relative path to base URL
+    const adjustedUrl = new URL(url, baseUrl).toString();
+
     return adjustedUrl;
   }
 
