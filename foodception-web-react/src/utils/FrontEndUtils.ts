@@ -29,9 +29,30 @@ export class FrontEndUtils {
     // Check if the URL is absolute
     const isAbsoluteUrl = /^https?:\/\//i.test(url);
 
-    // If the URL is relative, adjust it using the base URL
-    const adjustedUrl = isAbsoluteUrl ? url : new URL(url, baseUrl).toString();
+    // If inside iframe and the URL is absolute, replace the origin with the base URL
+    if (isInsideIframe && isAbsoluteUrl) {
+      // Parse the existing URL to extract the path and query string
+      const parsedUrl = new URL(url);
+      const adjustedUrl = new URL(
+        parsedUrl.pathname + parsedUrl.search,
+        baseUrl
+      ).toString();
+      return adjustedUrl;
+    }
 
+    // If inside iframe and the URL is relative, adjust it using the base URL
+    if (isInsideIframe && !isAbsoluteUrl) {
+      const adjustedUrl = new URL(url, baseUrl).toString();
+      return adjustedUrl;
+    }
+
+    // If not inside iframe and the URL is absolute, return it as is
+    if (!isInsideIframe && isAbsoluteUrl) {
+      return url;
+    }
+
+    // If the URL is relative and not inside iframe, adjust it using the window origin
+    const adjustedUrl = new URL(url, baseUrl).toString();
     return adjustedUrl;
   }
 
