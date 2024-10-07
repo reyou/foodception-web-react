@@ -8,13 +8,12 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
-  const location = useLocation();
-
   // Helper function to construct a URL with the page parameter
   const constructUrlWithPage = (page: number) => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set('page', page.toString());
-    return `${location.pathname}?${searchParams.toString()}`;
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', page.toString());
+    const adjustedUrl = FrontEndUtils.getAdjustedUrl(url.toString());
+    return adjustedUrl;
   };
 
   const handlePageChange = (
@@ -24,8 +23,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
     const urlWithPage = constructUrlWithPage(page);
     if (FrontEndUtils.isInsideIframe()) {
       event.preventDefault();
-      const adjustedUrl = FrontEndUtils.getAdjustedUrl(urlWithPage);
-      ParentWindowUtils.postMessage({ type: 'redirect', url: adjustedUrl });
+      ParentWindowUtils.postMessage({ type: 'redirect', url: urlWithPage });
     }
   };
 
@@ -40,6 +38,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
             onClick={(e) => {
               handlePageChange(e, 1);
             }}
+            aria-disabled={currentPage === 1}
           >
             First
           </a>
@@ -53,6 +52,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage }) => {
             onClick={(e) => {
               handlePageChange(e, currentPage - 1);
             }}
+            aria-disabled={currentPage === 1}
           >
             Previous
           </a>

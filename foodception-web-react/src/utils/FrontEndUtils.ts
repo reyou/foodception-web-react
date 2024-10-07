@@ -21,11 +21,16 @@ export class FrontEndUtils {
   }
 
   static getAdjustedUrl(url: string): string {
-    const baseUrl = FrontEndUtils.isInsideIframe()
+    const isInsideIframe = FrontEndUtils.isInsideIframe();
+    const baseUrl = isInsideIframe
       ? process.env.REACT_APP_WEB_URL // Use environment variable for iframe case
       : window.location.origin; // Use current origin if not inside iframe (https://web.foodception.com)
 
-    const adjustedUrl = new URL(url, baseUrl).toString();
+    // Check if the URL is absolute
+    const isAbsoluteUrl = /^https?:\/\//i.test(url);
+
+    // If the URL is relative, adjust it using the base URL
+    const adjustedUrl = isAbsoluteUrl ? url : new URL(url, baseUrl).toString();
 
     return adjustedUrl;
   }
