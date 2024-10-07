@@ -29,10 +29,22 @@ export class FrontEndUtils {
     // Check if the URL is absolute
     const isAbsoluteUrl = /^https?:\/\//i.test(url);
 
+    // Helper function to remove unnecessary query parameters
+    const removeUnwantedParams = (parsedUrl: URL): void => {
+      parsedUrl.searchParams.delete('iframeId');
+      parsedUrl.searchParams.delete('time');
+    };
+
+    // If not inside iframe and the URL is absolute, return it as is
+    if (!isInsideIframe && isAbsoluteUrl) {
+      return url;
+    }
+
     // If inside iframe and the URL is absolute, replace the origin with the base URL
     if (isInsideIframe && isAbsoluteUrl) {
       // Parse the existing URL to extract the path and query string
       const parsedUrl = new URL(url);
+      removeUnwantedParams(parsedUrl);
       const adjustedUrl = new URL(
         parsedUrl.pathname + parsedUrl.search,
         baseUrl
@@ -42,13 +54,9 @@ export class FrontEndUtils {
 
     // If inside iframe and the URL is relative, adjust it using the base URL
     if (isInsideIframe && !isAbsoluteUrl) {
-      const adjustedUrl = new URL(url, baseUrl).toString();
-      return adjustedUrl;
-    }
-
-    // If not inside iframe and the URL is absolute, return it as is
-    if (!isInsideIframe && isAbsoluteUrl) {
-      return url;
+      const adjustedUrl = new URL(url, baseUrl);
+      removeUnwantedParams(adjustedUrl);
+      return adjustedUrl.toString();
     }
 
     // If the URL is relative and not inside iframe, adjust it using the window origin

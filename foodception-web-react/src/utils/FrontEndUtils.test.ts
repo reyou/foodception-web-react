@@ -48,9 +48,10 @@ describe('FrontEndUtils', () => {
 
       // Mock the isInsideIframe method to return true
       jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
-      const relativeUrl = '/recipes/list?query=burger';
+      const relativeUrl =
+        '/recipes/list?iframeId=ingredients-iframe&time=1728268992901&query=burger&page=2';
       const expectedUrl =
-        'https://www.foodception.com/recipes/list?query=burger';
+        'https://www.foodception.com/recipes/list?query=burger&page=2';
       const adjustedUrl = FrontEndUtils.getAdjustedUrl(relativeUrl);
       expect(adjustedUrl).toBe(expectedUrl);
     });
@@ -69,9 +70,10 @@ describe('FrontEndUtils', () => {
 
       // Mock the isInsideIframe method to return true
       jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
-      const fullUrl = 'https://web.foodception.com/recipes/list?query=burger';
+      const fullUrl =
+        'https://web.foodception.com/recipes/list?iframeId=ingredients-iframe&time=1728268992901&query=burger&page=2';
       const expectedUrl =
-        'https://www.foodception.com/recipes/list?query=burger';
+        'https://www.foodception.com/recipes/list?query=burger&page=2';
       const adjustedUrl = FrontEndUtils.getAdjustedUrl(fullUrl);
       expect(adjustedUrl).toBe(expectedUrl);
     });

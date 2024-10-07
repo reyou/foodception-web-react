@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import ParentWindowUtils from '../utils/ParentWindowUtils';
 
