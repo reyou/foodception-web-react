@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { InputGroup, FormControl, ListGroup } from 'react-bootstrap';
+import { InputGroup, FormControl, ListGroup, Button } from 'react-bootstrap';
 import debounce from 'lodash.debounce';
 import HttpProvider from '../../../providers/HttpProvider';
 import { useNavigate } from 'react-router-dom';
@@ -109,6 +109,13 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
     }
   };
 
+  // Clear the search term
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setSuggestions([]);
+    setShowSuggestions(false);
+  };
+
   return (
     <div className='position-relative'>
       <InputGroup>
@@ -121,6 +128,23 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
           onFocus={handleFocus}
           aria-label='Recipe Search'
         />
+        {/* Conditionally render the clear "X" button */}
+        {searchTerm && (
+          <Button
+            variant='outline-secondary'
+            className='position-absolute end-0'
+            onClick={handleClearSearch}
+            style={{
+              right: '10px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              zIndex: 10,
+              border: 'none'
+            }}
+          >
+            ✕
+          </Button>
+        )}
       </InputGroup>
 
       {showSuggestions && suggestions.length > 0 && searchTerm.length > 0 && (
