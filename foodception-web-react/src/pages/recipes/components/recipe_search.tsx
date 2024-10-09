@@ -48,7 +48,6 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
     debouncedFetchSuggestions(term);
   };
 
-  // Handle "Enter" key press
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       if (searchTerm !== lastSearchedTerm) {
@@ -57,6 +56,8 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
         onSearch(searchTerm); // Trigger the search
         setLastSearchedTerm(searchTerm); // Update the last searched term
       }
+    } else if (event.key === 'Escape') {
+      setShowSuggestions(false);
     }
   };
 
