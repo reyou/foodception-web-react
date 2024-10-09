@@ -125,7 +125,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
 
       {showSuggestions && suggestions.length > 0 && searchTerm.length > 0 && (
         <ListGroup className='position-absolute' style={{ zIndex: 20 }}>
-          {suggestions.map((suggestion, index) => (
+          {suggestions.map((suggestion) => (
             <ListGroup.Item
               key={suggestion.id}
               action
