@@ -37,7 +37,6 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
   // Cleanup for debounced function when component unmounts
   useEffect(() => {
     return () => {
-      // Cleanup to avoid memory leaks
       debouncedFetchSuggestions.cancel();
     };
   }, [debouncedFetchSuggestions]);
@@ -46,7 +45,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value;
     setSearchTerm(term);
-    debouncedFetchSuggestions(term); // Use debounced function
+    debouncedFetchSuggestions(term);
   };
 
   // Handle "Enter" key press
@@ -62,8 +61,10 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
   };
 
   const handleSuggestionClick = (suggestion: any) => {
-    console.log('Suggestion clicked:', suggestion);
     setShowSuggestions(false);
+    setSearchTerm(suggestion.title); // Set the search term as the clicked suggestion
+    updateSearchQuery(suggestion.title); // Update the URL with the selected suggestion
+    onSearch(suggestion.title); // Trigger the search
   };
 
   // Update the URL with the search query
@@ -74,17 +75,26 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
   };
 
   useEffect(() => {
-    // Only perform search on initial load
     if (isFirstSearch.current) {
       const query = new URLSearchParams(window.location.search).get('query');
       if (query) {
         setSearchTerm(query);
-        onSearch(query); // Trigger the parent search logic on component load
-        setLastSearchedTerm(query); // Also update the last searched term with the query
+        onSearch(query);
+        setLastSearchedTerm(query);
       }
-      isFirstSearch.current = false; // Mark as no longer the first search
+      isFirstSearch.current = false;
     }
   }, [onSearch]);
+
+  const handleBlur = () => {
+    setTimeout(() => setShowSuggestions(false), 100);
+  };
+
+  const handleFocus = () => {
+    if (suggestions.length > 0) {
+      setShowSuggestions(true);
+    }
+  };
 
   return (
     <div className='position-relative'>
@@ -93,7 +103,9 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
           placeholder='Search for recipes...'
           value={searchTerm}
           onChange={handleInputChange}
-          onKeyDown={handleKeyDown} // Updated from onKeyPress to onKeyDown
+          onKeyDown={handleKeyDown}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
           aria-label='Recipe Search'
         />
       </InputGroup>
@@ -126,9 +138,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
                   />
                 )}
               <div>
-                {/* Display the recipe title */}
                 <div style={{ fontWeight: 'bold' }}>{suggestion.title}</div>
-                {/* Display the truncated description */}
                 <div style={{ fontSize: '0.85rem', color: '#666' }}>
                   {suggestion.description.length > 100
                     ? suggestion.description.substring(0, 100) + '...'
