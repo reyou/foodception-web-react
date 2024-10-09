@@ -6,6 +6,7 @@ import Pagination from '../../components/pagination';
 import RecipeList from '../../components/recipeList';
 import useFetch from '../../hooks/useFetch';
 import { useQuery } from '../../hooks/useQuery';
+import RecipeSearch from './components/recipe_search';
 
 export default function RecipesList() {
   const query = useQuery();
@@ -13,10 +14,17 @@ export default function RecipesList() {
   const skip = (page - 1) * 20;
   const { data, loading, error } = useFetch(`/recipes?skip=${skip}`);
   const imageUrl =
-    'https://static.wixstatic.com/media/f7bd72_e03b3faaf463460a87f0662628574d46~mv2.jpg';
-  const title = <FoodceptionHeader>Recipes</FoodceptionHeader>;
-  const subTitle = 'Discover Delicious Recipes from Around the World';
+    'https://static.wixstatic.com/media/f7bd72_650d5b64dadb4b59905f686016e31b1b~mv2.png';
+  const title = <FoodceptionHeader>Recipe Directory</FoodceptionHeader>;
+  const subTitle =
+    'Browse, Search, and Discover the Perfect Dish for Any Occasion';
 
+  const handleSearch = (term: string) => {
+    // Make an API call or update state based on the search term
+    // Optionally, you could refetch the recipes here with the updated search term
+
+    console.log('List - Searching for:', term);
+  };
   return (
     <div>
       <HeaderLayout
@@ -31,14 +39,16 @@ export default function RecipesList() {
             <ErrorPanel errorMessage={error}></ErrorPanel>
           </div>
         )}
-        <div className='mb-4'>
-          <h2 className='text-center mt-4'>Recipe Directory</h2>
-          <h4 className='text-center'>
-            Feeling Lucky? Here Are Some Random Picks for You!
-          </h4>
-        </div>
+
         {data && (
           <>
+            <div className='mt-4 mb-4'>
+              <div className='row justify-content-center'>
+                <div className='col-12 col-md-6 col-lg-4 col-xl-3'>
+                  <RecipeSearch onSearch={handleSearch} />
+                </div>
+              </div>
+            </div>
             <RecipeList recipes={data.recipes}></RecipeList>
             <Pagination currentPage={page}></Pagination>
           </>

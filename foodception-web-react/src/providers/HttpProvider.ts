@@ -1,5 +1,6 @@
 import { FoodceptionHttpException } from '../exceptions/FoodceptionHttpException';
 import { ErrorUtils } from '../utils/ErrorUtils';
+import HttpUtils from '../utils/HttpUtils';
 
 export default class HttpProvider {
   private static async request(
@@ -9,6 +10,9 @@ export default class HttpProvider {
     headers: HeadersInit = {}
   ): Promise<any> {
     try {
+      if (!HttpUtils.isAbsoluteUrl(url)) {
+        url = process.env.REACT_APP_API_URL + url;
+      }
       const response = await fetch(url, {
         method,
         headers: {

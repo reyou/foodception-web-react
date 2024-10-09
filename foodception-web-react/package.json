@@ -14,7 +14,9 @@
     "@types/react-dom": "^18.3.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "lodash.debounce": "^4.0.8",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
@@ -51,6 +53,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/lodash.debounce": "^4.0.9",
     "gh-pages": "^6.1.1"
   }
 }
