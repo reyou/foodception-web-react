@@ -61,11 +61,23 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
     }
   };
 
-  const handleSuggestionClick = (suggestion: any) => {
+  const handleSuggestionClick = (
+    event: React.MouseEvent<Element>,
+    suggestion: any
+  ) => {
     setShowSuggestions(false);
-    setSearchTerm(suggestion.title); // Set the search term as the clicked suggestion
-    updateSearchQuery(suggestion.title); // Update the URL with the selected suggestion
-    onSearch(suggestion.title); // Trigger the search
+    setSearchTerm(suggestion.title);
+
+    const recipeUrl = `/recipes/${FrontEndUtils.slugify(suggestion.title)}/${
+      suggestion.id
+    }`;
+
+    if (FrontEndUtils.isInsideIframe()) {
+      const adjustedUrl = FrontEndUtils.getAdjustedUrl(recipeUrl);
+      FrontEndUtils.handleLinkClick(event, adjustedUrl);
+    } else {
+      navigate(recipeUrl);
+    }
   };
 
   // Update the URL with the search query
@@ -117,7 +129,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
             <ListGroup.Item
               key={suggestion.id}
               action
-              onClick={() => handleSuggestionClick(suggestion)}
+              onClick={(event) => handleSuggestionClick(event, suggestion)}
               className='d-flex align-items-start'
             >
               {/* Display the image if available */}

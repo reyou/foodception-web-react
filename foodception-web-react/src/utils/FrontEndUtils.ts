@@ -1,10 +1,7 @@
 import ParentWindowUtils from './ParentWindowUtils';
 
 export class FrontEndUtils {
-  static handleLinkClick(
-    event: React.MouseEvent<HTMLAnchorElement>,
-    url: string
-  ): void {
+  static handleLinkClick(event: React.MouseEvent<Element>, url: string): void {
     // Short-circuit if not inside an iframe
     if (!FrontEndUtils.isInsideIframe()) {
       return; // Do nothing and let the default link behavior happen
