@@ -50,14 +50,18 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      if (searchTerm !== lastSearchedTerm) {
-        setShowSuggestions(false); // Hide suggestions on enter
-        updateSearchQuery(searchTerm); // Update the URL with the current search term
-        onSearch(searchTerm); // Trigger the search
-        setLastSearchedTerm(searchTerm); // Update the last searched term
-      }
+      handleSearch();
     } else if (event.key === 'Escape') {
       setShowSuggestions(false);
+    }
+  };
+
+  const handleSearch = () => {
+    if (searchTerm !== lastSearchedTerm) {
+      setShowSuggestions(false); // Hide suggestions on search
+      updateSearchQuery(searchTerm); // Update the URL with the current search term
+      onSearch(searchTerm); // Trigger the search
+      setLastSearchedTerm(searchTerm); // Update the last searched term
     }
   };
 
@@ -132,10 +136,10 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
         {searchTerm && (
           <Button
             variant='outline-secondary'
-            className='position-absolute end-0'
+            className='position-absolute' // Remove .end-0
             onClick={handleClearSearch}
             style={{
-              right: '10px',
+              right: '73px', // Adjust this value to position the button correctly
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 10,
@@ -145,6 +149,14 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
             ✕
           </Button>
         )}
+        {/* Add Search Button */}
+        <Button
+          variant='primary'
+          onClick={handleSearch} // Trigger the search on button click
+        >
+          {/* You can replace this text with a magnifying glass icon */}
+          Search
+        </Button>
       </InputGroup>
 
       {showSuggestions && suggestions.length > 0 && searchTerm.length > 0 && (
