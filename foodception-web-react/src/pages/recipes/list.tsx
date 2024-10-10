@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ErrorPanel from '../../components/error_message';
 import FoodceptionHeader from '../../components/header/header';
 import HeaderLayout from '../../components/header/headerLayout';
@@ -12,7 +13,12 @@ export default function RecipesList() {
   const query = useQuery();
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
-  const { data, loading, error } = useFetch(`/recipes?skip=${skip}`);
+  const [searchTerm, setSearchTerm] = useState<string>(
+    query.get('query') || ''
+  );
+  const { data, loading, error } = useFetch(
+    `/recipes?query=${searchTerm}&skip=${skip}`
+  );
   const imageUrl =
     'https://static.wixstatic.com/media/f7bd72_650d5b64dadb4b59905f686016e31b1b~mv2.png';
   const title = <FoodceptionHeader>Recipe Directory</FoodceptionHeader>;
@@ -22,8 +28,10 @@ export default function RecipesList() {
   const handleSearch = (term: string) => {
     // Make an API call or update state based on the search term
     // Optionally, you could refetch the recipes here with the updated search term
-
-    console.log('List - Searching for:', term);
+    if (term !== searchTerm) {
+      console.log('List - Searching for:', term);
+      setSearchTerm(term);
+    }
   };
   return (
     <div>
@@ -44,6 +52,9 @@ export default function RecipesList() {
           <>
             <div className='mt-4 mb-4'>
               <div className='row justify-content-center'>
+                <div className='col-12 text-center mb-1'>
+                  <h4>What Would You Like to Cook Today?</h4>
+                </div>
                 <div className='col-12 col-md-6 col-lg-4 col-xl-3'>
                   <RecipeSearch onSearch={handleSearch} />
                 </div>

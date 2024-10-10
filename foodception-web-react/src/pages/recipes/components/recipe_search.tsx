@@ -87,6 +87,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
   // Update the URL with the search query
   const updateSearchQuery = (term: string) => {
     const params = new URLSearchParams(window.location.search);
+    params.set('page', '1');
     params.set('query', term);
     navigate({ search: params.toString() });
   };
