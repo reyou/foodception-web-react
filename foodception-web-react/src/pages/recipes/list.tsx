@@ -7,10 +7,13 @@ import Pagination from '../../components/pagination';
 import RecipeList from '../../components/recipeList';
 import useFetch from '../../hooks/useFetch';
 import { useQuery } from '../../hooks/useQuery';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import RecipeSearch from './components/recipe_search';
+import { useNavigate } from 'react-router-dom';
 
 export default function RecipesList() {
   const query = useQuery();
+  const navigate = useNavigate();
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
   const [searchTerm, setSearchTerm] = useState<string>(
@@ -26,13 +29,23 @@ export default function RecipesList() {
     'Browse, Search, and Discover the Perfect Dish for Any Occasion';
 
   const handleSearch = (term: string) => {
-    // Make an API call or update state based on the search term
-    // Optionally, you could refetch the recipes here with the updated search term
     if (term !== searchTerm) {
-      console.log('List - Searching for:', term);
       setSearchTerm(term);
     }
   };
+
+  const handleClearSearch = (event: React.MouseEvent<Element>) => {
+    const recipesListUrl = `/recipes/list`;
+
+    if (FrontEndUtils.isInsideIframe()) {
+      const adjustedUrl = FrontEndUtils.getAdjustedUrl(recipesListUrl);
+      FrontEndUtils.handleLinkClick(event, adjustedUrl);
+    } else {
+      setSearchTerm('');
+      navigate(recipesListUrl);
+    }
+  };
+
   return (
     <div>
       <HeaderLayout
@@ -56,10 +69,31 @@ export default function RecipesList() {
                   <h4>What Would You Like to Cook Today?</h4>
                 </div>
                 <div className='col-12 col-md-6 col-lg-4 col-xl-3'>
-                  <RecipeSearch onSearch={handleSearch} />
+                  <RecipeSearch
+                    initialSearchTerm={searchTerm}
+                    onSearch={handleSearch}
+                  />
                 </div>
               </div>
+
+              {/* Display search status if searchTerm exists */}
+              {searchTerm && (
+                <div className='row justify-content-center mt-2'>
+                  <div className='col-12 text-center'>
+                    <p>
+                      Searching for "<strong>{searchTerm}</strong>",{' '}
+                      <button
+                        className='btn btn-link'
+                        onClick={(e) => handleClearSearch(e)}
+                      >
+                        Clear Search
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
+
             <RecipeList recipes={data.recipes}></RecipeList>
             <Pagination currentPage={page}></Pagination>
           </>

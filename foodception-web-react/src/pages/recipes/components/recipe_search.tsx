@@ -6,16 +6,24 @@ import { useNavigate } from 'react-router-dom';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 
 interface RecipeSearchProps {
+  initialSearchTerm: string;
   onSearch: (term: string) => void;
 }
 
-const RecipeSearch: React.FC<RecipeSearchProps> = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const RecipeSearch: React.FC<RecipeSearchProps> = ({
+  initialSearchTerm,
+  onSearch
+}) => {
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [lastSearchedTerm, setLastSearchedTerm] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
   const isFirstSearch = useRef(true);
+
+  useEffect(() => {
+    setSearchTerm(initialSearchTerm);
+  }, [initialSearchTerm]);
 
   const debouncedFetchSuggestions = useRef(
     debounce(async (term: string) => {
