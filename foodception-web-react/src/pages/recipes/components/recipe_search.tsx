@@ -23,6 +23,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
 
   useEffect(() => {
     setSearchTerm(initialSearchTerm);
+    setLastSearchedTerm(initialSearchTerm);
   }, [initialSearchTerm]);
 
   const debouncedFetchSuggestions = useRef(

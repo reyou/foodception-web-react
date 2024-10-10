@@ -83,7 +83,7 @@ export default function RecipesList() {
                     <p>
                       Searching for "<strong>{searchTerm}</strong>",{' '}
                       <button
-                        className='btn btn-link'
+                        className='link-button'
                         onClick={(e) => handleClearSearch(e)}
                       >
                         Clear Search
