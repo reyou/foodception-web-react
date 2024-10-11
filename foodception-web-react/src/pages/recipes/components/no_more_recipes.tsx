@@ -27,18 +27,19 @@ const NoMoreRecipes: React.FC<NoMoreRecipesProps> = ({ searchTerm }) => {
               }
               href={adjustedUrl}
               className='text-secondary fw-bold'
-              style={{ cursor: 'pointer', textDecoration: 'underline' }} // Ensures it looks clickable
             >
               Click here
             </a>{' '}
             to go back to the first page of results, or{' '}
             <a
               onClick={(event) =>
-                FrontEndUtils.handleLinkClick(event, pageRoot)
+                FrontEndUtils.handleLinkClick(
+                  event,
+                  FrontEndUtils.getAdjustedUrl(pageRoot)
+                )
               }
               href={FrontEndUtils.getAdjustedUrl(pageRoot)}
               className='text-secondary fw-bold'
-              style={{ cursor: 'pointer', textDecoration: 'underline' }}
             >
               start a new search
             </a>
