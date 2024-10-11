@@ -65,10 +65,7 @@ export default function RecipesList() {
         {data && (
           <>
             <div className='mt-4 mb-4'>
-              <div
-                data-guid='63ef264b-4e65-4cc4-9759-6d8c5af1b468'
-                className='row justify-content-center mb-4'
-              >
+              <div className='row justify-content-center mb-4'>
                 <div className='col-12 text-center mb-1'>
                   <h4>What Would You Like to Cook Today?</h4>
                 </div>
@@ -82,10 +79,7 @@ export default function RecipesList() {
 
               {/* Display search status if searchTerm exists */}
               {searchTerm && (
-                <div
-                  data-guid='469729c4-752e-4734-bf12-0ccf4f58e4e0'
-                  className='row justify-content-center mt-2'
-                >
+                <div className='row justify-content-center mt-2'>
                   <div className='col-12 text-center'>
                     <p>
                       Searching for "<strong>{searchTerm}</strong>",{' '}
@@ -100,9 +94,11 @@ export default function RecipesList() {
                 </div>
               )}
 
-              {/* Check if there are no recipes and display a message */}
-              {data.recipes.length === 0 ? (
-                <NoRecipes searchTerm={searchTerm}></NoRecipes>
+              {/* Check if there are no recipes and display a custom message */}
+              {data.recipes.length === 0 && page > 1 ? (
+                <NoRecipes searchTerm={searchTerm} noMoreResults={true} />
+              ) : data.recipes.length === 0 ? (
+                <NoRecipes searchTerm={searchTerm} />
               ) : (
                 <>
                   <RecipeList recipes={data.recipes}></RecipeList>
