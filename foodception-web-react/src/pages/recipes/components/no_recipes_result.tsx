@@ -7,7 +7,7 @@ interface NoRecipesProps {
   noMoreResults?: boolean;
 }
 
-const NoRecipes: React.FC<NoRecipesProps> = ({
+const NoRecipesResult: React.FC<NoRecipesProps> = ({
   searchTerm,
   noMoreResults = false
 }) => {
@@ -114,4 +114,4 @@ const NoRecipes: React.FC<NoRecipesProps> = ({
   );
 };
 
-export default NoRecipes;
+export default NoRecipesResult;

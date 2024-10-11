@@ -10,7 +10,7 @@ import { useQuery } from '../../hooks/useQuery';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import RecipeSearch from './components/recipe_search';
 import { useNavigate } from 'react-router-dom';
-import NoRecipes from './components/no_recipes';
+import NoRecipesResult from './components/no_recipes_result';
 
 export default function RecipesList() {
   const query = useQuery();
@@ -96,9 +96,9 @@ export default function RecipesList() {
 
               {/* Check if there are no recipes and display a custom message */}
               {data.recipes.length === 0 && page > 1 ? (
-                <NoRecipes searchTerm={searchTerm} noMoreResults={true} />
+                <NoRecipesResult searchTerm={searchTerm} noMoreResults={true} />
               ) : data.recipes.length === 0 ? (
-                <NoRecipes searchTerm={searchTerm} />
+                <NoRecipesResult searchTerm={searchTerm} />
               ) : (
                 <>
                   <RecipeList recipes={data.recipes}></RecipeList>
