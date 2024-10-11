@@ -1,6 +1,9 @@
 import ParentWindowUtils from './ParentWindowUtils';
 
 export class FrontEndUtils {
+  static getPageRoot(): URL {
+    return new URL(window.location.pathname, window.location.origin);
+  }
   static handleLinkClick(event: React.MouseEvent<Element>, url: string): void {
     // Short-circuit if not inside an iframe
     if (!FrontEndUtils.isInsideIframe()) {

@@ -11,6 +11,7 @@ import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import RecipeSearch from './components/recipe_search';
 import { useNavigate } from 'react-router-dom';
 import NoRecipesResult from './components/no_recipes_result';
+import NoMoreRecipes from './components/no_more_recipes';
 
 export default function RecipesList() {
   const query = useQuery();
@@ -84,7 +85,7 @@ export default function RecipesList() {
                     <p>
                       Searching for "<strong>{searchTerm}</strong>",{' '}
                       <button
-                        className='link-button'
+                        className='link-button underlined'
                         onClick={(e) => handleClearSearch(e)}
                       >
                         Clear Search
@@ -96,7 +97,7 @@ export default function RecipesList() {
 
               {/* Check if there are no recipes and display a custom message */}
               {data.recipes.length === 0 && page > 1 ? (
-                <NoRecipesResult searchTerm={searchTerm} noMoreResults={true} />
+                <NoMoreRecipes searchTerm={searchTerm} />
               ) : data.recipes.length === 0 ? (
                 <NoRecipesResult searchTerm={searchTerm} />
               ) : (

@@ -79,6 +79,8 @@ h2 {
   color: rgba(51, 57, 66, 0.75);
 }
 
+ 
+
 
 .link-button {
   background: none;
@@ -90,6 +92,10 @@ h2 {
   cursor: pointer;
   padding: 0;
   margin: 0;
+}
+
+.link-button.underlined {
+  text-decoration: underline;
 }
 
 .link-button:hover,
