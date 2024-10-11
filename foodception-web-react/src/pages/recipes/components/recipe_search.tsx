@@ -66,8 +66,8 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
   };
 
   const handleSearch = () => {
+    setShowSuggestions(false); // Hide suggestions on search
     if (searchTerm !== lastSearchedTerm) {
-      setShowSuggestions(false); // Hide suggestions on search
       updateSearchQuery(searchTerm); // Update the URL with the current search term
       onSearch(searchTerm); // Trigger the search
       setLastSearchedTerm(searchTerm); // Update the last searched term
