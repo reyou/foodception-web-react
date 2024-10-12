@@ -48,24 +48,6 @@ export default function RecipesList() {
     }
   };
 
-  const handleSuggestionClick = (
-    event:
-      | React.MouseEvent<Element>
-      | React.TouchEvent<Element>
-      | React.PointerEvent<Element>,
-    suggestion: any
-  ) => {
-    const recipeUrl = `/recipes/${FrontEndUtils.slugify(suggestion.title)}/${
-      suggestion.id
-    }`;
-    if (FrontEndUtils.isInsideIframe()) {
-      const adjustedUrl = FrontEndUtils.getAdjustedUrl(recipeUrl);
-      FrontEndUtils.handleLinkClick(event, adjustedUrl);
-    } else {
-      navigate(recipeUrl);
-    }
-  };
-
   return (
     <div>
       <HeaderLayout
@@ -93,7 +75,7 @@ export default function RecipesList() {
                     initialSearchTerm={searchTerm}
                     onSearch={handleSearch}
                     apiEndpoint='/recipes/autocomplete'
-                    onSuggestionClick={handleSuggestionClick}
+                    baseUrl='/recipes'
                   />
                 </div>
               </div>

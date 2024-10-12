@@ -13,12 +13,10 @@ import DateUtils from '../../utils/DateUtils';
 import ErrorPanel from '../../components/error_message';
 import SearchAutoComplete from '../../components/search_auto_complete';
 import { useState } from 'react';
-import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import { useNavigate } from 'react-router-dom';
 
 function IngredientsPage() {
   const query = useQuery();
-  const navigate = useNavigate();
+
   // Set initial page from query or default to 1
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
@@ -29,24 +27,6 @@ function IngredientsPage() {
   const handleSearch = (term: string) => {
     if (term !== searchTerm) {
       setSearchTerm(term);
-    }
-  };
-
-  const handleSuggestionClick = (
-    event:
-      | React.MouseEvent<Element>
-      | React.TouchEvent<Element>
-      | React.PointerEvent<Element>,
-    suggestion: any
-  ) => {
-    const detailsUrl = `/ingredients/${FrontEndUtils.slugify(
-      suggestion.title
-    )}/${suggestion.id}`;
-    if (FrontEndUtils.isInsideIframe()) {
-      const adjustedUrl = FrontEndUtils.getAdjustedUrl(detailsUrl);
-      FrontEndUtils.handleLinkClick(event, adjustedUrl);
-    } else {
-      navigate(detailsUrl);
     }
   };
 
@@ -92,7 +72,7 @@ function IngredientsPage() {
                 initialSearchTerm={searchTerm}
                 onSearch={handleSearch}
                 apiEndpoint='/ingredients/autocomplete'
-                onSuggestionClick={handleSuggestionClick}
+                baseUrl='/ingredients'
               />
             </div>
           </div>

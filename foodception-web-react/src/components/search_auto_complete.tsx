@@ -10,17 +10,14 @@ interface SearchAutoCompleteProps {
   initialSearchTerm: string;
   onSearch: (term: string) => void;
   apiEndpoint: string;
-  onSuggestionClick: (
-    event: React.MouseEvent<Element> | React.TouchEvent<Element>,
-    suggestion: any
-  ) => void;
+  baseUrl: string;
 }
 
 const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
   initialSearchTerm,
   onSearch,
   apiEndpoint,
-  onSuggestionClick
+  baseUrl
 }) => {
   const clickHandledRef = useRef(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -106,7 +103,26 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
       event.preventDefault();
       setShowSuggestions(false);
       setSearchTerm(suggestion.title);
-      onSuggestionClick(event, suggestion);
+      navigateToTarget(event, suggestion);
+    }
+  };
+
+  const navigateToTarget = (
+    event:
+      | React.MouseEvent<Element>
+      | React.TouchEvent<Element>
+      | React.PointerEvent<Element>,
+    suggestion: any
+  ) => {
+    const detailsUrl = `${baseUrl}/${FrontEndUtils.slugify(suggestion.title)}/${
+      suggestion.id
+    }`;
+
+    if (FrontEndUtils.isInsideIframe()) {
+      const adjustedUrl = FrontEndUtils.getAdjustedUrl(detailsUrl);
+      FrontEndUtils.handleLinkClick(event, adjustedUrl);
+    } else {
+      navigate(detailsUrl); // Use the provided navigation function
     }
   };
 
