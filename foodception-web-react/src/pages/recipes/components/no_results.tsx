@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 
-interface NoRecipesResultProps {
+interface NoResultsProps {
   searchTerm: string;
 }
 
-const NoRecipesResult: React.FC<NoRecipesResultProps> = ({ searchTerm }) => {
+const NoResults: React.FC<NoResultsProps> = ({ searchTerm }) => {
   return (
     <Container className='mt-5'>
       <Row className='justify-content-center'>
@@ -90,4 +90,4 @@ const NoRecipesResult: React.FC<NoRecipesResultProps> = ({ searchTerm }) => {
   );
 };
 
-export default NoRecipesResult;
+export default NoResults;

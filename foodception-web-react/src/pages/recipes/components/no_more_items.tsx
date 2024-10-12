@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 
-interface NoMoreRecipesProps {
+interface NoMoreItemsProps {
   searchTerm: string;
 }
 
-const NoMoreRecipes: React.FC<NoMoreRecipesProps> = ({ searchTerm }) => {
+const NoMoreItems: React.FC<NoMoreItemsProps> = ({ searchTerm }) => {
   const pageRoot = FrontEndUtils.getPageRoot().toString();
   const firstPageUrl = new URL(pageRoot);
   firstPageUrl.searchParams.set('query', searchTerm);
@@ -51,4 +51,4 @@ const NoMoreRecipes: React.FC<NoMoreRecipesProps> = ({ searchTerm }) => {
   );
 };
 
-export default NoMoreRecipes;
+export default NoMoreItems;

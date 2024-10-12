@@ -7,15 +7,14 @@ import Pagination from '../../components/pagination';
 import RecipeList from '../../components/recipeList';
 import useFetch from '../../hooks/useFetch';
 import { useQuery } from '../../hooks/useQuery';
-import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import { useNavigate } from 'react-router-dom';
-import NoRecipesResult from './components/no_recipes_result';
-import NoMoreRecipes from './components/no_more_recipes';
+import NoResults from './components/no_results';
+import NoMoreItems from './components/no_more_items';
 import SearchAutoComplete from '../../components/search_auto_complete';
+import SearchStatus from '../../components/search_status';
 
 export default function RecipesList() {
   const query = useQuery();
-  const navigate = useNavigate();
+
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
   const [searchTerm, setSearchTerm] = useState<string>(
@@ -36,16 +35,8 @@ export default function RecipesList() {
     }
   };
 
-  const handleClearSearch = (event: React.MouseEvent<Element>) => {
-    const recipesListUrl = window.location.pathname;
-
-    if (FrontEndUtils.isInsideIframe()) {
-      const adjustedUrl = FrontEndUtils.getAdjustedUrl(recipesListUrl);
-      FrontEndUtils.handleLinkClick(event, adjustedUrl);
-    } else {
-      setSearchTerm('');
-      navigate(recipesListUrl);
-    }
+  const handleSearchCleared = () => {
+    setSearchTerm('');
   };
 
   return (
@@ -80,28 +71,18 @@ export default function RecipesList() {
                 </div>
               </div>
 
-              {/* Display search status if searchTerm exists */}
               {searchTerm && (
-                <div className='row justify-content-center mt-2'>
-                  <div className='col-12 text-center'>
-                    <p>
-                      Searching for "<strong>{searchTerm}</strong>",{' '}
-                      <button
-                        className='link-button underlined'
-                        onClick={(e) => handleClearSearch(e)}
-                      >
-                        Clear Search
-                      </button>
-                    </p>
-                  </div>
-                </div>
+                <SearchStatus
+                  searchTerm={searchTerm}
+                  onClearSearch={handleSearchCleared}
+                />
               )}
 
               {/* Check if there are no recipes and display a custom message */}
               {data.recipes.length === 0 && page > 1 ? (
-                <NoMoreRecipes searchTerm={searchTerm} />
+                <NoMoreItems searchTerm={searchTerm} />
               ) : data.recipes.length === 0 ? (
-                <NoRecipesResult searchTerm={searchTerm} />
+                <NoResults searchTerm={searchTerm} />
               ) : (
                 <>
                   <RecipeList recipes={data.recipes}></RecipeList>

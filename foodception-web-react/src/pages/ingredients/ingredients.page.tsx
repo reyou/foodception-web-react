@@ -13,6 +13,9 @@ import DateUtils from '../../utils/DateUtils';
 import ErrorPanel from '../../components/error_message';
 import SearchAutoComplete from '../../components/search_auto_complete';
 import { useState } from 'react';
+import SearchStatus from '../../components/search_status';
+import NoMoreItems from '../recipes/components/no_more_items';
+import NoResults from '../recipes/components/no_results';
 
 function IngredientsPage() {
   const query = useQuery();
@@ -24,10 +27,18 @@ function IngredientsPage() {
     query.get('query') || ''
   );
 
+  const { data, loading, error } = useFetch(
+    `/ingredients?query=${searchTerm}&skip=${skip}`
+  );
+
   const handleSearch = (term: string) => {
     if (term !== searchTerm) {
       setSearchTerm(term);
     }
+  };
+
+  const handleSearchCleared = () => {
+    setSearchTerm('');
   };
 
   let subtitle = StorageUtils.getItemWithExpiry('subtitle');
@@ -46,8 +57,6 @@ function IngredientsPage() {
       DateUtils.oneWeekInMs
     );
   }
-
-  const { data, loading, error } = useFetch(`/ingredients?skip=${skip}`);
 
   const content = () => {
     if (loading) {
@@ -76,18 +85,38 @@ function IngredientsPage() {
               />
             </div>
           </div>
+
+          {searchTerm && (
+            <SearchStatus
+              searchTerm={searchTerm}
+              onClearSearch={handleSearchCleared}
+            />
+          )}
+
           <div className='row justify-content-center mt-4'>
-            {data.ingredients.map((ingredient: any) => {
-              const ingredientImage = ingredient.ingredientImages[0];
-              return (
-                <IngredientCard
-                  key={ingredient.id}
-                  ingredient={ingredient}
-                  ingredientImage={ingredientImage}
-                ></IngredientCard>
-              );
-            })}
-            <Pagination currentPage={page}></Pagination>
+            {/* Check if there are no ingredients and display a custom message */}
+            {data.ingredients.length === 0 && page > 1 ? (
+              <NoMoreItems searchTerm={searchTerm} />
+            ) : data.ingredients.length === 0 ? (
+              <NoResults searchTerm={searchTerm} />
+            ) : (
+              <>
+                {/* Render the Ingredient List */}
+                {data.ingredients.map((ingredient: any) => {
+                  const ingredientImage = ingredient.ingredientImages[0]; // First image if available
+                  return (
+                    <IngredientCard
+                      key={ingredient.id}
+                      ingredient={ingredient}
+                      ingredientImage={ingredientImage}
+                    />
+                  );
+                })}
+
+                {/* Render Pagination */}
+                <Pagination currentPage={page} />
+              </>
+            )}
           </div>
         </div>
       </>
