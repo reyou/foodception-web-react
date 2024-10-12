@@ -33,7 +33,10 @@ function IngredientsPage() {
   };
 
   const handleSuggestionClick = (
-    event: React.MouseEvent<Element>,
+    event:
+      | React.MouseEvent<Element>
+      | React.TouchEvent<Element>
+      | React.PointerEvent<Element>,
     suggestion: any
   ) => {
     const detailsUrl = `/ingredients/${FrontEndUtils.slugify(

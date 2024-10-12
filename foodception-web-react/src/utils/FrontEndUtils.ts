@@ -4,18 +4,30 @@ export class FrontEndUtils {
   static getPageRoot(): URL {
     return new URL(window.location.pathname, window.location.origin);
   }
-  static handleLinkClick(event: React.MouseEvent<Element>, url: string): void {
+  static handleLinkClick(
+    event:
+      | React.MouseEvent<Element>
+      | React.TouchEvent<Element>
+      | React.PointerEvent<Element>,
+    url: string
+  ): void {
     // Short-circuit if not inside an iframe
     if (!FrontEndUtils.isInsideIframe()) {
       return; // Do nothing and let the default link behavior happen
     }
 
-    // Only act if it's a left-click (event.button === 0) and inside iframe
-    if (event.button === 0) {
-      event.preventDefault(); // Prevent default navigation behavior
-      ParentWindowUtils.postMessage({ type: 'redirect', url: url }); // Send message to parent window
+    // Type guard to check if the event is a MouseEvent
+    if ('button' in event && event.button !== 0) {
+      return; // Ignore non-left-clicks (e.g., right-clicks or middle-clicks)
     }
+
+    // Prevent default navigation behavior for both mouse and touch events
+    event.preventDefault();
+
+    // Send a message to the parent window for redirection
+    ParentWindowUtils.postMessage({ type: 'redirect', url: url });
   }
+
   static isInsideIframe() {
     return window.self !== window.top;
   }

@@ -1,25 +1,26 @@
 import { useEffect, useState, useRef } from 'react';
 import { InputGroup, FormControl, ListGroup, Button } from 'react-bootstrap';
 import debounce from 'lodash.debounce';
-import HttpProvider from '../../../providers/HttpProvider';
+
 import { useNavigate } from 'react-router-dom';
-import { FrontEndUtils } from '../../../utils/FrontEndUtils';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
+import HttpProvider from '../providers/HttpProvider';
 
 interface SearchAutoCompleteProps {
   initialSearchTerm: string;
   onSearch: (term: string) => void;
-  apiEndpoint: string; // Pass the API endpoint dynamically
+  apiEndpoint: string;
   onSuggestionClick: (
-    event: React.MouseEvent<Element>,
+    event: React.MouseEvent<Element> | React.TouchEvent<Element>,
     suggestion: any
-  ) => void; // Custom handler for suggestion click
+  ) => void;
 }
 
 const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
   initialSearchTerm,
   onSearch,
-  apiEndpoint, // New prop for endpoint
-  onSuggestionClick // New prop for custom suggestion click handling
+  apiEndpoint,
+  onSuggestionClick
 }) => {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [lastSearchedTerm, setLastSearchedTerm] = useState('');
@@ -79,14 +80,17 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
     }
   };
 
-  // The suggestion click is now handled by a passed-in prop (onSuggestionClick)
   const handleSuggestionClick = (
-    event: React.MouseEvent<Element>,
+    event:
+      | React.MouseEvent<Element>
+      | React.TouchEvent<Element>
+      | React.PointerEvent<Element>,
     suggestion: any
   ) => {
+    event.preventDefault();
     setShowSuggestions(false);
     setSearchTerm(suggestion.title);
-    onSuggestionClick(event, suggestion); // Trigger custom behavior
+    onSuggestionClick(event, suggestion);
   };
 
   const updateSearchQuery = (term: string) => {
@@ -164,6 +168,10 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
               key={suggestion.id}
               action
               onClick={(event) => handleSuggestionClick(event, suggestion)}
+              onTouchEnd={(event) => handleSuggestionClick(event, suggestion)}
+              onPointerDown={(event) =>
+                handleSuggestionClick(event, suggestion)
+              }
               className='d-flex align-items-start'
             >
               {suggestion.recipeImages &&

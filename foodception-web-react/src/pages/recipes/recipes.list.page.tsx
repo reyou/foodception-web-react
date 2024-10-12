@@ -8,10 +8,10 @@ import RecipeList from '../../components/recipeList';
 import useFetch from '../../hooks/useFetch';
 import { useQuery } from '../../hooks/useQuery';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import SearchAutoComplete from './components/recipe_search';
 import { useNavigate } from 'react-router-dom';
 import NoRecipesResult from './components/no_recipes_result';
 import NoMoreRecipes from './components/no_more_recipes';
+import SearchAutoComplete from '../../components/search_auto_complete';
 
 export default function RecipesList() {
   const query = useQuery();
@@ -49,7 +49,10 @@ export default function RecipesList() {
   };
 
   const handleSuggestionClick = (
-    event: React.MouseEvent<Element>,
+    event:
+      | React.MouseEvent<Element>
+      | React.TouchEvent<Element>
+      | React.PointerEvent<Element>,
     suggestion: any
   ) => {
     const recipeUrl = `/recipes/${FrontEndUtils.slugify(suggestion.title)}/${
