@@ -8,7 +8,7 @@ import RecipeList from '../../components/recipeList';
 import useFetch from '../../hooks/useFetch';
 import { useQuery } from '../../hooks/useQuery';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import RecipeSearch from './components/recipe_search';
+import SearchAutoComplete from './components/recipe_search';
 import { useNavigate } from 'react-router-dom';
 import NoRecipesResult from './components/no_recipes_result';
 import NoMoreRecipes from './components/no_more_recipes';
@@ -48,6 +48,21 @@ export default function RecipesList() {
     }
   };
 
+  const handleSuggestionClick = (
+    event: React.MouseEvent<Element>,
+    suggestion: any
+  ) => {
+    const recipeUrl = `/recipes/${FrontEndUtils.slugify(suggestion.title)}/${
+      suggestion.id
+    }`;
+    if (FrontEndUtils.isInsideIframe()) {
+      const adjustedUrl = FrontEndUtils.getAdjustedUrl(recipeUrl);
+      FrontEndUtils.handleLinkClick(event, adjustedUrl);
+    } else {
+      navigate(recipeUrl);
+    }
+  };
+
   return (
     <div>
       <HeaderLayout
@@ -71,9 +86,11 @@ export default function RecipesList() {
                   <h4>What Would You Like to Cook Today?</h4>
                 </div>
                 <div className='col-12 col-md-6 col-lg-4 col-xl-3'>
-                  <RecipeSearch
+                  <SearchAutoComplete
                     initialSearchTerm={searchTerm}
                     onSearch={handleSearch}
+                    apiEndpoint='/recipes/autocomplete'
+                    onSuggestionClick={handleSuggestionClick}
                   />
                 </div>
               </div>

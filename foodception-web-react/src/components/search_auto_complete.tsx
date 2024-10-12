@@ -5,14 +5,21 @@ import HttpProvider from '../../../providers/HttpProvider';
 import { useNavigate } from 'react-router-dom';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 
-interface RecipeSearchProps {
+interface SearchAutoCompleteProps {
   initialSearchTerm: string;
   onSearch: (term: string) => void;
+  apiEndpoint: string; // Pass the API endpoint dynamically
+  onSuggestionClick: (
+    event: React.MouseEvent<Element>,
+    suggestion: any
+  ) => void; // Custom handler for suggestion click
 }
 
-const RecipeSearch: React.FC<RecipeSearchProps> = ({
+const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
   initialSearchTerm,
-  onSearch
+  onSearch,
+  apiEndpoint, // New prop for endpoint
+  onSuggestionClick // New prop for custom suggestion click handling
 }) => {
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [lastSearchedTerm, setLastSearchedTerm] = useState('');
@@ -31,7 +38,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
       if (term.length > 1) {
         try {
           const data = await HttpProvider.get(
-            `/recipes/autocomplete?query=${term}`
+            `${apiEndpoint}?query=${term}` // Dynamically use the passed API endpoint
           );
           setSuggestions(data.results);
           setShowSuggestions(true);
@@ -43,14 +50,12 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
     }, 300)
   ).current;
 
-  // Cleanup for debounced function when component unmounts
   useEffect(() => {
     return () => {
       debouncedFetchSuggestions.cancel();
     };
   }, [debouncedFetchSuggestions]);
 
-  // Update the search term and trigger debounced suggestion fetch
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value;
     setSearchTerm(term);
@@ -66,34 +71,24 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
   };
 
   const handleSearch = () => {
-    setShowSuggestions(false); // Hide suggestions on search
+    setShowSuggestions(false);
     if (searchTerm !== lastSearchedTerm) {
-      updateSearchQuery(searchTerm); // Update the URL with the current search term
-      onSearch(searchTerm); // Trigger the search
-      setLastSearchedTerm(searchTerm); // Update the last searched term
+      updateSearchQuery(searchTerm);
+      onSearch(searchTerm);
+      setLastSearchedTerm(searchTerm);
     }
   };
 
+  // The suggestion click is now handled by a passed-in prop (onSuggestionClick)
   const handleSuggestionClick = (
     event: React.MouseEvent<Element>,
     suggestion: any
   ) => {
     setShowSuggestions(false);
     setSearchTerm(suggestion.title);
-
-    const recipeUrl = `/recipes/${FrontEndUtils.slugify(suggestion.title)}/${
-      suggestion.id
-    }`;
-
-    if (FrontEndUtils.isInsideIframe()) {
-      const adjustedUrl = FrontEndUtils.getAdjustedUrl(recipeUrl);
-      FrontEndUtils.handleLinkClick(event, adjustedUrl);
-    } else {
-      navigate(recipeUrl);
-    }
+    onSuggestionClick(event, suggestion); // Trigger custom behavior
   };
 
-  // Update the URL with the search query
   const updateSearchQuery = (term: string) => {
     const params = new URLSearchParams(window.location.search);
     params.set('page', '1');
@@ -123,7 +118,6 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
     }
   };
 
-  // Clear the search term
   const handleClearSearch = () => {
     setSearchTerm('');
     setSuggestions([]);
@@ -134,22 +128,21 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
     <div className='position-relative'>
       <InputGroup>
         <FormControl
-          placeholder='Search for recipes...'
+          placeholder='Search...'
           value={searchTerm}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onBlur={handleBlur}
           onFocus={handleFocus}
-          aria-label='Recipe Search'
+          aria-label='Search'
         />
-        {/* Conditionally render the clear "X" button */}
         {searchTerm && (
           <Button
             variant='outline-secondary'
-            className='position-absolute' // Remove .end-0
+            className='position-absolute'
             onClick={handleClearSearch}
             style={{
-              right: '73px', // Adjust this value to position the button correctly
+              right: '73px',
               top: '50%',
               transform: 'translateY(-50%)',
               zIndex: 10,
@@ -159,12 +152,7 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
             ✕
           </Button>
         )}
-        {/* Add Search Button */}
-        <Button
-          variant='primary'
-          onClick={handleSearch} // Trigger the search on button click
-        >
-          {/* You can replace this text with a magnifying glass icon */}
+        <Button variant='primary' onClick={handleSearch}>
           Search
         </Button>
       </InputGroup>
@@ -178,7 +166,6 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
               onClick={(event) => handleSuggestionClick(event, suggestion)}
               className='d-flex align-items-start'
             >
-              {/* Display the image if available */}
               {suggestion.recipeImages &&
                 suggestion.recipeImages.length > 0 && (
                   <img
@@ -212,4 +199,4 @@ const RecipeSearch: React.FC<RecipeSearchProps> = ({
   );
 };
 
-export default RecipeSearch;
+export default SearchAutoComplete;
