@@ -228,28 +228,28 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
               }}
               className='d-flex align-items-start'
             >
-              {suggestion.recipeImages &&
-                suggestion.recipeImages.length > 0 && (
-                  <img
-                    src={FrontEndUtils.getResizedImagePath(
-                      suggestion.recipeImages[0].imageUrl,
-                      50,
-                      50
-                    )}
-                    alt={suggestion.title}
-                    style={{
-                      width: '50px',
-                      height: '50px',
-                      objectFit: 'cover',
-                      marginRight: '10px'
-                    }}
-                  />
-                )}
+              {/* Display image if available */}
+              {suggestion.imageSrc && (
+                <img
+                  src={FrontEndUtils.getResizedImagePath(
+                    suggestion.imageSrc,
+                    50,
+                    50
+                  )}
+                  alt={suggestion.title}
+                  style={{
+                    width: '50px',
+                    height: '50px',
+                    objectFit: 'cover',
+                    marginRight: '10px'
+                  }}
+                />
+              )}
               <div>
                 <div style={{ fontWeight: 'bold' }}>{suggestion.title}</div>
                 <div style={{ fontSize: '0.85rem', color: '#666' }}>
-                  {suggestion.description.length > 100
-                    ? suggestion.description.substring(0, 100) + '...'
+                  {suggestion.description?.length > 100
+                    ? `${suggestion.description.substring(0, 100)}...`
                     : suggestion.description}
                 </div>
               </div>
