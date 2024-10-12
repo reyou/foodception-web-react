@@ -22,6 +22,8 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
   apiEndpoint,
   onSuggestionClick
 }) => {
+  const clickHandledRef = useRef(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [lastSearchedTerm, setLastSearchedTerm] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
@@ -80,6 +82,9 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
     }
   };
 
+  const isMobileDevice = () =>
+    /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   const handleSuggestionClick = (
     event:
       | React.MouseEvent<Element>
@@ -87,11 +92,42 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
       | React.PointerEvent<Element>,
     suggestion: any
   ) => {
-    event.preventDefault();
-    setShowSuggestions(false);
-    setSearchTerm(suggestion.title);
-    onSuggestionClick(event, suggestion);
+    if (clickHandledRef.current) {
+      // If the click has already been handled, exit early
+      return;
+    } else {
+      // If not handled yet, mark it as handled and proceed
+      clickHandledRef.current = true;
+      // Reset the click state after 300ms to allow future clicks
+      // Store the timeout in the ref
+      timeoutRef.current = setTimeout(() => {
+        clickHandledRef.current = false;
+      }, 300);
+      event.preventDefault();
+      setShowSuggestions(false);
+      setSearchTerm(suggestion.title);
+      onSuggestionClick(event, suggestion);
+    }
   };
+
+  // Handle pointer down only for desktops
+  const handlePointerDown = (
+    event: React.PointerEvent<Element>,
+    suggestion: any
+  ) => {
+    if (!isMobileDevice()) {
+      handleSuggestionClick(event, suggestion);
+    }
+  };
+
+  // Clear timeout if component unmounts or browser redirects
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const updateSearchQuery = (term: string) => {
     const params = new URLSearchParams(window.location.search);
@@ -161,17 +197,19 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
         </Button>
       </InputGroup>
 
+      {/* https://react-bootstrap.netlify.app/docs/components/list-group/ */}
       {showSuggestions && suggestions.length > 0 && searchTerm.length > 0 && (
         <ListGroup className='position-absolute' style={{ zIndex: 20 }}>
           {suggestions.map((suggestion) => (
             <ListGroup.Item
               key={suggestion.id}
               action
-              onClick={(event) => handleSuggestionClick(event, suggestion)}
-              onTouchEnd={(event) => handleSuggestionClick(event, suggestion)}
-              onPointerDown={(event) =>
-                handleSuggestionClick(event, suggestion)
-              }
+              onClick={(event) => {
+                handleSuggestionClick(event, suggestion);
+              }}
+              onPointerDown={(event) => {
+                handlePointerDown(event, suggestion);
+              }}
               className='d-flex align-items-start'
             >
               {suggestion.recipeImages &&
