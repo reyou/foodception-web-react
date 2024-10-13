@@ -1,3 +1,4 @@
+import { Row, Col } from 'react-bootstrap';
 import FoodceptionCardIngredientSteps from './cardIngredientSteps';
 
 interface RecipeStepsProps {
@@ -6,17 +7,16 @@ interface RecipeStepsProps {
 
 const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
   return (
-    <div>
-      {steps.map((step) => {
-        return (
+    <Row className='gy-4'>
+      {steps.map((step) => (
+        <Col xs={12} key={step.stepNumber}>
           <FoodceptionCardIngredientSteps
-            key={step.stepNumber}
             title={step.title}
             substeps={step.substeps}
-          ></FoodceptionCardIngredientSteps>
-        );
-      })}
-    </div>
+          />
+        </Col>
+      ))}
+    </Row>
   );
 };
 
