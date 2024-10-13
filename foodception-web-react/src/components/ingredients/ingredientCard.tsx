@@ -26,7 +26,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
           url={url}
           src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
           alt={ingredient.title}
-          badge='15 Recipes'
+          badge={`${ingredient.recipeCount} Recipes`}
           badgeUrl={recipesUrl}
         />
         <div className='card-body'>
