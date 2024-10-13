@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import IngredientsVisual from './ingredientsVisual';
 
 interface IngredientGroupsVisualProps {
@@ -45,23 +46,26 @@ const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
   };
 
   return (
-    <div className='container'>
-      <div className='row'>
+    <Container>
+      <Row>
         {ingredientGroups.map((group) => {
           const isGroupChecked = checkedIngredients[group.id]?.every(
             (checked) => checked
           );
+
           return (
-            <div
-              className='col-md-12'
+            <Col
+              md={12}
               key={group.id}
               data-guid='20916bd6-a969-4025-a38e-15d4291c9c1a'
+              className='mb-3'
             >
               <div className='p-2 h-100'>
                 <h3>{group.title}</h3>
-                <div className='form-check mb-2'>
-                  <input
-                    className='form-check-input'
+
+                {/* Group Checkbox */}
+                <Form.Check className='mb-2'>
+                  <Form.Check.Input
                     type='checkbox'
                     id={`groupCheckAll-${group.id}`}
                     checked={isGroupChecked || false}
@@ -69,13 +73,12 @@ const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
                       handleGroupCheckAllChange(group.id, e.target.checked)
                     }
                   />
-                  <label
-                    className='form-check-label'
-                    htmlFor={`groupCheckAll-${group.id}`}
-                  >
+                  <Form.Check.Label htmlFor={`groupCheckAll-${group.id}`}>
                     Have All
-                  </label>
-                </div>
+                  </Form.Check.Label>
+                </Form.Check>
+
+                {/* Render IngredientsVisual if the group exists in checkedIngredients */}
                 {Object.hasOwn(checkedIngredients, group.id) && (
                   <IngredientsVisual
                     recipeIngredients={group.recipeIngredients}
@@ -83,14 +86,14 @@ const IngredientGroupsVisual: React.FC<IngredientGroupsVisualProps> = ({
                     onCheckboxChange={(ingredientIndex: number) =>
                       handleCheckboxChange(group.id, ingredientIndex)
                     }
-                  ></IngredientsVisual>
+                  />
                 )}
               </div>
-            </div>
+            </Col>
           );
         })}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 

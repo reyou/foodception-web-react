@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, Button, Form } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionCardIngredientBodyProps {
@@ -27,36 +28,32 @@ const FoodceptionCardIngredientBody: React.FC<
   const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
 
   return (
-    <div className='card-body' data-guid='6904dfea-b61f-4e60-8c67-c3dde6aa7acf'>
-      <h5 className='card-title'>{FrontEndUtils.capitalizeText(title)}</h5>
-      <div className='form-check'>
-        <input
-          className='form-check-input'
+    <Card.Body data-guid='6904dfea-b61f-4e60-8c67-c3dde6aa7acf'>
+      <Card.Title>{FrontEndUtils.capitalizeText(title)}</Card.Title>
+
+      <Form.Group controlId={`ingredient-${ingredient.id}`} className='mb-3'>
+        <Form.Check
           type='checkbox'
-          id={`ingredient-${ingredient.id}`}
+          label='Have This'
           checked={checked}
           onChange={() => onCheckboxChange(index)}
         />
-        <label
-          className='form-check-label'
-          htmlFor={`ingredient-${ingredient.id}`}
-        >
-          Have This
-        </label>
-      </div>
-      <p className='card-text' data-guid='c918b681-9d93-4b75-af2f-865667a40642'>
+      </Form.Group>
+
+      <Card.Text data-guid='c918b681-9d93-4b75-af2f-865667a40642'>
         {description}
-      </p>
-      <a
+      </Card.Text>
+
+      <Button
         href={adjustedUrl}
-        className='btn btn-primary'
+        variant='primary'
         onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
         data-guid='4293f55b-825c-466b-952c-32614b8880ac'
         rel='noopener noreferrer'
       >
         {linkTitle}
-      </a>
-    </div>
+      </Button>
+    </Card.Body>
   );
 };
 

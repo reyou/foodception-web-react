@@ -1,3 +1,4 @@
+import { Row, Col } from 'react-bootstrap';
 import FoodceptionIngredientCard from './recipeIngredientCard';
 
 interface IngredientsVisualProps {
@@ -12,13 +13,14 @@ const IngredientsVisual: React.FC<IngredientsVisualProps> = ({
   onCheckboxChange
 }) => {
   return (
-    <div className='row'>
+    <Row>
       {recipeIngredients.map((recipeIngredient, index) => {
         const checked = checkedIngredients[index] || false;
         return (
-          <div
+          <Col
             key={index}
-            className='col-md-3 mb-3'
+            md={3}
+            className='mb-3'
             data-guid='3949f5c3-cb19-460b-ba5f-576d3ea593c1'
           >
             <FoodceptionIngredientCard
@@ -29,12 +31,12 @@ const IngredientsVisual: React.FC<IngredientsVisualProps> = ({
               index={index}
               recipeIngredient={recipeIngredient}
               checked={checked}
-              onCheckboxChange={(index: number) => onCheckboxChange(index)}
-            ></FoodceptionIngredientCard>
-          </div>
+              onCheckboxChange={onCheckboxChange}
+            />
+          </Col>
         );
       })}
-    </div>
+    </Row>
   );
 };
 

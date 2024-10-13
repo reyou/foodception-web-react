@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import FoodceptionCardHrefImage from './cardHrefImage';
 import FoodceptionCardIngredientBody from './cardIngredientBody';
@@ -23,8 +24,9 @@ const FoodceptionIngredientCard: React.FC<FoodceptionIngredientCardProps> = ({
   const url = `/ingredients/${FrontEndUtils.slugify(
     recipeIngredient.ingredient.title
   )}/${recipeIngredient.ingredient.id}`;
+
   return (
-    <div className='card' data-guid='f07f638d-7b54-4cfc-9014-febbebf2d9fb'>
+    <Card data-guid='f07f638d-7b54-4cfc-9014-febbebf2d9fb'>
       <FoodceptionCardHrefImage
         url={url}
         src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
@@ -38,9 +40,9 @@ const FoodceptionIngredientCard: React.FC<FoodceptionIngredientCardProps> = ({
         index={index}
         ingredient={recipeIngredient.ingredient}
         checked={checked}
-        onCheckboxChange={(index: number) => onCheckboxChange(index)}
-      ></FoodceptionCardIngredientBody>
-    </div>
+        onCheckboxChange={onCheckboxChange}
+      />
+    </Card>
   );
 };
 
