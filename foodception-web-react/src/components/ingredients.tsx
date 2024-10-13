@@ -1,3 +1,4 @@
+import { Form } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface IngredientsProps {
@@ -12,24 +13,20 @@ const Ingredients: React.FC<IngredientsProps> = ({
   onCheckboxChange
 }) => {
   return (
-    <ul className='list-unstyled'>
+    <ul
+      data-guid='4e5f9c25-58d4-4951-a502-897021316d9f'
+      className='list-unstyled'
+    >
       {ingredients.map((ingredient: any, index: number) => (
         <li key={ingredient.id} className='mb-2'>
-          <div className='form-check'>
-            <input
-              className='form-check-input'
-              type='checkbox'
-              id={`ingredient-${ingredient.id}`}
-              checked={checkedIngredients[index] || false}
-              onChange={() => onCheckboxChange(index)}
-            />
-            <label
-              className='form-check-label fs-5'
-              htmlFor={`ingredient-${ingredient.id}`}
-            >
-              {FrontEndUtils.capitalizeText(ingredient.ingredient.title)}
-            </label>
-          </div>
+          <Form.Check
+            type='checkbox'
+            id={`ingredient-${ingredient.id}`}
+            checked={checkedIngredients[index] || false}
+            onChange={() => onCheckboxChange(index)}
+            label={FrontEndUtils.capitalizeText(ingredient.ingredient.title)}
+            className='fs-5'
+          />
         </li>
       ))}
     </ul>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import Ingredients from './ingredients';
 
 interface IngredientGroupsProps {
@@ -45,20 +46,22 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
   };
 
   return (
-    <div className='container'>
-      <div className='row'>
+    <Container
+      data-guid='3d186150-0d46-4c79-906e-45e347984b66'
+      className='mt-4'
+    >
+      <Row className='gy-4'>
         {ingredientGroups.map((group) => {
           const isGroupChecked = checkedIngredients[group.id]?.every(
             (checked) => checked
           );
 
           return (
-            <div className='col-md-3' key={group.id}>
+            <Col md={3} key={group.id}>
               <div className='p-2 h-100'>
                 <h3>{group.title}</h3>
-                <div className='form-check mb-2'>
-                  <input
-                    className='form-check-input'
+                <Form.Check className='mb-2'>
+                  <Form.Check.Input
                     type='checkbox'
                     id={`groupCheckAll-${group.id}`}
                     checked={isGroupChecked || false}
@@ -66,13 +69,10 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
                       handleGroupCheckAllChange(group.id, e.target.checked)
                     }
                   />
-                  <label
-                    className='form-check-label'
-                    htmlFor={`groupCheckAll-${group.id}`}
-                  >
+                  <Form.Check.Label htmlFor={`groupCheckAll-${group.id}`}>
                     <i>Have All</i>
-                  </label>
-                </div>
+                  </Form.Check.Label>
+                </Form.Check>
                 <Ingredients
                   ingredients={group.recipeIngredients}
                   checkedIngredients={checkedIngredients[group.id] || []}
@@ -81,11 +81,11 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
                   }
                 />
               </div>
-            </div>
+            </Col>
           );
         })}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 };
 
