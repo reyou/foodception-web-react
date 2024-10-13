@@ -101,7 +101,6 @@ function IngredientsPage() {
               <NoResults searchTerm={searchTerm} />
             ) : (
               <>
-                {/* Render the Ingredient List */}
                 {data.ingredients.map((ingredient: any) => {
                   const ingredientImage = ingredient.ingredientImages[0]; // First image if available
                   return (
@@ -113,7 +112,6 @@ function IngredientsPage() {
                   );
                 })}
 
-                {/* Render Pagination */}
                 <Pagination currentPage={page} />
               </>
             )}
