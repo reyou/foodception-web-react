@@ -25,7 +25,7 @@ export default function MealCategories() {
     );
   }
   return (
-    <Container fluid className='my-5'>
+    <Container fluid>
       <Row className='text-center'>
         <Col>
           <FoodceptionHeader>Meals</FoodceptionHeader>
