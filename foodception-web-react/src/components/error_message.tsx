@@ -1,15 +1,17 @@
+import { Alert, Container } from 'react-bootstrap';
+
 interface ErrorPanelProps {
   errorMessage: string;
 }
 
 const ErrorPanel = ({ errorMessage }: ErrorPanelProps) => {
   return (
-    <div className='container mt-4'>
-      <div className='alert alert-danger' role='alert'>
-        <h4 className='alert-heading'>Error</h4>
+    <Container className='mt-4'>
+      <Alert variant='danger'>
+        <Alert.Heading>Error</Alert.Heading>
         <p>{errorMessage}</p>
-      </div>
-    </div>
+      </Alert>
+    </Container>
   );
 };
 

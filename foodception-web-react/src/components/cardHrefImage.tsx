@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionCardHrefImageProps {
@@ -6,7 +7,7 @@ interface FoodceptionCardHrefImageProps {
   src: string;
   alt: string;
   badge?: string;
-  badgeUrl?: string; // New optional URL for badge
+  badgeUrl?: string;
 }
 
 const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
@@ -18,6 +19,7 @@ const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
 }) => {
   return (
     <div className='position-relative'>
+      {/* Main Image Link */}
       <a
         href={FrontEndUtils.getAdjustedUrl(url)}
         onClick={(event) =>
@@ -27,14 +29,16 @@ const FoodceptionCardHrefImage: React.FC<FoodceptionCardHrefImageProps> = ({
           )
         }
       >
-        <img
+        <Image
           data-guid='b460664c-0eb3-431c-a176-f0e337457e41'
           src={src}
           alt={alt}
           className='card-img-top'
+          fluid
         />
       </a>
 
+      {/* Badge: Conditional Rendering as <a> or <div> */}
       {badge &&
         (badgeUrl ? (
           <a

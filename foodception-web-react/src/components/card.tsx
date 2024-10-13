@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, Col } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import FoodceptionCardBody from './cardBody';
 import FoodceptionCardHrefImage from './cardHrefImage';
@@ -19,8 +20,8 @@ const FoodceptionCard: React.FC<FoodceptionCardProps> = ({
   imageUrl
 }) => {
   return (
-    <div className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4'>
-      <div className='card'>
+    <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
+      <Card>
         <FoodceptionCardHrefImage
           url={url}
           src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
@@ -31,9 +32,9 @@ const FoodceptionCard: React.FC<FoodceptionCardProps> = ({
           description={description}
           linkTitle={urlTitle}
           url={url}
-        ></FoodceptionCardBody>
-      </div>
-    </div>
+        />
+      </Card>
+    </Col>
   );
 };
 

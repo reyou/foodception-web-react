@@ -1,3 +1,4 @@
+import { Row } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import FoodceptionCard from './card';
 
@@ -7,24 +8,24 @@ interface MealCategoriesListProps {
 
 const MealCategoriesList: React.FC<MealCategoriesListProps> = ({ meals }) => {
   return (
-    <div className='row justify-content-center'>
+    <Row className='justify-content-center'>
       {meals.map((meal) => {
         const categoryLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
           meal.id
         }/recipes`;
         const categoryImage = meal.mealImages[0];
+
         return (
           <FoodceptionCard
-            key={meal.id}
             title={meal.name}
             description={meal.description}
             url={categoryLink}
             urlTitle='View Recipes'
             imageUrl={categoryImage.imageUrl}
-          ></FoodceptionCard>
+          />
         );
       })}
-    </div>
+    </Row>
   );
 };
 

@@ -10,7 +10,7 @@ import Layout from './Layout';
 import Countries from './pages/countries/countries';
 import CountryDetails from './pages/countries/countryDetails';
 import IngredientsPage from './pages/ingredients/ingredients.page';
-import MealCategories from './pages/mealCategories';
+import MealCategories from './pages/mealCategories.page';
 import MealRecipes from './pages/mealRecipes';
 import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipeCategories';
