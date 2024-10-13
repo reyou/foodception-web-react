@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Modal, Button } from 'react-bootstrap';
 import YouTube, { YouTubeProps } from 'react-youtube';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionModalProps {
   show: boolean;
-  videoData: any;
+  videoData: any | null;
   clickedElementY: number;
   onClose: () => void;
 }
@@ -18,7 +19,7 @@ const FoodceptionModal: React.FC<FoodceptionModalProps> = ({
   const [fadeIn, setFadeIn] = useState(false);
   const [modalStyle, setModalStyle] = useState<React.CSSProperties>({});
 
-  // Handle the fade-in and fade-out effect
+  // Handle fade-in and modal positioning effect
   useEffect(() => {
     if (show) {
       setFadeIn(true);
@@ -35,57 +36,49 @@ const FoodceptionModal: React.FC<FoodceptionModalProps> = ({
     }
   }, [show, clickedElementY]);
 
+  // YouTube player options
+  // https://developers.google.com/youtube/player_parameters
   const opts: YouTubeProps['opts'] = {
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
       autoplay: 0
     }
   };
 
+  // Don't render modal if videoData is missing
+  if (!show || !videoData) return null;
+
   return (
-    <>
-      {show && (
-        <div
-          className={`modal fade ${fadeIn ? 'show d-block' : ''}`}
-          tabIndex={-1}
-          style={{
-            backgroundColor: fadeIn ? 'rgba(0,0,0,0.5)' : 'transparent'
-          }}
-        >
-          <div className='modal-dialog modal-lg' style={modalStyle}>
-            <div className='modal-content'>
-              <div className='modal-header'>
-                <h5 className='modal-title'>{videoData.title}</h5>
-                <button
-                  type='button'
-                  className='btn-close'
-                  onClick={onClose}
-                ></button>
-              </div>
-              <div className='modal-body'>
-                {/* https://www.npmjs.com/package/react-youtube */}
-                <YouTube
-                  videoId={videoData.videoId}
-                  className='foodceptionYoutubeVideoPlayer'
-                  iframeClassName='foodceptionYoutubeVideoPlayerIframe'
-                  opts={opts}
-                />
-                <p>{videoData.description}</p>
-              </div>
-              <div className='modal-footer'>
-                <button
-                  type='button'
-                  className='btn btn-secondary'
-                  onClick={onClose}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+    <Modal
+      show={show}
+      onHide={onClose}
+      centered
+      size='lg'
+      className={`fade ${fadeIn ? 'show' : ''}`}
+      style={{
+        backgroundColor: fadeIn ? 'rgba(0,0,0,0.5)' : 'transparent',
+        ...modalStyle
+      }}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>{videoData?.title || 'No Title Available'}</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        <YouTube
+          videoId={videoData.videoId}
+          className='foodceptionYoutubeVideoPlayer'
+          iframeClassName='foodceptionYoutubeVideoPlayerIframe'
+          opts={opts}
+        />
+        <p>{videoData?.description || 'No description available.'}</p>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant='secondary' onClick={onClose}>
+          Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
