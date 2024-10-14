@@ -35,6 +35,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
   useEffect(() => {
     if (selectedVideoIndex !== null && focusRef.current) {
       focusRef.current.focus();
+      focusRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [selectedVideoIndex]);
 
