@@ -22,7 +22,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
     null
   );
 
-  const focusRef = useRef<HTMLInputElement>(null);
+  const focusRef = useRef<HTMLDivElement>(null);
 
   const handleWatchClicked = (index: number) => {
     setSelectedVideoIndex((prev) => (prev === index ? null : index));
@@ -82,12 +82,11 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
                     </Card.Body>
 
                     <Card.Footer className='d-flex justify-content-end'>
-                      {/* Hidden input for focusing */}
-                      <input
-                        type='text'
+                      {/* Hidden focusable div */}
+                      <div
                         ref={focusRef}
-                        style={{ opacity: 0, height: 0 }}
-                        aria-hidden='true'
+                        tabIndex={-1}
+                        style={{ outline: 'none' }}
                       />
                       <Button variant='secondary' onClick={handleCloseVideo}>
                         Close
