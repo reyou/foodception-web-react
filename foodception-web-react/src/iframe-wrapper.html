@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React App in iframe</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 24px;
+      }
+
+      footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 16px;
+        bottom: 0;
+        width: 100%;
+      }
+
+      iframe {
+        width: 100%;
+        height: 5000px;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Wrapper Header: Embedded React App</h1>
+    </header>
+
+    <iframe
+      src="http://localhost:3000/recipes/chicken-moambe/4b2fa404-b694-492d-9587-775bf76a4130"
+    ></iframe>
+
+    <footer>
+      <p>Wrapper Footer: © 2024 Foodception</p>
+    </footer>
+  </body>
+</html>
