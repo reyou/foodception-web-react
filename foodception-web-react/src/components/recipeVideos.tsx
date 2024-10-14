@@ -21,19 +21,20 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
   const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(
     null
   );
-  const videoRef = useRef<HTMLDivElement>(null);
+
+  const focusRef = useRef<HTMLInputElement>(null);
 
   const handleWatchClicked = (index: number) => {
-    setSelectedVideoIndex((prev) => (prev === index ? null : index)); // Toggle video
+    setSelectedVideoIndex((prev) => (prev === index ? null : index));
   };
 
   const handleCloseVideo = () => {
-    setSelectedVideoIndex(null); // Reset selected video
+    setSelectedVideoIndex(null);
   };
 
   useEffect(() => {
-    if (selectedVideoIndex !== null && videoRef.current) {
-      videoRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (selectedVideoIndex !== null && focusRef.current) {
+      focusRef.current.focus();
     }
   }, [selectedVideoIndex]);
 
@@ -57,7 +58,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
                 className='justify-content-center mt-3 mb-4'
                 key={`video-row-${index}`}
               >
-                <Col xs={12} className='mt-3' ref={videoRef}>
+                <Col xs={12} className='mt-3'>
                   <Card className='w-100'>
                     <Card.Header className='d-flex justify-content-between align-items-center'>
                       <strong className='me-auto'>{video.title}</strong>
@@ -81,6 +82,13 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
                     </Card.Body>
 
                     <Card.Footer className='d-flex justify-content-end'>
+                      {/* Hidden input for focusing */}
+                      <input
+                        type='text'
+                        ref={focusRef}
+                        style={{ opacity: 0, height: 0 }}
+                        aria-hidden='true'
+                      />
                       <Button variant='secondary' onClick={handleCloseVideo}>
                         Close
                       </Button>
