@@ -21,7 +21,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
   const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(
     null
   );
-  const videoPanelRef = useRef<HTMLDivElement>(null); // Ref for the video panel
+  const videoPanelRef = useRef<HTMLDivElement>(null);
 
   const handleWatchClicked = (index: number) => {
     setSelectedVideoIndex((prev) => (prev === index ? null : index));
@@ -38,8 +38,8 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
       setTimeout(() => {
         videoPanelRef.current?.scrollIntoView({
           behavior,
-          block: 'center', // Centers the element vertically
-          inline: 'nearest' // No horizontal scroll change
+          block: 'center',
+          inline: 'nearest'
         });
       }, 500);
     }
@@ -50,17 +50,19 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
       <Row className='gy-4'>
         {youtubeChannelVideos.map((video, index) => (
           <React.Fragment key={video.id}>
-            {/* Render the video card */}
-            <Col xs={12} sm={6} md={4} className='mb-3'>
-              <RecipeVideoCard
-                youTubeChannelVideo={video}
-                youTubeChannelVideoImages={video.youtubeChannelVideoImages}
-                youTubeChannel={video.youtubeChannel}
-                onWatchClicked={() => handleWatchClicked(index)}
-              />
-            </Col>
+            {/* Only show the video card if it is not selected */}
+            {selectedVideoIndex !== index && (
+              <Col xs={12} sm={6} md={4} className='mb-3'>
+                <RecipeVideoCard
+                  youTubeChannelVideo={video}
+                  youTubeChannelVideoImages={video.youtubeChannelVideoImages}
+                  youTubeChannel={video.youtubeChannel}
+                  onWatchClicked={() => handleWatchClicked(index)}
+                />
+              </Col>
+            )}
 
-            {/* Conditionally render the video panel right after the clicked video */}
+            {/* Conditionally render the video panel right after the clicked card */}
             {selectedVideoIndex === index && (
               <Col xs={12}>
                 <Card className='w-100'>
