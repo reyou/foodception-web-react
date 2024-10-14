@@ -35,11 +35,13 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
     if (selectedVideoIndex !== null && videoPanelRef.current) {
       const behavior = 'smooth';
 
-      videoPanelRef.current.scrollIntoView({
-        behavior,
-        block: 'center', // Centers the element vertically
-        inline: 'nearest' // No horizontal scroll change
-      });
+      setTimeout(() => {
+        videoPanelRef.current?.scrollIntoView({
+          behavior,
+          block: 'center', // Centers the element vertically
+          inline: 'nearest' // No horizontal scroll change
+        });
+      }, 500);
     }
   }, [selectedVideoIndex]);
 
@@ -60,46 +62,36 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
 
             {/* Conditionally render the video panel right after the clicked video */}
             {selectedVideoIndex === index && (
-              <>
-                {' '}
-                <Col xs={12}>
-                  <Card className='w-100'>
-                    <Card.Header className='d-flex justify-content-between align-items-center'>
-                      <strong className='me-auto'>{video.title}</strong>
-                      <CloseButton onClick={handleCloseVideo} />
-                    </Card.Header>
+              <Col xs={12}>
+                <Card className='w-100'>
+                  <Card.Header className='d-flex justify-content-between align-items-center'>
+                    <strong className='me-auto'>{video.title}</strong>
+                    <CloseButton onClick={handleCloseVideo} />
+                  </Card.Header>
 
-                    <Card.Body>
-                      <YouTube
-                        videoId={video.videoId}
-                        className='foodceptionYoutubeVideoPlayer'
-                        iframeClassName='foodceptionYoutubeVideoPlayerIframe'
-                        opts={{
-                          height: '480',
-                          width: '100%',
-                          playerVars: { autoplay: 0 }
-                        }}
-                      />
-                      <p className='mt-3'>
-                        {video.description || 'No description available.'}
-                      </p>
-                    </Card.Body>
+                  <Card.Body ref={videoPanelRef}>
+                    <YouTube
+                      videoId={video.videoId}
+                      className='foodceptionYoutubeVideoPlayer'
+                      iframeClassName='foodceptionYoutubeVideoPlayerIframe'
+                      opts={{
+                        height: '480',
+                        width: '100%',
+                        playerVars: { autoplay: 0 }
+                      }}
+                    />
+                    <p className='mt-3'>
+                      {video.description || 'No description available.'}
+                    </p>
+                  </Card.Body>
 
-                    <Card.Footer className='d-flex justify-content-end'>
-                      <Button variant='secondary' onClick={handleCloseVideo}>
-                        Close
-                      </Button>
-                    </Card.Footer>
-                  </Card>
-                </Col>
-                <div
-                  style={{
-                    display: 'block',
-                    height: '200px'
-                  }}
-                ></div>
-                <div ref={videoPanelRef}></div>
-              </>
+                  <Card.Footer className='d-flex justify-content-end'>
+                    <Button variant='secondary' onClick={handleCloseVideo}>
+                      Close
+                    </Button>
+                  </Card.Footer>
+                </Card>
+              </Col>
             )}
           </React.Fragment>
         ))}
