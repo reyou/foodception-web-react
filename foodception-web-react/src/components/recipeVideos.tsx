@@ -30,14 +30,17 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
   };
 
   const handleCloseVideo = () => {
-    if (selectedVideoIndex !== null && cardRefs.current[selectedVideoIndex]) {
-      cardRefs.current[selectedVideoIndex]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'nearest'
-      });
-    }
     setSelectedVideoIndex(null);
+
+    setTimeout(() => {
+      if (selectedVideoIndex !== null && cardRefs.current[selectedVideoIndex]) {
+        cardRefs.current[selectedVideoIndex]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest'
+        });
+      }
+    }, 500);
   };
 
   useEffect(() => {
