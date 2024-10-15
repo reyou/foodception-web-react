@@ -21,6 +21,8 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
   const [selectedVideoIndex, setSelectedVideoIndex] = useState<number | null>(
     null
   );
+
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const videoPanelRef = useRef<HTMLDivElement>(null);
 
   const handleWatchClicked = (index: number) => {
@@ -28,13 +30,19 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
   };
 
   const handleCloseVideo = () => {
+    if (selectedVideoIndex !== null && cardRefs.current[selectedVideoIndex]) {
+      cardRefs.current[selectedVideoIndex]?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'nearest'
+      });
+    }
     setSelectedVideoIndex(null);
   };
 
   useEffect(() => {
     if (selectedVideoIndex !== null && videoPanelRef.current) {
       const behavior = 'smooth';
-
       setTimeout(() => {
         videoPanelRef.current?.scrollIntoView({
           behavior,
@@ -53,12 +61,14 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
             {/* Only show the video card if it is not selected */}
             {selectedVideoIndex !== index && (
               <Col xs={12} sm={6} md={4} className='mb-3'>
-                <RecipeVideoCard
-                  youTubeChannelVideo={video}
-                  youTubeChannelVideoImages={video.youtubeChannelVideoImages}
-                  youTubeChannel={video.youtubeChannel}
-                  onWatchClicked={() => handleWatchClicked(index)}
-                />
+                <div ref={(el) => (cardRefs.current[index] = el)}>
+                  <RecipeVideoCard
+                    youTubeChannelVideo={video}
+                    youTubeChannelVideoImages={video.youtubeChannelVideoImages}
+                    youTubeChannel={video.youtubeChannel}
+                    onWatchClicked={() => handleWatchClicked(index)}
+                  />
+                </div>
               </Col>
             )}
 
