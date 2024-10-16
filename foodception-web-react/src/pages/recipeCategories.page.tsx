@@ -1,3 +1,4 @@
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/links/hrefButton';
 import RecipeCategoriesList from '../components/recipeCategoriesList';
@@ -5,6 +6,7 @@ import useShowHeader from '../hooks/useShowHeader';
 import useFetch from '../hooks/useFetch';
 import { useSearchParams } from 'react-router-dom';
 import ErrorPanel from '../components/error_message';
+import LoadingPanel from '../components/loading_panel';
 
 export default function RecipeCategories() {
   const maxLimit = 500;
@@ -18,7 +20,7 @@ export default function RecipeCategories() {
   );
 
   if (loading) {
-    return <div className='text-center'>Loading...</div>;
+    return <LoadingPanel visible={loading}></LoadingPanel>;
   }
 
   if (error) {
@@ -26,20 +28,32 @@ export default function RecipeCategories() {
   }
 
   if (!data) {
-    return <div className='text-center'>No data available</div>;
+    return (
+      <Container className='text-center mt-5'>
+        <p>No data available</p>
+      </Container>
+    );
   }
 
   return (
-    <div>
+    <Container fluid>
       {showHeader && <FoodceptionHeader>Categories</FoodceptionHeader>}
-      <RecipeCategoriesList recipeCategories={data.recipeCategories} />
+
+      <Row>
+        <Col>
+          <RecipeCategoriesList recipeCategories={data.recipeCategories} />
+        </Col>
+      </Row>
+
       {limit < maxLimit && (
-        <div className='text-center'>
-          <FoodceptionHrefButton url='/recipe-categories'>
-            View All Categories
-          </FoodceptionHrefButton>
-        </div>
+        <Row className='text-center mt-4'>
+          <Col>
+            <FoodceptionHrefButton url='/recipe-categories'>
+              <Button variant='primary'>View All Categories</Button>
+            </FoodceptionHrefButton>
+          </Col>
+        </Row>
       )}
-    </div>
+    </Container>
   );
 }

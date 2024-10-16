@@ -13,7 +13,7 @@ import IngredientsPage from './pages/ingredients/ingredients.page';
 import MealCategories from './pages/mealCategories.page';
 import MealRecipes from './pages/mealRecipes';
 import Meals from './pages/meals.page';
-import RecipeCategories from './pages/recipeCategories';
+import RecipeCategories from './pages/recipeCategories.page';
 import RecipeCategoryDetail from './pages/recipeCategoryDetail';
 import RecipeDetails from './pages/recipeDetails.page';
 import RecipesList from './pages/recipes/recipes.list.page';
