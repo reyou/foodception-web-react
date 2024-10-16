@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 interface RecipeTimeInfoProps {
   totalTime: number;
@@ -14,24 +15,24 @@ const RecipeTimeInfo: React.FC<RecipeTimeInfoProps> = ({
   servingSize
 }) => {
   return (
-    <div className='d-flex flex-wrap justify-content-center mt-3'>
-      <div className='me-3'>
+    <Row className='justify-content-center mt-3'>
+      <Col xs='auto' className='me-3'>
         <strong className='fs-5'>Total Time:</strong>{' '}
         <span className='fs-5'>{totalTime} min</span>
-      </div>
-      <div className='me-3'>
+      </Col>
+      <Col xs='auto' className='me-3'>
         <strong className='fs-5'>Prep Time:</strong>{' '}
         <span className='fs-5'>{prepTime} min</span>
-      </div>
-      <div className='me-3'>
+      </Col>
+      <Col xs='auto' className='me-3'>
         <strong className='fs-5'>Cook Time:</strong>{' '}
         <span className='fs-5'>{cookTime} min</span>
-      </div>
-      <div>
+      </Col>
+      <Col xs='auto'>
         <strong className='fs-5'>Serves:</strong>{' '}
         <span className='fs-5'>{servingSize}</span>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 

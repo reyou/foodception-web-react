@@ -1,15 +1,17 @@
 import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/links/hrefButton';
+import LoadingPanel from '../components/loading_panel';
 import RecipeList from '../components/recipeList';
 import useFetch from '../hooks/useFetch';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export default function Meals() {
   const { data, loading, error } = useFetch('/meals');
 
   if (loading) {
-    return <div className='text-center'>Loading...</div>;
+    return <LoadingPanel visible={loading}></LoadingPanel>;
   }
 
   if (error) {
@@ -17,30 +19,57 @@ export default function Meals() {
   }
 
   if (!data) {
-    return <div className='text-center'>No data available</div>;
+    return (
+      <Container className='text-center mt-5'>
+        <p>No data available</p>
+      </Container>
+    );
   }
 
   const meals = data.meals;
 
-  return meals.map((meal: any) => {
-    const recipes = meal.mealRecipes.map((q: any) => q.recipe);
-    return (
-      <div key={meal.id}>
-        <FoodceptionHeader>
-          {FrontEndUtils.capitalizeText(meal.name)}
-        </FoodceptionHeader>
-        <h5 className='text-center mb-4'>{meal.description}</h5>
-        <RecipeList recipes={recipes}></RecipeList>
-        <div className='text-center mb-4'>
-          <FoodceptionHrefButton
-            url={`/meals/${FrontEndUtils.slugify(meal.name)}/${
-              meal.id
-            }/recipes`}
-          >
-            View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
-          </FoodceptionHrefButton>
-        </div>
-      </div>
-    );
-  });
+  return (
+    <Container fluid className='mt-5'>
+      {meals.map((meal: any) => {
+        const recipes = meal.mealRecipes.map((q: any) => q.recipe);
+        const mealLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
+          meal.id
+        }/recipes`;
+
+        return (
+          <div key={meal.id} className='mb-5'>
+            <Row className='mb-3'>
+              <Col>
+                <FoodceptionHeader>
+                  {FrontEndUtils.capitalizeText(meal.name)}
+                </FoodceptionHeader>
+              </Col>
+            </Row>
+
+            <Row className='mb-4'>
+              <Col className='text-center'>
+                <h5>{meal.description}</h5>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <RecipeList recipes={recipes} />
+              </Col>
+            </Row>
+
+            <Row className='text-center mt-4'>
+              <Col>
+                <FoodceptionHrefButton url={mealLink}>
+                  <Button variant='primary'>
+                    View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
+                  </Button>
+                </FoodceptionHrefButton>
+              </Col>
+            </Row>
+          </div>
+        );
+      })}
+    </Container>
+  );
 }
