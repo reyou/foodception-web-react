@@ -1,5 +1,8 @@
+import React from 'react';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+
 interface SearchStatusProps {
   searchTerm: string;
   onClearSearch: () => void;
@@ -10,6 +13,7 @@ const SearchStatus: React.FC<SearchStatusProps> = ({
   onClearSearch
 }) => {
   const navigate = useNavigate();
+
   const handleClearSearch = (event: React.MouseEvent<Element>) => {
     const recipesListUrl = window.location.pathname;
 
@@ -23,19 +27,22 @@ const SearchStatus: React.FC<SearchStatusProps> = ({
   };
 
   return (
-    <div className='row justify-content-center mt-2'>
-      <div className='col-12 text-center'>
-        <p>
-          Searching for "<strong>{searchTerm}</strong>",{' '}
-          <button
-            className='link-button underlined'
-            onClick={handleClearSearch}
-          >
-            Clear Search
-          </button>
-        </p>
-      </div>
-    </div>
+    <Container className='mt-2'>
+      <Row className='justify-content-center'>
+        <Col xs={12} className='text-center'>
+          <p>
+            Searching for "<strong>{searchTerm}</strong>",{' '}
+            <Button
+              variant='link'
+              className='link-button underlined'
+              onClick={handleClearSearch}
+            >
+              Clear Search
+            </Button>
+          </p>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

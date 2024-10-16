@@ -1,3 +1,5 @@
+import React from 'react';
+import { Card, Button } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import FoodceptionCardHrefImage from './cardHrefImage';
 
@@ -12,52 +14,60 @@ const FoodceptionTrendingRecipeVideoCard: React.FC<
   youTubeChannelVideo.youtubeChannelVideoImages.sort(
     (a: any, b: any) => b.width - a.width
   );
+
   const imageUrl = youTubeChannelVideo.youtubeChannelVideoImages[0].url;
   const slug = FrontEndUtils.slugify(recipeVideo.recipe.title);
   const url = `/recipes/${slug}/videos/${recipeVideo.id}`;
   const recipeUrl = `/recipes/${slug}/${recipeVideo.recipe.id}`;
 
   return (
-    <div className='card'>
+    <Card className='h-100'>
       <FoodceptionCardHrefImage
         url={url}
         src={imageUrl}
         alt={youTubeChannelVideo.title}
       />
-      <div className='card-body'>
-        <h5 className='card-title'>
+
+      <Card.Body>
+        <Card.Title>
           {FrontEndUtils.capitalizeText(youTubeChannelVideo.title)}
-        </h5>
-        <div className='card-text'>
-          <div>
-            <b className='me-2'>Recipe:</b>
-            <a
-              className='link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover'
-              href={FrontEndUtils.getAdjustedUrl(recipeUrl)}
-              onClick={(event) =>
-                FrontEndUtils.handleLinkClick(
-                  event,
-                  FrontEndUtils.getAdjustedUrl(recipeUrl)
-                )
-              }
-            >
-              {recipeVideo.recipe.title}
-            </a>
-          </div>
-          <div>
-            <b className='me-2'>Channel:</b>
-            <a
-              href={`https://www.youtube.com/channel/${youTubeChannelVideo.youtubeChannel.channelId}`}
-              target='_blank'
-              className='link-button'
-              rel='noopener noreferrer'
-            >
-              {youTubeChannelVideo.youtubeChannel.channelTitle}
-            </a>
-          </div>
+        </Card.Title>
+
+        {/* Restructured to avoid divs inside Card.Text */}
+        <div>
+          <strong className='me-2'>Recipe:</strong>
+          <a
+            className='link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover'
+            href={FrontEndUtils.getAdjustedUrl(recipeUrl)}
+            onClick={(event) =>
+              FrontEndUtils.handleLinkClick(
+                event,
+                FrontEndUtils.getAdjustedUrl(recipeUrl)
+              )
+            }
+          >
+            {recipeVideo.recipe.title}
+          </a>
         </div>
-        <p className='card-text pt-2'>{youTubeChannelVideo.description}</p>
-        <a
+
+        <div className='mb-3'>
+          <strong className='me-2'>Channel:</strong>
+          <a
+            href={`https://www.youtube.com/channel/${youTubeChannelVideo.youtubeChannel.channelId}`}
+            target='_blank'
+            className='link-button'
+            rel='noopener noreferrer'
+          >
+            {youTubeChannelVideo.youtubeChannel.channelTitle}
+          </a>
+        </div>
+
+        <Card.Text className='pt-2'>
+          {youTubeChannelVideo.description}
+        </Card.Text>
+
+        <Button
+          variant='primary'
           href={FrontEndUtils.getAdjustedUrl(url)}
           onClick={(event) =>
             FrontEndUtils.handleLinkClick(
@@ -65,12 +75,11 @@ const FoodceptionTrendingRecipeVideoCard: React.FC<
               FrontEndUtils.getAdjustedUrl(url)
             )
           }
-          className='btn btn-primary'
         >
           Watch Now
-        </a>
-      </div>
-    </div>
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 

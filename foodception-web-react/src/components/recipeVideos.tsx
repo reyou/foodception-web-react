@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import RecipeVideoCard from './recipeVideoCard';
 import {
@@ -9,7 +9,6 @@ import {
   Row,
   Col
 } from 'react-bootstrap';
-import React from 'react';
 
 interface RecipeVideosProps {
   youtubeChannelVideos: any[];
@@ -45,10 +44,9 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
 
   useEffect(() => {
     if (selectedVideoIndex !== null && videoPanelRef.current) {
-      const behavior = 'smooth';
       setTimeout(() => {
         videoPanelRef.current?.scrollIntoView({
-          behavior,
+          behavior: 'smooth',
           block: 'center',
           inline: 'nearest'
         });
@@ -61,7 +59,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
       <Row className='gy-4'>
         {youtubeChannelVideos.map((video, index) => (
           <React.Fragment key={video.id}>
-            {/* Only show the video card if it is not selected */}
+            {/* Video card shown when it is not selected */}
             {selectedVideoIndex !== index && (
               <Col xs={12} sm={6} md={4} className='mb-3'>
                 <div ref={(el) => (cardRefs.current[index] = el)}>
@@ -75,7 +73,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
               </Col>
             )}
 
-            {/* Conditionally render the video panel right after the clicked card */}
+            {/* Video player panel shown when a video is selected */}
             {selectedVideoIndex === index && (
               <Col xs={12}>
                 <Card className='w-100'>

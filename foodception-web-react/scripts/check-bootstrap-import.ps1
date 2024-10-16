@@ -43,7 +43,7 @@ foreach ($file in $tsxFiles) {
     $content = Get-Content -Path $file.FullName -Raw
 
     # Check if the file contains 'react-bootstrap' import
-    if ($content -notmatch "import .*react-bootstrap") {
+    if ($content -notmatch "react-bootstrap") {
         # If not found, add the file to the list
         $missingBootstrapFiles += $file.FullName
     }
