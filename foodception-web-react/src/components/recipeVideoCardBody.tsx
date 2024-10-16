@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, Button } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionRecipeVideoCardBodyProps {
@@ -12,12 +13,13 @@ const FoodceptionRecipeVideoCardBody: React.FC<
   FoodceptionRecipeVideoCardBodyProps
 > = ({ youTubeChannelVideo, onWatchClicked }) => {
   return (
-    <div className='card-body'>
-      <h5 className='card-title'>
+    <Card.Body>
+      <Card.Title>
         {FrontEndUtils.capitalizeText(youTubeChannelVideo.title)}
-      </h5>
-      <div>
-        <b className='me-2'>Channel:</b>
+      </Card.Title>
+
+      <div className='mb-3'>
+        <strong className='me-2'>Channel:</strong>
         <a
           href={`https://www.youtube.com/channel/${youTubeChannelVideo.youtubeChannel.channelId}`}
           target='_blank'
@@ -28,22 +30,25 @@ const FoodceptionRecipeVideoCardBody: React.FC<
         </a>
       </div>
 
-      <p className='card-text'>{youTubeChannelVideo.description}</p>
-      <button
-        className='btn btn-primary me-2'
+      <Card.Text>{youTubeChannelVideo.description}</Card.Text>
+
+      <Button
+        variant='primary'
+        className='me-2'
         onClick={(event) => onWatchClicked(event)}
       >
         Watch
-      </button>
-      <a
-        className='btn btn-primary'
+      </Button>
+
+      <Button
+        variant='primary'
         href={`https://www.youtube.com/v/${youTubeChannelVideo.videoId}`}
         target='_blank'
         rel='noreferrer'
       >
         Watch on YouTube
-      </a>
-    </div>
+      </Button>
+    </Card.Body>
   );
 };
 

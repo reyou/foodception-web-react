@@ -1,3 +1,5 @@
+import React from 'react';
+import { Card } from 'react-bootstrap';
 import FoodceptionRecipeVideoCardBody from './recipeVideoCardBody';
 import FoodceptionRecipeVideoCardImage from './recipeVideoCardImage';
 
@@ -15,13 +17,14 @@ interface RecipeVideoCardProps {
 const RecipeVideoCard: React.FC<RecipeVideoCardProps> = ({
   youTubeChannelVideo,
   youTubeChannelVideoImages,
-  youTubeChannel,
   onWatchClicked
 }) => {
+  // Sort images by width in descending order and use the largest image.
   youTubeChannelVideoImages.sort((a, b) => b.width - a.width);
   const imageUrl = youTubeChannelVideoImages[0].url;
+
   return (
-    <div className='card'>
+    <Card className='mb-4'>
       <FoodceptionRecipeVideoCardImage
         src={imageUrl}
         alt={youTubeChannelVideo.title}
@@ -30,8 +33,8 @@ const RecipeVideoCard: React.FC<RecipeVideoCardProps> = ({
       <FoodceptionRecipeVideoCardBody
         youTubeChannelVideo={youTubeChannelVideo}
         onWatchClicked={(event) => onWatchClicked(event)}
-      ></FoodceptionRecipeVideoCardBody>
-    </div>
+      />
+    </Card>
   );
 };
 

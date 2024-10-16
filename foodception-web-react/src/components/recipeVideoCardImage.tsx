@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
 
 interface FoodceptionRecipeVideoCardImageProps {
   src: string;
@@ -14,11 +15,12 @@ const FoodceptionRecipeVideoCardImage: React.FC<
   FoodceptionRecipeVideoCardImageProps
 > = ({ src, alt, onWatchClicked }) => {
   return (
-    <img
+    <Card.Img
       src={src}
       alt={alt}
       className='card-img-top'
       onClick={(event) => onWatchClicked(event)}
+      style={{ cursor: 'pointer' }}
     />
   );
 };

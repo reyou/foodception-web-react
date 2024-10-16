@@ -4,7 +4,7 @@ import FoodceptionHrefButton from '../components/links/hrefButton';
 import RecipeList from '../components/recipeList';
 import ErrorPanel from '../components/error_message';
 import useFetch from '../hooks/useFetch';
-import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import LoadingPanel from '../components/loading_panel';
 
 interface RecipeCategoryDetailProps {}
