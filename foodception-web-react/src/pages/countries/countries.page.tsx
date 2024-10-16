@@ -1,6 +1,9 @@
+import React from 'react';
+import { Container, Spinner } from 'react-bootstrap';
 import CountriesList from '../../components/countries/countriesList';
 import ErrorPanel from '../../components/error_message';
 import FoodceptionHeader from '../../components/header/header';
+import LoadingPanel from '../../components/loading_panel';
 import useFetch from '../../hooks/useFetch';
 import useShowHeader from '../../hooks/useShowHeader';
 
@@ -9,7 +12,7 @@ export default function Countries() {
   const { data, loading, error } = useFetch('/countries');
 
   if (loading) {
-    return <div className='text-center'>Loading...</div>;
+    return <LoadingPanel visible={loading}></LoadingPanel>;
   }
 
   if (error) {
@@ -17,13 +20,17 @@ export default function Countries() {
   }
 
   if (!data) {
-    return <div className='text-center'>No data available</div>;
+    return (
+      <Container className='text-center mt-5'>
+        <p>No data available</p>
+      </Container>
+    );
   }
 
   return (
-    <div>
+    <Container fluid>
       {showHeader && <FoodceptionHeader>Countries</FoodceptionHeader>}
       <CountriesList countries={data.countries} />
-    </div>
+    </Container>
   );
 }

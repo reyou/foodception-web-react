@@ -7,7 +7,7 @@ import {
 import FoodceptionHeader from './components/header/header';
 import ErrorPage from './errorPage';
 import Layout from './Layout';
-import Countries from './pages/countries/countries';
+import Countries from './pages/countries/countries.page';
 import CountryDetails from './pages/countries/countryDetails';
 import IngredientsPage from './pages/ingredients/ingredients.page';
 import MealCategories from './pages/mealCategories.page';
