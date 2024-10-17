@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import HeaderLayout from '../../components/header/headerLayout';
 import IngredientCard from '../../components/ingredients/ingredientCard';
 import Pagination from '../../components/pagination';
@@ -12,7 +14,6 @@ import StorageUtils from '../../utils/StorageUtils';
 import DateUtils from '../../utils/DateUtils';
 import ErrorPanel from '../../components/error_message';
 import SearchAutoComplete from '../../components/search_auto_complete';
-import { useState } from 'react';
 import SearchStatus from '../../components/search_status';
 import NoMoreItems from '../recipes/components/no_more_items';
 import NoResults from '../recipes/components/no_results';
@@ -61,10 +62,10 @@ function IngredientsPage() {
 
   const content = () => {
     if (loading) {
-      return <LoadingPanel visible={loading}></LoadingPanel>;
+      return <LoadingPanel visible={loading} />;
     }
     if (error) {
-      return <ErrorPanel errorMessage={error}></ErrorPanel>;
+      return <ErrorPanel errorMessage={error} />;
     }
     if (!data) {
       return <div className='text-center'>No data available</div>;
@@ -72,20 +73,20 @@ function IngredientsPage() {
 
     return (
       <>
-        <div className='mt-4 mb-4'>
-          <div className='row justify-content-center mb-4'>
-            <div className='col-12 text-center mb-1'>
+        <Container fluid className='mt-4 mb-4'>
+          <Row className='justify-content-center mb-4'>
+            <Col xs={12} className='text-center mb-1'>
               <h4>Browse, Search, and Explore Essential Ingredients</h4>
-            </div>
-            <div className='col-12 col-md-6 col-lg-4 col-xl-3'>
+            </Col>
+            <Col xs={12} md={6} lg={4} xl={3}>
               <SearchAutoComplete
                 initialSearchTerm={searchTerm}
                 onSearch={handleSearch}
                 apiEndpoint='/ingredients/autocomplete'
                 baseUrl='/ingredients'
               />
-            </div>
-          </div>
+            </Col>
+          </Row>
 
           {searchTerm && (
             <SearchStatus
@@ -94,8 +95,7 @@ function IngredientsPage() {
             />
           )}
 
-          <div className='row justify-content-center mt-4'>
-            {/* Check if there are no ingredients and display a custom message */}
+          <Row className='justify-content-center mt-4'>
             {data.ingredients.length === 0 && page > 1 ? (
               <NoMoreItems searchTerm={searchTerm} />
             ) : data.ingredients.length === 0 ? (
@@ -116,21 +116,21 @@ function IngredientsPage() {
                 <Pagination currentPage={page} />
               </>
             )}
-          </div>
-        </div>
+          </Row>
+        </Container>
       </>
     );
   };
 
   return (
-    <div className='container-fluid'>
+    <Container fluid>
       <HeaderLayout
         title={<h1>Ingredients</h1>}
         subTitle={subtitle}
         backgroundImage={backgroundImage}
-      ></HeaderLayout>
+      />
       {content()}
-    </div>
+    </Container>
   );
 }
 

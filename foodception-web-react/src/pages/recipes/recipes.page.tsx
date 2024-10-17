@@ -1,3 +1,4 @@
+import { Container } from 'react-bootstrap';
 import FoodceptionHeader from '../../components/header/header';
 import HeaderLayout from '../../components/header/headerLayout';
 import TopDiets from './components/top_diets';
@@ -12,19 +13,19 @@ export default function Recipes() {
   const subTitle = 'Discover Delicious Recipes from Around the World';
 
   return (
-    <div>
+    <>
       <HeaderLayout
         backgroundImage={imageUrl}
         title={title}
         subTitle={subTitle}
-      ></HeaderLayout>
+      />
 
-      <div className='container-fluid'>
+      <Container fluid className='mt-4'>
         <RandomPicks />
         <TopCategories />
         <TopCountries />
         <TopDiets />
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import ErrorPanel from '../../components/error_message';
 import FoodceptionHeader from '../../components/header/header';
 import HeaderLayout from '../../components/header/headerLayout';
@@ -40,36 +41,38 @@ export default function RecipesList() {
   };
 
   return (
-    <div>
+    <>
       <HeaderLayout
         backgroundImage={imageUrl}
         title={title}
         subTitle={subTitle}
-      ></HeaderLayout>
-      <div className='container-fluid'>
-        <LoadingPanel visible={loading}></LoadingPanel>
+      />
+
+      <Container fluid>
+        <LoadingPanel visible={loading} />
+
         {error && (
-          <div className='text-center'>
-            <ErrorPanel errorMessage={error}></ErrorPanel>
-          </div>
+          <Container className='text-center'>
+            <ErrorPanel errorMessage={error} />
+          </Container>
         )}
 
         {data && (
           <>
-            <div className='mt-4 mb-4'>
-              <div className='row justify-content-center mb-4'>
-                <div className='col-12 text-center mb-1'>
+            <Container fluid className='mt-4 mb-4'>
+              <Row className='justify-content-center mb-4'>
+                <Col xs={12} className='text-center mb-1'>
                   <h4>What Would You Like to Cook Today?</h4>
-                </div>
-                <div className='col-12 col-md-6 col-lg-4 col-xl-3'>
+                </Col>
+                <Col xs={12} md={6} lg={4} xl={3}>
                   <SearchAutoComplete
                     initialSearchTerm={searchTerm}
                     onSearch={handleSearch}
                     apiEndpoint='/recipes/autocomplete'
                     baseUrl='/recipes'
                   />
-                </div>
-              </div>
+                </Col>
+              </Row>
 
               {searchTerm && (
                 <SearchStatus
@@ -78,21 +81,22 @@ export default function RecipesList() {
                 />
               )}
 
-              {/* Check if there are no recipes and display a custom message */}
-              {data.recipes.length === 0 && page > 1 ? (
-                <NoMoreItems searchTerm={searchTerm} />
-              ) : data.recipes.length === 0 ? (
-                <NoResults searchTerm={searchTerm} />
-              ) : (
-                <>
-                  <RecipeList recipes={data.recipes}></RecipeList>
-                  <Pagination currentPage={page}></Pagination>
-                </>
-              )}
-            </div>
+              <Row className='justify-content-center mt-4'>
+                {data.recipes.length === 0 && page > 1 ? (
+                  <NoMoreItems searchTerm={searchTerm} />
+                ) : data.recipes.length === 0 ? (
+                  <NoResults searchTerm={searchTerm} />
+                ) : (
+                  <>
+                    <RecipeList recipes={data.recipes} />
+                    <Pagination currentPage={page} />
+                  </>
+                )}
+              </Row>
+            </Container>
           </>
         )}
-      </div>
-    </div>
+      </Container>
+    </>
   );
 }
