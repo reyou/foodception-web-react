@@ -8,7 +8,7 @@ import FoodceptionHeader from './components/header/header';
 import ErrorPage from './errorPage';
 import Layout from './Layout';
 import Countries from './pages/countries/countries.page';
-import CountryDetails from './pages/countries/countryDetails';
+import CountryDetails from './pages/countries/countryDetails.page';
 import IngredientsPage from './pages/ingredients/ingredients.page';
 import MealCategories from './pages/mealCategories.page';
 import MealRecipes from './pages/mealRecipes.page';
