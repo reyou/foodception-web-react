@@ -16,6 +16,7 @@ import { useState } from 'react';
 import SearchStatus from '../../components/search_status';
 import NoMoreItems from '../recipes/components/no_more_items';
 import NoResults from '../recipes/components/no_results';
+import LoadingPanel from '../../components/loading_panel';
 
 function IngredientsPage() {
   const query = useQuery();
@@ -60,7 +61,7 @@ function IngredientsPage() {
 
   const content = () => {
     if (loading) {
-      return <div className='text-center mt-2'>Loading...</div>;
+      return <LoadingPanel visible={loading}></LoadingPanel>;
     }
     if (error) {
       return <ErrorPanel errorMessage={error}></ErrorPanel>;
