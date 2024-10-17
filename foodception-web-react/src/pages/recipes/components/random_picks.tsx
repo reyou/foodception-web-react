@@ -1,3 +1,4 @@
+import { Container, Row, Col } from 'react-bootstrap';
 import ErrorPanel from '../../../components/error_message';
 import FoodceptionHrefLink from '../../../components/links/href_link';
 import LoadingPanel from '../../../components/loading_panel';
@@ -8,24 +9,37 @@ const RandomPicks = () => {
   const { data, loading, error } = useFetch('/recipes/random');
 
   return (
-    <div>
-      <h2 className='text-center mt-4'>Random Picks</h2>
-      <h4 className='text-center'>
-        Feeling Lucky? Here Are Some Random Picks for You!
-      </h4>
-      <div className='text-center mb-4'>
-        <FoodceptionHrefLink url={`/recipes/list`}>
-          See all recipes
-        </FoodceptionHrefLink>
-      </div>
-      <LoadingPanel visible={loading}></LoadingPanel>
+    <Container fluid className='mt-4'>
+      <Row>
+        <Col className='text-center'>
+          <h2>Random Picks</h2>
+          <h4>Feeling Lucky? Here Are Some Random Picks for You!</h4>
+          <div className='mb-4'>
+            <FoodceptionHrefLink url={`/recipes/list`}>
+              See all recipes
+            </FoodceptionHrefLink>
+          </div>
+        </Col>
+      </Row>
+
+      <LoadingPanel visible={loading} />
+
       {error && (
-        <div className='text-center'>
-          <ErrorPanel errorMessage={error}></ErrorPanel>
-        </div>
+        <Row>
+          <Col className='text-center'>
+            <ErrorPanel errorMessage={error} />
+          </Col>
+        </Row>
       )}
-      {data && <RecipeList recipes={data.recipes}></RecipeList>}
-    </div>
+
+      {data && (
+        <Row>
+          <Col>
+            <RecipeList recipes={data.recipes} />
+          </Col>
+        </Row>
+      )}
+    </Container>
   );
 };
 

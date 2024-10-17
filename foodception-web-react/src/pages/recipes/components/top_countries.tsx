@@ -1,3 +1,4 @@
+import { Container } from 'react-bootstrap';
 import TopRecipes from './top_recipes';
 
 const TopCountries = () => {
@@ -10,15 +11,17 @@ const TopCountries = () => {
     }));
 
   return (
-    <TopRecipes
-      title='Taste the World: Top Global Cuisines'
-      subtitle='Savor the flavors of diverse cultures with our handpicked collection of authentic recipes from across the globe.'
-      fetchUrl='/countries/top'
-      seeAllUrl='/countries'
-      mapData={mapCountryData}
-      itemSlugPrefix='countries'
-      itemType='Cuisines'
-    />
+    <Container fluid>
+      <TopRecipes
+        title='Taste the World: Top Global Cuisines'
+        subtitle='Savor the flavors of diverse cultures with our handpicked collection of authentic recipes from across the globe.'
+        fetchUrl='/countries/top'
+        seeAllUrl='/countries'
+        mapData={mapCountryData}
+        itemSlugPrefix='countries'
+        itemType='Cuisines'
+      />
+    </Container>
   );
 };
 

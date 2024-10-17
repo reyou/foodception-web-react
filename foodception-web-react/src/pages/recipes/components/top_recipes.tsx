@@ -1,3 +1,5 @@
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import ErrorPanel from '../../../components/error_message';
 import FoodceptionHrefLink from '../../../components/links/href_link';
 import LoadingPanel from '../../../components/loading_panel';
@@ -29,39 +31,54 @@ const TopRecipes: React.FC<TopRecipesProps> = ({
   const { data, loading, error } = useFetch(fetchUrl);
 
   return (
-    <div>
-      <h2 className='text-center mt-4'>{title}</h2>
-      <h4 className='text-center mb-2'>{subtitle}</h4>
-      <div className='text-center mb-4'>
-        <FoodceptionHrefLink url={seeAllUrl}>
-          See all {itemType}
-        </FoodceptionHrefLink>
-      </div>
+    <Container fluid className='mt-4'>
+      <Row>
+        <Col className='text-center'>
+          <h2>{title}</h2>
+          <h4 className='mb-2'>{subtitle}</h4>
+          <div className='mb-4'>
+            <FoodceptionHrefLink url={seeAllUrl}>
+              See all {itemType}
+            </FoodceptionHrefLink>
+          </div>
+        </Col>
+      </Row>
+
       <LoadingPanel visible={loading} />
+
       {error && (
-        <div className='text-center'>
-          <ErrorPanel errorMessage={error} />
-        </div>
+        <Row>
+          <Col className='text-center'>
+            <ErrorPanel errorMessage={error} />
+          </Col>
+        </Row>
       )}
+
       {data &&
         mapData(data).map((item: any) => (
-          <div key={item.id}>
-            <div className='text-center'>
-              <h3 className='foodceptionSubCategoryTitle'>
-                <FoodceptionHrefLink
-                  url={`${itemSlugPrefix}/${FrontEndUtils.slugify(item.name)}/${
-                    item.id
-                  }`}
-                >
-                  {FrontEndUtils.capitalizeText(item.name)}
-                </FoodceptionHrefLink>
-              </h3>
-              <p className='mb-4'>{item.description}</p>
-            </div>
-            <RecipeList recipes={item.recipes} />
-          </div>
+          <Container fluid key={item.id} className='mb-5'>
+            <Row className='justify-content-center text-center mb-3'>
+              <Col xs={12}>
+                <h3 className='foodceptionSubCategoryTitle'>
+                  <FoodceptionHrefLink
+                    url={`${itemSlugPrefix}/${FrontEndUtils.slugify(
+                      item.name
+                    )}/${item.id}`}
+                  >
+                    {FrontEndUtils.capitalizeText(item.name)}
+                  </FoodceptionHrefLink>
+                </h3>
+                <p className='mb-4'>{item.description}</p>
+              </Col>
+            </Row>
+
+            {/* Recipe list in a separate row */}
+            <Row>
+              <RecipeList recipes={item.recipes} />
+            </Row>
+          </Container>
         ))}
-    </div>
+    </Container>
   );
 };
 

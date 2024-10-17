@@ -1,3 +1,4 @@
+import { Container } from 'react-bootstrap';
 import TopRecipes from './top_recipes';
 
 const TopCategories = () => {
@@ -10,15 +11,17 @@ const TopCategories = () => {
     }));
 
   return (
-    <TopRecipes
-      title='Top Categories'
-      subtitle='Find your favorite dishes from these top-rated recipe categories.'
-      fetchUrl='/recipe-categories/top'
-      seeAllUrl='/recipe-categories'
-      mapData={mapCategoryData}
-      itemSlugPrefix='recipe-categories'
-      itemType='Categories'
-    />
+    <Container fluid>
+      <TopRecipes
+        title='Top Categories'
+        subtitle='Find your favorite dishes from these top-rated recipe categories.'
+        fetchUrl='/recipe-categories/top'
+        seeAllUrl='/recipe-categories'
+        mapData={mapCategoryData}
+        itemSlugPrefix='recipe-categories'
+        itemType='Categories'
+      />
+    </Container>
   );
 };
 
