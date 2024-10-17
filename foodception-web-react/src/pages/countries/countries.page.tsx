@@ -1,5 +1,4 @@
-import React from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import CountriesList from '../../components/countries/countriesList';
 import ErrorPanel from '../../components/error_message';
 import FoodceptionHeader from '../../components/header/header';

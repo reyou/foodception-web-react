@@ -5,7 +5,7 @@ import LoadingPanel from '../components/loading_panel';
 import RecipeList from '../components/recipeList';
 import useFetch from '../hooks/useFetch';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export default function Meals() {
   const { data, loading, error } = useFetch('/meals');
