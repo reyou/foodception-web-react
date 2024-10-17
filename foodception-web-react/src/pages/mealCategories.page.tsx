@@ -38,7 +38,7 @@ export default function MealCategories() {
         </Col>
       </Row>
 
-      <Row className='text-center mt-4'>
+      <Row className='text-center'>
         <Col>
           <FoodceptionHrefButton url='/meals'>
             Browse All Meal Recipes
