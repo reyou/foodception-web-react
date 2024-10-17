@@ -46,10 +46,10 @@ export default function RecipeCategories() {
       </Row>
 
       {limit < maxLimit && (
-        <Row className='text-center mt-4'>
+        <Row className='text-center'>
           <Col>
             <FoodceptionHrefButton url='/recipe-categories'>
-              <Button variant='primary'>View All Categories</Button>
+              View All Categories
             </FoodceptionHrefButton>
           </Col>
         </Row>
