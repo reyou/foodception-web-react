@@ -45,9 +45,9 @@ export default function TrendingRecipeVideos() {
             );
           })}
         </Row>
-        <div className='text-center mt-2'>
+        <div className='text-center'>
           <FoodceptionHrefButton url='/recipes/videos'>
-            <Button variant='primary'>See All Videos</Button>
+            See All Videos
           </FoodceptionHrefButton>
         </div>
       </Container>
