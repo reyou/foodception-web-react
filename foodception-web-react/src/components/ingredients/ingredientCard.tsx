@@ -1,3 +1,5 @@
+import React from 'react';
+import { Col, Card, Button } from 'react-bootstrap';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import FoodceptionCardHrefImage from '../cardHrefImage';
 
@@ -19,9 +21,10 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
   const recipesUrl = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
     ingredient.id
   }/recipes`;
+
   return (
-    <div className='col-12 col-md-6 col-lg-4 col-xl-3 mb-4'>
-      <div className='card'>
+    <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
+      <Card>
         <FoodceptionCardHrefImage
           url={url}
           src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
@@ -31,34 +34,31 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
           }`}
           badgeUrl={recipesUrl}
         />
-        <div className='card-body'>
-          <h5 className='card-title'>
+        <Card.Body>
+          <Card.Title>
             {FrontEndUtils.capitalizeText(ingredient.title)}
-          </h5>
-          <p className='card-text'>{ingredient.description}</p>
-          <>
-            <a
-              data-guid='f05a78f6-77be-44d4-bf58-22229bc5ea55'
-              href={FrontEndUtils.getAdjustedUrl(url)}
-              onClick={(event) => FrontEndUtils.handleLinkClick(event, url)}
-              className='btn btn-primary me-2'
-            >
-              View Ingredient
-            </a>
-            <a
-              data-guid='4e85011d-890b-4a52-ab68-8ae298577b5b'
-              href={FrontEndUtils.getAdjustedUrl(recipesUrl)}
-              onClick={(event) =>
-                FrontEndUtils.handleLinkClick(event, recipesUrl)
-              }
-              className='btn btn-primary'
-            >
-              View Recipes
-            </a>
-          </>
-        </div>
-      </div>
-    </div>
+          </Card.Title>
+          <Card.Text>{ingredient.description}</Card.Text>
+          <Button
+            variant='primary'
+            className='me-2'
+            href={FrontEndUtils.getAdjustedUrl(url)}
+            onClick={(event) => FrontEndUtils.handleLinkClick(event, url)}
+          >
+            View Ingredient
+          </Button>
+          <Button
+            variant='primary'
+            href={FrontEndUtils.getAdjustedUrl(recipesUrl)}
+            onClick={(event) =>
+              FrontEndUtils.handleLinkClick(event, recipesUrl)
+            }
+          >
+            View Recipes
+          </Button>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 };
 

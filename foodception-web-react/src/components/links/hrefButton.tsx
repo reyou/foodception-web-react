@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 
 interface FoodceptionHrefButtonProps {
@@ -12,13 +13,13 @@ const FoodceptionHrefButton: React.FC<FoodceptionHrefButtonProps> = ({
 }) => {
   const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
   return (
-    <a
-      className='btn btn-primary'
+    <Button
+      variant='primary'
       href={adjustedUrl}
       onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
     >
       {children}
-    </a>
+    </Button>
   );
 };
 

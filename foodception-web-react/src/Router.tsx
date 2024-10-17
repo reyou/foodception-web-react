@@ -11,7 +11,7 @@ import Countries from './pages/countries/countries.page';
 import CountryDetails from './pages/countries/countryDetails';
 import IngredientsPage from './pages/ingredients/ingredients.page';
 import MealCategories from './pages/mealCategories.page';
-import MealRecipes from './pages/mealRecipes';
+import MealRecipes from './pages/mealRecipes.page';
 import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipeCategories.page';
 import RecipeCategoryDetail from './pages/recipeCategoryDetail';

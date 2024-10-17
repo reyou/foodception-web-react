@@ -37,7 +37,7 @@ export default function Meals() {
         }/recipes`;
 
         return (
-          <div key={meal.id} className='mb-5'>
+          <div key={meal.id} className='mb-4'>
             <Row className='mb-3'>
               <Col>
                 <FoodceptionHeader>
@@ -58,12 +58,10 @@ export default function Meals() {
               </Col>
             </Row>
 
-            <Row className='text-center mt-4'>
+            <Row className='text-center'>
               <Col>
                 <FoodceptionHrefButton url={mealLink}>
-                  <Button variant='primary'>
-                    View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
-                  </Button>
+                  View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
                 </FoodceptionHrefButton>
               </Col>
             </Row>
