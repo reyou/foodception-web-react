@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
 import FoodceptionHrefButton from '../components/links/hrefButton';
