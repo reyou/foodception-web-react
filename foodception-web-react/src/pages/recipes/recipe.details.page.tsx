@@ -1,19 +1,20 @@
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Alert } from 'react-bootstrap';
 
-import FoodceptionHeader from '../components/header/header';
-import FoodceptionImage from '../components/image';
-import IngredientGroups from '../components/ingredientGroups';
-import IngredientGroupsVisual from '../components/ingredientGroupsVisual';
-import RecipeTimeInfo from '../components/recipeTimeInfo';
-import RecipeSteps from '../components/recipeSteps';
-import RecipeVideos from '../components/recipeVideos';
-import FoodceptionTabs, { TabItem } from '../components/tabs';
+import FoodceptionHeader from '../../components/header/header';
+import FoodceptionImage from '../../components/image';
+import IngredientGroups from '../../components/ingredientGroups';
+import IngredientGroupsVisual from '../../components/ingredientGroupsVisual';
+import RecipeTimeInfo from '../../components/recipeTimeInfo';
+import RecipeSteps from '../../components/recipeSteps';
+import RecipeVideos from '../../components/recipeVideos';
+import FoodceptionTabs, { TabItem } from '../../components/tabs';
 
-import { FrontEndUtils } from '../utils/FrontEndUtils';
-import useFetch from '../hooks/useFetch';
-import LoadingPanel from '../components/loading_panel';
-import ErrorPanel from '../components/error_message';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import useFetch from '../../hooks/useFetch';
+import LoadingPanel from '../../components/loading_panel';
+import ErrorPanel from '../../components/error_message';
+import NoRelatedVideos from './components/no_related_videos';
 
 export default function RecipeDetails() {
   const { id } = useParams<{ id: string }>();
@@ -121,9 +122,14 @@ export default function RecipeDetails() {
           <Row className='mt-4'>
             <Col>
               <h2 className='text-center'>Related Videos</h2>
-              <RecipeVideos
-                youtubeChannelVideos={recipeVideosData.youtubeChannelVideos}
-              />
+              {recipeVideosData.youtubeChannelVideos &&
+              recipeVideosData.youtubeChannelVideos.length > 0 ? (
+                <RecipeVideos
+                  youtubeChannelVideos={recipeVideosData.youtubeChannelVideos}
+                />
+              ) : (
+                <NoRelatedVideos recipeTitle={recipe.title}></NoRelatedVideos>
+              )}
             </Col>
           </Row>
 

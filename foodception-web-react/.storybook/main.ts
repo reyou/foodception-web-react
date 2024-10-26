@@ -9,7 +9,19 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',
     '@storybook/addon-interactions',
-    '@storybook/addon-docs'
+    {
+      name: '@storybook/addon-storysource',
+      options: {
+        rule: {
+          // test: [/\.stories\.jsx?$/], This is default
+          // include: [path.resolve(__dirname, '../src')], // You can specify directories
+        },
+        loaderOptions: {
+          prettierConfig: { printWidth: 80, singleQuote: false },
+          injectStoryParameters: false
+        }
+      }
+    }
   ],
   framework: {
     name: '@storybook/react-webpack5',
