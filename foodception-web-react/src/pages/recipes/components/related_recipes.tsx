@@ -7,6 +7,7 @@ interface RelatedRecipesProps {
 const RelatedRecipes: React.FC<RelatedRecipesProps> = ({
   recipeWithRelatedEntities
 }) => {
+  // Map and concatenate all related recipes lists
   let relatedRecipes = recipeWithRelatedEntities.relatedRecipes.map(
     (q: any) => q.recipe
   );
@@ -23,15 +24,23 @@ const RelatedRecipes: React.FC<RelatedRecipesProps> = ({
   const countryRecipes = recipeWithRelatedEntities.countryRecipes.map(
     (q: any) => q.recipe
   );
+
+  // Combine all recipes into a single array
   relatedRecipes = relatedRecipes
     .concat(dietRecipes)
     .concat(recipeCategoryAssignments)
     .concat(mealRecipes)
     .concat(countryRecipes);
 
+  // Filter out duplicates based on the `id` of each recipe
+  const uniqueRelatedRecipes = relatedRecipes.filter(
+    (recipe: any, index: any, self: any) =>
+      index === self.findIndex((r: any) => r.id === recipe.id)
+  );
+
   return (
     <>
-      <RecipeList recipes={relatedRecipes}></RecipeList>
+      <RecipeList recipes={uniqueRelatedRecipes}></RecipeList>
     </>
   );
 };
