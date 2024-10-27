@@ -1,12 +1,31 @@
+import ErrorPanel from '../../../components/error_message';
+import LoadingPanel from '../../../components/loading_panel';
 import RecipeList from '../../../components/recipeList';
+import useFetch from '../../../hooks/useFetch';
+import NoRelatedRecipes from './no_related_recipes';
 
 interface RelatedRecipesProps {
-  recipeWithRelatedEntities: any;
+  recipeId: string;
 }
 
-const RelatedRecipes: React.FC<RelatedRecipesProps> = ({
-  recipeWithRelatedEntities
-}) => {
+const RelatedRecipes: React.FC<RelatedRecipesProps> = ({ recipeId }) => {
+  const {
+    data: recipeWithRelatedEntitiesData,
+    loading: recipeWithRelatedEntitiesLoading,
+    error: recipeWithRelatedEntitiesError
+  } = useFetch(`/recipes/${recipeId}/related`);
+
+  if (recipeWithRelatedEntitiesError)
+    return (
+      <ErrorPanel errorMessage={recipeWithRelatedEntitiesError}></ErrorPanel>
+    );
+
+  if (recipeWithRelatedEntitiesLoading)
+    return <LoadingPanel visible={true}></LoadingPanel>;
+
+  const recipeWithRelatedEntities =
+    recipeWithRelatedEntitiesData.recipeWithRelatedEntities;
+
   // Map and concatenate all related recipes lists
   let relatedRecipes = recipeWithRelatedEntities.relatedRecipes.map(
     (q: any) => q.recipe
@@ -40,7 +59,13 @@ const RelatedRecipes: React.FC<RelatedRecipesProps> = ({
 
   return (
     <>
-      <RecipeList recipes={uniqueRelatedRecipes}></RecipeList>
+      {uniqueRelatedRecipes.length > 0 ? (
+        <RecipeList recipes={uniqueRelatedRecipes}></RecipeList>
+      ) : (
+        <NoRelatedRecipes
+          recipeTitle={recipeWithRelatedEntities.title}
+        ></NoRelatedRecipes>
+      )}
     </>
   );
 };

@@ -18,36 +18,32 @@ import NoRelatedVideos from './components/no_related_videos';
 import RelatedRecipes from './components/related_recipes';
 
 export default function RecipeDetails() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id?: string }>();
 
   const {
     data: recipesData,
     loading: recipesLoading,
     error: recipesError
   } = useFetch(`/recipes/${id}`);
-  const {
-    data: recipeWithRelatedEntitiesData,
-    loading: recipeWithRelatedEntitiesLoading,
-    error: recipeWithRelatedEntitiesError
-  } = useFetch(`/recipes/${id}/related`);
+
   const {
     data: recipeVideosData,
     loading: recipeVideosLoading,
     error: recipeVideosError
   } = useFetch(`/recipes/${id}/videos`);
 
+  if (!id) {
+    return <p>Error: Recipe ID is missing.</p>;
+  }
+
   const render = () => {
-    if (recipesError || recipeVideosError || recipeWithRelatedEntitiesError) {
+    if (recipesError || recipeVideosError) {
       return (
         <ErrorPanel
           errorMessage={recipesError || recipeVideosError || ''}
         ></ErrorPanel>
       );
-    } else if (
-      recipesLoading ||
-      recipeVideosLoading ||
-      recipeWithRelatedEntitiesLoading
-    ) {
+    } else if (recipesLoading || recipeVideosLoading) {
       return (
         <LoadingPanel
           visible={recipesLoading || recipeVideosLoading}
@@ -146,11 +142,7 @@ export default function RecipeDetails() {
           <Row className='mt-4'>
             <Col>
               <h2 className='text-center'>Related Recipes</h2>
-              <RelatedRecipes
-                recipeWithRelatedEntities={
-                  recipeWithRelatedEntitiesData.recipeWithRelatedEntities
-                }
-              ></RelatedRecipes>
+              <RelatedRecipes recipeId={id}></RelatedRecipes>
             </Col>
           </Row>
         </Container>
