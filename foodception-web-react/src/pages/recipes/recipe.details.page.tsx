@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import FoodceptionHeader from '../../components/header/header';
 import FoodceptionImage from '../../components/image';
@@ -15,6 +15,7 @@ import useFetch from '../../hooks/useFetch';
 import LoadingPanel from '../../components/loading_panel';
 import ErrorPanel from '../../components/error_message';
 import NoRelatedVideos from './components/no_related_videos';
+import RelatedRecipes from './components/related_recipes';
 
 export default function RecipeDetails() {
   const { id } = useParams<{ id: string }>();
@@ -25,19 +26,28 @@ export default function RecipeDetails() {
     error: recipesError
   } = useFetch(`/recipes/${id}`);
   const {
+    data: recipeWithRelatedEntitiesData,
+    loading: recipeWithRelatedEntitiesLoading,
+    error: recipeWithRelatedEntitiesError
+  } = useFetch(`/recipes/${id}/related`);
+  const {
     data: recipeVideosData,
     loading: recipeVideosLoading,
     error: recipeVideosError
   } = useFetch(`/recipes/${id}/videos`);
 
   const render = () => {
-    if (recipesError || recipeVideosError) {
+    if (recipesError || recipeVideosError || recipeWithRelatedEntitiesError) {
       return (
         <ErrorPanel
           errorMessage={recipesError || recipeVideosError || ''}
         ></ErrorPanel>
       );
-    } else if (recipesLoading || recipeVideosLoading) {
+    } else if (
+      recipesLoading ||
+      recipeVideosLoading ||
+      recipeWithRelatedEntitiesLoading
+    ) {
       return (
         <LoadingPanel
           visible={recipesLoading || recipeVideosLoading}
@@ -136,6 +146,11 @@ export default function RecipeDetails() {
           <Row className='mt-4'>
             <Col>
               <h2 className='text-center'>Related Recipes</h2>
+              <RelatedRecipes
+                recipeWithRelatedEntities={
+                  recipeWithRelatedEntitiesData.recipeWithRelatedEntities
+                }
+              ></RelatedRecipes>
             </Col>
           </Row>
         </Container>
