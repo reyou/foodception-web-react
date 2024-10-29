@@ -37,7 +37,15 @@ export default function RecipeCategories() {
 
   return (
     <Container fluid>
-      {showHeader && <FoodceptionHeader>Categories</FoodceptionHeader>}
+      {showHeader && (
+        <>
+          <FoodceptionHeader>Categories</FoodceptionHeader>
+          <h4 className='text-center text-muted mb-4'>
+            Choose from {data.recipeCategories.length} delicious recipe
+            categories and explore flavors for every occasion
+          </h4>
+        </>
+      )}
 
       <Row>
         <Col>
