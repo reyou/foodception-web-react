@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Select from 'react-select';
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import Country from '../../models/country';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import FoodceptionCardHrefImage from '../cardHrefImage';
 import FoodceptionHrefButton from '../links/hrefButton';
+import FoodceptionSelect from '../core/foodception_select';
 
 interface CountriesListProps {
   countries: Country[];
@@ -13,6 +13,7 @@ interface CountriesListProps {
 interface OptionType {
   value: string;
   label: string;
+  icon?: string; // Add icon field to support country flags
 }
 
 const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
@@ -20,12 +21,16 @@ const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
     null
   );
 
+  // Add flag icon to each option
   const options = countries.map((country) => ({
     value: country.id,
-    label: country.countryName
+    label: country.countryName,
+    icon: FrontEndUtils.getResizedImagePath(country.flagImage, 30, 30)
   }));
 
-  const handleChange = (selectedOption: OptionType | null) => {
+  const handleChange = (value: string) => {
+    const selectedOption =
+      options.find((option) => option.value === value) || null;
     setSelectedCountry(selectedOption);
   };
 
@@ -37,11 +42,10 @@ const CountriesList: React.FC<CountriesListProps> = ({ countries }) => {
     <Container fluid>
       <Row className='justify-content-center mb-4'>
         <Col xs={12} md={6} lg={4} xl={3}>
-          <Select
+          <FoodceptionSelect
             options={options}
             onChange={handleChange}
             placeholder='Select a country...'
-            isClearable
           />
         </Col>
       </Row>
