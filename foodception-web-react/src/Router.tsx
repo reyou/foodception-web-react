@@ -20,6 +20,7 @@ import RecipesList from './pages/recipes/recipes.list.page';
 import Recipes from './pages/recipes/recipes.page';
 import RecipeVideos from './pages/recipeVideos.page';
 import TrendingRecipeVideos from './pages/trendingRecipeVideos';
+import HomeRecipeCategories from './pages/home.recipeCategories';
 
 export default function FoodceptionRouter() {
   const router = createBrowserRouter(
@@ -40,6 +41,10 @@ export default function FoodceptionRouter() {
           <Route path='recipes' element={<Recipes />} />
           <Route path='recipes/list' element={<RecipesList />} />
           <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
+          <Route
+            path='home/recipe-categories'
+            element={<HomeRecipeCategories />}
+          />
           <Route path='recipe-categories' element={<RecipeCategories />} />
           <Route
             path='recipe-categories/:slug/:id'

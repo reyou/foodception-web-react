@@ -6,6 +6,7 @@ import FoodceptionSelect from './core/foodception_select';
 
 interface RecipeCategoriesListProps {
   recipeCategories: any[];
+  showSelect?: boolean; // Optional prop to show/hide the select control
 }
 
 interface OptionType {
@@ -15,7 +16,8 @@ interface OptionType {
 }
 
 const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
-  recipeCategories
+  recipeCategories,
+  showSelect = true
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<OptionType | null>(
     null
@@ -45,15 +47,17 @@ const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
 
   return (
     <Container fluid>
-      <Row className='justify-content-center mb-4'>
-        <Col xs={12} md={6} lg={4} xl={3}>
-          <FoodceptionSelect
-            options={options}
-            onChange={handleCategoryChange}
-            placeholder='Select a category...'
-          />
-        </Col>
-      </Row>
+      {showSelect && (
+        <Row className='justify-content-center mb-4'>
+          <Col xs={12} md={6} lg={4} xl={3}>
+            <FoodceptionSelect
+              options={options}
+              onChange={handleCategoryChange}
+              placeholder='Select a category...'
+            />
+          </Col>
+        </Row>
+      )}
       <Row className='justify-content-center'>
         {filteredCategories.map((category: any) => {
           const categoryImage = category.recipeCategoryImages[0];

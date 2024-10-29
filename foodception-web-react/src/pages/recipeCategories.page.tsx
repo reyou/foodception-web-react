@@ -1,12 +1,11 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import FoodceptionHeader from '../components/header/header';
-import FoodceptionHrefButton from '../components/links/hrefButton';
+
 import RecipeCategoriesList from '../components/recipeCategoriesList';
-import useShowHeader from '../hooks/useShowHeader';
 import useFetch from '../hooks/useFetch';
 import { useSearchParams } from 'react-router-dom';
 import ErrorPanel from '../components/error_message';
 import LoadingPanel from '../components/loading_panel';
+import HeaderLayout from '../components/header/headerLayout';
 
 export default function RecipeCategories() {
   const maxLimit = 500;
@@ -14,7 +13,6 @@ export default function RecipeCategories() {
   const limitParam = searchParams.get('limit');
   const limit = limitParam ? parseInt(limitParam, 10) : maxLimit;
 
-  const showHeader = useShowHeader(true);
   const { data, loading, error } = useFetch(
     `/recipe-categories?limit=${limit}`
   );
@@ -37,31 +35,24 @@ export default function RecipeCategories() {
 
   return (
     <Container fluid>
-      {showHeader && (
-        <>
-          <FoodceptionHeader>Categories</FoodceptionHeader>
-          <h4 className='text-center text-muted mb-4'>
-            Choose from {data.recipeCategories.length} delicious recipe
-            categories and explore flavors for every occasion
-          </h4>
-        </>
-      )}
-
+      <HeaderLayout
+        title={<h1>Categories</h1>}
+        subTitle={
+          'Discover a world of flavors with our diverse collection of recipes, perfect for every occasion and dietary preference'
+        }
+        backgroundImage={
+          'https://static.wixstatic.com/media/f7bd72_3fc9de0df6d6496ca4b40847c3f93d27~mv2.webp'
+        }
+      />
+      <h4 className='text-center text-muted mb-2 mt-4'>
+        Choose from {data.recipeCategories.length} delicious recipe categories
+        and explore flavors for every occasion
+      </h4>
       <Row>
         <Col>
           <RecipeCategoriesList recipeCategories={data.recipeCategories} />
         </Col>
       </Row>
-
-      {limit < maxLimit && (
-        <Row className='text-center'>
-          <Col>
-            <FoodceptionHrefButton url='/recipe-categories'>
-              View All Categories
-            </FoodceptionHrefButton>
-          </Col>
-        </Row>
-      )}
     </Container>
   );
 }
