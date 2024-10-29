@@ -15,10 +15,7 @@ const FoodceptionHeader: React.FC<FoodceptionHeaderProps> = ({
       <h1 className='text-center'>{children}</h1>
       {subHeader && (
         <>
-          <h4 className='text-center text-muted mb-4'>
-            Choose from delicious recipe categories and explore flavors for
-            every occasion
-          </h4>
+          <h4 className='text-center text-muted mb-4'>{subHeader}</h4>
         </>
       )}
     </Container>

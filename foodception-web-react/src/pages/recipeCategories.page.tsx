@@ -44,7 +44,7 @@ export default function RecipeCategories() {
           'https://static.wixstatic.com/media/f7bd72_3fc9de0df6d6496ca4b40847c3f93d27~mv2.webp'
         }
       />
-      <h4 className='text-center text-muted mb-2 mt-4'>
+      <h4 className='text-center text-muted mb-3 mt-4'>
         Choose from {data.recipeCategories.length} delicious recipe categories
         and explore flavors for every occasion
       </h4>
