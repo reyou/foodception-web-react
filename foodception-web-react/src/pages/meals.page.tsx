@@ -30,45 +30,47 @@ export default function Meals() {
   const meals = data.meals;
 
   return (
-    <Container fluid>
+    <>
       <HeaderLayout
         title={<h1>Meals</h1>}
         backgroundImage='https://static.wixstatic.com/media/f7bd72_3873055abb3b4451988ce4c1817db868~mv2.jpg'
         subTitle='Discover a Global Culinary Journey: From Breakfast to Desserts
 '
       ></HeaderLayout>
-      {meals.map((meal: any) => {
-        const recipes = meal.mealRecipes.map((q: any) => q.recipe);
-        const mealLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
-          meal.id
-        }/recipes`;
+      <Container fluid>
+        {meals.map((meal: any) => {
+          const recipes = meal.mealRecipes.map((q: any) => q.recipe);
+          const mealLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
+            meal.id
+          }/recipes`;
 
-        return (
-          <div key={meal.id} className='mb-4'>
-            <Row className='mb-3'>
-              <Col>
-                <FoodceptionHeader subHeader={meal.description}>
-                  {FrontEndUtils.capitalizeText(meal.name)}
-                </FoodceptionHeader>
-              </Col>
-            </Row>
+          return (
+            <div key={meal.id} className='mb-4'>
+              <Row className='mb-3'>
+                <Col>
+                  <FoodceptionHeader subHeader={meal.description}>
+                    {FrontEndUtils.capitalizeText(meal.name)}
+                  </FoodceptionHeader>
+                </Col>
+              </Row>
 
-            <Row>
-              <Col>
-                <RecipeList recipes={recipes} />
-              </Col>
-            </Row>
+              <Row>
+                <Col>
+                  <RecipeList recipes={recipes} />
+                </Col>
+              </Row>
 
-            <Row className='text-center'>
-              <Col>
-                <FoodceptionHrefButton url={mealLink}>
-                  View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
-                </FoodceptionHrefButton>
-              </Col>
-            </Row>
-          </div>
-        );
-      })}
-    </Container>
+              <Row className='text-center'>
+                <Col>
+                  <FoodceptionHrefButton url={mealLink}>
+                    View All {FrontEndUtils.capitalizeText(meal.name)} Recipes
+                  </FoodceptionHrefButton>
+                </Col>
+              </Row>
+            </div>
+          );
+        })}
+      </Container>
+    </>
   );
 }
