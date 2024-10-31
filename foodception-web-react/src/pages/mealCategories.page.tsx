@@ -28,7 +28,9 @@ export default function MealCategories() {
     <Container fluid>
       <Row className='text-center'>
         <Col>
-          <FoodceptionHeader>Meals</FoodceptionHeader>
+          <FoodceptionHeader subHeader='From sunrise to sunset, explore a delicious array of meal ideas crafted to satisfy every craving and suit any time of day'>
+            Meals
+          </FoodceptionHeader>
         </Col>
       </Row>
 
