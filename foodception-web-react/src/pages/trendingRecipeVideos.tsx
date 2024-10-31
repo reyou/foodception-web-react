@@ -17,10 +17,12 @@ export default function TrendingRecipeVideos() {
     if (loading) {
       return <LoadingPanel visible={loading}></LoadingPanel>;
     }
-
+    const subHeader = `Discover culinary inspiration from around the world with our hand-picked cooking videos. From traditional dishes to creative twists, there's a recipe to spark your taste buds and expand your kitchen skills`;
     return (
       <Container fluid className='py-4'>
-        <FoodceptionHeader>Cooking Videos For Every Taste</FoodceptionHeader>
+        <FoodceptionHeader subHeader={subHeader}>
+          Cooking Videos For Every Taste
+        </FoodceptionHeader>
         <Row className='justify-content-center'>
           {data.trendingRecipeVideos.map((trendingRecipeVideo: any) => {
             const recipeVideo = data.recipeVideos.find(

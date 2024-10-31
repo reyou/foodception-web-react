@@ -15,7 +15,12 @@ const FoodceptionHeader: React.FC<FoodceptionHeaderProps> = ({
       <h1 className='text-center'>{children}</h1>
       {subHeader && (
         <>
-          <h4 className='text-center text-muted mb-4'>{subHeader}</h4>
+          <h4
+            data-guid='ce33345f-1cbc-4c2c-a1f1-ccaf7e003242'
+            className='text-center text-muted mb-4'
+          >
+            {subHeader}
+          </h4>
         </>
       )}
     </Container>

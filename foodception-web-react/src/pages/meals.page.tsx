@@ -1,5 +1,6 @@
 import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
+import HeaderLayout from '../components/header/headerLayout';
 import FoodceptionHrefButton from '../components/links/hrefButton';
 import LoadingPanel from '../components/loading_panel';
 import RecipeList from '../components/recipeList';
@@ -29,7 +30,13 @@ export default function Meals() {
   const meals = data.meals;
 
   return (
-    <Container fluid className='mt-5'>
+    <Container fluid>
+      <HeaderLayout
+        title={<h1>Meals</h1>}
+        backgroundImage='https://static.wixstatic.com/media/f7bd72_3873055abb3b4451988ce4c1817db868~mv2.jpg'
+        subTitle='Discover a Global Culinary Journey: From Breakfast to Desserts
+'
+      ></HeaderLayout>
       {meals.map((meal: any) => {
         const recipes = meal.mealRecipes.map((q: any) => q.recipe);
         const mealLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
@@ -40,15 +47,9 @@ export default function Meals() {
           <div key={meal.id} className='mb-4'>
             <Row className='mb-3'>
               <Col>
-                <FoodceptionHeader>
+                <FoodceptionHeader subHeader={meal.description}>
                   {FrontEndUtils.capitalizeText(meal.name)}
                 </FoodceptionHeader>
-              </Col>
-            </Row>
-
-            <Row className='mb-4'>
-              <Col className='text-center'>
-                <h5>{meal.description}</h5>
               </Col>
             </Row>
 
