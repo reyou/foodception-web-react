@@ -20,7 +20,9 @@ import RecipesList from './pages/recipes/recipes.list.page';
 import Recipes from './pages/recipes/recipes.page';
 import RecipeVideos from './pages/recipeVideos.page';
 import TrendingRecipeVideos from './pages/trendingRecipeVideos';
-import HomeRecipeCategories from './pages/home.recipeCategories';
+import HomeRecipeCategories from './pages/home/home.recipeCategories';
+import Diets from './pages/diets/diets.page';
+import HomeDiets from './pages/home/home.diets';
 
 export default function FoodceptionRouter() {
   const router = createBrowserRouter(
@@ -35,6 +37,7 @@ export default function FoodceptionRouter() {
               </div>
             }
           />
+          <Route path='diets' element={<Diets />} />
           <Route path='meals' element={<Meals />} />
           <Route path='meals/categories' element={<MealCategories />} />
           <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
@@ -45,6 +48,7 @@ export default function FoodceptionRouter() {
             path='home/recipe-categories'
             element={<HomeRecipeCategories />}
           />
+          <Route path='home/diets' element={<HomeDiets />} />
           <Route path='recipe-categories' element={<RecipeCategories />} />
           <Route
             path='recipe-categories/:slug/:id'

@@ -1,12 +1,12 @@
 import { Container, Row, Col } from 'react-bootstrap';
 
-import FoodceptionHrefButton from '../components/links/hrefButton';
-import RecipeCategoriesList from '../components/recipeCategoriesList';
-import useFetch from '../hooks/useFetch';
+import FoodceptionHrefButton from '../../components/links/hrefButton';
+import RecipeCategoriesList from '../../components/recipeCategoriesList';
+import useFetch from '../../hooks/useFetch';
 
-import ErrorPanel from '../components/error_message';
-import LoadingPanel from '../components/loading_panel';
-import FoodceptionHeader from '../components/header/header';
+import ErrorPanel from '../../components/error_message';
+import LoadingPanel from '../../components/loading_panel';
+import FoodceptionHeader from '../../components/header/header';
 
 export default function HomeRecipeCategories() {
   const { data, loading, error } = useFetch(`/recipe-categories?limit=${20}`);

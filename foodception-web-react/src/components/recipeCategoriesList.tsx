@@ -6,7 +6,7 @@ import FoodceptionSelect from './core/foodception_select';
 
 interface RecipeCategoriesListProps {
   recipeCategories: any[];
-  showSelect?: boolean; // Optional prop to show/hide the select control
+  showSelect?: boolean;
 }
 
 interface OptionType {
