@@ -30,12 +30,12 @@ const DietDetail: React.FC<DietDetailProps> = () => {
     );
   }
   const diet = data.diet;
-
+  const dietImage = diet.dietImages[0];
   return (
     <>
       <HeaderLayout
         title={<h1>{FrontEndUtils.capitalizeText(diet.name)}</h1>}
-        backgroundImage='https://static.wixstatic.com/media/f7bd72_00b174ae0dfa4c99bebf234616ea2d7d~mv2.png'
+        backgroundImage={dietImage.imageUrl}
         subTitle={diet.description}
       ></HeaderLayout>
       <Container fluid>
