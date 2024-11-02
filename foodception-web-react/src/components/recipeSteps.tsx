@@ -9,7 +9,7 @@ const RecipeSteps: React.FC<RecipeStepsProps> = ({ steps }) => {
   return (
     <Row className='gy-4'>
       {steps.map((step) => (
-        <Col xs={12} key={step.stepNumber}>
+        <Col xs={12} md={6} lg={4} key={step.stepNumber}>
           <FoodceptionCardIngredientSteps
             title={step.title}
             substeps={step.substeps}
