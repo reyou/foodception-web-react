@@ -23,6 +23,7 @@ import TrendingRecipeVideos from './pages/trendingRecipeVideos';
 import HomeRecipeCategories from './pages/home/home.recipeCategories';
 import Diets from './pages/diets/diets.page';
 import HomeDiets from './pages/home/home.diets';
+import DietDetail from './pages/diets/diet.details.page';
 
 export default function FoodceptionRouter() {
   const router = createBrowserRouter(
@@ -54,6 +55,7 @@ export default function FoodceptionRouter() {
             path='recipe-categories/:slug/:id'
             element={<RecipeCategoryDetail />}
           />
+          <Route path='diets/:slug/:id' element={<DietDetail />} />
           <Route
             path='recipes/videos/trending'
             element={<TrendingRecipeVideos />}
