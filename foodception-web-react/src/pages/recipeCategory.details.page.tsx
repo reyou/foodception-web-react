@@ -6,6 +6,8 @@ import ErrorPanel from '../components/error_message';
 import useFetch from '../hooks/useFetch';
 import { Container, Row, Col } from 'react-bootstrap';
 import LoadingPanel from '../components/loading_panel';
+import HeaderLayout from '../components/header/headerLayout';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface RecipeCategoryDetailProps {}
 
@@ -28,23 +30,31 @@ const RecipeCategoryDetail: React.FC<RecipeCategoryDetailProps> = () => {
       </Container>
     );
   }
-
+  const recipeCategory = data.recipeCategory;
+  const recipeCategoryImage = recipeCategory.recipeCategoryImages[0];
   return (
-    <Container fluid>
-      <Row className='mb-3'>
-        <Col className='text-center'>
-          <FoodceptionHrefButton url='/recipe-categories'>
-            &lt;&lt; Back to Recipe Categories
-          </FoodceptionHrefButton>
-        </Col>
-      </Row>
+    <>
+      <HeaderLayout
+        title={<h1>{FrontEndUtils.capitalizeText(recipeCategory.name)}</h1>}
+        backgroundImage={recipeCategoryImage.imageUrl}
+        subTitle={recipeCategory.description}
+      ></HeaderLayout>
+      <Container fluid>
+        <Row className='mb-3 mt-3'>
+          <Col className='text-center'>
+            <FoodceptionHrefButton url='/recipe-categories'>
+              &lt;&lt; Back to Recipe Categories
+            </FoodceptionHrefButton>
+          </Col>
+        </Row>
 
-      <Row>
-        <Col>
-          <RecipeList recipes={data.recipes} />
-        </Col>
-      </Row>
-    </Container>
+        <Row>
+          <Col>
+            <RecipeList recipes={data.recipes} />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 
