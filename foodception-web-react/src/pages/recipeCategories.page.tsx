@@ -34,7 +34,7 @@ export default function RecipeCategories() {
   }
 
   return (
-    <Container fluid>
+    <>
       <HeaderLayout
         title={<h1>Categories</h1>}
         subTitle={
@@ -44,15 +44,17 @@ export default function RecipeCategories() {
           'https://static.wixstatic.com/media/f7bd72_3fc9de0df6d6496ca4b40847c3f93d27~mv2.webp'
         }
       />
-      <h4 className='text-center text-muted mb-3 mt-4'>
-        Choose from {data.recipeCategories.length} delicious recipe categories
-        and explore flavors for every occasion
-      </h4>
-      <Row>
-        <Col>
-          <RecipeCategoriesList recipeCategories={data.recipeCategories} />
-        </Col>
-      </Row>
-    </Container>
+      <Container fluid>
+        <h4 className='text-center text-muted mb-3 mt-4'>
+          Choose from {data.recipeCategories.length} delicious recipe categories
+          and explore flavors for every occasion
+        </h4>
+        <Row>
+          <Col>
+            <RecipeCategoriesList recipeCategories={data.recipeCategories} />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
