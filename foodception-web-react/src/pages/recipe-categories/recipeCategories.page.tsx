@@ -1,11 +1,11 @@
 import { Container, Row, Col } from 'react-bootstrap';
 
-import RecipeCategoriesList from '../components/recipeCategoriesList';
-import useFetch from '../hooks/useFetch';
+import RecipeCategoriesList from '../../components/recipeCategoriesList';
+import useFetch from '../../hooks/useFetch';
 import { useSearchParams } from 'react-router-dom';
-import ErrorPanel from '../components/error_message';
-import LoadingPanel from '../components/loading_panel';
-import HeaderLayout from '../components/header/headerLayout';
+import ErrorPanel from '../../components/error_message';
+import LoadingPanel from '../../components/loading_panel';
+import HeaderLayout from '../../components/header/headerLayout';
 
 export default function RecipeCategories() {
   const maxLimit = 500;

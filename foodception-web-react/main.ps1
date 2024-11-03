@@ -17,6 +17,7 @@ function main {
 
     # Check if the parameter matches any function
     switch ($args[0]) {
+        "start" { start-app }
         "test" { test }
         "build" { build }
         "deploy" { deploy }
@@ -26,6 +27,11 @@ function main {
 
 
 # Define the test function
+function start-app {
+    Write-Host "Starting app..."
+    npm run start
+}
+
 function test {
     Write-Host "Running tests..."
     # Add your test commands here

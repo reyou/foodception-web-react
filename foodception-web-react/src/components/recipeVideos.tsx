@@ -61,7 +61,7 @@ const RecipeVideos: React.FC<RecipeVideosProps> = ({
           <React.Fragment key={video.id}>
             {/* Video card shown when it is not selected */}
             {selectedVideoIndex !== index && (
-              <Col xs={12} sm={6} md={4} className='mb-3'>
+              <Col xs={12} sm={6} md={4} xl={3} className='mb-3'>
                 <div ref={(el) => (cardRefs.current[index] = el)}>
                   <RecipeVideoCard
                     youTubeChannelVideo={video}
