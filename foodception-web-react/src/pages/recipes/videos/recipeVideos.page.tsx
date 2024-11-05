@@ -10,6 +10,7 @@ import NoMoreItems from '../components/no_more_items';
 import NoResults from '../components/no_results';
 import Pagination from '../../../components/pagination';
 import RecipeVideos from '../../../components/recipeVideos';
+import SearchAutoComplete from '../../../components/search_auto_complete';
 
 export default function RecipeVideosPage() {
   const query = useQuery();
@@ -22,6 +23,12 @@ export default function RecipeVideosPage() {
   const { data, loading, error } = useFetch(
     `/recipes/videos?query=${searchTerm}&skip=${skip}`
   );
+
+  const handleSearch = (term: string) => {
+    if (term !== searchTerm) {
+      setSearchTerm(term);
+    }
+  };
 
   const handleSearchCleared = () => {
     setSearchTerm('');
@@ -56,7 +63,12 @@ export default function RecipeVideosPage() {
                 <h4>Watch, Learn, and Create</h4>
               </Col>
               <Col xs={12} md={6} lg={4} xl={3}>
-                SearchAutoComplete
+                <SearchAutoComplete
+                  initialSearchTerm={searchTerm}
+                  onSearch={handleSearch}
+                  apiEndpoint='/recipes/videos/autocomplete'
+                  baseUrl='/recipes/videos'
+                />
               </Col>
             </Row>
 

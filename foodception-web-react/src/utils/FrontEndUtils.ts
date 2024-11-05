@@ -108,11 +108,21 @@ export class FrontEndUtils {
     return text;
   }
 
-  static getResizedImagePath(imageUrl: string, width: number, height: number) {
-    const transformation = `/v1/fill/w_${width},h_${height}/`;
-    const fileName = imageUrl.substring(imageUrl.lastIndexOf('/'));
-    const fullImageUrl = imageUrl + transformation + fileName;
-    return fullImageUrl;
+  static getResizedImagePath(
+    imageUrl: string,
+    width: number,
+    height: number
+  ): string {
+    const STATIC_WIX_URL = 'https://static.wixstatic.com/';
+
+    if (!imageUrl.startsWith(STATIC_WIX_URL)) {
+      return imageUrl;
+    }
+
+    const transformation = `v1/fill/w_${width},h_${height}`;
+    const fileName = imageUrl.split('/').pop() || '';
+
+    return `${imageUrl}/${transformation}/${fileName}`;
   }
 
   static capitalizeFirstLetter(str: string) {
