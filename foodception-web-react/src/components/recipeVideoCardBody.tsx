@@ -1,8 +1,10 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import FoodceptionLink from './links/foodception_link';
 
 interface FoodceptionRecipeVideoCardBodyProps {
+  recipeVideo: any;
   youTubeChannelVideo: any;
   onWatchClicked: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -11,11 +13,15 @@ interface FoodceptionRecipeVideoCardBodyProps {
 
 const FoodceptionRecipeVideoCardBody: React.FC<
   FoodceptionRecipeVideoCardBodyProps
-> = ({ youTubeChannelVideo, onWatchClicked }) => {
+> = ({ recipeVideo, youTubeChannelVideo, onWatchClicked }) => {
+  let recipeVideoUrl = `/recipes/${FrontEndUtils.slugify(recipeVideo.recipe.title)}/videos/${recipeVideo.id}`;
+
   return (
     <Card.Body>
       <Card.Title>
-        {FrontEndUtils.capitalizeText(youTubeChannelVideo.title)}
+        <FoodceptionLink url={recipeVideoUrl}>
+          {youTubeChannelVideo.title}
+        </FoodceptionLink>
       </Card.Title>
 
       <div className='mb-3'>

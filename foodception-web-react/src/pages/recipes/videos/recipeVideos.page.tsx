@@ -9,8 +9,8 @@ import SearchStatus from '../../../components/search_status';
 import NoMoreItems from '../components/no_more_items';
 import NoResults from '../components/no_results';
 import Pagination from '../../../components/pagination';
-import RecipeVideos from '../../../components/recipeVideos';
 import SearchAutoComplete from '../../../components/search_auto_complete';
+import RecipeVideosList from '../../../components/recipeVideosList';
 
 export default function RecipeVideosPage() {
   const query = useQuery();
@@ -86,9 +86,10 @@ export default function RecipeVideosPage() {
                 <NoResults searchTerm={searchTerm} />
               ) : (
                 <>
-                  <RecipeVideos
+                  <RecipeVideosList
+                    recipeVideos={data.recipeVideos}
                     youtubeChannelVideos={data.providerVideos}
-                  ></RecipeVideos>
+                  ></RecipeVideosList>
                   <Pagination currentPage={page} />
                 </>
               )}

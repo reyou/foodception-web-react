@@ -19,6 +19,7 @@ function main {
     switch ($args[0]) {
         "start" { start-app }
         "test" { test }
+        "storybook" { storybook }
         "build" { build }
         "deploy" { deploy }
         Default { Write-Host "Invalid option: $($args[0])" }
@@ -37,6 +38,9 @@ function test {
     # Add your test commands here
 }
 
+function storybook {
+    npm run storybook
+}
 
 function build {
     Write-Host "Building the project..."

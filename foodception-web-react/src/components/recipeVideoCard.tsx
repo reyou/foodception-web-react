@@ -4,6 +4,7 @@ import FoodceptionRecipeVideoCardBody from './recipeVideoCardBody';
 import FoodceptionRecipeVideoCardImage from './recipeVideoCardImage';
 
 interface RecipeVideoCardProps {
+  recipeVideo: any;
   youTubeChannelVideo: any;
   youTubeChannelVideoImages: any[];
   youTubeChannel: any;
@@ -15,6 +16,7 @@ interface RecipeVideoCardProps {
 }
 
 const RecipeVideoCard: React.FC<RecipeVideoCardProps> = ({
+  recipeVideo,
   youTubeChannelVideo,
   youTubeChannelVideoImages,
   onWatchClicked
@@ -31,6 +33,7 @@ const RecipeVideoCard: React.FC<RecipeVideoCardProps> = ({
         onWatchClicked={(event) => onWatchClicked(event)}
       />
       <FoodceptionRecipeVideoCardBody
+        recipeVideo={recipeVideo}
         youTubeChannelVideo={youTubeChannelVideo}
         onWatchClicked={(event) => onWatchClicked(event)}
       />

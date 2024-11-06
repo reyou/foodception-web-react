@@ -24,15 +24,14 @@ export default function TrendingRecipeVideos() {
           Cooking Videos For Every Taste
         </FoodceptionHeader>
         <Row className='justify-content-center'>
-          {data.trendingRecipeVideos.map((trendingRecipeVideo: any) => {
+          {data.providerVideos.map((providerVideo: any) => {
             const recipeVideo = data.recipeVideos.find(
-              (q: any) =>
-                q.recipeVideoProviderVideoId === trendingRecipeVideo.id
+              (q: any) => q.recipeVideoProviderVideoId === providerVideo.id
             );
 
             return (
               <Col
-                key={trendingRecipeVideo.id}
+                key={providerVideo.id}
                 xs={12}
                 md={6}
                 lg={4}
@@ -41,7 +40,7 @@ export default function TrendingRecipeVideos() {
               >
                 <FoodceptionTrendingRecipeVideoCard
                   recipeVideo={recipeVideo}
-                  youTubeChannelVideo={trendingRecipeVideo}
+                  youTubeChannelVideo={providerVideo}
                 />
               </Col>
             );

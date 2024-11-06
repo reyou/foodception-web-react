@@ -14,7 +14,6 @@ import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import useFetch from '../../hooks/useFetch';
 import LoadingPanel from '../../components/loading_panel';
 import ErrorPanel from '../../components/error_message';
-import NoRelatedVideos from './components/no_related_videos';
 import RelatedRecipes from './components/related_recipes';
 
 export default function RecipeDetails() {
@@ -26,29 +25,15 @@ export default function RecipeDetails() {
     error: recipesError
   } = useFetch(`/recipes/${id}`);
 
-  const {
-    data: recipeVideosData,
-    loading: recipeVideosLoading,
-    error: recipeVideosError
-  } = useFetch(`/recipes/${id}/videos`);
-
   if (!id) {
     return <p>Error: Recipe ID is missing.</p>;
   }
 
   const render = () => {
-    if (recipesError || recipeVideosError) {
-      return (
-        <ErrorPanel
-          errorMessage={recipesError || recipeVideosError || ''}
-        ></ErrorPanel>
-      );
-    } else if (recipesLoading || recipeVideosLoading) {
-      return (
-        <LoadingPanel
-          visible={recipesLoading || recipeVideosLoading}
-        ></LoadingPanel>
-      );
+    if (recipesError) {
+      return <ErrorPanel errorMessage={recipesError || ''}></ErrorPanel>;
+    } else if (recipesLoading) {
+      return <LoadingPanel visible={recipesLoading}></LoadingPanel>;
     } else {
       const { recipe } = recipesData;
       const recipeImage = recipe.recipeImages.find(
@@ -128,14 +113,7 @@ export default function RecipeDetails() {
           <Row className='mt-4'>
             <Col>
               <h2 className='text-center'>Related Videos</h2>
-              {recipeVideosData.youtubeChannelVideos &&
-              recipeVideosData.youtubeChannelVideos.length > 0 ? (
-                <RecipeVideos
-                  youtubeChannelVideos={recipeVideosData.youtubeChannelVideos}
-                />
-              ) : (
-                <NoRelatedVideos recipeTitle={recipe.title}></NoRelatedVideos>
-              )}
+              <RecipeVideos recipeId={id} />
             </Col>
           </Row>
 
