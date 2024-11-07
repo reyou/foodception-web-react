@@ -19,7 +19,7 @@ import RecipeDetails from './pages/recipes/recipe.details.page';
 import RecipesList from './pages/recipes/recipes.list.page';
 import Recipes from './pages/recipes/recipes.page';
 import RecipeVideos from './pages/recipes/videos/recipeVideos.page';
-import TrendingRecipeVideos from './pages/trendingRecipeVideos';
+import TrendingRecipeVideos from './pages/home/home.videos';
 import HomeRecipeCategories from './pages/home/home.recipeCategories';
 import Diets from './pages/diets/diets.page';
 import HomeDiets from './pages/home/home.diets';

@@ -14,8 +14,9 @@ interface FoodceptionRecipeVideoCardBodyProps {
 const FoodceptionRecipeVideoCardBody: React.FC<
   FoodceptionRecipeVideoCardBodyProps
 > = ({ recipeVideo, youTubeChannelVideo, onWatchClicked }) => {
-  let recipeVideoUrl = `/recipes/${FrontEndUtils.slugify(recipeVideo.recipe.title)}/videos/${recipeVideo.id}`;
-
+  const slug = FrontEndUtils.slugify(recipeVideo.recipe.title);
+  const recipeVideoUrl = `/recipes/${slug}/videos/${recipeVideo.id}`;
+  const recipeUrl = `/recipes/${slug}/${recipeVideo.recipe.id}`;
   return (
     <Card.Body>
       <Card.Title>
@@ -24,6 +25,12 @@ const FoodceptionRecipeVideoCardBody: React.FC<
         </FoodceptionLink>
       </Card.Title>
 
+      <div>
+        <strong className='me-2'>Recipe:</strong>
+        <FoodceptionLink url={recipeUrl}>
+          {recipeVideo.recipe.title}
+        </FoodceptionLink>
+      </div>
       <div className='mb-3'>
         <strong className='me-2'>Channel:</strong>
         <a
