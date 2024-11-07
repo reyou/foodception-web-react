@@ -15,6 +15,7 @@ import useFetch from '../../hooks/useFetch';
 import LoadingPanel from '../../components/loading_panel';
 import ErrorPanel from '../../components/error_message';
 import RelatedRecipes from './components/related_recipes';
+import FoodceptionShareButtons from '../../components/core/foodception_share_buttons';
 
 export default function RecipeDetails() {
   const { id } = useParams<{ id?: string }>();
@@ -90,9 +91,12 @@ export default function RecipeDetails() {
           </Row>
 
           {/* Share Social Media Buttons */}
-          <Row className='text-center mt-3'>
-            <Col>Share Social Media Buttons</Col>
-          </Row>
+          <FoodceptionShareButtons
+            url={FrontEndUtils.getAdjustedUrl(window.location.href)}
+            hashtag={`#${FrontEndUtils.slugify(recipe.title)} #foodception`}
+            title={`${recipe.title}: ${recipe.description}`}
+            media={imageUrl}
+          />
 
           <Row className='mt-4'>
             <Col>
