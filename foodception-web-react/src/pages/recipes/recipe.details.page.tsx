@@ -36,9 +36,7 @@ export default function RecipeDetails() {
       return <LoadingPanel visible={recipesLoading}></LoadingPanel>;
     } else {
       const { recipe } = recipesData;
-      const recipeImage = recipe.recipeImages.find(
-        (img: any) => img.recipeId === recipe.id
-      );
+      const recipeImage = recipe.recipeImages[0];
       const imageUrl = FrontEndUtils.getResizedImagePath(
         recipeImage.imageUrl,
         940,
