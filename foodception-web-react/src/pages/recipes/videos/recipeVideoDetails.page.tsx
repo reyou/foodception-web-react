@@ -9,6 +9,7 @@ import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 import FoodceptionHrefLink from '../../../components/links/href_link';
 import RelatedRecipes from '../components/related_recipes';
 import RecipeVideos from '../../../components/recipeVideos';
+import FoodceptionShareButtons from '../../../components/core/foodception_share_buttons';
 
 const RecipeVideoDetailsPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,13 +32,27 @@ const RecipeVideoDetailsPage: React.FC = () => {
   }
 
   const recipeVideo = data.recipeVideo;
+  const recipe = recipeVideo.recipe;
   const providerVideo = data.providerVideo;
-  const recipeDetailsUrl = `/recipes/${FrontEndUtils.slugify(recipeVideo.recipe.title)}/${recipeVideo.recipe.id}`;
+  let youTubeChannelVideoImages = providerVideo.youtubeChannelVideoImages;
+  youTubeChannelVideoImages.sort((a: any, b: any) => b.width - a.width);
+  const imageUrl = youTubeChannelVideoImages[0].url;
+  const recipeDetailsUrl = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${recipe.id}`;
   return (
     <>
       <FoodceptionHeader>{providerVideo.title}</FoodceptionHeader>
       <p className='text-center fs-5'>{providerVideo.description}</p>
       <Container>
+        <Row>
+          <Col>
+            <div className='fs-5 mb-2'>
+              <strong className='me-2'>Recipe:</strong>
+              <FoodceptionHrefLink url={recipeDetailsUrl}>
+                {recipe.title}
+              </FoodceptionHrefLink>
+            </div>
+          </Col>
+        </Row>
         <YouTube
           videoId={providerVideo.videoId}
           className='foodceptionYoutubeVideoPlayer'
@@ -48,25 +63,22 @@ const RecipeVideoDetailsPage: React.FC = () => {
             playerVars: { autoplay: 0 }
           }}
         />
-        <Row>
-          <Col>
-            <strong className='me-2'>Recipe:</strong>
-            <FoodceptionHrefLink url={recipeDetailsUrl}>
-              {recipeVideo.recipe.title}
-            </FoodceptionHrefLink>
-          </Col>
-        </Row>
-
+        <FoodceptionShareButtons
+          url={FrontEndUtils.getAdjustedUrl(window.location.href)}
+          hashtag={`#${FrontEndUtils.slugify(providerVideo.title)} #foodception`}
+          title={`${providerVideo.title}: ${providerVideo.description}`}
+          media={imageUrl}
+        />
         <Row className='mt-4'>
           <Col>
             <h2 className='text-center'>Related Recipes</h2>
-            <RelatedRecipes recipeId={recipeVideo.recipe.id}></RelatedRecipes>
+            <RelatedRecipes recipeId={recipe.id}></RelatedRecipes>
           </Col>
         </Row>
         <Row className='mt-4'>
           <Col>
             <h2 className='text-center'>{recipeVideo.recipe.title} Videos</h2>
-            <RecipeVideos recipeId={recipeVideo.recipe.id}></RecipeVideos>
+            <RecipeVideos recipeId={recipe.id}></RecipeVideos>
           </Col>
         </Row>
       </Container>
