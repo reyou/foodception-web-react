@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Card, Button } from 'react-bootstrap';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import FoodceptionCardHrefImage from '../cardHrefImage';
+import FoodceptionLink from '../links/foodception_link';
 
 interface IngredientCardProps {
   ingredient: any;
@@ -18,9 +19,9 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
   const url = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
     ingredient.id
   }`;
-  const recipesUrl = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
+  const badgeUrl = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
     ingredient.id
-  }/recipes`;
+  }#recipes`;
 
   return (
     <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
@@ -32,11 +33,13 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
           badge={`${ingredient.recipeCount} ${
             ingredient.recipeCount === 1 ? 'Recipe' : 'Recipes'
           }`}
-          badgeUrl={recipesUrl}
+          badgeUrl={badgeUrl}
         />
         <Card.Body>
           <Card.Title>
-            {FrontEndUtils.capitalizeText(ingredient.title)}
+            <FoodceptionLink url={url}>
+              {FrontEndUtils.capitalizeText(ingredient.title)}
+            </FoodceptionLink>
           </Card.Title>
           <Card.Text>{ingredient.description}</Card.Text>
           <Button
@@ -45,16 +48,7 @@ const IngredientCard: React.FC<IngredientCardProps> = ({
             href={FrontEndUtils.getAdjustedUrl(url)}
             onClick={(event) => FrontEndUtils.handleLinkClick(event, url)}
           >
-            View Ingredient
-          </Button>
-          <Button
-            variant='primary'
-            href={FrontEndUtils.getAdjustedUrl(recipesUrl)}
-            onClick={(event) =>
-              FrontEndUtils.handleLinkClick(event, recipesUrl)
-            }
-          >
-            View Recipes
+            Details
           </Button>
         </Card.Body>
       </Card>

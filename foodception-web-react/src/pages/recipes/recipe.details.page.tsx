@@ -20,23 +20,19 @@ import FoodceptionShareButtons from '../../components/core/foodception_share_but
 export default function RecipeDetails() {
   const { id } = useParams<{ id?: string }>();
 
-  const {
-    data: recipesData,
-    loading: recipesLoading,
-    error: recipesError
-  } = useFetch(`/recipes/${id}`);
+  const { data, loading, error } = useFetch(`/recipes/${id}`);
 
   if (!id) {
     return <p>Error: Recipe ID is missing.</p>;
   }
 
   const render = () => {
-    if (recipesError) {
-      return <ErrorPanel errorMessage={recipesError || ''}></ErrorPanel>;
-    } else if (recipesLoading) {
-      return <LoadingPanel visible={recipesLoading}></LoadingPanel>;
+    if (error) {
+      return <ErrorPanel errorMessage={error}></ErrorPanel>;
+    } else if (loading) {
+      return <LoadingPanel visible={loading}></LoadingPanel>;
     } else {
-      const { recipe } = recipesData;
+      const { recipe } = data;
       const recipeImage = recipe.recipeImages[0];
       const imageUrl = FrontEndUtils.getResizedImagePath(
         recipeImage.imageUrl,
@@ -90,7 +86,6 @@ export default function RecipeDetails() {
             </Col>
           </Row>
 
-          {/* Share Social Media Buttons */}
           <FoodceptionShareButtons
             url={FrontEndUtils.getAdjustedUrl(window.location.href)}
             hashtag={`#${FrontEndUtils.slugify(recipe.title)} #foodception`}

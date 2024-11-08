@@ -25,6 +25,7 @@ import Diets from './pages/diets/diets.page';
 import HomeDiets from './pages/home/home.diets';
 import DietDetail from './pages/diets/diet.details.page';
 import RecipeVideoDetailsPage from './pages/recipes/videos/recipeVideoDetails.page';
+import IngredientDetailsPage from './pages/ingredients/ingredient.details.page';
 
 export default function FoodceptionRouter() {
   const router = createBrowserRouter(
@@ -69,6 +70,10 @@ export default function FoodceptionRouter() {
           <Route path='countries' element={<Countries />} />
           <Route path='countries/:slug/:id' element={<CountryDetails />} />
           <Route path='ingredients' element={<IngredientsPage />} />
+          <Route
+            path='ingredients/:slug/:id'
+            element={<IngredientDetailsPage />}
+          />
         </Route>
       </>
     )

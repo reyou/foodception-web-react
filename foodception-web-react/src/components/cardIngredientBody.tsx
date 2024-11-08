@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Button, Form } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
+import FoodceptionLink from './links/foodception_link';
 
 interface FoodceptionCardIngredientBodyProps {
   recipeIngredient: any;
@@ -26,7 +27,9 @@ const FoodceptionCardIngredientBody: React.FC<
   return (
     <Card.Body data-guid='6904dfea-b61f-4e60-8c67-c3dde6aa7acf'>
       <Card.Title>
-        {FrontEndUtils.capitalizeText(recipeIngredient.ingredient.title)}
+        <FoodceptionLink url={adjustedUrl}>
+          {FrontEndUtils.capitalizeText(recipeIngredient.ingredient.title)}
+        </FoodceptionLink>
       </Card.Title>
       <div className='mb-2'>{ingredientAmount}</div>
       <Form.Group
