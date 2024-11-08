@@ -3,12 +3,10 @@ import { Card, Button, Form } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionCardIngredientBodyProps {
-  title: string;
-  description: string;
+  recipeIngredient: any;
   url: string;
   linkTitle: string;
   index: number;
-  ingredient: any;
   checked: boolean;
   onCheckboxChange: (index: number) => void;
 }
@@ -16,22 +14,25 @@ interface FoodceptionCardIngredientBodyProps {
 const FoodceptionCardIngredientBody: React.FC<
   FoodceptionCardIngredientBodyProps
 > = ({
-  title,
-  description,
+  recipeIngredient,
   url,
   linkTitle,
   index,
-  ingredient,
   checked,
   onCheckboxChange
 }) => {
   const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
-
+  const ingredientAmount = `${recipeIngredient.amount} ${recipeIngredient.unit}`;
   return (
     <Card.Body data-guid='6904dfea-b61f-4e60-8c67-c3dde6aa7acf'>
-      <Card.Title>{FrontEndUtils.capitalizeText(title)}</Card.Title>
-
-      <Form.Group controlId={`ingredient-${ingredient.id}`} className='mb-3'>
+      <Card.Title>
+        {FrontEndUtils.capitalizeText(recipeIngredient.ingredient.title)}
+      </Card.Title>
+      <div className='mb-2'>{ingredientAmount}</div>
+      <Form.Group
+        controlId={`ingredient-${recipeIngredient.ingredient.id}`}
+        className='mb-3'
+      >
         <Form.Check
           type='checkbox'
           label='Have This'
@@ -41,7 +42,7 @@ const FoodceptionCardIngredientBody: React.FC<
       </Form.Group>
 
       <Card.Text data-guid='c918b681-9d93-4b75-af2f-865667a40642'>
-        {description}
+        {recipeIngredient.ingredient.description}
       </Card.Text>
 
       <Button

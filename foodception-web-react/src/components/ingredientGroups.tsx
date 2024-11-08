@@ -74,7 +74,7 @@ const IngredientGroups: React.FC<IngredientGroupsProps> = ({
                   </Form.Check.Label>
                 </Form.Check>
                 <Ingredients
-                  ingredients={group.recipeIngredients}
+                  recipeIngredients={group.recipeIngredients}
                   checkedIngredients={checkedIngredients[group.id] || []}
                   onCheckboxChange={(ingredientIndex: number) =>
                     handleCheckboxChange(group.id, ingredientIndex)

@@ -33,12 +33,10 @@ const FoodceptionIngredientCard: React.FC<FoodceptionIngredientCardProps> = ({
         alt={recipeIngredient.ingredient.title}
       />
       <FoodceptionCardIngredientBody
-        title={recipeIngredient.ingredient.title}
-        description={recipeIngredient.ingredient.description}
+        recipeIngredient={recipeIngredient}
         linkTitle={urlTitle}
         url={url}
         index={index}
-        ingredient={recipeIngredient.ingredient}
         checked={checked}
         onCheckboxChange={onCheckboxChange}
       />
