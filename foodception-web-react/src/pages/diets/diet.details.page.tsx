@@ -3,17 +3,24 @@ import useFetch from '../../hooks/useFetch';
 import LoadingPanel from '../../components/loading_panel';
 import ErrorPanel from '../../components/error_message';
 import { Col, Container, Row } from 'react-bootstrap';
-import FoodceptionHrefButton from '../../components/links/hrefButton';
 import RecipeList from '../../components/recipeList';
 import HeaderLayout from '../../components/header/headerLayout';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import { useLayout } from '../../contexts/layout-context';
+import { useEffect } from 'react';
 
 interface DietDetailProps {}
 
 const DietDetail: React.FC<DietDetailProps> = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useFetch(`/diets/${id}/recipes`);
-
+  const { setHasHeader } = useLayout();
+  useEffect(() => {
+    setHasHeader(true);
+    return () => {
+      setHasHeader(false);
+    };
+  }, [setHasHeader]);
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;
   }
@@ -39,14 +46,6 @@ const DietDetail: React.FC<DietDetailProps> = () => {
         subTitle={diet.description}
       ></HeaderLayout>
       <Container fluid>
-        <Row className='mb-3 mt-3'>
-          <Col className='text-center'>
-            <FoodceptionHrefButton url='/diets'>
-              &lt;&lt; Back to Diets
-            </FoodceptionHrefButton>
-          </Col>
-        </Row>
-
         <Row>
           <Col>
             <RecipeList recipes={data.recipes} />

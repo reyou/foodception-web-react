@@ -19,7 +19,6 @@ export default function Recipes() {
         title={title}
         subTitle={subTitle}
       />
-
       <Container fluid className='mt-4'>
         <RandomPicks />
         <TopCategories />

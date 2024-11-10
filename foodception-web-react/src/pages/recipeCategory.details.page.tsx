@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import FoodceptionHrefButton from '../components/links/hrefButton';
 import RecipeList from '../components/recipeList';
 import ErrorPanel from '../components/error_message';
 import useFetch from '../hooks/useFetch';
@@ -40,14 +39,6 @@ const RecipeCategoryDetail: React.FC<RecipeCategoryDetailProps> = () => {
         subTitle={recipeCategory.description}
       ></HeaderLayout>
       <Container fluid>
-        <Row className='mb-3 mt-3'>
-          <Col className='text-center'>
-            <FoodceptionHrefButton url='/recipe-categories'>
-              &lt;&lt; Back to Recipe Categories
-            </FoodceptionHrefButton>
-          </Col>
-        </Row>
-
         <Row>
           <Col>
             <RecipeList recipes={data.recipes} />

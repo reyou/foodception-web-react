@@ -26,6 +26,7 @@ import HomeDiets from './pages/home/home.diets';
 import DietDetail from './pages/diets/diet.details.page';
 import RecipeVideoDetailsPage from './pages/recipes/videos/recipeVideoDetails.page';
 import IngredientDetailsPage from './pages/ingredients/ingredient.details.page';
+import { LayoutProvider } from './contexts/layout-context';
 
 export default function FoodceptionRouter() {
   const router = createBrowserRouter(
@@ -40,7 +41,8 @@ export default function FoodceptionRouter() {
               </div>
             }
           />
-          <Route path='diets' element={<Diets />} />
+          <Route path='diets' element={<Diets />} />{' '}
+          <Route path='diets/:slug/:id' element={<DietDetail />} />
           <Route path='meals' element={<Meals />} />
           <Route path='meals/categories' element={<MealCategories />} />
           <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
@@ -57,7 +59,6 @@ export default function FoodceptionRouter() {
             path='recipe-categories/:slug/:id'
             element={<RecipeCategoryDetail />}
           />
-          <Route path='diets/:slug/:id' element={<DietDetail />} />
           <Route
             path='recipes/videos/trending'
             element={<TrendingRecipeVideos />}
@@ -79,5 +80,9 @@ export default function FoodceptionRouter() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <LayoutProvider>
+      <RouterProvider router={router} />
+    </LayoutProvider>
+  );
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import HeaderLayout from '../../components/header/headerLayout';
 import IngredientCard from '../../components/ingredients/ingredientCard';
@@ -18,9 +18,16 @@ import SearchStatus from '../../components/search_status';
 import NoMoreItems from '../recipes/components/no_more_items';
 import NoResults from '../recipes/components/no_results';
 import LoadingPanel from '../../components/loading_panel';
+import { useLayout } from '../../contexts/layout-context';
 
 function IngredientsPage() {
   const query = useQuery();
+  const { setHasHeader } = useLayout();
+
+  useEffect(() => {
+    setHasHeader(true);
+    return () => setHasHeader(false);
+  }, [setHasHeader]);
 
   // Set initial page from query or default to 1
   const page = parseInt(query.get('page') || '1');
@@ -129,6 +136,7 @@ function IngredientsPage() {
         subTitle={subtitle}
         backgroundImage={backgroundImage}
       />
+
       {content()}
     </Container>
   );
