@@ -14,47 +14,49 @@ const DynamicBreadcrumbs = () => {
   // Split the path into segments and filter out any empty ones
   const paths = location.pathname.split('/').filter(Boolean);
 
-  // Function to determine if a segment is an ID (you can adjust this as needed)
-  const isID = (segment: string) => /^[0-9a-fA-F-]{36}$/.test(segment); // Checks for UUID format
+  // Function to determine if a segment is an ID (UUID format)
+  const isID = (segment: string) => /^[0-9a-fA-F-]{36}$/.test(segment);
 
-  // Find the "true" last path segment to make it non-clickable (ignore IDs)
-  const lastPathIndex = isID(paths[paths.length - 1])
-    ? paths.length - 2
-    : paths.length - 1;
+  // Accumulate paths for generating the full link for each breadcrumb item
+  const breadcrumbPaths: string[] = [];
+  let adjustedPaths: string[] = [];
 
+  // Adjusted paths logic: skip IDs but keep them in URLs when needed
+  paths.forEach((path, index) => {
+    // If the current path is not an ID, push it to displayable breadcrumb array
+    if (!isID(path)) {
+      adjustedPaths.push(path);
+      // Add the current path to the breadcrumbPaths, along with any IDs that should be part of its URL
+      const accumulatedPath = `/${paths.slice(0, index + 1).join('/')}`;
+      breadcrumbPaths.push(accumulatedPath);
+    } else if (index < paths.length - 1) {
+      // If it's an ID and not the last segment, add it to the previous path's URL
+      breadcrumbPaths[breadcrumbPaths.length - 1] += `/${path}`;
+    }
+  });
+
+  // Render Breadcrumbs
   return (
     <Container className='mt-2'>
       <Breadcrumb>
         <Breadcrumb.Item linkAs={FoodceptionLink} linkProps={{ url: '/' }}>
           Home
         </Breadcrumb.Item>
-        {paths.map((path, index) => {
-          // Skip the breadcrumb item if it's an ID and it's the last segment
-          if (isID(path) && index === paths.length - 1) {
-            return null;
-          }
-
-          // Generate the path up to the current breadcrumb level
-          const to = `/${paths.slice(0, index + 1).join('/')}`;
-
-          // Determine if the current segment is the "last" one for displaying as text only
-          const isLast = index === lastPathIndex;
-
-          // Customize path names if necessary
+        {adjustedPaths.map((path, index) => {
+          const isLast = index === adjustedPaths.length - 1;
           const formattedPath = FrontEndUtils.capitalizeText(
             path.replace(/-/g, ' ')
           );
 
           return isLast ? (
-            <Breadcrumb.Item active key={to}>
-              {/* Display as plain text without a link for the last "true" item */}
+            <Breadcrumb.Item active key={breadcrumbPaths[index]}>
               {formattedPath}
             </Breadcrumb.Item>
           ) : (
             <Breadcrumb.Item
               linkAs={FoodceptionLink}
-              linkProps={{ url: to }}
-              key={to}
+              linkProps={{ url: breadcrumbPaths[index] }}
+              key={breadcrumbPaths[index]}
             >
               {formattedPath}
             </Breadcrumb.Item>

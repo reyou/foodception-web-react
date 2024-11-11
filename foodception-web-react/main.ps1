@@ -18,7 +18,7 @@ function main {
     # Check if the parameter matches any function
     switch ($args[0]) {
         "start" { start-app }
-        "test" { test }
+        "test" { Test }
         "storybook" { storybook }
         "build" { build }
         "deploy" { deploy }
@@ -33,10 +33,14 @@ function start-app {
     npm run start
 }
 
-function test {
+function Test {
     Write-Host "Running tests..."
-    # Add your test commands here
+    
+    # Run tests in non-watch mode and save all output to _temp/output.txt
+    npm run test -- --watchAll=false 2>&1 | Tee-Object -FilePath "_temp/output.txt"
 }
+
+
 
 function storybook {
     npm run storybook
