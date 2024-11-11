@@ -1,23 +1,14 @@
-import { useEffect } from 'react';
 import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
 import HeaderLayout from '../components/header/headerLayout';
 import FoodceptionHrefButton from '../components/links/hrefButton';
 import LoadingPanel from '../components/loading_panel';
 import RecipeList from '../components/recipeList';
-import { useLayout } from '../contexts/layout-context';
 import useFetch from '../hooks/useFetch';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import { Container, Row, Col } from 'react-bootstrap';
 
 export default function Meals() {
-  const { setShowBreadcrumb } = useLayout();
-  useEffect(() => {
-    setShowBreadcrumb(false);
-    return () => {
-      setShowBreadcrumb(true);
-    };
-  }, [setShowBreadcrumb]);
   const { data, loading, error } = useFetch('/meals');
 
   if (loading) {

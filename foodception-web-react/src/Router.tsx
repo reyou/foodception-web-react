@@ -51,10 +51,10 @@ export default function FoodceptionRouter() {
             path='recipes/videos/trending'
             element={<TrendingRecipeVideos />}
           />
+          <Route path='meals/categories' element={<MealCategories />} />
           <Route path='diets' element={<Diets />} />{' '}
           <Route path='diets/:slug/:id' element={<DietDetail />} />
           <Route path='meals' element={<Meals />} />
-          <Route path='meals/categories' element={<MealCategories />} />
           <Route
             path='meals/:slug/:id'
             element={<Navigate to='recipes' replace />}

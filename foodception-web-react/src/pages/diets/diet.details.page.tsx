@@ -6,21 +6,13 @@ import { Col, Container, Row } from 'react-bootstrap';
 import RecipeList from '../../components/recipeList';
 import HeaderLayout from '../../components/header/headerLayout';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import { useLayout } from '../../contexts/layout-context';
-import { useEffect } from 'react';
 
 interface DietDetailProps {}
 
 const DietDetail: React.FC<DietDetailProps> = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useFetch(`/diets/${id}/recipes`);
-  const { setShowBreadcrumb } = useLayout();
-  useEffect(() => {
-    setShowBreadcrumb(false);
-    return () => {
-      setShowBreadcrumb(true);
-    };
-  }, [setShowBreadcrumb]);
+
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;
   }

@@ -6,17 +6,8 @@ import { useSearchParams } from 'react-router-dom';
 import ErrorPanel from '../../components/error_message';
 import LoadingPanel from '../../components/loading_panel';
 import HeaderLayout from '../../components/header/headerLayout';
-import { useLayout } from '../../contexts/layout-context';
-import { useEffect } from 'react';
 
 export default function RecipeCategories() {
-  const { setShowBreadcrumb } = useLayout();
-  useEffect(() => {
-    setShowBreadcrumb(false);
-    return () => {
-      setShowBreadcrumb(true);
-    };
-  }, [setShowBreadcrumb]);
   const maxLimit = 500;
   const [searchParams] = useSearchParams();
   const limitParam = searchParams.get('limit');

@@ -5,8 +5,17 @@ import FoodceptionHrefButton from '../components/links/hrefButton';
 import LoadingPanel from '../components/loading_panel';
 import MealCategoriesList from '../components/mealCategoriesList';
 import useFetch from '../hooks/useFetch';
+import { useLayout } from '../contexts/layout-context';
+import { useEffect } from 'react';
 
 export default function MealCategories() {
+  const { setShowBreadcrumb } = useLayout();
+  useEffect(() => {
+    setShowBreadcrumb(false);
+    return () => {
+      setShowBreadcrumb(true);
+    };
+  }, [setShowBreadcrumb]);
   const { data, loading, error } = useFetch('/meals/categories');
 
   if (loading) {

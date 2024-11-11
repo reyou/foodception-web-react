@@ -5,8 +5,6 @@ import LoadingPanel from '../../components/loading_panel';
 import useFetch from '../../hooks/useFetch';
 import { useSearchParams } from 'react-router-dom';
 import DietList from '../../components/diets/dietList';
-import { useLayout } from '../../contexts/layout-context';
-import { useEffect } from 'react';
 
 export default function Diets() {
   const maxLimit = 500;
@@ -14,13 +12,6 @@ export default function Diets() {
   const limitParam = searchParams.get('limit');
   const limit = limitParam ? parseInt(limitParam, 10) : maxLimit;
   const { data, loading, error } = useFetch(`/diets?limit=${limit}`);
-  const { setShowBreadcrumb } = useLayout();
-  useEffect(() => {
-    setShowBreadcrumb(false);
-    return () => {
-      setShowBreadcrumb(true);
-    };
-  }, [setShowBreadcrumb]);
 
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;

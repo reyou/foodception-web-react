@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../../css/components/HeaderLayout.css';
 import DynamicBreadcrumbs from '../core/foodception_breadcrumbs';
+import { useLayout } from '../../contexts/layout-context';
 
 interface HeaderLayoutProps {
   backgroundImage: string;
@@ -14,6 +15,13 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   subTitle,
   backgroundImage
 }) => {
+  const { setShowBreadcrumb } = useLayout();
+  useEffect(() => {
+    setShowBreadcrumb(false);
+    return () => {
+      setShowBreadcrumb(true);
+    };
+  }, [setShowBreadcrumb]);
   return (
     <>
       <header
