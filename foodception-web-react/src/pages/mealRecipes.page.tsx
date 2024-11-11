@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import ErrorPanel from '../components/error_message';
-import FoodceptionHrefButton from '../components/links/hrefButton';
 import RecipeList from '../components/recipeList';
 import useFetch from '../hooks/useFetch';
 import LoadingPanel from '../components/loading_panel';
@@ -24,11 +23,6 @@ export default function MealRecipes() {
 
   return (
     <Container fluid>
-      <div className='mb-3 text-center'>
-        <FoodceptionHrefButton url='/meals'>
-          &lt;&lt; Back to Meals
-        </FoodceptionHrefButton>
-      </div>
       <RecipeList recipes={data.recipes} />
     </Container>
   );

@@ -1,6 +1,7 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
   Route,
   RouterProvider
 } from 'react-router-dom';
@@ -45,6 +46,10 @@ export default function FoodceptionRouter() {
           <Route path='diets/:slug/:id' element={<DietDetail />} />
           <Route path='meals' element={<Meals />} />
           <Route path='meals/categories' element={<MealCategories />} />
+          <Route
+            path='meals/:slug/:id'
+            element={<Navigate to='recipes' replace />}
+          />
           <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
           <Route path='recipes' element={<Recipes />} />
           <Route path='recipes/list' element={<RecipesList />} />
