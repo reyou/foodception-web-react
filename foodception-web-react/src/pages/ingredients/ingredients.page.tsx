@@ -22,12 +22,13 @@ import { useLayout } from '../../contexts/layout-context';
 
 function IngredientsPage() {
   const query = useQuery();
-  const { setHasHeader } = useLayout();
-
+  const { setShowBreadcrumb } = useLayout();
   useEffect(() => {
-    setHasHeader(true);
-    return () => setHasHeader(false);
-  }, [setHasHeader]);
+    setShowBreadcrumb(false);
+    return () => {
+      setShowBreadcrumb(true);
+    };
+  }, [setShowBreadcrumb]);
 
   // Set initial page from query or default to 1
   const page = parseInt(query.get('page') || '1');

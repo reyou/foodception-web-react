@@ -14,13 +14,13 @@ interface DietDetailProps {}
 const DietDetail: React.FC<DietDetailProps> = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useFetch(`/diets/${id}/recipes`);
-  const { setHasHeader } = useLayout();
+  const { setShowBreadcrumb } = useLayout();
   useEffect(() => {
-    setHasHeader(true);
+    setShowBreadcrumb(false);
     return () => {
-      setHasHeader(false);
+      setShowBreadcrumb(true);
     };
-  }, [setHasHeader]);
+  }, [setShowBreadcrumb]);
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;
   }

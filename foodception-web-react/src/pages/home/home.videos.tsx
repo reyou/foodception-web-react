@@ -6,8 +6,17 @@ import LoadingPanel from '../../components/loading_panel';
 
 import useFetch from '../../hooks/useFetch';
 import RecipeVideosList from '../../components/recipeVideosList';
+import { useLayout } from '../../contexts/layout-context';
+import { useEffect } from 'react';
 
 export default function TrendingRecipeVideos() {
+  const { setShowBreadcrumb } = useLayout();
+  useEffect(() => {
+    setShowBreadcrumb(false);
+    return () => {
+      setShowBreadcrumb(true);
+    };
+  }, [setShowBreadcrumb]);
   const { data, loading, error } = useFetch(`/recipes/videos/trending`);
 
   const render = () => {

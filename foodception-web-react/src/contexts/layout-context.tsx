@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 const LayoutContext = createContext<{
-  hasHeader: boolean;
-  setHasHeader: React.Dispatch<React.SetStateAction<boolean>>;
+  showBreadcrumb: boolean;
+  setShowBreadcrumb: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 interface LayoutProviderProps {
@@ -10,10 +10,10 @@ interface LayoutProviderProps {
 }
 
 export const LayoutProvider = ({ children }: LayoutProviderProps) => {
-  const [hasHeader, setHasHeader] = useState(false);
+  const [showBreadcrumb, setShowBreadcrumb] = useState(true);
 
   return (
-    <LayoutContext.Provider value={{ hasHeader, setHasHeader }}>
+    <LayoutContext.Provider value={{ showBreadcrumb, setShowBreadcrumb }}>
       {children}
     </LayoutContext.Provider>
   );

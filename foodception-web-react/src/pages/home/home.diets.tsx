@@ -5,8 +5,17 @@ import useFetch from '../../hooks/useFetch';
 import FoodceptionHeader from '../../components/header/header';
 import FoodceptionHrefButton from '../../components/links/hrefButton';
 import DietList from '../../components/diets/dietList';
+import { useLayout } from '../../contexts/layout-context';
+import { useEffect } from 'react';
 
 export default function HomeDiets() {
+  const { setShowBreadcrumb } = useLayout();
+  useEffect(() => {
+    setShowBreadcrumb(false);
+    return () => {
+      setShowBreadcrumb(true);
+    };
+  }, [setShowBreadcrumb]);
   const { data, loading, error } = useFetch(`/diets?limit=${20}`);
 
   if (loading) {

@@ -10,15 +10,18 @@ import { useLayout } from '../../contexts/layout-context';
 import { useEffect } from 'react';
 
 export default function RecipeCategories() {
-  const { setHasHeader } = useLayout();
+  const { setShowBreadcrumb } = useLayout();
+  useEffect(() => {
+    setShowBreadcrumb(false);
+    return () => {
+      setShowBreadcrumb(true);
+    };
+  }, [setShowBreadcrumb]);
   const maxLimit = 500;
   const [searchParams] = useSearchParams();
   const limitParam = searchParams.get('limit');
   const limit = limitParam ? parseInt(limitParam, 10) : maxLimit;
-  useEffect(() => {
-    setHasHeader(true);
-    return () => setHasHeader(false);
-  }, [setHasHeader]);
+
   const { data, loading, error } = useFetch(
     `/recipe-categories?limit=${limit}`
   );

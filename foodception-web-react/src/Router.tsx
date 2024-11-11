@@ -42,6 +42,15 @@ export default function FoodceptionRouter() {
               </div>
             }
           />
+          <Route
+            path='home/recipe-categories'
+            element={<HomeRecipeCategories />}
+          />
+          <Route path='home/diets' element={<HomeDiets />} />
+          <Route
+            path='recipes/videos/trending'
+            element={<TrendingRecipeVideos />}
+          />
           <Route path='diets' element={<Diets />} />{' '}
           <Route path='diets/:slug/:id' element={<DietDetail />} />
           <Route path='meals' element={<Meals />} />
@@ -54,19 +63,10 @@ export default function FoodceptionRouter() {
           <Route path='recipes' element={<Recipes />} />
           <Route path='recipes/list' element={<RecipesList />} />
           <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
-          <Route
-            path='home/recipe-categories'
-            element={<HomeRecipeCategories />}
-          />
-          <Route path='home/diets' element={<HomeDiets />} />
           <Route path='recipe-categories' element={<RecipeCategories />} />
           <Route
             path='recipe-categories/:slug/:id'
             element={<RecipeCategoryDetail />}
-          />
-          <Route
-            path='recipes/videos/trending'
-            element={<TrendingRecipeVideos />}
           />
           <Route path='recipes/videos' element={<RecipeVideos />} />
           <Route

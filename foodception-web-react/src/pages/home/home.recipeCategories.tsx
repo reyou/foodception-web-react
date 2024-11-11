@@ -7,8 +7,17 @@ import useFetch from '../../hooks/useFetch';
 import ErrorPanel from '../../components/error_message';
 import LoadingPanel from '../../components/loading_panel';
 import FoodceptionHeader from '../../components/header/header';
+import { useLayout } from '../../contexts/layout-context';
+import { useEffect } from 'react';
 
 export default function HomeRecipeCategories() {
+  const { setShowBreadcrumb } = useLayout();
+  useEffect(() => {
+    setShowBreadcrumb(false);
+    return () => {
+      setShowBreadcrumb(true);
+    };
+  }, [setShowBreadcrumb]);
   const { data, loading, error } = useFetch(`/recipe-categories?limit=${20}`);
 
   if (loading) {

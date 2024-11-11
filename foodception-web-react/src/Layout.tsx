@@ -5,10 +5,10 @@ import DynamicBreadcrumbs from './components/core/foodception_breadcrumbs';
 import { useLayout } from './contexts/layout-context';
 
 const Layout: React.FC = () => {
-  const { hasHeader } = useLayout();
+  const { showBreadcrumb } = useLayout();
   return (
     <>
-      {!hasHeader && <DynamicBreadcrumbs />}
+      {showBreadcrumb && <DynamicBreadcrumbs />}
       <Outlet />
       <hr />
     </>

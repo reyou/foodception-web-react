@@ -11,13 +11,13 @@ import { FrontEndUtils } from '../utils/FrontEndUtils';
 import { Container, Row, Col } from 'react-bootstrap';
 
 export default function Meals() {
-  const { setHasHeader } = useLayout();
+  const { setShowBreadcrumb } = useLayout();
   useEffect(() => {
-    setHasHeader(true);
+    setShowBreadcrumb(false);
     return () => {
-      setHasHeader(false);
+      setShowBreadcrumb(true);
     };
-  }, [setHasHeader]);
+  }, [setShowBreadcrumb]);
   const { data, loading, error } = useFetch('/meals');
 
   if (loading) {

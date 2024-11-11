@@ -14,13 +14,13 @@ export default function Diets() {
   const limitParam = searchParams.get('limit');
   const limit = limitParam ? parseInt(limitParam, 10) : maxLimit;
   const { data, loading, error } = useFetch(`/diets?limit=${limit}`);
-  const { setHasHeader } = useLayout();
+  const { setShowBreadcrumb } = useLayout();
   useEffect(() => {
-    setHasHeader(true);
+    setShowBreadcrumb(false);
     return () => {
-      setHasHeader(false);
+      setShowBreadcrumb(true);
     };
-  }, [setHasHeader]);
+  }, [setShowBreadcrumb]);
 
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;
