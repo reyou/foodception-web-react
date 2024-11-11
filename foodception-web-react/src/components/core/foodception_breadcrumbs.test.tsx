@@ -1,12 +1,14 @@
-import { render, screen } from '@testing-library/react'; // Import `screen`
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import DynamicBreadcrumbs from './foodception_breadcrumbs';
-import '@testing-library/jest-dom/extend-expect';
 
 // Test utility function to render component with a specific route
 const renderWithRouter = (path: string) => {
   return render(
-    <MemoryRouter initialEntries={[path]}>
+    <MemoryRouter
+      initialEntries={[path]}
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
       <Routes>
         <Route path='*' element={<DynamicBreadcrumbs />} />
       </Routes>
@@ -37,7 +39,7 @@ describe('DynamicBreadcrumbs', () => {
     // Verify 'Recipes' is not a link (it's the last item and should be plain text)
     const recipesBreadcrumb = screen.queryByText('Recipes');
     expect(recipesBreadcrumb).toBeInTheDocument();
-    expect(recipesBreadcrumb?.tagName).toBe('LI'); // The last breadcrumb should be a <span>, not <a>
+    expect(recipesBreadcrumb?.tagName).toBe('LI');
   });
 
   test('renders breadcrumb for URL without UUID', () => {

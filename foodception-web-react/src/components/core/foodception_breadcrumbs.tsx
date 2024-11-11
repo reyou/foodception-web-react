@@ -26,6 +26,7 @@ const DynamicBreadcrumbs = () => {
     // If the current path is not an ID, push it to displayable breadcrumb array
     if (!isID(path)) {
       adjustedPaths.push(path);
+
       // Add the current path to the breadcrumbPaths, along with any IDs that should be part of its URL
       const accumulatedPath = `/${paths.slice(0, index + 1).join('/')}`;
       breadcrumbPaths.push(accumulatedPath);
