@@ -1,9 +1,9 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import ErrorPanel from '../../../components/error_message';
-import FoodceptionHrefLink from '../../../components/links/href_link';
 import LoadingPanel from '../../../components/loading_panel';
 import RecipeList from '../../../components/recipeList';
 import useFetch from '../../../hooks/useFetch';
+import FoodceptionLink from '../../../components/links/foodception_link';
 
 const RandomPicks = () => {
   const { data, loading, error } = useFetch('/recipes/random');
@@ -15,9 +15,9 @@ const RandomPicks = () => {
           <h2>Random Picks</h2>
           <h4>Feeling Lucky? Here Are Some Random Picks for You!</h4>
           <div className='mb-4'>
-            <FoodceptionHrefLink url={`/recipes/list`}>
+            <FoodceptionLink url={`/recipes/list`}>
               See all recipes
-            </FoodceptionHrefLink>
+            </FoodceptionLink>
           </div>
         </Col>
       </Row>

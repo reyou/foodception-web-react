@@ -1,9 +1,14 @@
-import { Breadcrumb, Container } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import FoodceptionLink from '../links/foodception_link';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import { useEffect, useState } from 'react';
 
 const DynamicBreadcrumbs = () => {
+  const [referrer, setReferrer] = useState('direct');
+  useEffect(() => {
+    setReferrer(document.referrer || 'direct');
+  }, []);
   const location = useLocation();
 
   // Return nothing if on the homepage
@@ -36,9 +41,34 @@ const DynamicBreadcrumbs = () => {
     }
   });
 
+  const getBackLinkLabel = () => {
+    if (referrer === 'direct') return 'Back';
+
+    // Split referrer URL and filter out GUID segments
+    const segments = referrer.split('/').filter(Boolean);
+    const nonGuidSegments = segments.filter((segment) => !isID(segment));
+
+    // Get the last non-GUID segment, or default to "Back" if none found
+    const lastSegment = nonGuidSegments[nonGuidSegments.length - 1] || 'Back';
+
+    // Format the segment (capitalize and replace dashes with spaces)
+    return `Back to ${FrontEndUtils.capitalizeText(lastSegment.replace(/-/g, ' '))}`;
+  };
+
   // Render Breadcrumbs
   return (
     <Container className='mt-2'>
+      <Row>
+        <Col>
+          {referrer !== 'direct' && (
+            <>
+              <FoodceptionLink url={referrer}>
+                <i className='bi bi-arrow-left-circle'></i> {getBackLinkLabel()}
+              </FoodceptionLink>
+            </>
+          )}
+        </Col>
+      </Row>
       <Breadcrumb>
         <Breadcrumb.Item linkAs={FoodceptionLink} linkProps={{ url: '/' }}>
           Home
