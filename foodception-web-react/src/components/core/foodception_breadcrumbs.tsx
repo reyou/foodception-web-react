@@ -50,16 +50,16 @@ const DynamicBreadcrumbs = () => {
 
   const getBackLinkLabel = () => {
     if (referrer === 'direct') return 'Back';
-
+    const ignoreList = ['http:', 'https:', 'www.foodception.com'];
     // Split referrer URL and filter out GUID segments
-    const segments = referrer.split('/').filter(Boolean);
+    let segments = referrer.split('/').filter(Boolean);
+    segments = segments.filter((segment) => !ignoreList.includes(segment));
     const nonGuidSegments = segments.filter((segment) => !isID(segment));
 
     // Get the last non-GUID segment and remove any query parameters
     const lastSegmentWithQuery =
-      nonGuidSegments[nonGuidSegments.length - 1] || 'Back';
+      nonGuidSegments[nonGuidSegments.length - 1] || 'Home';
     const lastSegment = lastSegmentWithQuery.split('?')[0];
-
     // Format the segment (capitalize and replace dashes with spaces)
     const backToLabel = FrontEndUtils.capitalizeText(
       lastSegment.replace(/-/g, ' ')

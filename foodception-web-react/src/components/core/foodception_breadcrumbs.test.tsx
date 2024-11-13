@@ -75,4 +75,16 @@ describe('DynamicBreadcrumbs', () => {
     expect(backLink).toBeInTheDocument();
     expect(backLink).toHaveTextContent('Back to List');
   });
+
+  test('renders breadcrumb correctly from homepage referrer', () => {
+    process.env.REACT_APP_WEB_URL = 'https://www.foodception.com';
+    jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
+    renderWithRouter(
+      '/recipe-categories?iframeId=recipe-categories-iframe&time=1731468914491&referrer=https%3A%2F%2Fwww.foodception.com%2F'
+    );
+    const backLink = screen.getByTestId('breadcrumb_back_link');
+    expect(backLink).not.toBeNull();
+    expect(backLink).toBeInTheDocument();
+    expect(backLink).toHaveTextContent('Back to Home');
+  });
 });
