@@ -3,13 +3,20 @@ import { useLocation } from 'react-router-dom';
 import FoodceptionLink from '../links/foodception_link';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import { useEffect, useState } from 'react';
+import { useQuery } from '../../hooks/useQuery';
 
 const DynamicBreadcrumbs = () => {
   const [referrer, setReferrer] = useState('direct');
-  useEffect(() => {
-    setReferrer(document.referrer || 'direct');
-  }, []);
+  const query = useQuery();
   const location = useLocation();
+  useEffect(() => {
+    if (FrontEndUtils.isInsideIframe()) {
+      const referrer = query.get('referrer') || 'direct';
+      setReferrer(referrer);
+    } else {
+      setReferrer(document.referrer || 'direct');
+    }
+  }, [query]);
 
   // Return nothing if on the homepage
   if (location.pathname === '/') {

@@ -96,5 +96,26 @@ describe('FrontEndUtils', () => {
 
       expect(adjustedUrl).toBe(expectedUrl);
     });
+
+    it('should construct a URL without referrer', () => {
+      // Mock environment variable for iframe case
+      process.env.REACT_APP_WEB_URL = 'https://www.foodception.com';
+      jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
+      const relativeUrl =
+        '/recipes/list?query=burger&referrer=https%3A%2F%2Fwww.foodception.com%2Frecipes%2Flist';
+      const expectedUrl =
+        'https://www.foodception.com/recipes/list?query=burger';
+      // Mock window.location.origin
+      Object.defineProperty(window, 'location', {
+        value: {
+          origin: 'https://web.foodception.com'
+        },
+        writable: true
+      });
+
+      const adjustedUrl = FrontEndUtils.getAdjustedUrl(relativeUrl);
+
+      expect(adjustedUrl).toBe(expectedUrl);
+    });
   });
 });

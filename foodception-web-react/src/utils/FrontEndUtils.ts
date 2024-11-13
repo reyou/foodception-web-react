@@ -38,6 +38,10 @@ export class FrontEndUtils {
       ? process.env.REACT_APP_WEB_URL // Use environment variable for iframe case
       : window.location.origin; // Use current origin if not inside iframe (https://web.foodception.com)
 
+    if (!baseUrl) {
+      throw new Error('Base URL is not defined');
+    }
+
     // Check if the URL is absolute
     const isAbsoluteUrl = /^https?:\/\//i.test(url);
 
@@ -45,6 +49,7 @@ export class FrontEndUtils {
     const removeUnwantedParams = (parsedUrl: URL): void => {
       parsedUrl.searchParams.delete('iframeId');
       parsedUrl.searchParams.delete('time');
+      parsedUrl.searchParams.delete('referrer');
     };
 
     // If not inside iframe and the URL is absolute, return it as is

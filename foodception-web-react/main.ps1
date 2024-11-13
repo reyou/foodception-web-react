@@ -37,7 +37,8 @@ function Test {
     Write-Host "Running tests..."
     
     # Run tests in non-watch mode and save all output to _temp/output.txt
-    npm run test -- --watchAll=false 2>&1 | Tee-Object -FilePath "_temp/output.txt"
+    npm run test
+    # npm run test -- --watchAll=false 2>&1 | Tee-Object -FilePath "_temp/output.txt"
 }
 
 
