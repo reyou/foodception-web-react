@@ -55,17 +55,23 @@ const DynamicBreadcrumbs = () => {
     const segments = referrer.split('/').filter(Boolean);
     const nonGuidSegments = segments.filter((segment) => !isID(segment));
 
-    // Get the last non-GUID segment, or default to "Back" if none found
-    const lastSegment = nonGuidSegments[nonGuidSegments.length - 1] || 'Back';
+    // Get the last non-GUID segment and remove any query parameters
+    const lastSegmentWithQuery =
+      nonGuidSegments[nonGuidSegments.length - 1] || 'Back';
+    const lastSegment = lastSegmentWithQuery.split('?')[0];
 
     // Format the segment (capitalize and replace dashes with spaces)
-    return `Back to ${FrontEndUtils.capitalizeText(lastSegment.replace(/-/g, ' '))}`;
+    const backToLabel = FrontEndUtils.capitalizeText(
+      lastSegment.replace(/-/g, ' ')
+    );
+
+    return `Back to ${backToLabel}`;
   };
 
   // Render Breadcrumbs
   return (
     <Container className='mt-2'>
-      <Row>
+      <Row data-testid='breadcrumb_back_link'>
         <Col>
           {referrer !== 'direct' && (
             <>

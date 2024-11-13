@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import DynamicBreadcrumbs from './foodception_breadcrumbs';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
 
 // Test utility function to render component with a specific route
 const renderWithRouter = (path: string) => {
@@ -61,5 +62,17 @@ describe('DynamicBreadcrumbs', () => {
 
     // Verify no breadcrumbs are rendered on the homepage
     expect(screen.queryByText('Home')).not.toBeInTheDocument();
+  });
+
+  test('renders breadcrumb correctly on paginated list', () => {
+    process.env.REACT_APP_WEB_URL = 'https://www.foodception.com';
+    jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
+    renderWithRouter(
+      '/recipes/list?page=3&iframeId=recipes-list-iframe&time=1731466959662&referrer=https%3A%2F%2Fwww.foodception.com%2Frecipes%2Flist%3Fpage%3D2'
+    );
+    const backLink = screen.getByTestId('breadcrumb_back_link');
+    expect(backLink).not.toBeNull();
+    expect(backLink).toBeInTheDocument();
+    expect(backLink).toHaveTextContent('Back to List');
   });
 });
