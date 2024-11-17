@@ -103,12 +103,10 @@ function IngredientsPage() {
             ) : (
               <>
                 {data.ingredients.map((ingredient: any) => {
-                  const ingredientImage = ingredient.ingredientImages[0]; // First image if available
                   return (
                     <IngredientCard
                       key={ingredient.id}
                       ingredient={ingredient}
-                      ingredientImage={ingredientImage}
                     />
                   );
                 })}

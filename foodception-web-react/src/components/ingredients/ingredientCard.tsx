@@ -6,16 +6,11 @@ import FoodceptionLink from '../links/foodception_link';
 
 interface IngredientCardProps {
   ingredient: any;
-  ingredientImage: any;
 }
 
-const IngredientCard: React.FC<IngredientCardProps> = ({
-  ingredient,
-  ingredientImage
-}) => {
-  const imageUrl =
-    ingredientImage?.imageUrl ||
-    'https://static.wixstatic.com/media/f7bd72_c181cc79c3804725af9894a4245e292b~mv2.jpg';
+const IngredientCard: React.FC<IngredientCardProps> = ({ ingredient }) => {
+  const imageUrl = ingredient.ingredientImages[0].imageUrl;
+
   const url = `/ingredients/${FrontEndUtils.slugify(ingredient.title)}/${
     ingredient.id
   }`;

@@ -3,6 +3,7 @@ import {
   createRoutesFromElements,
   Navigate,
   Route,
+  RouteObject,
   RouterProvider
 } from 'react-router-dom';
 import FoodceptionHeader from './components/header/header';
@@ -30,64 +31,71 @@ import IngredientDetailsPage from './pages/ingredients/ingredient.details.page';
 import { LayoutProvider } from './contexts/layout-context';
 
 export default function FoodceptionRouter() {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route path='/' element={<Layout />} errorElement={<ErrorPage />}>
-          <Route
-            index
-            element={
-              <div>
-                <FoodceptionHeader>Welcome to Foodception</FoodceptionHeader>
-              </div>
-            }
-          />
-          <Route
-            path='home/recipe-categories'
-            element={<HomeRecipeCategories />}
-          />
-          <Route path='home/diets' element={<HomeDiets />} />
-          <Route
-            path='recipes/videos/trending'
-            element={<TrendingRecipeVideos />}
-          />
-          <Route path='meals/categories' element={<MealCategories />} />
-          <Route path='diets' element={<Diets />} />{' '}
-          <Route path='diets/:slug/:id' element={<DietDetail />} />
-          <Route path='meals' element={<Meals />} />
-          <Route
-            path='meals/:slug/:id'
-            element={<Navigate to='recipes' replace />}
-          />
-          <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
-          <Route path='recipes' element={<Recipes />} />
-          <Route path='recipes/list' element={<RecipesList />} />
-          <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
-          <Route path='recipe-categories' element={<RecipeCategories />} />
-          <Route
-            path='recipe-categories/:slug/:id'
-            element={<RecipeCategoryDetail />}
-          />
-          <Route path='recipes/videos' element={<RecipeVideos />} />
-          <Route
-            path='recipes/:slug/:recipeId/videos/:id'
-            element={<RecipeVideoDetailsPage />}
-          />
-          <Route path='countries' element={<Countries />} />
-          <Route path='countries/:slug/:id' element={<CountryDetails />} />
-          <Route path='ingredients' element={<IngredientsPage />} />
-          <Route
-            path='ingredients/:slug/:id'
-            element={<IngredientDetailsPage />}
-          />
-        </Route>
-      </>
-    )
+  const routes: RouteObject[] = createRoutesFromElements(
+    <>
+      <Route path='/' element={<Layout />} errorElement={<ErrorPage />}>
+        <Route
+          index
+          element={
+            <div>
+              <FoodceptionHeader>Welcome to Foodception</FoodceptionHeader>
+            </div>
+          }
+        />
+        <Route
+          path='home/recipe-categories'
+          element={<HomeRecipeCategories />}
+        />
+        <Route path='home/diets' element={<HomeDiets />} />
+        <Route
+          path='recipes/videos/trending'
+          element={<TrendingRecipeVideos />}
+        />
+        <Route path='meals/categories' element={<MealCategories />} />
+        <Route path='diets' element={<Diets />} />{' '}
+        <Route path='diets/:slug/:id' element={<DietDetail />} />
+        <Route path='meals' element={<Meals />} />
+        <Route
+          path='meals/:slug/:id'
+          element={<Navigate to='recipes' replace />}
+        />
+        <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
+        <Route path='recipes' element={<Recipes />} />
+        <Route path='recipes/list' element={<RecipesList />} />
+        <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
+        <Route path='recipe-categories' element={<RecipeCategories />} />
+        <Route
+          path='recipe-categories/:slug/:id'
+          element={<RecipeCategoryDetail />}
+        />
+        <Route path='recipes/videos' element={<RecipeVideos />} />
+        <Route
+          path='recipes/:slug/:recipeId/videos/:id'
+          element={<RecipeVideoDetailsPage />}
+        />
+        <Route path='countries' element={<Countries />} />
+        <Route path='countries/:slug/:id' element={<CountryDetails />} />
+        <Route path='ingredients' element={<IngredientsPage />} />
+        <Route
+          path='ingredients/:slug/:id'
+          element={<IngredientDetailsPage />}
+        />
+      </Route>
+    </>
   );
+  const router = createBrowserRouter(routes, {
+    future: {
+      v7_relativeSplatPath: true,
+      v7_fetcherPersist: true,
+      v7_partialHydration: true,
+      v7_normalizeFormMethod: true,
+      v7_skipActionErrorRevalidation: true
+    }
+  });
 
   return (
     <LayoutProvider>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} future={{ v7_startTransition: true }} />
     </LayoutProvider>
   );
 }
