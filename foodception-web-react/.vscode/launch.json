@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "msedge",
+            "request": "launch",
+            "name": "Launch Edge against localhost",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/src",
+            "breakpointLocations": true,
+            "preLaunchTask": "npm:start"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug React App Backend",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/index.tsx",
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ],
+            "sourceMaps": true,
+            "runtimeArgs": [
+                "--experimental-specifier-resolution=node"
+            ],
+            "preLaunchTask": "npm:start"
+        }
+    ]
+}
