@@ -15,9 +15,7 @@ const RandomPicks = () => {
           <h2>Random Picks</h2>
           <h4>Feeling Lucky? Here Are Some Random Picks for You!</h4>
           <div className='mb-4'>
-            <FoodceptionLink url={`/recipes/list`}>
-              See all recipes
-            </FoodceptionLink>
+            <FoodceptionLink url={`/recipes`}>See all recipes</FoodceptionLink>
           </div>
         </Col>
       </Row>
