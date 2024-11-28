@@ -27,9 +27,8 @@ describe('FrontEndUtils', () => {
         },
         writable: true
       });
-      const relativeUrl = '/recipes/list?query=burger';
-      const expectedUrl =
-        'https://web.foodception.com/recipes/list?query=burger';
+      const relativeUrl = '/recipes/?query=burger';
+      const expectedUrl = 'https://web.foodception.com/recipes/?query=burger';
       const adjustedUrl = FrontEndUtils.getAdjustedUrl(relativeUrl);
       expect(adjustedUrl).toBe(expectedUrl);
     });
@@ -49,9 +48,9 @@ describe('FrontEndUtils', () => {
       // Mock the isInsideIframe method to return true
       jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
       const relativeUrl =
-        '/recipes/list?iframeId=ingredients-iframe&time=1728268992901&query=burger&page=2';
+        '/recipes/?iframeId=ingredients-iframe&time=1728268992901&query=burger&page=2';
       const expectedUrl =
-        'https://www.foodception.com/recipes/list?query=burger&page=2';
+        'https://www.foodception.com/recipes/?query=burger&page=2';
       const adjustedUrl = FrontEndUtils.getAdjustedUrl(relativeUrl);
       expect(adjustedUrl).toBe(expectedUrl);
     });
@@ -71,9 +70,9 @@ describe('FrontEndUtils', () => {
       // Mock the isInsideIframe method to return true
       jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
       const fullUrl =
-        'https://web.foodception.com/recipes/list?iframeId=ingredients-iframe&time=1728268992901&query=burger&page=2';
+        'https://web.foodception.com/recipes/?iframeId=ingredients-iframe&time=1728268992901&query=burger&page=2';
       const expectedUrl =
-        'https://www.foodception.com/recipes/list?query=burger&page=2';
+        'https://www.foodception.com/recipes/?query=burger&page=2';
       const adjustedUrl = FrontEndUtils.getAdjustedUrl(fullUrl);
       expect(adjustedUrl).toBe(expectedUrl);
     });
@@ -81,9 +80,8 @@ describe('FrontEndUtils', () => {
     it('should construct a URL with the window location origin when not inside iframe', () => {
       // Mock the isInsideIframe method to return false
       jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(false);
-      const relativeUrl = '/recipes/list?query=burger';
-      const expectedUrl =
-        'https://web.foodception.com/recipes/list?query=burger';
+      const relativeUrl = '/recipes?query=burger';
+      const expectedUrl = 'https://web.foodception.com/recipes?query=burger';
       // Mock window.location.origin
       Object.defineProperty(window, 'location', {
         value: {
@@ -102,9 +100,8 @@ describe('FrontEndUtils', () => {
       process.env.REACT_APP_WEB_URL = 'https://www.foodception.com';
       jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
       const relativeUrl =
-        '/recipes/list?query=burger&referrer=https%3A%2F%2Fwww.foodception.com%2Frecipes%2Flist';
-      const expectedUrl =
-        'https://www.foodception.com/recipes/list?query=burger';
+        '/recipes?query=burger&referrer=https%3A%2F%2Fwww.foodception.com%2Frecipes%2Flist';
+      const expectedUrl = 'https://www.foodception.com/recipes?query=burger';
       // Mock window.location.origin
       Object.defineProperty(window, 'location', {
         value: {

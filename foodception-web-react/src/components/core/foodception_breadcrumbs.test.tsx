@@ -68,7 +68,7 @@ describe('DynamicBreadcrumbs', () => {
     process.env.REACT_APP_WEB_URL = 'https://www.foodception.com';
     jest.spyOn(FrontEndUtils, 'isInsideIframe').mockReturnValue(true);
     renderWithRouter(
-      '/recipes/list?page=3&iframeId=recipes-list-iframe&time=1731466959662&referrer=https%3A%2F%2Fwww.foodception.com%2Frecipes%2Flist%3Fpage%3D2'
+      '/recipes?page=3&iframeId=recipes-list-iframe&time=1731466959662&referrer=https%3A%2F%2Fwww.foodception.com%2Frecipes%2Flist%3Fpage%3D2'
     );
     const backLink = screen.getByTestId('breadcrumb_back_link');
     expect(backLink).not.toBeNull();
