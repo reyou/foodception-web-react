@@ -60,8 +60,8 @@ export default function FoodceptionRouter() {
           element={<Navigate to='recipes' replace />}
         />
         <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
-        <Route path='recipes' element={<Recipes />} />
-        <Route path='recipes/list' element={<RecipesList />} />
+        <Route path='recipes' element={<RecipesList />} />
+        <Route path='recipes/discover' element={<Recipes />} />
         <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
         <Route path='recipe-categories' element={<RecipeCategories />} />
         <Route
