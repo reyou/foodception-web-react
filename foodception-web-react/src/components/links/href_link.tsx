@@ -18,7 +18,6 @@ const FoodceptionHrefLink: React.FC<FoodceptionHrefLinkProps> = ({
       variant='link'
       href={adjustedUrl}
       onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
-      rel='noopener noreferrer'
       data-guid='7762e7e6-8ec9-419c-9a2a-a1ec4bdc4539'
       className='link-button'
     >

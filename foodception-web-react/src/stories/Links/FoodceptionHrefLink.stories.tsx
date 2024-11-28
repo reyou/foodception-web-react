@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react/*';
-import FoodceptionHrefLink from '../components/links/href_link';
+import FoodceptionHrefLink from '../../components/links/href_link';
 
 const meta: Meta<typeof FoodceptionHrefLink> = {
   title: 'Components/Links/FoodceptionHrefLink',

@@ -9,7 +9,7 @@ import TopCountries from './components/top_countries';
 export default function Recipes() {
   const imageUrl =
     'https://static.wixstatic.com/media/f7bd72_e03b3faaf463460a87f0662628574d46~mv2.jpg';
-  const title = <FoodceptionHeader>Recipes</FoodceptionHeader>;
+  const title = <FoodceptionHeader>Discover Recipes</FoodceptionHeader>;
   const subTitle = 'Discover Delicious Recipes from Around the World';
 
   return (

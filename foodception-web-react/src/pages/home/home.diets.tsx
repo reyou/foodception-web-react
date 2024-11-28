@@ -3,7 +3,7 @@ import ErrorPanel from '../../components/error_message';
 import LoadingPanel from '../../components/loading_panel';
 import useFetch from '../../hooks/useFetch';
 import FoodceptionHeader from '../../components/header/header';
-import FoodceptionHrefButton from '../../components/links/hrefButton';
+import FoodceptionHrefButton from '../../components/links/href_button';
 import DietList from '../../components/diets/dietList';
 import { useLayout } from '../../contexts/layout-context';
 import { useEffect } from 'react';

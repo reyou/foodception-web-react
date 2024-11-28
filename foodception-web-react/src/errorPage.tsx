@@ -1,6 +1,6 @@
 import { useRouteError } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import FoodceptionHrefButton from './components/links/hrefButton';
+import FoodceptionHrefButton from './components/links/href_button';
 
 interface RouteError {
   status?: number;

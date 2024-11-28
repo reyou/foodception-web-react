@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import ErrorPanel from '../components/error_message';
 import FoodceptionHeader from '../components/header/header';
-import FoodceptionHrefButton from '../components/links/hrefButton';
+import FoodceptionHrefButton from '../components/links/href_button';
 import LoadingPanel from '../components/loading_panel';
 import MealCategoriesList from '../components/mealCategoriesList';
 import useFetch from '../hooks/useFetch';

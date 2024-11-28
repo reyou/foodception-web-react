@@ -23,7 +23,7 @@ const LinkButton = ({
 );
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Links',
+  title: 'Components/Links/Link',
   component: Button,
   argTypes: {
     variant: {

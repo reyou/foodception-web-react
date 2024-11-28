@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 
-import FoodceptionHrefButton from '../../components/links/hrefButton';
+import FoodceptionHrefButton from '../../components/links/href_button';
 import RecipeCategoriesList from '../../components/recipeCategoriesList';
 import useFetch from '../../hooks/useFetch';
 

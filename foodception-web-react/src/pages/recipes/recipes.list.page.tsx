@@ -12,6 +12,7 @@ import NoResults from './components/no_results';
 import NoMoreItems from './components/no_more_items';
 import SearchAutoComplete from '../../components/search_auto_complete';
 import SearchStatus from '../../components/search_status';
+import FoodceptionHrefButton from '../../components/links/href_button';
 
 export default function RecipesList() {
   const query = useQuery();
@@ -80,7 +81,13 @@ export default function RecipesList() {
                   onClearSearch={handleSearchCleared}
                 />
               )}
-
+              <Row className='justify-content-center mt-4'>
+                <Col xs={12} className='text-center mb-3'>
+                  <FoodceptionHrefButton url='/recipes/discover'>
+                    Not Sure What to Cook? Discover Exciting Recipes Here!
+                  </FoodceptionHrefButton>
+                </Col>
+              </Row>
               <Row className='justify-content-center mt-4'>
                 {data.recipes.length === 0 && page > 1 ? (
                   <NoMoreItems searchTerm={searchTerm} />

@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 // Meta for solid and outline buttons with block-level option
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button/Solid',
+  title: 'Components/Buttons/Button',
   component: Button,
   argTypes: {
     variant: {
