@@ -37,9 +37,7 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
     debounce(async (term: string) => {
       if (term.length > 1) {
         try {
-          const data = await HttpProvider.get(
-            `${apiEndpoint}?query=${term}` // Dynamically use the passed API endpoint
-          );
+          const data = await HttpProvider.get(`${apiEndpoint}?query=${term}`);
           setSuggestions(data.results);
           setShowSuggestions(true);
         } catch (error) {
@@ -116,7 +114,7 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
   ) => {
     const detailsUrl = `${baseUrl}/${FrontEndUtils.slugify(suggestion.title)}/${
       suggestion.id
-    }`;
+    }?resultType=${suggestion.type}`;
 
     if (FrontEndUtils.isInsideIframe()) {
       const adjustedUrl = FrontEndUtils.getAdjustedUrl(detailsUrl);

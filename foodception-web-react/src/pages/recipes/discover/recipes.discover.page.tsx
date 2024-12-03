@@ -1,10 +1,10 @@
 import { Container } from 'react-bootstrap';
-import FoodceptionHeader from '../../components/header/header';
-import HeaderLayout from '../../components/header/headerLayout';
-import TopDiets from './components/top_diets';
-import RandomPicks from './components/random_picks';
-import TopCategories from './components/top_categories';
-import TopCountries from './components/top_countries';
+import FoodceptionHeader from '../../../components/header/header';
+import HeaderLayout from '../../../components/header/headerLayout';
+import TopDiets from '../components/top_diets';
+import RandomPicks from '../components/random_picks';
+import TopCategories from '../components/top_categories';
+import TopCountries from '../components/top_countries';
 
 export default function Recipes() {
   const imageUrl =

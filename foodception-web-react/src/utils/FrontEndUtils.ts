@@ -1,3 +1,4 @@
+import { NavigateFunction } from 'react-router-dom';
 import ParentWindowUtils from './ParentWindowUtils';
 
 export class FrontEndUtils {
@@ -26,6 +27,20 @@ export class FrontEndUtils {
 
     // Send a message to the parent window for redirection
     ParentWindowUtils.postMessage({ type: 'redirect', url: url });
+  }
+
+  static redirect(url: string, navigate?: NavigateFunction): void {
+    if (!FrontEndUtils.isInsideIframe()) {
+      if (navigate) {
+        navigate(url);
+      } else {
+        window.location.href = url;
+      }
+      return;
+    }
+    // Send a message to the parent window for redirection
+    const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
+    ParentWindowUtils.postMessage({ type: 'redirect', url: adjustedUrl });
   }
 
   static isInsideIframe() {

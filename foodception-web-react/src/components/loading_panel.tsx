@@ -1,10 +1,10 @@
 import { Container, Spinner } from 'react-bootstrap';
 
 interface LoadingPanelProps {
-  visible: boolean;
+  visible?: boolean;
 }
 
-const LoadingPanel = ({ visible }: LoadingPanelProps) => {
+const LoadingPanel = ({ visible = true }: LoadingPanelProps) => {
   if (visible) {
     return (
       <Container className='text-center'>

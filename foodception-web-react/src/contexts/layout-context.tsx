@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 const LayoutContext = createContext<{
   showBreadcrumb: boolean;
+  showHorizontalRule: boolean;
   setShowBreadcrumb: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowHorizontalRule: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 interface LayoutProviderProps {
@@ -11,9 +13,17 @@ interface LayoutProviderProps {
 
 export const LayoutProvider = ({ children }: LayoutProviderProps) => {
   const [showBreadcrumb, setShowBreadcrumb] = useState(true);
+  const [showHorizontalRule, setShowHorizontalRule] = useState(true);
 
   return (
-    <LayoutContext.Provider value={{ showBreadcrumb, setShowBreadcrumb }}>
+    <LayoutContext.Provider
+      value={{
+        showBreadcrumb,
+        setShowBreadcrumb,
+        showHorizontalRule,
+        setShowHorizontalRule
+      }}
+    >
       {children}
     </LayoutContext.Provider>
   );

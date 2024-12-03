@@ -1,21 +1,21 @@
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import FoodceptionHeader from '../../components/header/header';
-import FoodceptionImage from '../../components/image';
-import IngredientGroups from '../../components/ingredientGroups';
-import IngredientGroupsVisual from '../../components/ingredientGroupsVisual';
-import RecipeTimeInfo from '../../components/recipeTimeInfo';
-import RecipeSteps from '../../components/recipeSteps';
-import RecipeVideos from '../../components/recipeVideos';
-import FoodceptionTabs, { TabItem } from '../../components/tabs';
+import FoodceptionHeader from '../../../components/header/header';
+import FoodceptionImage from '../../../components/image';
+import IngredientGroups from '../../../components/ingredientGroups';
+import IngredientGroupsVisual from '../../../components/ingredientGroupsVisual';
+import RecipeTimeInfo from '../../../components/recipeTimeInfo';
+import RecipeSteps from '../../../components/recipeSteps';
+import RecipeVideos from '../../../components/recipeVideos';
+import FoodceptionTabs, { TabItem } from '../../../components/tabs';
 
-import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import useFetch from '../../hooks/useFetch';
-import LoadingPanel from '../../components/loading_panel';
-import ErrorPanel from '../../components/error_message';
-import RelatedRecipes from './components/related_recipes';
-import FoodceptionShareButtons from '../../components/core/foodception_share_buttons';
+import { FrontEndUtils } from '../../../utils/FrontEndUtils';
+import useFetch from '../../../hooks/useFetch';
+import LoadingPanel from '../../../components/loading_panel';
+import ErrorPanel from '../../../components/error_message';
+import RelatedRecipes from './../components/related_recipes';
+import FoodceptionShareButtons from '../../../components/core/foodception_share_buttons';
 
 export default function RecipeDetails() {
   const { id } = useParams<{ id?: string }>();
