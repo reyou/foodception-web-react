@@ -112,9 +112,12 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
       | React.PointerEvent<Element>,
     suggestion: any
   ) => {
-    const detailsUrl = `${baseUrl}/${FrontEndUtils.slugify(suggestion.title)}/${
+    let detailsUrl = `${baseUrl}/${FrontEndUtils.slugify(suggestion.title)}/${
       suggestion.id
-    }?resultType=${suggestion.type}`;
+    }`;
+    if (suggestion.url) {
+      detailsUrl = suggestion.url;
+    }
 
     if (FrontEndUtils.isInsideIframe()) {
       const adjustedUrl = FrontEndUtils.getAdjustedUrl(detailsUrl);

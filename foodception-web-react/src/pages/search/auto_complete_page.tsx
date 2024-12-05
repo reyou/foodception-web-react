@@ -24,7 +24,7 @@ export default function SearchAutoCompletePage() {
             initialSearchTerm={''}
             onSearch={handleSearch}
             apiEndpoint='/search/autocomplete'
-            baseUrl='/search/selection'
+            baseUrl=''
           />
         </Col>
       </Row>
