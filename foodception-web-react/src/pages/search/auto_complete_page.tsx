@@ -18,7 +18,7 @@ export default function SearchAutoCompletePage() {
 
   return (
     <div>
-      <Row className='justify-content-center mb-4'>
+      <Row className='justify-content-center'>
         <Col xs={12} md={6} lg={4} xl={3}>
           <SearchAutoComplete
             initialSearchTerm={''}

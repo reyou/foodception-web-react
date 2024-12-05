@@ -3,7 +3,7 @@ export default class WindowState {
   private static intervalId: number | null = null;
 
   static sendMessage(iframeId: string): void {
-    const height = document.documentElement.scrollHeight;
+    const height = document.body.scrollHeight;
 
     // Only post message if height has changed
     if (height !== WindowState.previousHeight) {
