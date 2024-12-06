@@ -71,17 +71,20 @@ const DynamicBreadcrumbs = () => {
   // Render Breadcrumbs
   return (
     <Container className='mt-2'>
-      <Row data-testid='breadcrumb_back_link'>
-        <Col>
-          {referrer !== 'direct' && (
-            <>
-              <FoodceptionLink url={referrer}>
-                <i className='bi bi-arrow-left-circle'></i> {getBackLinkLabel()}
-              </FoodceptionLink>
-            </>
-          )}
-        </Col>
-      </Row>
+      {false && (
+        <Row data-testid='breadcrumb_back_link'>
+          <Col>
+            {referrer !== 'direct' && (
+              <>
+                <FoodceptionLink url={referrer}>
+                  <i className='bi bi-arrow-left-circle'></i>{' '}
+                  {getBackLinkLabel()}
+                </FoodceptionLink>
+              </>
+            )}
+          </Col>
+        </Row>
+      )}
       <Breadcrumb>
         <Breadcrumb.Item linkAs={FoodceptionLink} linkProps={{ url: '/' }}>
           Home
