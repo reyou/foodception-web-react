@@ -53,11 +53,11 @@ const NoResults: React.FC<NoResultsProps> = ({ searchTerm }) => {
             </Col>
             <Col xs={12} md={6} lg={3} className='text-center'>
               <Button
-                href='/recipes/videos'
+                href='/recipe-videos'
                 onClick={(event) =>
                   FrontEndUtils.handleLinkClick(
                     event,
-                    FrontEndUtils.getAdjustedUrl('/recipes/videos')
+                    FrontEndUtils.getAdjustedUrl('/recipe-videos')
                   )
                 }
                 variant='outline-secondary'

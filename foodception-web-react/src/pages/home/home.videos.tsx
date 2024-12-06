@@ -42,7 +42,7 @@ export default function TrendingRecipeVideos() {
           youtubeChannelVideos={providerVideos}
         ></RecipeVideosList>
         <div className='text-center'>
-          <FoodceptionHrefButton url='/recipes/videos'>
+          <FoodceptionHrefButton url='/recipe-videos'>
             See All Videos
           </FoodceptionHrefButton>
         </div>
