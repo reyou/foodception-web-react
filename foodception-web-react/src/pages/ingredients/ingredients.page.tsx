@@ -83,7 +83,6 @@ function IngredientsPage() {
                 initialSearchTerm={searchTerm}
                 onSearch={handleSearch}
                 apiEndpoint='/ingredients/autocomplete'
-                baseUrl='/ingredients'
               />
             </Col>
           </Row>

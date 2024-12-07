@@ -2,8 +2,11 @@ import { useEffect } from 'react';
 import { useLayout } from '../../contexts/layout-context';
 import { Col, Row } from 'react-bootstrap';
 import SearchAutoComplete from '../../components/search_auto_complete';
+import { useNavigate } from 'react-router-dom';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
 
 export default function SearchAutoCompletePage() {
+  const navigate = useNavigate();
   const { setShowBreadcrumb, setShowHorizontalRule } = useLayout();
   useEffect(() => {
     setShowBreadcrumb(false);
@@ -14,7 +17,9 @@ export default function SearchAutoCompletePage() {
     };
   }, [setShowBreadcrumb, setShowHorizontalRule]);
 
-  const handleSearch = (term: string) => {};
+  const handleSearch = (term: string) => {
+    FrontEndUtils.redirect(`/search?query=${term}`, navigate);
+  };
 
   return (
     <div>
@@ -24,7 +29,6 @@ export default function SearchAutoCompletePage() {
             initialSearchTerm={''}
             onSearch={handleSearch}
             apiEndpoint='/search/autocomplete'
-            baseUrl=''
           />
         </Col>
       </Row>

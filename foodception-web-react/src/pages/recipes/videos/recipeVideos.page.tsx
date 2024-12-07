@@ -67,7 +67,6 @@ export default function RecipeVideosPage() {
                   initialSearchTerm={searchTerm}
                   onSearch={handleSearch}
                   apiEndpoint='/recipes/videos/autocomplete'
-                  baseUrl='/recipes/videos'
                 />
               </Col>
             </Row>

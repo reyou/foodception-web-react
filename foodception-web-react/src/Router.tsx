@@ -18,7 +18,7 @@ import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipe-categories/recipeCategories.page';
 import RecipeCategoryDetail from './pages/recipeCategory.details.page';
 import RecipeDetails from './pages/recipes/details/recipe.details.page';
-import RecipesList from './pages/recipes/recipes.list.page';
+import RecipesPage from './pages/recipes/recipes.page';
 import Recipes from './pages/recipes/discover/recipes.discover.page';
 import RecipeVideos from './pages/recipes/videos/recipeVideos.page';
 import TrendingRecipeVideos from './pages/home/home.videos';
@@ -30,7 +30,7 @@ import RecipeVideoDetailsPage from './pages/recipes/videos/recipeVideoDetails.pa
 import IngredientDetailsPage from './pages/ingredients/ingredient.details.page';
 import { LayoutProvider } from './contexts/layout-context';
 import SearchAutoCompletePage from './pages/search/auto_complete_page';
-import SearchSelectionPage from './pages/search/selection_page';
+import { SearchPage } from './pages/search/search.page';
 
 export default function FoodceptionRouter() {
   const routes: RouteObject[] = createRoutesFromElements(
@@ -62,7 +62,7 @@ export default function FoodceptionRouter() {
           element={<Navigate to='recipes' replace />}
         />
         <Route path='meals/:slug/:id/recipes' element={<MealRecipes />} />
-        <Route path='recipes' element={<RecipesList />} />
+        <Route path='recipes' element={<RecipesPage />} />
         <Route path='recipes/discover' element={<Recipes />} />
         <Route path='recipes/:slug/:id' element={<RecipeDetails />} />
         <Route path='recipe-categories' element={<RecipeCategories />} />
@@ -86,10 +86,7 @@ export default function FoodceptionRouter() {
           path='search/autocomplete'
           element={<SearchAutoCompletePage />}
         />
-        <Route
-          path='search/selection/:slug/:id'
-          element={<SearchSelectionPage />}
-        />
+        <Route path='search' element={<SearchPage />} />
       </Route>
     </>
   );

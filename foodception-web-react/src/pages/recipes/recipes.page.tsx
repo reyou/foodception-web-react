@@ -14,7 +14,7 @@ import SearchAutoComplete from '../../components/search_auto_complete';
 import SearchStatus from '../../components/search_status';
 import FoodceptionHrefButton from '../../components/links/href_button';
 
-export default function RecipesList() {
+export default function RecipesPage() {
   const query = useQuery();
 
   const page = parseInt(query.get('page') || '1');
@@ -70,7 +70,6 @@ export default function RecipesList() {
                     initialSearchTerm={searchTerm}
                     onSearch={handleSearch}
                     apiEndpoint='/recipes/autocomplete'
-                    baseUrl='/recipes'
                   />
                 </Col>
               </Row>
