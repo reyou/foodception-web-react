@@ -15,26 +15,30 @@ function useFetch(url: string): UseFetchResult {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Reset state when URL changes
+    setLoading(true); // Reset loading to true
+    setError(null); // Reset error state
+    setData(null); // Optionally reset data (if needed)
     const fetchData = async () => {
       try {
         const fullUrl = `${BASE_URL}${url}`;
         const response = await HttpProvider.get(fullUrl);
-        setData(response);
+        setData(response); // Update data on success
       } catch (error) {
         if (error instanceof Error) {
-          setError(error.message);
+          setError(error.message); // Set error message
         } else {
           setError('An unknown error occurred');
         }
       } finally {
-        setLoading(false);
+        setLoading(false); // Set loading to false when fetch completes
       }
     };
 
     fetchData();
-  }, [url]);
+  }, [url]); // Effect runs whenever `url` changes
 
-  return { data, loading, error } as UseFetchResult;
+  return { data, loading, error };
 }
 
 export default useFetch;

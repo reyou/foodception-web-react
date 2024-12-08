@@ -68,10 +68,11 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
 
   const handleSearch = () => {
     setShowSuggestions(false);
+    debouncedFetchSuggestions.cancel();
     if (searchTerm !== lastSearchedTerm) {
-      updateSearchQuery(searchTerm);
       onSearch(searchTerm);
       setLastSearchedTerm(searchTerm);
+      navigateToSearchQuery(searchTerm);
     }
   };
 
@@ -137,11 +138,21 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
     };
   }, []);
 
-  const updateSearchQuery = (term: string) => {
+  const navigateToSearchQuery = (term: string) => {
     const params = new URLSearchParams(window.location.search);
+
+    // Update query parameters
     params.set('page', '1');
     params.set('query', term);
-    navigate({ search: params.toString() });
+
+    // Get the current path from the browser's location
+    const currentPath = window.location.pathname;
+
+    // Construct the full URL by appending the query string to the current path
+    const url = `${currentPath}?${params.toString()}`;
+
+    // Use FrontEndUtils.redirect for redirection
+    FrontEndUtils.redirect(url, navigate);
   };
 
   useEffect(() => {
