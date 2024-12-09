@@ -10,6 +10,10 @@ import SearchStatus from '../../components/search_status';
 import NoResults from '../recipes/components/no_results';
 import SearchAutoComplete from '../../components/search_auto_complete';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import RandomPicks from '../recipes/components/random_picks';
+import TopCategories from '../recipes/components/top_categories';
+import TopCountries from '../recipes/components/top_countries';
+import TopDiets from '../recipes/components/top_diets';
 
 export function SearchPage() {
   const query = useQuery();
@@ -44,7 +48,7 @@ export function SearchPage() {
     setLocalData(null);
   };
 
-  const handleSearch = (term: string) => {
+  const handleSearch = (_: string) => {
     setLocalData(null);
   };
 
@@ -52,7 +56,7 @@ export function SearchPage() {
     <>
       <Container fluid className='mt-4'>
         <Row className='justify-content-center'>
-          <h4 className='text-center'>Search in Foodception</h4>
+          <h2 className='text-center'>Search in Foodception</h2>
           <Col xs={12} md={6} lg={4} xl={3}>
             <SearchAutoComplete
               initialSearchTerm={searchTerm}
@@ -104,12 +108,34 @@ export function SearchPage() {
         </>
       )}
       {/* no search results */}
-      {localData && localData.results.length === 0 && localData.executed && (
+      {localData && localData.executed && localData.results.length === 0 && (
         <>
           <NoResults searchTerm={searchTerm} />
         </>
       )}
       {/* initial landing page */}
+      {localData &&
+        !localData.executed &&
+        localData.results.length === 0 &&
+        searchTerm.length === 0 && (
+          <>
+            <Container fluid>
+              <h5 className='text-center'>Not Sure What to Search For?</h5>
+              <p className='text-center'>
+                Don't worry, we've got you covered! Let us inspire you with some
+                delicious ideas! Explore our handpicked random recipes, top
+                categories, and global cuisines below.
+              </p>
+            </Container>
+            <Container fluid className='mt-4'>
+              <RandomPicks />
+              <TopCategories />
+              <TopCountries />
+              <TopDiets />
+            </Container>
+          </>
+        )}
+      {/* no more results */}
     </>
   );
 }

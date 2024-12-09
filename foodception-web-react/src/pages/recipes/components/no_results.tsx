@@ -7,6 +7,15 @@ interface NoResultsProps {
 }
 
 const NoResults: React.FC<NoResultsProps> = ({ searchTerm }) => {
+  // Define the list of button data
+  const buttonData = [
+    { label: 'Videos', href: '/recipe-videos' },
+    { label: 'Categories', href: '/recipe-categories' },
+    { label: 'Diets', href: '/diets' },
+    { label: 'Cuisines', href: '/countries' },
+    { label: 'Meals', href: '/meals' }
+  ];
+
   return (
     <Container className='mt-5'>
       <Row className='justify-content-center'>
@@ -19,70 +28,25 @@ const NoResults: React.FC<NoResultsProps> = ({ searchTerm }) => {
             categories:
           </p>
           <Row className='justify-content-center'>
-            <Col xs={12} md={6} lg={3} className='text-center'>
-              <Button
-                href='/recipe-categories'
-                onClick={(event) =>
-                  FrontEndUtils.handleLinkClick(
-                    event,
-                    FrontEndUtils.getAdjustedUrl('/recipe-categories')
-                  )
-                }
-                variant='outline-secondary'
-                size='lg'
-                className='w-100 mb-3'
-              >
-                Categories
-              </Button>
-            </Col>
-            <Col xs={12} md={6} lg={3} className='text-center'>
-              <Button
-                href='/meals'
-                onClick={(event) =>
-                  FrontEndUtils.handleLinkClick(
-                    event,
-                    FrontEndUtils.getAdjustedUrl('/meals')
-                  )
-                }
-                variant='outline-secondary'
-                size='lg'
-                className='w-100 mb-3'
-              >
-                Meals
-              </Button>
-            </Col>
-            <Col xs={12} md={6} lg={3} className='text-center'>
-              <Button
-                href='/recipe-videos'
-                onClick={(event) =>
-                  FrontEndUtils.handleLinkClick(
-                    event,
-                    FrontEndUtils.getAdjustedUrl('/recipe-videos')
-                  )
-                }
-                variant='outline-secondary'
-                size='lg'
-                className='w-100 mb-3'
-              >
-                Videos
-              </Button>
-            </Col>
-            <Col xs={12} md={6} lg={3} className='text-center'>
-              <Button
-                href='/countries'
-                onClick={(event) =>
-                  FrontEndUtils.handleLinkClick(
-                    event,
-                    FrontEndUtils.getAdjustedUrl('/countries')
-                  )
-                }
-                variant='outline-secondary'
-                size='lg'
-                className='w-100 mb-3'
-              >
-                Cuisines
-              </Button>
-            </Col>
+            {/* Iterate over the buttonData list */}
+            {buttonData.map((button, index) => (
+              <Col xs={12} md={6} lg={3} className='text-center' key={index}>
+                <Button
+                  href={button.href}
+                  onClick={(event) =>
+                    FrontEndUtils.handleLinkClick(
+                      event,
+                      FrontEndUtils.getAdjustedUrl(button.href)
+                    )
+                  }
+                  variant='outline-secondary'
+                  size='lg'
+                  className='w-100 mb-3'
+                >
+                  {button.label}
+                </Button>
+              </Col>
+            ))}
           </Row>
         </Col>
       </Row>
