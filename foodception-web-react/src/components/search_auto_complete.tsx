@@ -10,12 +10,14 @@ interface SearchAutoCompleteProps {
   initialSearchTerm: string;
   onSearch: (term: string) => void;
   apiEndpoint: string;
+  baseUrl?: string;
 }
 
 const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
   initialSearchTerm,
   onSearch,
-  apiEndpoint
+  apiEndpoint,
+  baseUrl
 }) => {
   const clickHandledRef = useRef(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -146,10 +148,12 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
     params.set('query', term);
 
     // Get the current path from the browser's location
-    const currentPath = window.location.pathname;
-
+    let basePath = window.location.pathname;
+    if (baseUrl) {
+      basePath = baseUrl;
+    }
     // Construct the full URL by appending the query string to the current path
-    const url = `${currentPath}?${params.toString()}`;
+    const url = `${basePath}?${params.toString()}`;
 
     // Use FrontEndUtils.redirect for redirection
     FrontEndUtils.redirect(url, navigate);

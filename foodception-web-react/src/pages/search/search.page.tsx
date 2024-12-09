@@ -58,6 +58,7 @@ export function SearchPage() {
               initialSearchTerm={searchTerm}
               onSearch={handleSearch}
               apiEndpoint='/search/autocomplete'
+              baseUrl='/search'
             />
           </Col>
         </Row>
