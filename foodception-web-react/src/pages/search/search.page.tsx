@@ -14,6 +14,7 @@ import RandomPicks from '../recipes/components/random_picks';
 import TopCategories from '../recipes/components/top_categories';
 import TopCountries from '../recipes/components/top_countries';
 import TopDiets from '../recipes/components/top_diets';
+import NoMoreItems from '../recipes/components/no_more_items';
 
 export function SearchPage() {
   const query = useQuery();
@@ -136,6 +137,11 @@ export function SearchPage() {
           </>
         )}
       {/* no more results */}
+      {localData && localData.results.length === 0 && page > 1 && (
+        <>
+          <NoMoreItems searchTerm={searchTerm} />
+        </>
+      )}
     </>
   );
 }
