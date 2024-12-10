@@ -4,7 +4,6 @@ import useFetch from '../../hooks/useFetch';
 import { Col, Container, Row } from 'react-bootstrap';
 import LoadingPanel from '../../components/loading_panel';
 import ErrorPanel from '../../components/error_message';
-import FoodceptionCard from '../../components/card';
 import Pagination from '../../components/pagination';
 import SearchStatus from '../../components/search_status';
 import NoResults from '../recipes/components/no_results';
@@ -15,6 +14,7 @@ import TopCategories from '../recipes/components/top_categories';
 import TopCountries from '../recipes/components/top_countries';
 import TopDiets from '../recipes/components/top_diets';
 import NoMoreItems from '../recipes/components/no_more_items';
+import SearchResults from '../../components/search/search_results';
 
 export function SearchPage() {
   const query = useQuery();
@@ -70,12 +70,10 @@ export function SearchPage() {
         <Row className='justify-content-center mb-4'>
           <Col xs={12} md={6} lg={4} xl={3}>
             {searchTerm && (
-              <>
-                <SearchStatus
-                  searchTerm={searchTerm}
-                  onClearSearch={handleSearchCleared}
-                />
-              </>
+              <SearchStatus
+                searchTerm={searchTerm}
+                onClearSearch={handleSearchCleared}
+              />
             )}
           </Col>
         </Row>
@@ -88,31 +86,14 @@ export function SearchPage() {
       )}
       {/* search results */}
       {localData && localData.results.length > 0 && (
-        <>
-          <Container fluid>
-            <Row className='justify-content-center'>
-              {localData.results.map((result: any) => {
-                return (
-                  <FoodceptionCard
-                    key={result.id}
-                    title={result.title}
-                    description={result.description}
-                    url={result.url}
-                    urlTitle='View Details'
-                    imageUrl={result.imageSrc}
-                  />
-                );
-              })}
-            </Row>
-            <Pagination currentPage={page} />
-          </Container>
-        </>
+        <Container fluid>
+          <SearchResults results={localData.results} />
+          <Pagination currentPage={page} />
+        </Container>
       )}
       {/* no search results */}
       {localData && localData.executed && localData.results.length === 0 && (
-        <>
-          <NoResults searchTerm={searchTerm} />
-        </>
+        <NoResults searchTerm={searchTerm} />
       )}
       {/* initial landing page */}
       {localData &&
