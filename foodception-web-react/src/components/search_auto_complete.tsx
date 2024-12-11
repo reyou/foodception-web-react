@@ -26,7 +26,7 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
-  const isFirstSearch = useRef(true);
+  // const isFirstSearch = useRef(true);
 
   useEffect(() => {
     setSearchTerm(initialSearchTerm);
@@ -159,17 +159,17 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
     FrontEndUtils.redirect(url, navigate);
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (isFirstSearch.current) {
       const query = new URLSearchParams(window.location.search).get('query');
       if (query) {
         setSearchTerm(query);
-        onSearch(query);
+        // onSearch(query);
         setLastSearchedTerm(query);
       }
       isFirstSearch.current = false;
     }
-  }, [onSearch]);
+  }, []); */
 
   const handleBlur = () => {
     setTimeout(() => setShowSuggestions(false), 100);

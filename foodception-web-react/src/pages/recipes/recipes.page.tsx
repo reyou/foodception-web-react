@@ -17,7 +17,6 @@ import { FrontEndUtils } from '../../utils/FrontEndUtils';
 
 export default function RecipesPage() {
   const query = useQuery();
-
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
   const [localData, setLocalData] = useState<any>(null);

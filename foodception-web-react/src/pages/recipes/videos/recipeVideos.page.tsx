@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HeaderLayout from '../../../components/header/headerLayout';
 import { useQuery } from '../../../hooks/useQuery';
 import useFetch from '../../../hooks/useFetch';
@@ -11,27 +11,38 @@ import NoResults from '../components/no_results';
 import Pagination from '../../../components/pagination';
 import SearchAutoComplete from '../../../components/search_auto_complete';
 import RecipeVideosList from '../../../components/recipeVideosList';
+import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 
 export default function RecipeVideosPage() {
   const query = useQuery();
-
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
+  const [localData, setLocalData] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState<string>(
     query.get('query') || ''
   );
   const { data, loading, error } = useFetch(
     `/recipes/videos?query=${searchTerm}&skip=${skip}`
   );
-
-  const handleSearch = (term: string) => {
-    if (term !== searchTerm) {
-      setSearchTerm(term);
+  useEffect(() => {
+    if (data) {
+      setLocalData(data);
     }
+  }, [data]);
+
+  useEffect(() => {
+    if (!FrontEndUtils.isInsideIframe()) {
+      const searchTerm = query.get('query')?.trim() || '';
+      setSearchTerm(searchTerm);
+    }
+  }, [query]);
+
+  const handleSearch = (_: string) => {
+    setLocalData(null);
   };
 
   const handleSearchCleared = () => {
-    setSearchTerm('');
+    setLocalData(null);
   };
 
   return (
@@ -55,7 +66,7 @@ export default function RecipeVideosPage() {
         </Container>
       )}
 
-      {data && (
+      {localData && (
         <>
           <Container fluid className='mt-4 mb-4'>
             <Row className='justify-content-center mb-4'>
@@ -79,15 +90,15 @@ export default function RecipeVideosPage() {
             )}
 
             <Row className='justify-content-center mt-4'>
-              {data.recipeVideos.length === 0 && page > 1 ? (
+              {localData.recipeVideos.length === 0 && page > 1 ? (
                 <NoMoreItems searchTerm={searchTerm} />
-              ) : data.recipeVideos.length === 0 ? (
+              ) : localData.recipeVideos.length === 0 ? (
                 <NoResults searchTerm={searchTerm} />
               ) : (
                 <>
                   <RecipeVideosList
-                    recipeVideos={data.recipeVideos}
-                    youtubeChannelVideos={data.providerVideos}
+                    recipeVideos={localData.recipeVideos}
+                    youtubeChannelVideos={localData.providerVideos}
                   ></RecipeVideosList>
                   <Pagination currentPage={page} />
                 </>

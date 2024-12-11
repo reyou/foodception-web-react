@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import HeaderLayout from '../../components/header/headerLayout';
-import IngredientCard from '../../components/ingredients/ingredientCard';
 import Pagination from '../../components/pagination';
 import {
   backgroundImages,
@@ -18,29 +17,40 @@ import SearchStatus from '../../components/search_status';
 import NoMoreItems from '../recipes/components/no_more_items';
 import NoResults from '../recipes/components/no_results';
 import LoadingPanel from '../../components/loading_panel';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import SearchResults from '../../components/search/search_results';
+import FoodceptionHrefButton from '../../components/links/href_button';
 
 function IngredientsPage() {
   const query = useQuery();
-
-  // Set initial page from query or default to 1
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
+  const [localData, setLocalData] = useState<any>(null);
   const [searchTerm, setSearchTerm] = useState<string>(
     query.get('query') || ''
   );
-
   const { data, loading, error } = useFetch(
-    `/ingredients?query=${searchTerm}&skip=${skip}`
+    `/ingredients/search?query=${searchTerm}&skip=${skip}`
   );
-
-  const handleSearch = (term: string) => {
-    if (term !== searchTerm) {
-      setSearchTerm(term);
+  useEffect(() => {
+    if (data) {
+      setLocalData(data);
     }
+  }, [data]);
+
+  useEffect(() => {
+    if (!FrontEndUtils.isInsideIframe()) {
+      const searchTerm = query.get('query')?.trim() || '';
+      setSearchTerm(searchTerm);
+    }
+  }, [query]);
+
+  const handleSearch = (_: string) => {
+    setLocalData(null);
   };
 
   const handleSearchCleared = () => {
-    setSearchTerm('');
+    setLocalData(null);
   };
 
   let subtitle = StorageUtils.getItemWithExpiry('subtitle');
@@ -60,19 +70,21 @@ function IngredientsPage() {
     );
   }
 
-  const content = () => {
-    if (loading) {
-      return <LoadingPanel visible={loading} />;
-    }
-    if (error) {
-      return <ErrorPanel errorMessage={error} />;
-    }
-    if (!data) {
-      return <div className='text-center'>No data available</div>;
-    }
+  return (
+    <Container fluid>
+      <HeaderLayout
+        title={<h1>Ingredients</h1>}
+        subTitle={subtitle}
+        backgroundImage={backgroundImage}
+      />
 
-    return (
       <>
+        <LoadingPanel visible={loading} />
+        {error && (
+          <Container className='text-center'>
+            <ErrorPanel errorMessage={error} />
+          </Container>
+        )}
         <Container fluid className='mt-4 mb-4'>
           <Row className='justify-content-center mb-4'>
             <Col xs={12} className='text-center mb-1'>
@@ -95,39 +107,41 @@ function IngredientsPage() {
           )}
 
           <Row className='justify-content-center mt-4'>
-            {data.ingredients.length === 0 && page > 1 ? (
-              <NoMoreItems searchTerm={searchTerm} />
-            ) : data.ingredients.length === 0 ? (
-              <NoResults searchTerm={searchTerm} />
-            ) : (
-              <>
-                {data.ingredients.map((ingredient: any) => {
-                  return (
-                    <IngredientCard
-                      key={ingredient.id}
-                      ingredient={ingredient}
-                    />
-                  );
-                })}
-
+            {/* search results */}
+            {localData && localData.results.length > 0 && (
+              <Container fluid>
+                <SearchResults results={localData.results} />
                 <Pagination currentPage={page} />
-              </>
+              </Container>
             )}
+            {/* no search results */}
+            {localData &&
+              localData.executed &&
+              localData.results.length === 0 && (
+                <NoResults searchTerm={searchTerm} />
+              )}
+            {/* no more results */}
+            {localData && localData.results.length === 0 && page > 1 && (
+              <NoMoreItems searchTerm={searchTerm} />
+            )}
+            {/* initial landing page */}
+            {localData &&
+              !localData.executed &&
+              localData.results.length === 0 &&
+              searchTerm.length === 0 && (
+                <>
+                  <Row className='justify-content-center mt-4'>
+                    <Col xs={12} className='text-center mb-3'>
+                      <FoodceptionHrefButton url='/recipes/discover'>
+                        Not Sure What to Cook? Discover Exciting Recipes Here!
+                      </FoodceptionHrefButton>
+                    </Col>
+                  </Row>
+                </>
+              )}
           </Row>
         </Container>
       </>
-    );
-  };
-
-  return (
-    <Container fluid>
-      <HeaderLayout
-        title={<h1>Ingredients</h1>}
-        subTitle={subtitle}
-        backgroundImage={backgroundImage}
-      />
-
-      {content()}
     </Container>
   );
 }
