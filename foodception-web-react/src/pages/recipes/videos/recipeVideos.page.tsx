@@ -66,7 +66,7 @@ export default function RecipeVideosPage() {
         </Container>
       )}
 
-      {localData && (
+      {
         <>
           <Container fluid className='mt-4 mb-4'>
             <Row className='justify-content-center mb-4'>
@@ -90,23 +90,31 @@ export default function RecipeVideosPage() {
             )}
 
             <Row className='justify-content-center mt-4'>
-              {localData.recipeVideos.length === 0 && page > 1 ? (
+              {localData &&
+              localData.recipeVideos &&
+              localData.recipeVideos.length === 0 &&
+              page > 1 ? (
                 <NoMoreItems searchTerm={searchTerm} />
-              ) : localData.recipeVideos.length === 0 ? (
+              ) : localData &&
+                localData.recipeVideos &&
+                localData.recipeVideos.length === 0 ? (
                 <NoResults searchTerm={searchTerm} />
               ) : (
-                <>
-                  <RecipeVideosList
-                    recipeVideos={localData.recipeVideos}
-                    youtubeChannelVideos={localData.providerVideos}
-                  ></RecipeVideosList>
-                  <Pagination currentPage={page} />
-                </>
+                localData &&
+                localData.recipeVideos && (
+                  <>
+                    <RecipeVideosList
+                      recipeVideos={localData.recipeVideos}
+                      youtubeChannelVideos={localData.providerVideos}
+                    ></RecipeVideosList>
+                    <Pagination currentPage={page} />
+                  </>
+                )
               )}
             </Row>
           </Container>
         </>
-      )}
+      }
     </>
   );
 }
