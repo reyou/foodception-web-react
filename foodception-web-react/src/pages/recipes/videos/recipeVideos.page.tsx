@@ -12,6 +12,7 @@ import Pagination from '../../../components/pagination';
 import SearchAutoComplete from '../../../components/search_auto_complete';
 import RecipeVideosList from '../../../components/recipeVideosList';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
+import { HEADER_IMAGES } from '../../../constants/imageConstants';
 
 export default function RecipeVideosPage() {
   const query = useQuery();
@@ -52,9 +53,7 @@ export default function RecipeVideosPage() {
         subTitle={
           'Explore our collection of step-by-step recipe videos and master your favorite dishes with ease'
         }
-        backgroundImage={
-          'https://static.wixstatic.com/media/f7bd72_a72ef8cf752648ecbe948a4c00b7bb8b~mv2.png'
-        }
+        backgroundImage={HEADER_IMAGES.recipeVideosPage}
       />
       <Container fluid>
         <LoadingPanel visible={loading} />
