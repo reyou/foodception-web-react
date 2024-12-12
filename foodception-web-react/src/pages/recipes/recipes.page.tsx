@@ -14,6 +14,8 @@ import SearchStatus from '../../components/search_status';
 import FoodceptionHrefButton from '../../components/links/href_button';
 import SearchResults from '../../components/search/search_results';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import RandomPicks from './components/random_picks';
+import { HEADER_IMAGES } from '../../constants/imageConstants';
 
 export default function RecipesPage() {
   const query = useQuery();
@@ -39,9 +41,7 @@ export default function RecipesPage() {
     }
   }, [query]);
 
-  const imageUrl =
-    'https://static.wixstatic.com/media/f7bd72_650d5b64dadb4b59905f686016e31b1b~mv2.png';
-  const title = <FoodceptionHeader>Recipe Directory</FoodceptionHeader>;
+  const title = <FoodceptionHeader>Recipes</FoodceptionHeader>;
   const subTitle =
     'Browse, Search, and Discover the Perfect Dish for Any Occasion';
 
@@ -56,7 +56,7 @@ export default function RecipesPage() {
   return (
     <>
       <HeaderLayout
-        backgroundImage={imageUrl}
+        backgroundImage={HEADER_IMAGES.recipesPage}
         title={title}
         subTitle={subTitle}
       />
@@ -122,6 +122,9 @@ export default function RecipesPage() {
                           Not Sure What to Cook? Discover Exciting Recipes Here!
                         </FoodceptionHrefButton>
                       </Col>
+                    </Row>
+                    <Row>
+                      <RandomPicks></RandomPicks>
                     </Row>
                   </>
                 )}
