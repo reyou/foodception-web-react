@@ -8,7 +8,6 @@ import Pagination from '../../components/pagination';
 import SearchStatus from '../../components/search_status';
 import NoResults from '../recipes/components/no_results';
 import SearchAutoComplete from '../../components/search_auto_complete';
-import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import RandomPicks from '../recipes/components/random_picks';
 import TopCategories from '../recipes/components/top_categories';
 import TopCountries from '../recipes/components/top_countries';
@@ -18,12 +17,9 @@ import SearchResults from '../../components/search/search_results';
 
 export function SearchPage() {
   const query = useQuery();
-  const [searchTerm, setSearchTerm] = useState<string>(
-    query.get('query')?.trim() || ''
-  );
-
-  const page: number = parseInt(query.get('page') || '1');
+  const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
+  const searchTerm = query.get('query') || '';
   const [localData, setLocalData] = useState<any>(null);
 
   const { data, loading, error } = useFetch(
@@ -31,19 +27,8 @@ export function SearchPage() {
   );
 
   useEffect(() => {
-    if (data) {
-      setLocalData(data);
-    }
+    setLocalData(data);
   }, [data]);
-
-  useEffect(() => {
-    // trigger new search if not in iframe
-    // otherwise it will be handled on page load
-    if (!FrontEndUtils.isInsideIframe()) {
-      const searchTerm = query.get('query')?.trim() || '';
-      setSearchTerm(searchTerm);
-    }
-  }, [query]);
 
   const handleSearchCleared = () => {
     setLocalData(null);
