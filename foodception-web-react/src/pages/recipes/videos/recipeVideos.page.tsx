@@ -11,32 +11,22 @@ import NoResults from '../components/no_results';
 import Pagination from '../../../components/pagination';
 import SearchAutoComplete from '../../../components/search_auto_complete';
 import RecipeVideosList from '../../../components/recipeVideosList';
-import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 import { HEADER_IMAGES } from '../../../constants/imageConstants';
+import FoodceptionHeader from '../../../components/header/header';
 
 export default function RecipeVideosPage() {
   const query = useQuery();
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
+  const searchTerm = query.get('query') || '';
   const [localData, setLocalData] = useState<any>(null);
-  const [searchTerm, setSearchTerm] = useState<string>(
-    query.get('query') || ''
-  );
-  const { data, loading, error } = useFetch(
-    `/recipes/videos?query=${searchTerm}&skip=${skip}`
-  );
-  useEffect(() => {
-    if (data) {
-      setLocalData(data);
-    }
-  }, [data]);
 
+  const { data, loading, error } = useFetch(
+    `/recipes/videos/search?query=${searchTerm}&skip=${skip}`
+  );
   useEffect(() => {
-    if (!FrontEndUtils.isInsideIframe()) {
-      const searchTerm = query.get('query')?.trim() || '';
-      setSearchTerm(searchTerm);
-    }
-  }, [query]);
+    setLocalData(data);
+  }, [data]);
 
   const handleSearch = (_: string) => {
     setLocalData(null);
@@ -46,13 +36,15 @@ export default function RecipeVideosPage() {
     setLocalData(null);
   };
 
+  const title = <FoodceptionHeader>Videos</FoodceptionHeader>;
+  const subTitle =
+    'Explore our collection of step-by-step recipe videos and master your favorite dishes with ease';
+
   return (
     <>
       <HeaderLayout
-        title={<h1>Videos</h1>}
-        subTitle={
-          'Explore our collection of step-by-step recipe videos and master your favorite dishes with ease'
-        }
+        title={title}
+        subTitle={subTitle}
         backgroundImage={HEADER_IMAGES.recipeVideosPage}
       />
       <Container fluid>
@@ -95,12 +87,14 @@ export default function RecipeVideosPage() {
               page > 1 ? (
                 <NoMoreItems searchTerm={searchTerm} />
               ) : localData &&
+                localData.executed &&
                 localData.recipeVideos &&
                 localData.recipeVideos.length === 0 ? (
                 <NoResults searchTerm={searchTerm} />
               ) : (
                 localData &&
-                localData.recipeVideos && (
+                localData.recipeVideos &&
+                localData.recipeVideos.length > 0 && (
                   <>
                     <RecipeVideosList
                       recipeVideos={localData.recipeVideos}

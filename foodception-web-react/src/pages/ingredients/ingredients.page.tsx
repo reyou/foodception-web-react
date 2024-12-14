@@ -17,33 +17,23 @@ import SearchStatus from '../../components/search_status';
 import NoMoreItems from '../recipes/components/no_more_items';
 import NoResults from '../recipes/components/no_results';
 import LoadingPanel from '../../components/loading_panel';
-import { FrontEndUtils } from '../../utils/FrontEndUtils';
-import SearchResults from '../../components/search/search_results';
 import FoodceptionHrefButton from '../../components/links/href_button';
+import IngredientCard from '../../components/ingredients/ingredientCard';
 
 function IngredientsPage() {
   const query = useQuery();
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
+  const searchTerm = query.get('query') || '';
   const [localData, setLocalData] = useState<any>(null);
-  const [searchTerm, setSearchTerm] = useState<string>(
-    query.get('query') || ''
-  );
+
   const { data, loading, error } = useFetch(
     `/ingredients/search?query=${searchTerm}&skip=${skip}`
   );
-  useEffect(() => {
-    if (data) {
-      setLocalData(data);
-    }
-  }, [data]);
 
   useEffect(() => {
-    if (!FrontEndUtils.isInsideIframe()) {
-      const searchTerm = query.get('query')?.trim() || '';
-      setSearchTerm(searchTerm);
-    }
-  }, [query]);
+    setLocalData(data);
+  }, [data]);
 
   const handleSearch = (_: string) => {
     setLocalData(null);
@@ -108,26 +98,37 @@ function IngredientsPage() {
 
           <Row className='justify-content-center mt-4'>
             {/* search results */}
-            {localData && localData.results.length > 0 && (
-              <Container fluid>
-                <SearchResults results={localData.results} />
-                <Pagination currentPage={page} />
-              </Container>
-            )}
-            {/* no search results */}
+            {localData &&
+              localData.ingredients &&
+              localData.ingredients.length > 0 && (
+                <>
+                  {localData.ingredients.map((ingredient: any) => {
+                    return (
+                      <IngredientCard
+                        key={ingredient.id}
+                        ingredient={ingredient}
+                      />
+                    );
+                  })}
+                  <Pagination currentPage={page} />
+                </>
+              )}
+            {/* No search results */}
             {localData &&
               localData.executed &&
-              localData.results.length === 0 && (
+              localData.ingredients.length === 0 && (
                 <NoResults searchTerm={searchTerm} />
               )}
-            {/* no more results */}
-            {localData && localData.results.length === 0 && page > 1 && (
+
+            {/* No more results */}
+            {localData && localData.ingredients.length === 0 && page > 1 && (
               <NoMoreItems searchTerm={searchTerm} />
             )}
-            {/* initial landing page */}
+
+            {/* Initial landing page */}
             {localData &&
               !localData.executed &&
-              localData.results.length === 0 &&
+              localData.ingredients.length === 0 &&
               searchTerm.length === 0 && (
                 <>
                   <Row className='justify-content-center mt-4'>

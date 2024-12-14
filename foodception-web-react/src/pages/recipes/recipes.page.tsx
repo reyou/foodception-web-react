@@ -12,38 +12,24 @@ import NoMoreItems from './components/no_more_items';
 import SearchAutoComplete from '../../components/search_auto_complete';
 import SearchStatus from '../../components/search_status';
 import FoodceptionHrefButton from '../../components/links/href_button';
-import SearchResults from '../../components/search/search_results';
-import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import RandomPicks from './components/random_picks';
 import { HEADER_IMAGES } from '../../constants/imageConstants';
+import RecipeList from '../../components/recipeList';
 
 export default function RecipesPage() {
   const query = useQuery();
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
+  const searchTerm = query.get('query') || '';
   const [localData, setLocalData] = useState<any>(null);
-  const [searchTerm, setSearchTerm] = useState<string>(
-    query.get('query') || ''
-  );
+
   const { data, loading, error } = useFetch(
     `/recipes/search?query=${searchTerm}&skip=${skip}`
   );
+
   useEffect(() => {
-    if (data) {
-      setLocalData(data);
-    }
+    setLocalData(data);
   }, [data]);
-
-  useEffect(() => {
-    if (!FrontEndUtils.isInsideIframe()) {
-      const searchTerm = query.get('query')?.trim() || '';
-      setSearchTerm(searchTerm);
-    }
-  }, [query]);
-
-  const title = <FoodceptionHeader>Recipes</FoodceptionHeader>;
-  const subTitle =
-    'Browse, Search, and Discover the Perfect Dish for Any Occasion';
 
   const handleSearch = (_: string) => {
     setLocalData(null);
@@ -53,12 +39,16 @@ export default function RecipesPage() {
     setLocalData(null);
   };
 
+  const title = <FoodceptionHeader>Recipes</FoodceptionHeader>;
+  const subTitle =
+    'Browse, Search, and Discover the Perfect Dish for Any Occasion';
+
   return (
     <>
       <HeaderLayout
-        backgroundImage={HEADER_IMAGES.recipesPage}
         title={title}
         subTitle={subTitle}
+        backgroundImage={HEADER_IMAGES.recipesPage}
       />
 
       <Container fluid>
@@ -94,26 +84,28 @@ export default function RecipesPage() {
 
             <Row className='justify-content-center mt-4'>
               {/* search results */}
-              {localData && localData.results.length > 0 && (
-                <Container fluid>
-                  <SearchResults results={localData.results} />
-                  <Pagination currentPage={page} />
-                </Container>
-              )}
-              {/* no search results */}
+              {localData &&
+                localData.recipes &&
+                localData.recipes.length > 0 && (
+                  <Container fluid>
+                    <RecipeList recipes={localData.recipes} />
+                    <Pagination currentPage={page} />
+                  </Container>
+                )}
+              {/* No Search Results */}
               {localData &&
                 localData.executed &&
-                localData.results.length === 0 && (
+                localData.recipes.length === 0 && (
                   <NoResults searchTerm={searchTerm} />
                 )}
-              {/* no more results */}
-              {localData && localData.results.length === 0 && page > 1 && (
+              {/* No More Results */}
+              {localData && localData.recipes.length === 0 && page > 1 && (
                 <NoMoreItems searchTerm={searchTerm} />
               )}
-              {/* initial landing page */}
+              {/* Initial Landing Page */}
               {localData &&
                 !localData.executed &&
-                localData.results.length === 0 &&
+                localData.recipes.length === 0 &&
                 searchTerm.length === 0 && (
                   <>
                     <Row className='justify-content-center mt-4'>
