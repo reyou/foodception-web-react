@@ -47,9 +47,6 @@ export default function RecipeVideosPage() {
         subTitle={subTitle}
         backgroundImage={HEADER_IMAGES.recipeVideosPage}
       />
-      <Container fluid>
-        <LoadingPanel visible={loading} />
-      </Container>
 
       {error && (
         <Container className='text-center'>
@@ -79,7 +76,9 @@ export default function RecipeVideosPage() {
                 onClearSearch={handleSearchCleared}
               />
             )}
-
+            <Container fluid>
+              <LoadingPanel visible={loading} />
+            </Container>
             <Row className='justify-content-center mt-4'>
               {localData &&
               localData.recipeVideos &&

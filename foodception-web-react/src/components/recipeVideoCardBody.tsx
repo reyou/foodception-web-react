@@ -43,11 +43,13 @@ const FoodceptionRecipeVideoCardBody: React.FC<
         </a>
       </div>
 
-      <Card.Text>{youTubeChannelVideo.description}</Card.Text>
+      <Card.Text>
+        {FrontEndUtils.truncateText(youTubeChannelVideo.description, 150)}
+      </Card.Text>
 
       <Button
         variant='primary'
-        className='me-2'
+        className='me-2 mt-2'
         onClick={(event) => onWatchClicked(event)}
       >
         Watch
@@ -55,6 +57,7 @@ const FoodceptionRecipeVideoCardBody: React.FC<
 
       <Button
         variant='primary'
+        className='mt-2'
         href={`https://www.youtube.com/v/${youTubeChannelVideo.videoId}`}
         target='_blank'
         rel='noreferrer'
