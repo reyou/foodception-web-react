@@ -41,18 +41,8 @@ const RecipeVideoDetailsPage: React.FC = () => {
   return (
     <>
       <FoodceptionHeader>{providerVideo.title}</FoodceptionHeader>
-      <p className='text-center fs-5'>{providerVideo.description}</p>
+
       <Container>
-        <Row>
-          <Col>
-            <div className='fs-5 mb-2'>
-              <strong className='me-2'>Recipe:</strong>
-              <FoodceptionHrefLink url={recipeDetailsUrl}>
-                {recipe.title}
-              </FoodceptionHrefLink>
-            </div>
-          </Col>
-        </Row>
         <YouTube
           videoId={providerVideo.videoId}
           className='foodceptionYoutubeVideoPlayer'
@@ -63,12 +53,28 @@ const RecipeVideoDetailsPage: React.FC = () => {
             playerVars: { autoplay: 0 }
           }}
         />
+        <Row>
+          <Col>
+            <div className='fs-5 mb-2'>
+              <strong className='me-2'>Recipe:</strong>
+              <FoodceptionHrefLink url={recipeDetailsUrl}>
+                {recipe.title}
+              </FoodceptionHrefLink>
+            </div>
+          </Col>
+        </Row>
+
         <FoodceptionShareButtons
           url={FrontEndUtils.getAdjustedUrl(window.location.href)}
           hashtag={`#${FrontEndUtils.slugify(providerVideo.title)} #foodception`}
           title={`${providerVideo.title}: ${providerVideo.description}`}
           media={imageUrl}
         />
+        <Row>
+          <Col>
+            <p className='text-center fs-5 mt-4'>{providerVideo.description}</p>
+          </Col>
+        </Row>
         <Row className='mt-4'>
           <Col>
             <h2 className='text-center'>Related Recipes</h2>
