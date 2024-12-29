@@ -12,7 +12,7 @@ const MealCategoriesList: React.FC<MealCategoriesListProps> = ({ meals }) => {
       {meals.map((meal) => {
         const categoryLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
           meal.id
-        }/recipes`;
+        }`;
         const categoryImage = meal.mealImages[0];
 
         return (

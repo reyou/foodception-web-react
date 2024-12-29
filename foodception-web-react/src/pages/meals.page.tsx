@@ -42,7 +42,7 @@ export default function Meals() {
           const recipes = meal.mealRecipes.map((q: any) => q.recipe);
           const mealLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
             meal.id
-          }/recipes`;
+          }`;
 
           return (
             <div key={meal.id} className='mb-4'>
