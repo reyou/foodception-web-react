@@ -1,7 +1,6 @@
 import {
   createBrowserRouter,
   createRoutesFromElements,
-  Navigate,
   Route,
   RouteObject,
   RouterProvider
@@ -57,10 +56,6 @@ export default function FoodceptionRouter() {
         <Route path='diets' element={<Diets />} />{' '}
         <Route path='diets/:slug/:id' element={<DietDetail />} />
         <Route path='meals' element={<Meals />} />
-        <Route
-          path='meals/:slug/:id'
-          element={<Navigate to='recipes' replace />}
-        />
         <Route path='meals/:slug/:id' element={<MealRecipes />} />
         <Route path='recipes' element={<RecipesPage />} />
         <Route path='recipes/discover' element={<Recipes />} />
