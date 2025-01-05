@@ -8,6 +8,7 @@ import './App.css';
 import WindowState from './utils/WindowState';
 
 import FoodceptionRouter from './Router';
+import AuthUtils from './utils/AuthUtils';
 
 function App() {
   useEffect(() => {
@@ -16,10 +17,11 @@ function App() {
     const iframeId = params.get('iframeId') || 'N/A';
     // Send the message on mount
     WindowState.addResizeListener(iframeId);
-
+    AuthUtils.addAuthListener();
     // Cleanup listener on unmount
     return () => {
       WindowState.removeResizeListener();
+      AuthUtils.removeAuthListener();
     };
   }, []);
 
