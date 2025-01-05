@@ -1,8 +1,9 @@
 export default class AuthUtils {
   static authMessageListener(event: MessageEvent) {
     // Validate origin
-    if (event.origin !== 'https://www.foodception.com') {
-      console.warn('Unauthorized message origin:', event.origin);
+    const allowedOrigin = process.env.REACT_APP_WEB_URL;
+    if (event.origin !== allowedOrigin) {
+      // console.warn('Unauthorized message origin:', event.origin);
       return;
     }
 
@@ -10,17 +11,7 @@ export default class AuthUtils {
 
     // Process only auth-related messages
     if (type === 'auth') {
-      if (
-        typeof payload === 'object' &&
-        typeof payload.isLoggedIn === 'boolean' &&
-        typeof payload.userId === 'string' &&
-        typeof payload.token === 'string'
-      ) {
-        console.log('Auth message received:', payload);
-        localStorage.setItem('authState', JSON.stringify(payload));
-      } else {
-        console.warn('Invalid auth message payload:', payload);
-      }
+      console.log('Auth message received:', payload);
     } else {
       console.log('Ignoring non-auth message:', event.data);
     }
@@ -32,5 +23,16 @@ export default class AuthUtils {
 
   static removeAuthListener() {
     window.removeEventListener('message', AuthUtils.authMessageListener);
+  }
+
+  static getMember() {
+    // Post a properly structured message to the parent window
+    window.parent.postMessage(
+      {
+        type: 'auth',
+        action: 'getMember'
+      },
+      '*'
+    );
   }
 }
