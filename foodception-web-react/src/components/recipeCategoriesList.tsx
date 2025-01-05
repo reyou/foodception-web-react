@@ -68,6 +68,7 @@ const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
           return (
             <FoodceptionCard
               key={category.id}
+              id={category.id}
               title={category.name}
               description={category.description}
               url={categoryLink}

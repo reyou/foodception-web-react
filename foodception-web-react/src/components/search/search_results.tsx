@@ -23,6 +23,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {results.map((result) => (
           <FoodceptionCard
             key={result.id}
+            id={result.id}
             title={result.title}
             description={result.description}
             url={result.url}

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Card, Col } from 'react-bootstrap';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
-import FoodceptionCardBody from './cardBody';
+import FoodceptionRecipeCardBody from './recipe-card-body';
 import FoodceptionCardHrefImage from './cardHrefImage';
 
 interface FoodceptionCardProps {
+  id: string;
   title: string;
   description: string;
   url: string;
@@ -13,6 +14,7 @@ interface FoodceptionCardProps {
 }
 
 const FoodceptionCard: React.FC<FoodceptionCardProps> = ({
+  id,
   title,
   description,
   url,
@@ -27,7 +29,8 @@ const FoodceptionCard: React.FC<FoodceptionCardProps> = ({
           src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
           alt={title}
         />
-        <FoodceptionCardBody
+        <FoodceptionRecipeCardBody
+          id={id}
           title={title}
           description={description}
           linkTitle={urlTitle}

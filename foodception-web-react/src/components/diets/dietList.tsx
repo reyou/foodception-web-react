@@ -61,6 +61,7 @@ const DietList: React.FC<DietListProps> = ({ diets, showSelect = true }) => {
           return (
             <FoodceptionCard
               key={diet.id}
+              id={diet.id}
               title={diet.name}
               description={diet.description}
               url={dietLink}

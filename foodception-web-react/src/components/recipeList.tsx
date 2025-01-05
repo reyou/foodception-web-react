@@ -19,6 +19,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes }) => {
 
           return (
             <FoodceptionCard
+              id={recipe.id}
               key={recipe.id}
               title={recipe.title}
               description={recipe.description}

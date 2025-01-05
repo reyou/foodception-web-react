@@ -4,14 +4,15 @@ import { FrontEndUtils } from '../utils/FrontEndUtils';
 import { FavoritesService } from '../services/favories/favorites-service';
 import { FavoriteType } from '../services/favories/favorite-type';
 
-interface FoodceptionCardBodyProps {
+interface FoodceptionRecipeCardBodyProps {
+  id: string;
   title: string;
   description: string;
   url: string;
   linkTitle: string;
 }
 
-const FoodceptionCardBody: React.FC<FoodceptionCardBodyProps> = ({
+const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
   title,
   description,
   url,
@@ -78,4 +79,4 @@ const FoodceptionCardBody: React.FC<FoodceptionCardBodyProps> = ({
   );
 };
 
-export default FoodceptionCardBody;
+export default FoodceptionRecipeCardBody;
