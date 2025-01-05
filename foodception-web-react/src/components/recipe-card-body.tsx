@@ -13,6 +13,7 @@ interface FoodceptionRecipeCardBodyProps {
 }
 
 const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
+  id,
   title,
   description,
   url,
@@ -29,15 +30,9 @@ const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
 
     try {
       if (isFavorited) {
-        await FavoritesService.removeFavorite(
-          FavoriteType.Recipes,
-          '69380eed-451e-451f-a89d-6cf787536656'
-        );
+        await FavoritesService.removeFavorite(FavoriteType.Recipes, id);
       } else {
-        await FavoritesService.createFavorite(
-          FavoriteType.Recipes,
-          '69380eed-451e-451f-a89d-6cf787536656'
-        );
+        await FavoritesService.createFavorite(FavoriteType.Recipes, id);
       }
       setIsFavorited((prev) => !prev);
     } catch (error) {

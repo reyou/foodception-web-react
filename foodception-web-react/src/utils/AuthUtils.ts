@@ -7,10 +7,13 @@ export default class AuthUtils {
       return;
     }
 
-    const { type, payload } = event.data;
+    const { type, action, payload } = event.data;
 
     // Process only auth-related messages
     if (type === 'auth') {
+      if (action === 'setAuthState') {
+        localStorage.setItem('authState', JSON.stringify(payload));
+      }
       console.log('Auth message received:', payload);
     } else {
       console.log('Ignoring non-auth message:', event.data);
@@ -25,12 +28,12 @@ export default class AuthUtils {
     window.removeEventListener('message', AuthUtils.authMessageListener);
   }
 
-  static getMember() {
+  static getAuthState() {
     // Post a properly structured message to the parent window
     window.parent.postMessage(
       {
         type: 'auth',
-        action: 'getMember'
+        action: 'getAuthState'
       },
       '*'
     );
