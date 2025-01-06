@@ -1,4 +1,5 @@
 import { FoodceptionHttpException } from '../exceptions/FoodceptionHttpException';
+import AuthUtils from '../utils/AuthUtils';
 import { ErrorUtils } from '../utils/ErrorUtils';
 import HttpUtils from '../utils/HttpUtils';
 
@@ -13,12 +14,17 @@ export default class HttpProvider {
       if (!HttpUtils.isAbsoluteUrl(url)) {
         url = process.env.REACT_APP_API_URL + url;
       }
+      const authToken = AuthUtils.getAuthTokenFromLocalStorage();
+
+      const finalHeaders: HeadersInit = {
+        'Content-Type': 'application/json',
+        ...headers,
+        ...(authToken ? { Authorization: `Bearer ${authToken}` } : {})
+      };
+
       const response = await fetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-          ...headers
-        },
+        headers: finalHeaders,
         body: body ? JSON.stringify(body) : null
       });
 
@@ -29,7 +35,7 @@ export default class HttpProvider {
 
       return await response.json();
     } catch (error: any) {
-      const message = `Error fetching ${url} with ${method} method. ${error.message}`;
+      const message = `FoodceptionHttpProvider: Error fetching ${url} with ${method} method. ${error.message}`;
       console.error(message, error);
       ErrorUtils.logErrorProperties(error);
       throw new FoodceptionHttpException(message, 500, url, method);
