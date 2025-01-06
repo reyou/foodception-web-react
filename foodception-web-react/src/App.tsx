@@ -18,7 +18,7 @@ function App() {
     // Send the message on mount
     WindowState.addResizeListener(iframeId);
     AuthUtils.addAuthListener();
-    AuthUtils.getAuthState();
+    AuthUtils.getAuthToken();
     // Cleanup listener on unmount
     return () => {
       WindowState.removeResizeListener();

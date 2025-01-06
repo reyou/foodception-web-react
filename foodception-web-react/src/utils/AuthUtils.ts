@@ -11,8 +11,8 @@ export default class AuthUtils {
 
     // Process only auth-related messages
     if (type === 'auth') {
-      if (action === 'setAuthState') {
-        localStorage.setItem('authState', JSON.stringify(payload));
+      if (action === 'setAuthToken') {
+        localStorage.setItem('authToken', JSON.stringify(payload));
       }
       console.log('Auth message received:', payload);
     } else {
@@ -28,12 +28,12 @@ export default class AuthUtils {
     window.removeEventListener('message', AuthUtils.authMessageListener);
   }
 
-  static getAuthState() {
+  static getAuthToken() {
     // Post a properly structured message to the parent window
     window.parent.postMessage(
       {
         type: 'auth',
-        action: 'getAuthState'
+        action: 'getAuthToken'
       },
       '*'
     );
