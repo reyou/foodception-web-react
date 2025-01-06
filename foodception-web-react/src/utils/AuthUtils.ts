@@ -3,7 +3,6 @@ export default class AuthUtils {
     // Validate origin
     const allowedOrigin = process.env.REACT_APP_WEB_URL;
     if (event.origin !== allowedOrigin) {
-      // console.warn('Unauthorized message origin:', event.origin);
       return;
     }
 
@@ -14,9 +13,8 @@ export default class AuthUtils {
       if (action === 'setAuthToken') {
         localStorage.setItem('authToken', payload.authToken);
       }
-      console.log('Auth message received:', payload);
     } else {
-      console.log('Ignoring non-auth message:', event.data);
+      console.warn('Foodception: Ignoring non-auth message:', event.data);
     }
   }
 
