@@ -12,7 +12,7 @@ export default class AuthUtils {
     // Process only auth-related messages
     if (type === 'auth') {
       if (action === 'setAuthToken') {
-        localStorage.setItem('authToken', JSON.stringify(payload));
+        localStorage.setItem('authToken', payload.authToken);
       }
       console.log('Auth message received:', payload);
     } else {
@@ -26,6 +26,10 @@ export default class AuthUtils {
 
   static removeAuthListener() {
     window.removeEventListener('message', AuthUtils.authMessageListener);
+  }
+
+  static getAuthTokenFromLocalStorage() {
+    return localStorage.getItem('authToken');
   }
 
   static getAuthToken() {
