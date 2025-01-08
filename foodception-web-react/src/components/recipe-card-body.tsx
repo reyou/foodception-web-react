@@ -53,9 +53,16 @@ const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
 
   const getButtonText = (): string => {
     if (isFavoriteLoading) {
-      return isFavorited ? 'Removing...' : 'Adding...';
+      return isFavorited ? 'Unfavoriting...' : 'Favoriting...';
     }
     return isFavorited ? 'Favorited' : 'Favorite';
+  };
+
+  const getButtonIcon = () => {
+    if (isFavoriteLoading) {
+      return <i className="bi bi-arrow-repeat spinner me-1"></i>;
+    }
+    return <i className={`bi ${isFavorited ? 'bi-heart-fill' : 'bi-heart'} me-1`}></i>;
   };
 
   return (
@@ -74,11 +81,12 @@ const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
         </Button>
         <Button
           className='me-2 mt-2'
-          variant={isFavorited ? 'outline-secondary' : 'primary'}
+          variant={isFavorited ? 'primary' : 'outline-secondary'}
           onClick={toggleFavorite}
           disabled={isFavoriteLoading}
         >
-          {getButtonText()}
+          {getButtonIcon()}
+          <span>{getButtonText()}</span>
         </Button>
       </Card.Body>
       <GenericModal
