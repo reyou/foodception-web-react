@@ -23,13 +23,7 @@ const FoodceptionRecipeCard: React.FC<FoodceptionRecipeCardProps> = ({
           src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
           alt={recipe.title}
         />
-        <FoodceptionRecipeCardBody
-          id={recipe.id}
-          title={recipe.title}
-          description={recipe.description}
-          linkTitle='View Recipe'
-          url={recipeLink}
-        />
+        <FoodceptionRecipeCardBody recipe={recipe} />
       </Card>
     </Col>
   );

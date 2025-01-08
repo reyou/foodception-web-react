@@ -5,4 +5,5 @@ export interface Recipe {
   recipeImages: Array<{
     imageUrl: string;
   }>;
+  isFavorited?: boolean;
 }

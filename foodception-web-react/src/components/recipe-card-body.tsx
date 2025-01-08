@@ -1,32 +1,28 @@
 import React, { useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { FrontEndUtils } from '../utils/FrontEndUtils';
+import { Link } from 'react-router-dom';
+import { Recipe } from '../types/recipe.types';
 import { FavoritesService } from '../services/favories/favorites-service';
 import { FavoriteType } from '../services/favories/favorite-type';
 import { FoodceptionUnauthorizedException } from '../exceptions/FoodceptionUnauthorizedException';
 import GenericModal from './modals/generic-modal';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionRecipeCardBodyProps {
-  id: string;
-  title: string;
-  description: string;
-  url: string;
-  linkTitle: string;
+  recipe: Recipe;
+  linkTitle?: string;
 }
 
 const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
-  id,
-  title,
-  description,
-  url,
-  linkTitle
+  recipe,
+  linkTitle = 'View Recipe'
 }) => {
-  const [isFavorited, setIsFavorited] = useState(false);
-
-  const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
+  const [isFavorited, setIsFavorited] = useState(recipe.isFavorited || false);
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
   const [modalContent, setModalContent] = useState('');
   const [showModal, setShowModal] = useState(false);
+
+  const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${recipe.id}`;
 
   const toggleFavorite = async () => {
     if (isFavoriteLoading) return;
@@ -34,9 +30,9 @@ const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
 
     try {
       if (isFavorited) {
-        await FavoritesService.removeFavorite(FavoriteType.Recipes, id);
+        await FavoritesService.removeFavorite(FavoriteType.Recipes, recipe.id);
       } else {
-        await FavoritesService.createFavorite(FavoriteType.Recipes, id);
+        await FavoritesService.createFavorite(FavoriteType.Recipes, recipe.id);
       }
       setIsFavorited((prev) => !prev);
     } catch (error) {
@@ -68,19 +64,12 @@ const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
   return (
     <>
       <Card.Body>
-        <Card.Title>{FrontEndUtils.capitalizeText(title)}</Card.Title>
-        <Card.Text>{description}</Card.Text>
-        <Button
-          className='me-2 mt-2'
-          data-guid='70785352-4001-424b-9127-4aa470808626'
-          href={adjustedUrl}
-          onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
-          variant='primary'
-        >
+        <Card.Title>{FrontEndUtils.capitalizeText(recipe.title)}</Card.Title>
+        <Card.Text>{recipe.description}</Card.Text>
+        <Link to={recipeLink} className='btn btn-primary me-2'>
           {linkTitle}
-        </Button>
+        </Link>
         <Button
-          className='me-2 mt-2'
           variant={isFavorited ? 'primary' : 'outline-secondary'}
           onClick={toggleFavorite}
           disabled={isFavoriteLoading}
