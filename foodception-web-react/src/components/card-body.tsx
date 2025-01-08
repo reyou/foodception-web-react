@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Card, Button } from 'react-bootstrap';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface FoodceptionCardBodyProps {
   id: string;
@@ -17,13 +17,19 @@ const FoodceptionCardBody: React.FC<FoodceptionCardBodyProps> = ({
   url,
   linkTitle
 }) => {
+  const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
+
   return (
     <Card.Body>
       <Card.Title>{title}</Card.Title>
       <Card.Text>{description}</Card.Text>
-      <Link to={url} className='btn btn-primary'>
+      <Button
+        className='btn btn-primary'
+        href={adjustedUrl}
+        onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
+      >
         {linkTitle}
-      </Link>
+      </Button>
     </Card.Body>
   );
 };

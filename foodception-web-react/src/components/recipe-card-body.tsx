@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { Recipe } from '../types/recipe.types';
 import { FavoritesService } from '../services/favories/favorites-service';
 import { FavoriteType } from '../services/favories/favorite-type';
@@ -23,6 +22,7 @@ const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
   const [showModal, setShowModal] = useState(false);
 
   const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${recipe.id}`;
+  const adjustedUrl = FrontEndUtils.getAdjustedUrl(recipeLink);
 
   const toggleFavorite = async () => {
     if (isFavoriteLoading) return;
@@ -66,9 +66,14 @@ const FoodceptionRecipeCardBody: React.FC<FoodceptionRecipeCardBodyProps> = ({
       <Card.Body>
         <Card.Title>{FrontEndUtils.capitalizeText(recipe.title)}</Card.Title>
         <Card.Text>{recipe.description}</Card.Text>
-        <Link to={recipeLink} className='btn btn-primary me-2'>
+        <Button
+          className='me-2'
+          href={adjustedUrl}
+          onClick={(event) => FrontEndUtils.handleLinkClick(event, adjustedUrl)}
+          variant='primary'
+        >
           {linkTitle}
-        </Link>
+        </Button>
         <Button
           variant={isFavorited ? 'primary' : 'outline-secondary'}
           onClick={toggleFavorite}
