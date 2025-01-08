@@ -1,34 +1,23 @@
 import React from 'react';
-import { FrontEndUtils } from '../utils/FrontEndUtils';
-import FoodceptionCard from './card';
 import { Container, Row } from 'react-bootstrap';
+import FoodceptionRecipeCard from './recipe-card';
+import { Recipe } from '../types/recipe.types';
 
 interface RecipeListProps {
-  recipes: any[];
+  recipes: Recipe[];
 }
 
 const RecipeList: React.FC<RecipeListProps> = ({ recipes }) => {
+  if (!recipes || recipes.length === 0) {
+    return null;
+  }
+
   return (
     <Container fluid>
       <Row className='justify-content-center'>
-        {recipes.map((recipe: any) => {
-          const recipeImage = recipe.recipeImages[0];
-          const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${
-            recipe.id
-          }`;
-
-          return (
-            <FoodceptionCard
-              id={recipe.id}
-              key={recipe.id}
-              title={recipe.title}
-              description={recipe.description}
-              url={recipeLink}
-              urlTitle='View Recipe'
-              imageUrl={recipeImage.imageUrl}
-            />
-          );
-        })}
+        {recipes.map((recipe) => (
+          <FoodceptionRecipeCard key={recipe.id} recipe={recipe} />
+        ))}
       </Row>
     </Container>
   );
