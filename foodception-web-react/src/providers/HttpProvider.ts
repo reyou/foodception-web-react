@@ -1,4 +1,5 @@
 import { FoodceptionHttpException } from '../exceptions/FoodceptionHttpException';
+import { FoodceptionUnauthorizedException } from '../exceptions/FoodceptionUnauthorizedException';
 import AuthUtils from '../utils/AuthUtils';
 import { ErrorUtils } from '../utils/ErrorUtils';
 import HttpUtils from '../utils/HttpUtils';
@@ -27,14 +28,33 @@ export default class HttpProvider {
         headers: finalHeaders,
         body: body ? JSON.stringify(body) : null
       });
-
       if (!response.ok) {
         const errorMessage = await response.text();
-        throw new Error(errorMessage || response.statusText);
+        if (response.status === 401) {
+          throw new FoodceptionUnauthorizedException(
+            errorMessage,
+            response.status,
+            url,
+            method
+          );
+        } else {
+          throw new FoodceptionHttpException(
+            errorMessage,
+            response.status,
+            url,
+            method
+          );
+        }
       }
 
       return await response.json();
     } catch (error: any) {
+      if (
+        error instanceof FoodceptionHttpException ||
+        error instanceof FoodceptionUnauthorizedException
+      ) {
+        throw error;
+      }
       const message = `FoodceptionHttpProvider: Error fetching ${url} with ${method} method. ${error.message}`;
       console.error(message, error);
       ErrorUtils.logErrorProperties(error);

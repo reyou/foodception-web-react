@@ -7,31 +7,15 @@ export interface FavoriteEntity {
 }
 
 export class FavoritesService {
-  static async getFavorites(): Promise<FavoriteEntity[]> {
-    try {
-      const response = await HttpProvider.get(`/favorites`);
-      console.log('List favorite entities response:', response);
-      return response.data;
-    } catch (error) {
-      console.error('Error listing favorite entities:', error);
-      return [];
-    }
+  static async getFavoriteRecipes(): Promise<any> {
+    const response = await HttpProvider.get(`/favorites/recipes`);
+    return response.data;
   }
   static async createFavorite(type: FavoriteType, id: string): Promise<void> {
-    try {
-      const response = await HttpProvider.post(`/favorites`, { type, id });
-      console.log('Favorite entity response:', response);
-    } catch (error) {
-      console.error('Error favoriting entity:', error);
-    }
+    await HttpProvider.post(`/favorites`, { type, id });
   }
 
   static async removeFavorite(type: FavoriteType, id: string): Promise<void> {
-    try {
-      const response = await HttpProvider.delete(`/favorites/${type}/${id}`);
-      console.log('Remove favorite entity response:', response);
-    } catch (error) {
-      console.error('Error removing favorite entity:', error);
-    }
+    await HttpProvider.delete(`/favorites/${type}/${id}`);
   }
 }
