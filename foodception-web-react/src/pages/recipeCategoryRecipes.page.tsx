@@ -9,10 +9,12 @@ import HeaderLayout from '../components/header/headerLayout';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import Pagination from '../components/pagination';
 import { useQuery } from '../hooks/useQuery';
+import SearchAutoComplete from '../components/search_auto_complete';
 
 const RecipeCategoryRecipesPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
   const query = useQuery();
+  const { id } = useParams<{ id: string }>();
+  const searchTerm = query.get('query') || '';
   const page = parseInt(query.get('page') || '1');
   const limit = parseInt(query.get('limit') || '20');
   const skip = (page - 1) * limit;
@@ -46,10 +48,23 @@ const RecipeCategoryRecipesPage: React.FC = () => {
           <Col>
             <div className='mb-4 mt-4 text-center'>
               <h4 className='text-muted'>
-                {data.totalCount}{' '}
-                {data.totalCount === 1 ? 'Recipe' : 'Recipes'} Found
+                {data.totalCount}{' '}"{recipeCategory.name}"{' '}
+                {data.totalCount === 1 ? 'recipe' : 'recipes'} found
               </h4>
             </div>
+          </Col>
+        </Row>
+        <Row className='justify-content-center'>
+        <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
+            <SearchAutoComplete
+              initialSearchTerm={searchTerm}
+              onSearch={() => {}}
+              apiEndpoint={`/recipe-categories/${id}/recipes/autocomplete`}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
             <RecipeList recipes={data.recipes} />
             <Pagination currentPage={page} />
           </Col>

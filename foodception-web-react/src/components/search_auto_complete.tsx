@@ -159,18 +159,6 @@ const SearchAutoComplete: React.FC<SearchAutoCompleteProps> = ({
     FrontEndUtils.redirect(url, navigate);
   };
 
-  /* useEffect(() => {
-    if (isFirstSearch.current) {
-      const query = new URLSearchParams(window.location.search).get('query');
-      if (query) {
-        setSearchTerm(query);
-        // onSearch(query);
-        setLastSearchedTerm(query);
-      }
-      isFirstSearch.current = false;
-    }
-  }, []); */
-
   const handleBlur = () => {
     setTimeout(() => setShowSuggestions(false), 100);
   };
