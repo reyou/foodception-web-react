@@ -1,8 +1,8 @@
+import React from 'react';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouteObject,
   RouterProvider
 } from 'react-router-dom';
 import FoodceptionHeader from './components/header/header';
@@ -15,7 +15,7 @@ import MealCategories from './pages/mealCategories.page';
 import MealRecipes from './pages/mealRecipes.page';
 import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipe-categories/recipeCategories.page';
-import RecipeCategoryDetail from './pages/recipeCategory.details.page';
+import RecipeCategoryRecipesPage from './pages/recipeCategoryRecipes.page';
 import RecipeDetails from './pages/recipes/details/recipe.details.page';
 import RecipesPage from './pages/recipes/recipes.page';
 import Recipes from './pages/recipes/discover/recipes.discover.page';
@@ -32,7 +32,7 @@ import SearchAutoCompletePage from './pages/search/auto_complete_page';
 import { SearchPage } from './pages/search/search.page';
 
 export default function FoodceptionRouter() {
-  const routes: RouteObject[] = createRoutesFromElements(
+  const routes = createRoutesFromElements(
     <>
       <Route path='/' element={<Layout />} errorElement={<ErrorPage />}>
         <Route
@@ -63,7 +63,7 @@ export default function FoodceptionRouter() {
         <Route path='recipe-categories' element={<RecipeCategories />} />
         <Route
           path='recipe-categories/:slug/:id'
-          element={<RecipeCategoryDetail />}
+          element={<RecipeCategoryRecipesPage />}
         />
         <Route path='recipe-videos' element={<RecipeVideos />} />
         <Route

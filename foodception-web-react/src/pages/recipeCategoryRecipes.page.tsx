@@ -8,9 +8,9 @@ import LoadingPanel from '../components/loading_panel';
 import HeaderLayout from '../components/header/headerLayout';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 
-interface RecipeCategoryDetailProps {}
+interface RecipeCategoryRecipesPageProps {}
 
-const RecipeCategoryDetail: React.FC<RecipeCategoryDetailProps> = () => {
+const RecipeCategoryRecipesPage: React.FC<RecipeCategoryRecipesPageProps> = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useFetch(`/recipe-categories/${id}/recipes`);
 
@@ -49,4 +49,4 @@ const RecipeCategoryDetail: React.FC<RecipeCategoryDetailProps> = () => {
   );
 };
 
-export default RecipeCategoryDetail;
+export default RecipeCategoryRecipesPage;
