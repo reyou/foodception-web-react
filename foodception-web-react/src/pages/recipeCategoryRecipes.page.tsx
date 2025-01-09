@@ -10,6 +10,7 @@ import { FrontEndUtils } from '../utils/FrontEndUtils';
 import Pagination from '../components/pagination';
 import { useQuery } from '../hooks/useQuery';
 import SearchAutoComplete from '../components/search_auto_complete';
+import SearchStatus from '../components/search_status';
 
 const RecipeCategoryRecipesPage: React.FC = () => {
   const query = useQuery();
@@ -48,19 +49,32 @@ const RecipeCategoryRecipesPage: React.FC = () => {
           <Col>
             <div className='mb-4 mt-4 text-center'>
               <h4 className='text-muted'>
-                {data.totalCount}{' '}"{recipeCategory.name}"{' '}
+                {data.totalCount}{' '}
+                <strong>
+                  <em>{recipeCategory.name}</em>
+                </strong>{' '}
                 {data.totalCount === 1 ? 'recipe' : 'recipes'} found
               </h4>
             </div>
           </Col>
         </Row>
         <Row className='justify-content-center'>
-        <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
+          <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
             <SearchAutoComplete
               initialSearchTerm={searchTerm}
               onSearch={() => {}}
               apiEndpoint={`/recipe-categories/${id}/recipes/autocomplete`}
             />
+          </Col>
+        </Row>
+        <Row className='justify-content-center mb-4'>
+          <Col xs={12} md={6} lg={4} xl={3}>
+            {searchTerm && (
+              <SearchStatus
+                searchTerm={searchTerm}
+                onClearSearch={ () => {} }
+              />
+            )}
           </Col>
         </Row>
         <Row>
