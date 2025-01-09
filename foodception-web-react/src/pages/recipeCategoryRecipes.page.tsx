@@ -18,7 +18,7 @@ const RecipeCategoryRecipesPage: React.FC = () => {
   const page = parseInt(query.get('page') || '1');
   const limit = parseInt(query.get('limit') || '20');
   const skip = (page - 1) * limit;
-  const { data, loading, error } = useFetch(`/recipe-categories/${id}/recipes?skip=${skip}&limit=${limit}`);
+  const { data, loading, error } = useFetch(`/recipe-categories/${id}/recipes?query=${searchTerm}&skip=${skip}&limit=${limit}`);
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;
   }
