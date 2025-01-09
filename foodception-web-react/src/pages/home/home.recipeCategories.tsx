@@ -36,20 +36,23 @@ export default function HomeRecipeCategories() {
     );
   }
 
+  const subHeader =
+    'Discover a world of flavors with our diverse collection of recipes, perfect for every occasion and dietary preference';
+
   return (
     <Container fluid>
       <Row>
         <Col>
-          <FoodceptionHeader subHeader='Discover a world of flavors with our diverse collection of recipes, perfect for every occasion and dietary preference'>
+          <FoodceptionHeader subHeader={subHeader}>
             Categories
           </FoodceptionHeader>
-          <RecipeCategoriesList
-            recipeCategories={data.recipeCategories}
-            showSelect={false}
-          />
         </Col>
       </Row>
-
+      <Row>
+        <Col>
+          <RecipeCategoriesList recipeCategories={data.recipeCategories} showSelect={false} />
+        </Col>
+      </Row>
       <Row className='text-center'>
         <Col>
           <FoodceptionHrefButton url='/recipe-categories'>
