@@ -83,7 +83,7 @@ export default function FoodceptionRouter() {
           element={<SearchAutoCompletePage />}
         />
         <Route path='search' element={<SearchPage />} />
-        <Route path='favorites' element={<FavoriteRecipesPage />} />
+        <Route path='user/favorites/recipes' element={<FavoriteRecipesPage />} />
       </Route>
     </>
   );
