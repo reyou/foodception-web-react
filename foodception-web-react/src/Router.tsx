@@ -30,6 +30,7 @@ import IngredientDetailsPage from './pages/ingredients/ingredient.details.page';
 import { LayoutProvider } from './contexts/layout-context';
 import SearchAutoCompletePage from './pages/search/auto_complete_page';
 import { SearchPage } from './pages/search/search.page';
+import FavoriteRecipesPage from './pages/favorites/favorites.recipes.page';
 
 export default function FoodceptionRouter() {
   const routes = createRoutesFromElements(
@@ -82,6 +83,7 @@ export default function FoodceptionRouter() {
           element={<SearchAutoCompletePage />}
         />
         <Route path='search' element={<SearchPage />} />
+        <Route path='favorites' element={<FavoriteRecipesPage />} />
       </Route>
     </>
   );

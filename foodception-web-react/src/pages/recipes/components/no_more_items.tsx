@@ -18,7 +18,11 @@ const NoMoreItems: React.FC<NoMoreItemsProps> = ({ searchTerm }) => {
       <Row className='justify-content-center'>
         <Col xs={12} md={8} lg={6} className='text-center'>
           <h4 className='mb-3'>
-            No more results found for "<strong>{searchTerm}</strong>"
+            {searchTerm ? (
+              <>No more results found for "<strong>{searchTerm}</strong>"</>
+            ) : (
+              'No more results found'
+            )}
           </h4>
           <p className='mb-4'>
             <a
