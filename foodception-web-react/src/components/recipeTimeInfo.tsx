@@ -15,7 +15,7 @@ const RecipeTimeInfo: React.FC<RecipeTimeInfoProps> = ({
   servingSize
 }) => {
   return (
-    <Row className='justify-content-center mt-3'>
+    <Row className='justify-content-center'>
       <Col xs='auto' className='me-3'>
         <strong className='fs-5'>Total Time:</strong>{' '}
         <span className='fs-5'>{totalTime} min</span>

@@ -9,6 +9,7 @@ import RecipeTimeInfo from '../../../components/recipeTimeInfo';
 import RecipeSteps from '../../../components/recipeSteps';
 import RecipeVideos from '../../../components/recipeVideos';
 import FoodceptionTabs, { TabItem } from '../../../components/tabs';
+import FavoriteButton from '../../../components/favorite-button';
 
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 import useFetch from '../../../hooks/useFetch';
@@ -66,8 +67,7 @@ export default function RecipeDetails() {
               <FoodceptionHeader>{recipe.title}</FoodceptionHeader>
             </Col>
           </Row>
-
-          <Row className='mt-3'>
+          <Row>
             <Col>
               <RecipeTimeInfo
                 totalTime={recipe.totalTime}
@@ -77,7 +77,6 @@ export default function RecipeDetails() {
               />
             </Col>
           </Row>
-
           <Row className='text-center mt-4'>
             <Col>
               <h2>About the Recipe</h2>
@@ -85,7 +84,15 @@ export default function RecipeDetails() {
               <FoodceptionImage src={imageUrl} alt={recipe.title} />
             </Col>
           </Row>
-
+          <Row className='text-center mt-4'>
+            <Col>
+              <FavoriteButton
+                id={recipe.id}
+                initialFavorited={recipe.isFavorited}
+                variant='primary'
+              />
+            </Col>
+          </Row>
           <FoodceptionShareButtons
             url={FrontEndUtils.getAdjustedUrl(window.location.href)}
             hashtag={`#${FrontEndUtils.slugify(recipe.title)} #foodception`}

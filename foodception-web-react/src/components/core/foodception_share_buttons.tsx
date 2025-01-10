@@ -26,7 +26,7 @@ const FoodceptionShareButtons: React.FC<FoodceptionShareButtonsProps> = ({
   media
 }) => {
   return (
-    <Row className='text-center mt-3'>
+    <Row className='text-center mt-4'>
       <Col>
         <FacebookShareButton url={url} hashtag={hashtag} className='me-2'>
           <FacebookIcon size={32} round />
