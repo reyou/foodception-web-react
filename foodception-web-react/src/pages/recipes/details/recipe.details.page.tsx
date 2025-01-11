@@ -20,6 +20,7 @@ import LoadingPanel from '../../../components/loading_panel';
 import ErrorPanel from '../../../components/error_message';
 import RelatedRecipes from './../components/related_recipes';
 import FoodceptionShareButtons from '../../../components/core/foodception_share_buttons';
+import ParentWindowUtils from '../../../utils/ParentWindowUtils';
 
 export default function RecipeDetails() {
   const { id } = useParams<{ id?: string }>();
@@ -29,8 +30,12 @@ export default function RecipeDetails() {
   const { data, loading, error } = useFetch(`/recipes/${id}`);
 
   const handleError = (error: ErrorDetails) => {
-    setErrorDetails(error);
-    setShowErrorModal(true);
+    if (FrontEndUtils.isInsideIframe()) {
+      ParentWindowUtils.sendError(error);
+    } else {
+      setErrorDetails(error);
+      setShowErrorModal(true);
+    }
   };
 
 

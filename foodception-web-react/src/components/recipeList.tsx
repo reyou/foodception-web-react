@@ -17,7 +17,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ recipes }) => {
 
   const handleError = (error: ErrorDetails) => {
     if (FrontEndUtils.isInsideIframe()) {
-      ParentWindowUtils.postMessage({ type: 'error', error });
+      ParentWindowUtils.sendError(error);
     } else {
       setErrorDetails(error);
       setShowErrorModal(true);
