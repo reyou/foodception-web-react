@@ -3,25 +3,25 @@ import { Button } from 'react-bootstrap';
 import { FavoritesService } from '../services/favories/favorites-service';
 import { FavoriteType } from '../services/favories/favorite-type';
 import { FoodceptionUnauthorizedException } from '../exceptions/FoodceptionUnauthorizedException';
-import GenericModal from './modals/generic-modal';
+import { ErrorType, ErrorDetails } from '../types/error.types';
 
 interface FavoriteButtonProps {
   id: string;
   initialFavorited?: boolean;
   className?: string;
   variant?: 'primary' | 'outline-secondary';
+  onError?: (error: ErrorDetails) => void;
 }
 
 const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   id,
   initialFavorited = false,
   className = '',
-  variant = 'outline-secondary'
+  variant = 'outline-secondary',
+  onError
 }) => {
   const [isFavorited, setIsFavorited] = useState(initialFavorited);
   const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
-  const [modalContent, setModalContent] = useState('');
-  const [showModal, setShowModal] = useState(false);
 
   const toggleFavorite = async () => {
     if (isFavoriteLoading) return;
@@ -36,11 +36,16 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
       setIsFavorited((prev) => !prev);
     } catch (error) {
       if (error instanceof FoodceptionUnauthorizedException) {
-        setModalContent('You need to log in to perform this action.');
+        onError?.({
+          type: ErrorType.AUTH_ERROR,
+          message: 'You need to log in to perform this action.'
+        });
       } else {
-        setModalContent('An error occurred. Please try again later.');
+        onError?.({
+          type: ErrorType.SERVER_ERROR,
+          message: 'An error occurred. Please try again later.'
+        });
       }
-      setShowModal(true);
     } finally {
       setIsFavoriteLoading(false);
     }
@@ -61,23 +66,15 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   };
 
   return (
-    <>
-      <Button
-        className={className}
-        variant={isFavorited ? 'primary' : variant}
-        onClick={toggleFavorite}
-        disabled={isFavoriteLoading}
-      >
-        {getButtonIcon()}
-        <span>{getButtonText()}</span>
-      </Button>
-      <GenericModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        title='Error'
-        body={modalContent}
-      />
-    </>
+    <Button
+      className={className}
+      variant={isFavorited ? 'primary' : variant}
+      onClick={toggleFavorite}
+      disabled={isFavoriteLoading}
+    >
+      {getButtonIcon()}
+      <span>{getButtonText()}</span>
+    </Button>
   );
 };
 

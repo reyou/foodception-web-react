@@ -4,13 +4,16 @@ import FoodceptionCardHrefImage from './cardHrefImage';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import FoodceptionRecipeCardBody from './recipe-card-body';
 import { Recipe } from '../types/recipe.types';
+import { ErrorDetails } from '../types/error.types';
 
 interface FoodceptionRecipeCardProps {
   recipe: Recipe;
+  onError?: (error: ErrorDetails) => void;
 }
 
 const FoodceptionRecipeCard: React.FC<FoodceptionRecipeCardProps> = ({
-  recipe
+  recipe,
+  onError
 }) => {
   const recipeLink = `/recipes/${FrontEndUtils.slugify(recipe.title)}/${recipe.id}`;
   const imageUrl = recipe.recipeImages[0]?.imageUrl || '';
@@ -23,7 +26,7 @@ const FoodceptionRecipeCard: React.FC<FoodceptionRecipeCardProps> = ({
           src={FrontEndUtils.getResizedImagePath(imageUrl, 400, 400)}
           alt={recipe.title}
         />
-        <FoodceptionRecipeCardBody recipe={recipe} />
+        <FoodceptionRecipeCardBody recipe={recipe} onError={onError} />
       </Card>
     </Col>
   );
