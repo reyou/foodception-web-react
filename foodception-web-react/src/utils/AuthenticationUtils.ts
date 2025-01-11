@@ -1,6 +1,6 @@
 import { FrontEndUtils } from './FrontEndUtils';
 import ParentWindowUtils from './ParentWindowUtils';
-import { ErrorType } from '../types/error.types';
+import { ErrorDetails, ErrorType } from '../types/error.types';
 import HttpProvider from '../providers/HttpProvider';
 
 export class AuthenticationUtils {
@@ -18,7 +18,7 @@ export class AuthenticationUtils {
       ParentWindowUtils.sendError({
         type: ErrorType.AUTH_ERROR,
         message: 'You need to log in to access this page.'
-      });
+      } as ErrorDetails);
     } else {
       // Redirect to login page with return URL
       const returnUrl = encodeURIComponent(window.location.pathname);
