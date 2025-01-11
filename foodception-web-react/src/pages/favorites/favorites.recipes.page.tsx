@@ -10,6 +10,7 @@ import HeaderLayout from '../../components/header/headerLayout';
 import SearchAutoComplete from '../../components/search_auto_complete';
 import SearchStatus from '../../components/search_status';
 import NoMoreItems from '../recipes/components/no_more_items';
+import ProtectedRoute from '../../components/protected-route';
 
 const FavoriteRecipesPage: React.FC = () => {
   const query = useQuery();
@@ -22,76 +23,86 @@ const FavoriteRecipesPage: React.FC = () => {
     `/favorites/recipes?query=${searchTerm}&skip=${skip}&limit=${limit}`
   );
 
-  if (loading) {
-    return <LoadingPanel visible={loading} />;
-  }
+  const renderContent = () => {
+    if (loading) {
+      return <LoadingPanel visible={loading} />;
+    }
 
-  if (error) {
-    return <ErrorPanel errorMessage={error} />;
-  }
+    if (error) {
+      return <ErrorPanel errorMessage={error} />;
+    }
 
-  if (!data) {
+    if (!data) {
+      return (
+        <Container className='text-center mt-5'>
+          <p>No favorites found</p>
+        </Container>
+      );
+    }
+
+    const backgroundImage = 'https://images.foodception.com/favorites/recipes/headers/bddd4542-99b6-41d2-8e5f-d0452d616d5a.png';
     return (
-      <Container className='text-center mt-5'>
-        <p>No favorites found</p>
-      </Container>
-    );
-  }
-
-  const backgroundImage = 'https://images.foodception.com/favorites/recipes/headers/bddd4542-99b6-41d2-8e5f-d0452d616d5a.png';
-  return (
-    <>
-      <HeaderLayout
-        title={<h1>My Favorite Recipes</h1>}
-        subTitle="Your personal collection of favorite recipes" backgroundImage={backgroundImage}      />
-      <Container fluid>
-        <Row>
-          <Col>
-            <div className='mb-4 mt-4 text-center'>
-              <h4 className='text-muted'>
-                {data.totalCount}{' '}
-                {data.totalCount === 1 ? 'recipe' : 'recipes'} found
-              </h4>
-            </div>
-          </Col>
-        </Row>
-        <Row className='justify-content-center'>
-          <Col xs={12} md={6} lg={4} xl={3}>
-            <SearchAutoComplete
-              initialSearchTerm={searchTerm}
-              onSearch={() => {}}
-              apiEndpoint="/favorites/recipes/autocomplete"
-            />
-          </Col>
-        </Row>
-        <Row className='justify-content-center mb-4'>
-          <Col xs={12} md={6} lg={4} xl={3}>
-            {searchTerm && (
-              <SearchStatus
-                searchTerm={searchTerm}
-                onClearSearch={() => {}}
-              />
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            {data.recipes.length > 0 ? (
-              <>
-                <RecipeList recipes={data.recipes} />
-                <Pagination currentPage={page} />
-              </>
-            ) : data.totalCount > 0 ? (
-              <NoMoreItems searchTerm={searchTerm} />
-            ) : (
-              <div className="text-center mt-5">
-                <h5 className="text-muted">No favorites found</h5>
+      <>
+        <HeaderLayout
+          title={<h1>My Favorite Recipes</h1>}
+          subTitle="Your personal collection of favorite recipes" 
+          backgroundImage={backgroundImage}
+        />
+        <Container fluid>
+          <Row>
+            <Col>
+              <div className='mb-4 mt-4 text-center'>
+                <h4 className='text-muted'>
+                  {data.totalCount}{' '}
+                  {data.totalCount === 1 ? 'recipe' : 'recipes'} found
+                </h4>
               </div>
-            )}
-          </Col>
-        </Row>
-      </Container>
-    </>
+            </Col>
+          </Row>
+          <Row className='justify-content-center'>
+            <Col xs={12} md={6} lg={4} xl={3}>
+              <SearchAutoComplete
+                initialSearchTerm={searchTerm}
+                onSearch={() => {}}
+                apiEndpoint="/favorites/recipes/autocomplete"
+              />
+            </Col>
+          </Row>
+          <Row className='justify-content-center mb-4'>
+            <Col xs={12} md={6} lg={4} xl={3}>
+              {searchTerm && (
+                <SearchStatus
+                  searchTerm={searchTerm}
+                  onClearSearch={() => {}}
+                />
+              )}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              {data.recipes.length > 0 ? (
+                <>
+                  <RecipeList recipes={data.recipes} />
+                  <Pagination currentPage={page} />
+                </>
+              ) : data.totalCount > 0 ? (
+                <NoMoreItems searchTerm={searchTerm} />
+              ) : (
+                <div className="text-center mt-5">
+                  <h5 className="text-muted">No favorites found</h5>
+                </div>
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </>
+    );
+  };
+
+  return (
+    <ProtectedRoute>
+      {renderContent()}
+    </ProtectedRoute>
   );
 };
 
