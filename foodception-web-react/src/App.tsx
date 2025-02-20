@@ -19,6 +19,7 @@ function App() {
     WindowState.addResizeListener(iframeId);
     AuthUtils.addAuthListener();
     AuthUtils.getAuthToken();
+    AuthUtils.authStateListener();
     // Cleanup listener on unmount
     return () => {
       WindowState.removeResizeListener();

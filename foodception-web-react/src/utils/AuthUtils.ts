@@ -1,4 +1,5 @@
 export default class AuthUtils {
+  static authToken: string | null = null;
   static authMessageListener(event: MessageEvent) {
     // Validate origin
     const allowedOrigin = process.env.REACT_APP_WEB_URL;
@@ -28,6 +29,19 @@ export default class AuthUtils {
 
   static getAuthTokenFromLocalStorage() {
     return localStorage.getItem('authToken');
+  }
+
+  static authStateListener() {
+    setInterval(() => {
+      AuthUtils.getAuthToken();
+      const authToken = AuthUtils.getAuthTokenFromLocalStorage();
+      // check if this value changed, if so then reload the page
+      if (authToken !== AuthUtils.authToken) {
+        AuthUtils.authToken = authToken;
+        console.log('Auth token changed reloading page', authToken);
+        window.location.reload();
+      }
+    }, 1000);
   }
 
   static getAuthToken() {
