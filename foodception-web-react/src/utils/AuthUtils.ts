@@ -1,5 +1,7 @@
+import { FrontEndUtils } from "./FrontEndUtils";
+
 export default class AuthUtils {
-  static authToken: string | null = null;
+  static authToken: string | null = AuthUtils.getAuthTokenFromLocalStorage();
   static authMessageListener(event: MessageEvent) {
     // Validate origin
     const allowedOrigin = process.env.REACT_APP_WEB_URL;
@@ -12,7 +14,12 @@ export default class AuthUtils {
     // Process only auth-related messages
     if (type === 'auth') {
       if (action === 'setAuthToken') {
-        localStorage.setItem('authToken', payload.authToken);
+        if(payload.authToken) {
+          localStorage.setItem('authToken', payload.authToken);
+        }
+        else {
+          localStorage.removeItem('authToken');
+        }
       }
     } else {
       console.warn('Foodception: Ignoring non-auth message:', event.data);
@@ -31,15 +38,15 @@ export default class AuthUtils {
     return localStorage.getItem('authToken');
   }
 
-  static authStateListener() {
+  static runAuthStateListener() {
     setInterval(() => {
       AuthUtils.getAuthToken();
-      const authToken = AuthUtils.getAuthTokenFromLocalStorage();
-      // check if this value changed, if so then reload the page
-      if (authToken !== AuthUtils.authToken) {
-        AuthUtils.authToken = authToken;
-        console.log('Auth token changed reloading page', authToken);
-        window.location.reload();
+      let authToken = AuthUtils.getAuthTokenFromLocalStorage();
+      if (!AuthUtils.authToken && authToken) {
+        FrontEndUtils.reloadPage();
+      }
+      else if (AuthUtils.authToken && !authToken) {
+        FrontEndUtils.reloadPage();
       }
     }, 1000);
   }

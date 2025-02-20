@@ -151,4 +151,11 @@ export class FrontEndUtils {
     }
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
+  static reloadPage() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('time', Date.now().toString());
+    window.location.href = url.toString();
+    // window.location.reload();
+  }
 }
