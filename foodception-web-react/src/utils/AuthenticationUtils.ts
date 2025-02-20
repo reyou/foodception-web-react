@@ -4,6 +4,7 @@ import { ErrorDetails, ErrorType } from '../types/error.types';
 import HttpProvider from '../providers/HttpProvider';
 
 export class AuthenticationUtils {
+ 
   static async isAuthenticated(): Promise<boolean> {
     try {
       await HttpProvider.get('/authentication/authenticated');
@@ -24,5 +25,9 @@ export class AuthenticationUtils {
       const returnUrl = encodeURIComponent(window.location.pathname);
       window.location.href = `/login?returnUrl=${returnUrl}`;
     }
+  }
+
+  static logout() {
+    localStorage.removeItem('authToken');
   }
 }
