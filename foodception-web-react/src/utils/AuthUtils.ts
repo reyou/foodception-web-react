@@ -2,6 +2,8 @@ import { FrontEndUtils } from "./FrontEndUtils";
 
 export default class AuthUtils {
   static authToken: string | null = AuthUtils.getAuthTokenFromLocalStorage();
+  private static authStateInterval: number | null = null;
+
   static authMessageListener(event: MessageEvent) {
     // Validate origin
     const allowedOrigin = process.env.REACT_APP_WEB_URL;
@@ -39,7 +41,12 @@ export default class AuthUtils {
   }
 
   static runAuthStateListener() {
-    setInterval(() => {
+    // Clear any existing interval first
+    if (AuthUtils.authStateInterval) {
+      window.clearInterval(AuthUtils.authStateInterval);
+    }
+    
+    AuthUtils.authStateInterval = window.setInterval(() => {
       AuthUtils.getAuthToken();
       let authToken = AuthUtils.getAuthTokenFromLocalStorage();
       if (!AuthUtils.authToken && authToken) {
@@ -51,14 +58,21 @@ export default class AuthUtils {
     }, 1000);
   }
 
+  static removeAuthStateListener() {
+    if (AuthUtils.authStateInterval) {
+      window.clearInterval(AuthUtils.authStateInterval);
+      AuthUtils.authStateInterval = null;
+    }
+  }
+
   static getAuthToken() {
     // Post a properly structured message to the parent window
     window.parent.postMessage(
       {
         type: 'auth',
-        action: 'getAuthToken'
+        action: 'getAuthToken',
       },
-      '*'
+      process.env.REACT_APP_WEB_URL || ''
     );
   }
 }

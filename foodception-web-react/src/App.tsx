@@ -18,12 +18,12 @@ function App() {
     // Send the message on mount
     WindowState.addResizeListener(iframeId);
     AuthUtils.addAuthListener();
-    // TODO: clean up auth state listener on unmount
     AuthUtils.runAuthStateListener();
     // Cleanup listener on unmount
     return () => {
       WindowState.removeResizeListener();
       AuthUtils.removeAuthListener();
+      AuthUtils.removeAuthStateListener();
     };
   }, []);
 
