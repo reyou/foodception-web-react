@@ -1,1 +1,1 @@
-npm run deploy
+& "$PSScriptRoot\..\main.ps1" deploy
