@@ -3,7 +3,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  RouterProvider
+  RouterProvider,
+  Navigate
 } from 'react-router-dom';
 import FoodceptionHeader from './components/header/header';
 import ErrorPage from './errorPage';
@@ -31,7 +32,7 @@ import { LayoutProvider } from './contexts/layout-context';
 import SearchAutoCompletePage from './pages/search/auto_complete_page';
 import { SearchPage } from './pages/search/search.page';
 import FavoriteRecipesPage from './pages/favorites/favorites.recipes.page';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/user/auth/LoginPage';
 
 export default function FoodceptionRouter() {
   const routes = createRoutesFromElements(
@@ -84,6 +85,7 @@ export default function FoodceptionRouter() {
           element={<SearchAutoCompletePage />}
         />
         <Route path='search' element={<SearchPage />} />
+        <Route path='login' element={<Navigate to="/user/login" replace />} />
         <Route path='user/login' element={<LoginPage />} />
         <Route path='user/favorites/recipes' element={<FavoriteRecipesPage />} />
       </Route>

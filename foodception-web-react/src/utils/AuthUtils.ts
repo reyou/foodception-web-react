@@ -1,5 +1,6 @@
 import { FrontEndUtils } from "./FrontEndUtils";
 
+
 export default class AuthUtils {
   static authToken: string | null = AuthUtils.getAuthTokenFromLocalStorage();
   private static authStateInterval: number | null = null;
@@ -16,7 +17,7 @@ export default class AuthUtils {
     // Process only auth-related messages
     if (type === 'auth') {
       if (action === 'setAuthToken') {
-        if(payload.authToken) {
+        if (payload.authToken) {
           localStorage.setItem('authToken', payload.authToken);
         }
         else {
@@ -41,21 +42,23 @@ export default class AuthUtils {
   }
 
   static runAuthStateListener() {
-    // Clear any existing interval first
-    if (AuthUtils.authStateInterval) {
-      window.clearInterval(AuthUtils.authStateInterval);
+    if (FrontEndUtils.isInsideIframe()) {
+      // Clear any existing interval first
+      if (AuthUtils.authStateInterval) {
+        window.clearInterval(AuthUtils.authStateInterval);
+      }
+
+      AuthUtils.authStateInterval = window.setInterval(() => {
+        AuthUtils.getAuthToken();
+        let authToken = AuthUtils.getAuthTokenFromLocalStorage();
+        if (!AuthUtils.authToken && authToken) {
+          FrontEndUtils.reloadPage();
+        }
+        else if (AuthUtils.authToken && !authToken) {
+          FrontEndUtils.reloadPage();
+        }
+      }, 1000);
     }
-    
-    AuthUtils.authStateInterval = window.setInterval(() => {
-      AuthUtils.getAuthToken();
-      let authToken = AuthUtils.getAuthTokenFromLocalStorage();
-      if (!AuthUtils.authToken && authToken) {
-        FrontEndUtils.reloadPage();
-      }
-      else if (AuthUtils.authToken && !authToken) {
-        FrontEndUtils.reloadPage();
-      }
-    }, 1000);
   }
 
   static removeAuthStateListener() {

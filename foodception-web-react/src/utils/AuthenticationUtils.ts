@@ -23,7 +23,7 @@ export class AuthenticationUtils {
     } else {
       // Redirect to login page with return URL
       const returnUrl = encodeURIComponent(window.location.pathname);
-      window.location.href = `/login?returnUrl=${returnUrl}`;
+      window.location.href = `/user/login?returnUrl=${returnUrl}`;
     }
   }
 
