@@ -1,4 +1,5 @@
 import { EventTypes } from './EventTypes';
+import { ValidationError } from '../types/validation';
 
 // Define all possible event types and their data structures
 export interface EventMap {
@@ -12,6 +13,23 @@ export interface EventMap {
         };
       };
     };
+  };
+  [EventTypes.FORGOT_PASSWORD_SUCCESS]: {
+    type: typeof EventTypes.FORGOT_PASSWORD_SUCCESS;
+    time: string;
+  };
+  [EventTypes.FORGOT_PASSWORD_ERROR]: {
+    type: typeof EventTypes.FORGOT_PASSWORD_ERROR;
+    error: {
+      message: string;
+      details: {
+        validationError: ValidationError;
+        applicationError?: {
+          code: string;
+        };
+      };
+    };
+    time: string;
   };
   [EventTypes.AUTH_STATE_CHANGE]: {
     isAuthenticated: boolean;
