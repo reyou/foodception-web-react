@@ -6,6 +6,7 @@ import { LoginForm } from './components/LoginForm';
 import ParentWindowUtils from '../../../utils/ParentWindowUtils';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 import EventBus from '../../../utils/EventBus';
+import { EventTypes } from '../../../utils/EventTypes';
 
 const LoginPage: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -22,7 +23,7 @@ const LoginPage: React.FC = () => {
     checkAuth();
 
     // Subscribe to login error events
-    const unsubscribe = EventBus.subscribe('LOGIN_ERROR', (data) => {
+    const unsubscribe = EventBus.subscribe(EventTypes.LOGIN_ERROR, (data) => {
       setError(data.error.message);
     });
 
