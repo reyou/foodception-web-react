@@ -13,6 +13,13 @@ export default class ParentWindowUtils {
     );
   }
 
+  static sendLoginData(data: any) {
+    ParentWindowUtils.postMessage({
+      type: 'login',
+      loginData: data
+    });
+  }
+
   static sendError(error: ErrorDetails) {
     ParentWindowUtils.postMessage({
       type: 'error',

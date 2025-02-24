@@ -3,11 +3,15 @@ import { Col, Container, Row, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { AuthenticationUtils } from '../../../utils/AuthenticationUtils';
 import { LoginForm } from './components/LoginForm';
+import ParentWindowUtils from '../../../utils/ParentWindowUtils';
+import { FrontEndUtils } from '../../../utils/FrontEndUtils';
+import EventBus from '../../../utils/EventBus';
 
 const LoginPage: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -16,13 +20,30 @@ const LoginPage: React.FC = () => {
     };
 
     checkAuth();
+
+    // Subscribe to login error events
+    const unsubscribe = EventBus.subscribe('LOGIN_ERROR', (data) => {
+      setError(data.error.message);
+    });
+
+    // Cleanup subscription
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Submitting form');
-    console.log('Email:', email);
-    console.log('Password:', password);
+    setError(null); // Clear any existing errors
+    
+    if(FrontEndUtils.isInsideIframe()) { 
+      ParentWindowUtils.sendLoginData({email, password});
+    }
+    else {
+     console.log('email', email);
+     console.log('password', password);
+     console.log("Call API and authenticate. Use Wix API"); 
+    }
   };
 
   const handleLogout = async () => {
@@ -48,6 +69,7 @@ const LoginPage: React.FC = () => {
       onEmailChange={setEmail}
       onPasswordChange={setPassword}
       onSubmit={handleSubmit}
+      error={error}
     />
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Container, Row, Button, Form } from 'react-bootstrap';
+import { Col, Container, Row, Button, Form, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
@@ -8,6 +8,7 @@ interface LoginFormProps {
   onEmailChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
+  error?: string | null;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ 
@@ -15,7 +16,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   password, 
   onEmailChange, 
   onPasswordChange, 
-  onSubmit 
+  onSubmit,
+  error 
 }) => {
   return (
     <Container className="py-5" fluid>
@@ -28,6 +30,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             </p>
           </div>
           
+         
+
           <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Email<span className="text-danger">*</span></Form.Label>
@@ -54,7 +58,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             <div className="text-end mb-3">
               <Link to="/user/forgot-password">Forgot password?</Link>
             </div>
-
+            {error && (
+            <Alert variant="danger" className="mb-3">
+              {error}
+            </Alert>
+          )}
             <Button
               variant="dark"
               type="submit"

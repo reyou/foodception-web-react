@@ -1,5 +1,6 @@
 import { FrontEndUtils } from "./FrontEndUtils";
-
+import EventBus from "./EventBus";
+import { EventTypes } from "./EventTypes";
 
 export default class AuthUtils {
   static authToken: string | null = AuthUtils.getAuthTokenFromLocalStorage();
@@ -24,7 +25,11 @@ export default class AuthUtils {
           localStorage.removeItem('authToken');
         }
       }
-    } else {
+    } 
+    else if(type === EventTypes.LOGIN_ERROR) {
+      EventBus.publish(EventTypes.LOGIN_ERROR, event.data);
+    }
+    else {
       console.warn('Foodception: Ignoring non-auth message:', event.data);
     }
   }
