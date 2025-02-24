@@ -20,6 +20,13 @@ export default class ParentWindowUtils {
     });
   }
 
+  static sendForgotPasswordData(data: any) {
+    ParentWindowUtils.postMessage({
+      type: 'forgotPassword',
+      forgotPasswordData: data
+    });
+  }
+
   static sendError(error: ErrorDetails) {
     ParentWindowUtils.postMessage({
       type: 'error',

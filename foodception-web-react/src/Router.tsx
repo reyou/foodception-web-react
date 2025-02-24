@@ -33,6 +33,8 @@ import SearchAutoCompletePage from './pages/search/auto_complete_page';
 import { SearchPage } from './pages/search/search.page';
 import FavoriteRecipesPage from './pages/favorites/favorites.recipes.page';
 import LoginPage from './pages/user/auth/LoginPage';
+import ForgotPasswordPage from './pages/user/auth/forgot_password.page';
+
 
 export default function FoodceptionRouter() {
   const routes = createRoutesFromElements(
@@ -86,8 +88,10 @@ export default function FoodceptionRouter() {
         />
         <Route path='search' element={<SearchPage />} />
         <Route path='login' element={<Navigate to="/user/login" replace />} />
+        <Route path='user' element={<Navigate to="/user/login" replace />} />
         <Route path='user/login' element={<LoginPage />} />
         <Route path='user/favorites/recipes' element={<FavoriteRecipesPage />} />
+        <Route path='user/forgot-password' element={<ForgotPasswordPage />} />
       </Route>
     </>
   );

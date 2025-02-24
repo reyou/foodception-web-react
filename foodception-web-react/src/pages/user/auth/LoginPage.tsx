@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Clear any existing errors
+    setError(null); 
     
     if(FrontEndUtils.isInsideIframe()) { 
       ParentWindowUtils.sendLoginData({email, password});
