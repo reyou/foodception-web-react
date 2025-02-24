@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row, Button, Form, Alert } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import FoodceptionLink from '../../../../components/links/foodception_link';
 
 interface LoginFormProps {
   email: string;
@@ -26,7 +26,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
           <div className="text-center mb-4">
             <h1 className="display-4 mb-3">Log In to Foodception</h1>
             <p className="text-muted">
-              New to this site? <Link to="/user/signup">Sign Up</Link>
+              New to this site? <FoodceptionLink url="/user/signup" underlined={true}>Sign Up</FoodceptionLink>
             </p>
           </div>
           
@@ -56,7 +56,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
             </Form.Group>
 
             <div className="text-end mb-3">
-              <Link to="/user/forgot-password">Forgot password?</Link>
+              <FoodceptionLink url="/user/forgot-password" underlined={true}>Forgot password?</FoodceptionLink>
             </div>
             {error && (
             <Alert variant="danger" className="mb-3">
