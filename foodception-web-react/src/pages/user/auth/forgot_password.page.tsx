@@ -13,6 +13,7 @@ const ForgotPasswordPage: React.FC = () => {
     useEffect(() => {
         const unsubscribeSuccess = EventBus.subscribe(EventTypes.FORGOT_PASSWORD_SUCCESS, (_) => {
             setSuccess("Password reset email sent");
+            setEmail('');
         });
 
         const unsubscribeError = EventBus.subscribe(EventTypes.FORGOT_PASSWORD_ERROR, (data) => {
