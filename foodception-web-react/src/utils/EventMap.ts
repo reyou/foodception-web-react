@@ -34,6 +34,29 @@ export interface EventMap {
   };
   [EventTypes.SIGNUP_SUCCESS]: {
     type: typeof EventTypes.SIGNUP_SUCCESS;
+    status: string;
+    member: {
+      _id: string;
+      contactId: string;
+      loginEmail: string;
+      profile: {
+        slug: string;
+      };
+      contactDetails: {
+        contactId: string;
+        phones: any[];
+        emails: any[];
+        addresses: any[];
+        customFields: Record<string, any>;
+      };
+      activityStatus: string;
+      privacyStatus: string;
+      status: string;
+      lastLoginDate: string;
+      _createdDate: string;
+      _updatedDate: string;
+      revision: string;
+    };
     time: string;
   };
   [EventTypes.FORGOT_PASSWORD_SUCCESS]: {

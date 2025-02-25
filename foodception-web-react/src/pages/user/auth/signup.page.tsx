@@ -24,8 +24,8 @@ const SignupPage: React.FC = () => {
         checkAuth();
 
         // SIGNUP_SUCCESS
-        const unsubscribeSuccess = EventBus.subscribe(EventTypes.SIGNUP_SUCCESS, (_) => {
-            setSuccess("Account created successfully");
+        const unsubscribeSuccess = EventBus.subscribe(EventTypes.SIGNUP_SUCCESS, (data) => {
+            setSuccess(`Account created successfully for ${data.member.loginEmail}`);
             setEmail('');
             setPassword('');
             setConfirmPassword('');
