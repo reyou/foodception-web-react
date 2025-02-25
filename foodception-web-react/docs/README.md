@@ -7,6 +7,13 @@ A modern React application for managing and discovering recipes, built with Type
 - [System Integration](./architecture/system-integration.md) - Details about how the React app integrates with Wix and backend services
 - [Deployment Architecture](./deployment/github-pages.md) - Information about GitHub Pages deployment and configuration
 
+## UI Development
+
+- [Styling and Components](./ui/styling-and-components.md) - React Bootstrap usage and Storybook integration
+- Component development workflow
+- Responsive design patterns
+- Theme customization
+
 ## Development
 
 - [Getting Started](./guides/getting-started.md) - Setup and development guide
@@ -21,6 +28,14 @@ The application is designed to work within a Wix website:
 - Communicates with parent window via postMessage
 - Manages authentication state with Wix platform
 
+## UI Framework
+
+We use React Bootstrap and Storybook for UI development:
+- React Bootstrap for responsive, pre-built components
+- Storybook for component development and documentation
+- Custom theming and styling
+- Component testing and visualization
+
 ## Deployment
 
 The application is deployed to:
@@ -32,12 +47,13 @@ The application is deployed to:
 
 ```
 src/
-├── components/     # Reusable UI components
+├── components/     # Reusable UI components with stories
 ├── contexts/       # React context providers
 ├── hooks/         # Custom React hooks
 ├── models/        # Data models and interfaces
 ├── pages/         # Page components
 ├── services/      # API and service layer
+├── stories/       # Storybook stories
 ├── types/         # TypeScript type definitions
 └── utils/         # Utility functions including parent window communication
 ```
@@ -45,14 +61,16 @@ src/
 ## Key Features
 
 - 🔐 User Authentication (integrated with Wix)
-- 📱 Responsive Design
+- 📱 Responsive Design with React Bootstrap
+- 🎨 Component Library with Storybook
 - 🔄 Parent-Child Window Communication
 - 📊 API Integration
-- 🎨 Component Library
 - 🧪 Comprehensive Testing
 
 ## Learn More
 
+- [React Bootstrap Documentation](https://react-bootstrap.github.io/)
+- [Storybook Documentation](https://storybook.js.org/)
 - [React Documentation](https://reactjs.org/)
 - [TypeScript Documentation](https://www.typescriptlang.org/)
 - [Window.postMessage API](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
