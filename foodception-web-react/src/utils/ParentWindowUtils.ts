@@ -20,6 +20,13 @@ export default class ParentWindowUtils {
     });
   }
 
+  static sendSignupData(data: any) {
+    ParentWindowUtils.postMessage({
+      type: 'signup',
+      signupData: data
+    });
+  }
+
   static sendForgotPasswordData(data: any) {
     ParentWindowUtils.postMessage({
       type: 'forgotPassword',

@@ -32,7 +32,7 @@ import { LayoutProvider } from './contexts/layout-context';
 import SearchAutoCompletePage from './pages/search/auto_complete_page';
 import { SearchPage } from './pages/search/search.page';
 import FavoriteRecipesPage from './pages/favorites/favorites.recipes.page';
-import LoginPage from './pages/user/auth/LoginPage';
+import LoginPage from './pages/user/auth/login.page';
 import ForgotPasswordPage from './pages/user/auth/forgot_password.page';
 import SignupPage from './pages/user/auth/signup.page';
 

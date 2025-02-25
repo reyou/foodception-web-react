@@ -13,6 +13,28 @@ export interface EventMap {
         };
       };
     };
+    time: string;
+  };
+  [EventTypes.LOGIN_SUCCESS]: {
+    type: typeof EventTypes.LOGIN_SUCCESS;
+    time: string;
+  };
+  [EventTypes.SIGNUP_ERROR]: {
+    type: typeof EventTypes.SIGNUP_ERROR;
+    error: {
+      message: string;
+      details: {
+        validationError: ValidationError;
+        applicationError?: {
+          code: string;
+        };
+      };
+    };
+    time: string;
+  };
+  [EventTypes.SIGNUP_SUCCESS]: {
+    type: typeof EventTypes.SIGNUP_SUCCESS;
+    time: string;
   };
   [EventTypes.FORGOT_PASSWORD_SUCCESS]: {
     type: typeof EventTypes.FORGOT_PASSWORD_SUCCESS;
