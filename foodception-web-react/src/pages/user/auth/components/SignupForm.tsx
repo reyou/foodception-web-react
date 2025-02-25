@@ -11,6 +11,7 @@ interface SignupFormProps {
   onConfirmPasswordChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   error?: string | null;
+  success?: string | null;
 }
 
 export const SignupForm: React.FC<SignupFormProps> = ({
@@ -21,7 +22,8 @@ export const SignupForm: React.FC<SignupFormProps> = ({
   onPasswordChange,
   onConfirmPasswordChange,
   onSubmit,
-  error
+  error,
+  success
 }) => {
   return (
     <Container className="py-5" fluid>
@@ -71,6 +73,12 @@ export const SignupForm: React.FC<SignupFormProps> = ({
             {error && (
               <Alert variant="danger" className="mb-3">
                 {error}
+              </Alert>
+            )}
+
+            {success && (
+              <Alert variant="success" className="mb-3">
+                {success}
               </Alert>
             )}
 

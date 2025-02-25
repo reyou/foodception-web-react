@@ -29,6 +29,12 @@ export default class AuthUtils {
     else if(type === EventTypes.LOGIN_ERROR) {
       EventBus.publish(EventTypes.LOGIN_ERROR, event.data);
     }
+    else if(type === EventTypes.SIGNUP_SUCCESS) {
+      EventBus.publish(EventTypes.SIGNUP_SUCCESS, event.data);
+    }
+    else if(type === EventTypes.SIGNUP_ERROR) {
+      EventBus.publish(EventTypes.SIGNUP_ERROR, event.data);
+    }
     else if(type === EventTypes.FORGOT_PASSWORD_SUCCESS) {
       EventBus.publish(EventTypes.FORGOT_PASSWORD_SUCCESS, event.data);
     }

@@ -13,6 +13,7 @@ const SignupPage: React.FC = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
+    const [success, setSuccess] = useState<string | null>(null);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -22,14 +23,23 @@ const SignupPage: React.FC = () => {
 
         checkAuth();
 
-        // Subscribe to signup error events
-        const unsubscribe = EventBus.subscribe(EventTypes.SIGNUP_ERROR, (data) => {
+        // SIGNUP_SUCCESS
+        const unsubscribeSuccess = EventBus.subscribe(EventTypes.SIGNUP_SUCCESS, (_) => {
+            setSuccess("Account created successfully");
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+        });
+
+        // SIGNUP_ERROR
+        const unsubscribeError = EventBus.subscribe(EventTypes.SIGNUP_ERROR, (data) => {
             setError(data.error.message);
         });
 
         // Cleanup subscription
         return () => {
-            unsubscribe();
+            unsubscribeSuccess();
+            unsubscribeError();
         };
     }, []);
 
@@ -78,6 +88,7 @@ const SignupPage: React.FC = () => {
             onConfirmPasswordChange={setConfirmPassword}
             onSubmit={handleSubmit}
             error={error}
+            success={success}
         />
     );
 };
