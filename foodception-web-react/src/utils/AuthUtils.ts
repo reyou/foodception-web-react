@@ -105,7 +105,7 @@ export default class AuthUtils {
     }
   }
 
-  static getAuthToken() {
+  static refreshAuthToken() {
     // Get the auth token from local storage 
     const authToken = AuthUtils.getAuthTokenFromLocalStorage();
     
@@ -128,7 +128,7 @@ export default class AuthUtils {
       }
 
       AuthUtils.authStateInterval = window.setInterval(() => {
-        AuthUtils.getAuthToken();
+        AuthUtils.refreshAuthToken();
         let authToken = AuthUtils.getAuthTokenFromLocalStorage();
         if (!AuthUtils.authToken && authToken) {
           FrontEndUtils.reloadPage();
