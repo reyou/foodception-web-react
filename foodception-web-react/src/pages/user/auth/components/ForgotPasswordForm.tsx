@@ -20,7 +20,7 @@ export const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
   return (
     <Container className="py-5" fluid>
       <Row className="justify-content-center">
-        <Col xs={12} sm={10} md={8} lg={6}>
+        <Col xs={12} md={6} lg={4}>
           <div className="text-center mb-4">
             <h1 className="display-4 mb-3">Reset your Foodception password</h1>
             <p className="text-muted">
