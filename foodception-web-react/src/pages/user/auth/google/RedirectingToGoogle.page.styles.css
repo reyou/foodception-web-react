@@ -1,6 +1,7 @@
 /* Styles for the RedirectingToGoogle component */
 
-body {
+.rtg-container {
+  /* Base styles */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
@@ -8,79 +9,81 @@ body {
   height: 100vh;
   margin: 0;
   color: #333;
-}
 
-h3 {
-  color: #4c4c4c;
-  font-weight: 700;
-}
+  /* Element styles */
+  h3 {
+    color: #4c4c4c;
+    font-weight: 700;
+  }
 
-.redirect-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  color: #333;
-}
+  /* Container styles */
+  .redirect-container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+  }
 
-.redirect-content {
-  text-align: center;
-  background-color: #F6F3F0;
-  border: 1px solid #4c4c4c;
-  border-radius: 8px;
-  padding: 40px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-}
+  .redirect-content {
+    text-align: center;
+    background-color: #F6F3F0;
+    border: 1px solid #4c4c4c;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+  }
 
-.redirect-content h1 {
-  color: #4c4c4c;
-  margin-bottom: 20px;
-}
+  .redirect-content h1 {
+    color: #4c4c4c;
+    margin-bottom: 20px;
+  }
 
-.redirect-content p {
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 30px;
-}
+  .redirect-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
 
-.loader {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgb(178, 178, 178);
-  border-radius: 50%;
-  border-top-color: #000000;
-  animation: spin 1s ease-in-out infinite;
-}
+  .loader {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgb(178, 178, 178);
+    border-radius: 50%;
+    border-top-color: #000000;
+    animation: spin 1s ease-in-out infinite;
+  }
 
-.google-logo {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
+  .google-logo {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
 
-.google-logo span {
-  font-size: 24px;
-  font-weight: bold;
-}
+  .google-logo span {
+    font-size: 24px;
+    font-weight: bold;
+  }
 
-.g-blue {
-  color: #4285F4;
-}
+  .g-blue {
+    color: #4285F4;
+  }
 
-.g-red {
-  color: #EA4335;
-}
+  .g-red {
+    color: #EA4335;
+  }
 
-.g-yellow {
-  color: #FBBC05;
-}
+  .g-yellow {
+    color: #FBBC05;
+  }
 
-.g-green {
-  color: #34A853;
+  .g-green {
+    color: #34A853;
+  }
 }
 
 @keyframes spin {
