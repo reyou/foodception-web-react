@@ -36,6 +36,7 @@ import LoginPage from './pages/user/auth/login.page';
 import ForgotPasswordPage from './pages/user/auth/forgot_password.page';
 import SignupPage from './pages/user/auth/signup.page';
 import RedirectingToGoogle from './pages/user/auth/google/RedirectingToGoogle.page';
+import VerifyGoogleLogin from './pages/user/auth/google/VerifyGoogleLogin.page';
 
 export default function FoodceptionRouter() {
   const routes = createRoutesFromElements(
@@ -97,6 +98,7 @@ export default function FoodceptionRouter() {
       </Route>
       {/* Standalone route outside of main layout for iframe usage */}
       <Route path='user/auth/google/redirecting' element={<RedirectingToGoogle />} />
+      <Route path='user/auth/google/verify-login' element={<VerifyGoogleLogin />} />
     </>
   );
   const router = createBrowserRouter(routes, {

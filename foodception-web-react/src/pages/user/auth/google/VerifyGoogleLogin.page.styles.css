@@ -1,0 +1,117 @@
+/* Styles for the VerifyGoogleLogin component */
+
+.vgl-container {
+  /* Base styles */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+
+  /* Container styles */
+  .verify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .verify-content {
+    text-align: center;
+    background-color: #F6F3F0;
+    border: 1px solid #4c4c4c;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+  }
+
+  h3 {
+    color: #4c4c4c;
+    font-weight: 700;
+    margin-bottom: 25px;
+    font-size: 28px;
+  }
+
+  .current-user-info {
+    margin: 20px 0;
+    text-align: left;
+  }
+
+  .current-user-info p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    margin: 10px 0 20px 0;
+  }
+
+  .user-name {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  .user-email {
+    color: #666;
+    font-size: 16px;
+  }
+
+  .confirmation-message {
+    margin: 20px 0;
+    text-align: left;
+  }
+
+  .confirmation-message p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+  }
+
+  button {
+    padding: 15px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    width: 100%;
+  }
+
+  button:hover {
+    transform: translateY(-1px);
+  }
+
+  .continue-button {
+    background-color: #4285F4;
+    color: white;
+    border: none;
+  }
+
+  .continue-button:hover {
+    background-color: #3367d6;
+  }
+
+  .signout-button {
+    background-color: #EA4335;
+    color: white;
+    border: none;
+  }
+
+  .signout-button:hover {
+    background-color: #d33426;
+  }
+}
