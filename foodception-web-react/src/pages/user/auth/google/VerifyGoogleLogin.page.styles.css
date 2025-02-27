@@ -5,12 +5,6 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
 
-  /* Container styles */
-  .verify-container {
-    min-height: 100vh;
-    padding: 2rem 0;
-  }
-
   .verify-content {
     border: 1px solid #ddd;
     border-radius: 8px;

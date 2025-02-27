@@ -5,7 +5,7 @@ import './RedirectingToGoogle.page.styles.css';
 const RedirectingToGoogle: React.FC = () => {
   return (
     <div className="rtg-container">
-      <Container fluid className="redirect-container">
+      <Container fluid>
         <Row className="justify-content-center align-items-center">
           <Col xs={12} sm={10} md={8} lg={6} xl={5}>
             <Card className="redirect-content">

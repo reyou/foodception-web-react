@@ -5,11 +5,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
 
-  /* Container styles */
-  .redirect-container {
-    min-height: 100vh;
-    padding: 2rem 0;
-  }
+
 
   .redirect-content {
     border: 1px solid #ddd;
