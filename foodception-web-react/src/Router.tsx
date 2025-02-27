@@ -35,6 +35,7 @@ import FavoriteRecipesPage from './pages/favorites/favorites.recipes.page';
 import LoginPage from './pages/user/auth/login.page';
 import ForgotPasswordPage from './pages/user/auth/forgot_password.page';
 import SignupPage from './pages/user/auth/signup.page';
+import RedirectingToGoogle from './pages/user/auth/google/RedirectingToGoogle.page';
 
 export default function FoodceptionRouter() {
   const routes = createRoutesFromElements(
@@ -91,9 +92,11 @@ export default function FoodceptionRouter() {
         <Route path='user' element={<Navigate to="/user/login" replace />} />
         <Route path='user/login' element={<LoginPage />} />
         <Route path='user/favorites/recipes' element={<FavoriteRecipesPage />} />
-        <Route path='user/forgot-password' element={<ForgotPasswordPage />} />    
+        <Route path='user/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='user/signup' element={<SignupPage />} />
       </Route>
+      {/* Standalone route outside of main layout for iframe usage */}
+      <Route path='user/auth/google/redirecting' element={<RedirectingToGoogle />} />
     </>
   );
   const router = createBrowserRouter(routes, {
