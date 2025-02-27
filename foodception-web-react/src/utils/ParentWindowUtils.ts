@@ -20,6 +20,12 @@ export default class ParentWindowUtils {
     });
   }
 
+  static sendSignOutData() {
+    ParentWindowUtils.postMessage({
+      type: 'signOut'
+    });
+  }
+
   static sendSignupData(data: any) {
     ParentWindowUtils.postMessage({
       type: 'signup',

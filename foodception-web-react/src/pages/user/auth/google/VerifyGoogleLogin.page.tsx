@@ -1,12 +1,22 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import './VerifyGoogleLogin.page.styles.css';
+import ParentWindowUtils from '../../../../utils/ParentWindowUtils';
+import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
 
 const VerifyGoogleLogin: React.FC = () => {
   // Mock data - would be replaced with actual user data in implementation
   const currentUser = {
     email: 'aytekoz@gmail.com',
     name: 'Aytek Oz'
+  };
+
+  const handleSignOut = () => {
+    ParentWindowUtils.sendSignOutData();
+  };
+
+  const handleContinue = () => {
+    FrontEndUtils.redirect("/");
   };
 
   return (
@@ -36,10 +46,12 @@ const VerifyGoogleLogin: React.FC = () => {
                   <Button
                     variant="primary"
                     size="lg"
+                    onClick={handleContinue}
                   >
-                    Continue with this account
+                    Continue using this account
                   </Button>
                   <Button
+                    onClick={handleSignOut}
                     variant="danger"
                     size="lg"
                   >
