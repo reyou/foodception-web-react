@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import './VerifyGoogleLogin.page.styles.css';
 
 const VerifyGoogleLogin: React.FC = () => {
@@ -10,28 +11,46 @@ const VerifyGoogleLogin: React.FC = () => {
 
   return (
     <div className="vgl-container">
-      <div className="verify-container">
-        <div className="verify-content">
-          <h3>Google Sign-In Confirmation</h3>
+      <Container fluid className="verify-container">
+        <Row className="justify-content-center align-items-center">
+          <Col xs={12} sm={10} md={8} lg={6} xl={5}>
+            <Card className="verify-content">
+              <Card.Body className="p-4">
+                <h3>Google Sign-In Confirmation</h3>
 
-          <div className="current-user-info">
-            <p>You're currently signed in as:</p>
-            <div className="user-profile">
-              <span className="user-name">{currentUser.name}</span>
-              <span className="user-email">{currentUser.email}</span>
-            </div>
-          </div>
+                <div className="current-user-info">
+                  <p>You're currently signed in as:</p>
+                  <Card className="user-profile">
+                    <Card.Body className="text-center py-4">
+                      <div className="user-name">{currentUser.name}</div>
+                      <div className="user-email">{currentUser.email}</div>
+                    </Card.Body>
+                  </Card>
+                </div>
 
-          <div className="confirmation-message">
-            <p>You're about to sign in with a different Google account. What would you like to do?</p>
-          </div>
+                <div className="confirmation-message">
+                  <p>You're about to sign in with a different Google account. What would you like to do?</p>
+                </div>
 
-          <div className="action-buttons">
-            <button className="continue-button">Continue with this account</button>
-            <button className="signout-button">Sign out and use another account</button>
-          </div>
-        </div>
-      </div>
+                <div className="action-buttons">
+                  <Button
+                    variant="primary"
+                    size="lg"
+                  >
+                    Continue with this account
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="lg"
+                  >
+                    Sign out and use another account
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
