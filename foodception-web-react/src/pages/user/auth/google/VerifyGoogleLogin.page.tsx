@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import './VerifyGoogleLogin.page.styles.css';
 import ParentWindowUtils from '../../../../utils/ParentWindowUtils';
 import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
+import { AuthenticationUtils } from '../../../../utils/AuthenticationUtils';
 
 const VerifyGoogleLogin: React.FC = () => {
   // Mock data - would be replaced with actual user data in implementation
-  const currentUser = {
-    email: 'aytekoz@gmail.com',
-    name: 'Aytek Oz'
-  };
+
+
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const userResponse = await AuthenticationUtils.getUser();
+      if (!userResponse) {
+        FrontEndUtils.redirect("/user/login");
+      }
+      else {
+        setUser(userResponse.user);
+      }
+    };
+
+    checkAuth();
+
+  }, []);
 
   const handleSignOut = () => {
     ParentWindowUtils.sendSignOutData();
@@ -20,7 +35,7 @@ const VerifyGoogleLogin: React.FC = () => {
   };
 
   return (
-    <div className="vgl-container">
+    user && <div className="vgl-container">
       <Container fluid>
         <Row className="justify-content-center align-items-center">
           <Col xs={12} sm={10} md={8} lg={6} xl={5}>
@@ -32,8 +47,8 @@ const VerifyGoogleLogin: React.FC = () => {
                   <p>You're currently signed in as:</p>
                   <Card className="user-profile">
                     <Card.Body className="text-center py-4">
-                      <div className="user-name">{currentUser.name}</div>
-                      <div className="user-email">{currentUser.email}</div>
+                      <div className="user-name">{user.firstName} {user.lastName}</div>
+                      <div className="user-email">{user.email}</div>
                     </Card.Body>
                   </Card>
                 </div>

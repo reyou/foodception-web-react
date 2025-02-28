@@ -22,7 +22,7 @@ export default class AuthUtils {
     const { type, action, payload } = event.data;
 
     // Process only auth-related messages
-    if (type === 'auth') {
+    if (type === EventTypes.AUTH_STATE_CHANGE) {
       if (action === 'setAuthToken') {
         if (payload.authToken) {
           localStorage.setItem('authToken', payload.authToken);
@@ -31,20 +31,20 @@ export default class AuthUtils {
           localStorage.removeItem('authToken');
         }
       }
-    } 
-    else if(type === EventTypes.LOGIN_ERROR) {
+    }
+    else if (type === EventTypes.LOGIN_ERROR) {
       EventBus.publish(EventTypes.LOGIN_ERROR, event.data);
     }
-    else if(type === EventTypes.SIGNUP_SUCCESS) {
+    else if (type === EventTypes.SIGNUP_SUCCESS) {
       EventBus.publish(EventTypes.SIGNUP_SUCCESS, event.data);
     }
-    else if(type === EventTypes.SIGNUP_ERROR) {
+    else if (type === EventTypes.SIGNUP_ERROR) {
       EventBus.publish(EventTypes.SIGNUP_ERROR, event.data);
     }
-    else if(type === EventTypes.FORGOT_PASSWORD_SUCCESS) {
+    else if (type === EventTypes.FORGOT_PASSWORD_SUCCESS) {
       EventBus.publish(EventTypes.FORGOT_PASSWORD_SUCCESS, event.data);
     }
-    else if(type === EventTypes.FORGOT_PASSWORD_ERROR) {
+    else if (type === EventTypes.FORGOT_PASSWORD_ERROR) {
       EventBus.publish(EventTypes.FORGOT_PASSWORD_ERROR, event.data);
     }
     else {
@@ -66,11 +66,11 @@ export default class AuthUtils {
 
   static parseJwt(token: string): JwtPayload | null {
     if (!token) return null;
-    
+
     try {
       const base64Url = token.split('.')[1];
       if (!base64Url) return null;
-      
+
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
         atob(base64)
@@ -78,7 +78,7 @@ export default class AuthUtils {
           .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
           .join('')
       );
-      
+
       return JSON.parse(jsonPayload);
     } catch (e) {
       console.warn('Error parsing JWT:', e);
@@ -108,11 +108,11 @@ export default class AuthUtils {
   static refreshAuthToken() {
     // Get the auth token from local storage 
     const authToken = AuthUtils.getAuthTokenFromLocalStorage();
-    
+
     if (!authToken || AuthUtils.willTokenExpireSoon(authToken)) {
       window.parent.postMessage(
         {
-          type: 'auth',
+          type: EventTypes.AUTH_STATE_CHANGE,
           action: 'getAuthToken',
         },
         process.env.REACT_APP_WEB_URL || ''
@@ -136,7 +136,7 @@ export default class AuthUtils {
         else if (AuthUtils.authToken && !authToken) {
           FrontEndUtils.reloadPage();
         }
-      }, 1000);
+      }, 2000);
     }
   }
 

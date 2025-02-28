@@ -4,13 +4,21 @@ import { ErrorDetails, ErrorType } from '../types/error.types';
 import HttpProvider from '../providers/HttpProvider';
 
 export class AuthenticationUtils {
- 
+
   static async isAuthenticated(): Promise<boolean> {
     try {
       await HttpProvider.get('/authentication/authenticated');
       return true;
     } catch (error) {
       return false;
+    }
+  }
+
+  static async getUser(): Promise<any> {
+    try {
+      return await HttpProvider.get('/authentication/user');
+    } catch (error) {
+      return null;
     }
   }
 
