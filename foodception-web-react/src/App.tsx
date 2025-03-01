@@ -9,7 +9,7 @@ import WindowState from './utils/WindowState';
 
 import FoodceptionRouter from './Router';
 import AuthUtils from './utils/AuthUtils';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './viewProviders/AuthProvider';
 
 function App() {
   useEffect(() => {
