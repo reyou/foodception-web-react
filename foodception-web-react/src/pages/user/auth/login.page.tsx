@@ -7,9 +7,10 @@ import { EventTypes } from '../../../utils/EventTypes';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 import ParentWindowUtils from '../../../utils/ParentWindowUtils';
 import { LoginForm } from './components/LoginForm';
+import { AuthContextType } from '../../../types/auth.types';
 
 const LoginPage: React.FC = () => {
-  const { login, logout } = useAuth();
+  const { login, logout }: AuthContextType = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
