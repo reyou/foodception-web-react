@@ -9,6 +9,7 @@ import WindowState from './utils/WindowState';
 
 import FoodceptionRouter from './Router';
 import AuthUtils from './utils/AuthUtils';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   useEffect(() => {
@@ -27,7 +28,11 @@ function App() {
     };
   }, []);
 
-  return <FoodceptionRouter />;
+  return (
+    <AuthProvider>
+      <FoodceptionRouter />
+    </AuthProvider>
+  );
 }
 
 export default App;

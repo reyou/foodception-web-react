@@ -22,6 +22,14 @@ export class AuthenticationUtils {
     }
   }
 
+  static async login(email: string, password: string) {
+    try {
+      await HttpProvider.post('/authentication/login', { email, password });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static handleUnauthenticated() {
     if (FrontEndUtils.isInsideIframe()) {
       ParentWindowUtils.sendError({
