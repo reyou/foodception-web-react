@@ -1,6 +1,9 @@
 import React from 'react';
 import { Col, Container, Row, Button, Form, Alert } from 'react-bootstrap';
 import FoodceptionLink from '../../../../components/links/foodception_link';
+import { GoogleLoginButton } from 'react-social-login-buttons';
+import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
+
 
 interface LoginFormProps {
   email: string;
@@ -9,16 +12,28 @@ interface LoginFormProps {
   onPasswordChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   error?: string | null;
+  handleGoogleLogin?: () => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ 
-  email, 
-  password, 
-  onEmailChange, 
-  onPasswordChange, 
+export const LoginForm: React.FC<LoginFormProps> = ({
+  email,
+  password,
+  onEmailChange,
+  onPasswordChange,
   onSubmit,
-  error 
+  error,
+  handleGoogleLogin
 }) => {
+
+  const handleGoogleLoginBase = async () => {
+    if (handleGoogleLogin) {
+      await handleGoogleLogin();
+    }
+    else {
+      FrontEndUtils.redirect("/user/login/google");
+    }
+  };
+
   return (
     <Container className="py-5" fluid>
       <Row className="justify-content-center">
@@ -29,8 +44,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({
               New to this site? <FoodceptionLink url="/user/signup" underlined={true}>Sign Up</FoodceptionLink>
             </p>
           </div>
-          
-         
+
+          <div className="mb-4">
+            <GoogleLoginButton onClick={() => handleGoogleLoginBase()} />
+          </div>
+
+          <div className="d-flex align-items-center mb-4">
+            <div className="flex-grow-1 border-bottom"></div>
+            <div className="px-3 text-muted">or</div>
+            <div className="flex-grow-1 border-bottom"></div>
+          </div>
 
           <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3">
@@ -59,10 +82,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({
               <FoodceptionLink url="/user/forgot-password" underlined={true}>Forgot password?</FoodceptionLink>
             </div>
             {error && (
-            <Alert variant="danger" className="mb-3">
-              {error}
-            </Alert>
-          )}
+              <Alert variant="danger" className="mb-3">
+                {error}
+              </Alert>
+            )}
             <Button
               variant="dark"
               type="submit"
