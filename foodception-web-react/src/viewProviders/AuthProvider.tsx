@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { AuthenticationUtils } from '../utils/AuthenticationUtils';
-import { User } from '../types/auth.types';
+import { AuthContextType, User } from '../types/auth.types';
 import { AuthContext } from '../contexts/AuthContext';
 
 interface AuthProviderProps {
@@ -31,6 +31,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const login = async (email: string, password: string) => {
         try {
             await AuthenticationUtils.login(email, password);
+            await refreshUser();
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    const loginWithGoogle = async (code: string) => {
+        try {
+            await AuthenticationUtils.loginWithGoogle(code);
             await refreshUser();
         } catch (error) {
             throw error;
@@ -72,10 +81,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         loading,
         user,
         login,
+        loginWithGoogle,
         logout,
         refreshUser,
         checkAuth
-    };
+    } as AuthContextType;
 
     return (
         <AuthContext.Provider value={value}>

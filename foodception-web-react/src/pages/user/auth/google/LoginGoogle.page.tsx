@@ -4,6 +4,7 @@ import RedirectingToGoogle from './RedirectingToGoogle.page';
 import VerifyGoogleLogin from './VerifyGoogleLogin.page';
 import { GoogleAuthUtils } from '../../../../utils/GoogleAuthUtils';
 import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
+import { Container } from 'react-bootstrap';
 
 const LoginGooglePage: React.FC = () => {
   // after 3 seconds redirect user to google auth page
@@ -16,10 +17,12 @@ const LoginGooglePage: React.FC = () => {
   }, []);
 
   return (
-    <AuthenticatedView
-      authenticatedView={<VerifyGoogleLogin />}
-      unauthenticatedView={<RedirectingToGoogle />}
-    ></AuthenticatedView>
+    <Container className="py-5" fluid>
+      <AuthenticatedView
+        authenticatedView={<VerifyGoogleLogin />}
+        unauthenticatedView={<RedirectingToGoogle />}
+      ></AuthenticatedView>
+    </Container>
   );
 };
 

@@ -30,6 +30,14 @@ export class AuthenticationUtils {
     }
   }
 
+  static async loginWithGoogle(code: string) {
+    try {
+      await HttpProvider.post('/authentication/login/google', { code });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static handleUnauthenticated() {
     if (FrontEndUtils.isInsideIframe()) {
       ParentWindowUtils.sendError({
