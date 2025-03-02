@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { AuthenticationUtils } from '../../../utils/AuthenticationUtils';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import SignupForm from './components/SignupForm';
 import ParentWindowUtils from '../../../utils/ParentWindowUtils';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
 import EventBus from '../../../utils/EventBus';
 import { EventTypes } from '../../../utils/EventTypes';
+import { useAuth } from '../../../contexts/AuthContext';
+import AuthenticatedView from './components/AuthenticatedView';
 
 const SignupPage: React.FC = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const { logout } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -16,13 +17,6 @@ const SignupPage: React.FC = () => {
     const [success, setSuccess] = useState<string | null>(null);
 
     useEffect(() => {
-        const checkAuth = async () => {
-            const authenticated = await AuthenticationUtils.isAuthenticated();
-            setIsAuthenticated(authenticated);
-        };
-
-        checkAuth();
-
         // SIGNUP_SUCCESS
         const unsubscribeSuccess = EventBus.subscribe(EventTypes.SIGNUP_SUCCESS, (data) => {
             setSuccess(`Account created successfully for ${data.member.loginEmail}`);
@@ -63,11 +57,14 @@ const SignupPage: React.FC = () => {
     };
 
     const handleLogout = async () => {
-        await AuthenticationUtils.logout();
-        setIsAuthenticated(false);
+        try {
+            await logout();
+        } catch (err) {
+            console.error('Logout error:', err);
+        }
     };
 
-    return isAuthenticated ? (
+    const authenticatedView = (
         <Container>
             <Row>
                 <Col>
@@ -78,7 +75,9 @@ const SignupPage: React.FC = () => {
                 </Col>
             </Row>
         </Container>
-    ) : (
+    );
+
+    const unauthenticatedView = (
         <SignupForm
             email={email}
             password={password}
@@ -89,6 +88,13 @@ const SignupPage: React.FC = () => {
             onSubmit={handleSubmit}
             error={error}
             success={success}
+        />
+    );
+
+    return (
+        <AuthenticatedView
+            authenticatedView={authenticatedView}
+            unauthenticatedView={unauthenticatedView}
         />
     );
 };

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Col, Container, Row, Button, Form, Alert } from 'react-bootstrap';
 import FoodceptionLink from '../../../../components/links/foodception_link';
+import { GoogleLoginButton } from 'react-social-login-buttons';
+import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
 
 interface SignupFormProps {
   email: string;
@@ -12,6 +14,7 @@ interface SignupFormProps {
   onSubmit: (e: React.FormEvent) => void;
   error?: string | null;
   success?: string | null;
+  handleGoogleLogin?: () => void;
 }
 
 export const SignupForm: React.FC<SignupFormProps> = ({
@@ -23,8 +26,18 @@ export const SignupForm: React.FC<SignupFormProps> = ({
   onConfirmPasswordChange,
   onSubmit,
   error,
-  success
+  success,
+  handleGoogleLogin
 }) => {
+  const handleGoogleLoginBase = async () => {
+    if (handleGoogleLogin) {
+      await handleGoogleLogin();
+    }
+    else {
+      FrontEndUtils.redirect("/user/login/google");
+    }
+  };
+
   return (
     <Container className="py-5" fluid>
       <Row className="justify-content-center">
@@ -34,6 +47,16 @@ export const SignupForm: React.FC<SignupFormProps> = ({
             <p className="text-muted">
               Already have an account? <FoodceptionLink url="/user/login" underlined={true}>Log In</FoodceptionLink>
             </p>
+          </div>
+
+          <div className="mb-4">
+            <GoogleLoginButton onClick={() => handleGoogleLoginBase()} text="Sign up with Google" />
+          </div>
+
+          <div className="d-flex align-items-center mb-4">
+            <div className="flex-grow-1 border-bottom"></div>
+            <div className="px-3 text-muted">or</div>
+            <div className="flex-grow-1 border-bottom"></div>
           </div>
 
           <Form onSubmit={onSubmit}>
