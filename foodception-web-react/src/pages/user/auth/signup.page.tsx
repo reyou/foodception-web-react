@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
 import SignupForm from './components/SignupForm';
 import ParentWindowUtils from '../../../utils/ParentWindowUtils';
 import { FrontEndUtils } from '../../../utils/FrontEndUtils';
@@ -7,6 +6,7 @@ import EventBus from '../../../utils/EventBus';
 import { EventTypes } from '../../../utils/EventTypes';
 import { useAuth } from '../../../contexts/AuthContext';
 import AuthenticatedView from './components/AuthenticatedView';
+import LoggedInView from './components/LoggedInView';
 
 const SignupPage: React.FC = () => {
     const { logout } = useAuth();
@@ -65,16 +65,7 @@ const SignupPage: React.FC = () => {
     };
 
     const authenticatedView = (
-        <Container>
-            <Row>
-                <Col>
-                    <h2>You are already logged in</h2>
-                    <Button variant="outline-dark" onClick={handleLogout}>
-                        Logout
-                    </Button>
-                </Col>
-            </Row>
-        </Container>
+        <LoggedInView onLogout={handleLogout} />
     );
 
     const unauthenticatedView = (
