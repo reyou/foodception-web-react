@@ -13,12 +13,12 @@ const VerifyGoogleLogin: React.FC = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const userResponse = await AuthenticationUtils.getUser();
-      if (!userResponse) {
+      const user = await AuthenticationUtils.getUser();
+      if (!user) {
         FrontEndUtils.redirect("/user/login");
       }
       else {
-        setUser(userResponse.user);
+        setUser(user);
       }
     };
 

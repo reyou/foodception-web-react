@@ -2,6 +2,7 @@ import { FrontEndUtils } from './FrontEndUtils';
 import ParentWindowUtils from './ParentWindowUtils';
 import { ErrorDetails, ErrorType } from '../types/error.types';
 import HttpProvider from '../providers/HttpProvider';
+import { GoogleLoginResponse, User } from '../types/auth.types';
 
 export class AuthenticationUtils {
 
@@ -14,9 +15,10 @@ export class AuthenticationUtils {
     }
   }
 
-  static async getUser(): Promise<any> {
+  static async getUser(): Promise<User | null> {
     try {
-      return await HttpProvider.get('/authentication/user');
+      const userResponse = await HttpProvider.get('/authentication/user');
+      return userResponse.user;
     } catch (error) {
       return null;
     }
@@ -30,9 +32,10 @@ export class AuthenticationUtils {
     }
   }
 
-  static async loginWithGoogle(code: string) {
+  static async loginWithGoogle(code: string): Promise<GoogleLoginResponse> {
     try {
-      await HttpProvider.post('/authentication/login/google', { code });
+      const response = await HttpProvider.post('/authentication/login/google', { code });
+      return response as GoogleLoginResponse;
     } catch (error) {
       throw error;
     }
@@ -53,5 +56,9 @@ export class AuthenticationUtils {
 
   static logout() {
     localStorage.removeItem('authToken');
+  }
+
+  static setAuthToken(authToken: string) {
+    localStorage.setItem('authToken', authToken);
   }
 }

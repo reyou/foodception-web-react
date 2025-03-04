@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { AuthenticationUtils } from '../utils/AuthenticationUtils';
-import { AuthContextType, User } from '../types/auth.types';
+import { AuthContextType, GoogleLoginResponse, User } from '../types/auth.types';
 import { AuthContext } from '../contexts/AuthContext';
 
 interface AuthProviderProps {
@@ -14,9 +14,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const refreshUser = async () => {
         try {
-            const userResponse = await AuthenticationUtils.getUser();
-            if (userResponse) {
-                setUser(userResponse.user);
+            const user = await AuthenticationUtils.getUser();
+            if (user) {
+                setUser(user);
                 setAuthenticated(true);
             } else {
                 setUser(null);
@@ -39,8 +39,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const loginWithGoogle = async (code: string) => {
         try {
-            await AuthenticationUtils.loginWithGoogle(code);
+            const response: GoogleLoginResponse = await AuthenticationUtils.loginWithGoogle(code);
+            AuthenticationUtils.setAuthToken(response.token);
             await refreshUser();
+            return response;
         } catch (error) {
             throw error;
         }
