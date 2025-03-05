@@ -39,7 +39,7 @@ const VerifyGoogleLogin: React.FC = () => {
 
   return (
     user && <div className="vgl-container">
-      <Container fluid>
+      <Container className="py-5">
         <Row className="justify-content-center align-items-center">
           <Col xs={12} sm={10} md={8} lg={6} xl={5}>
             <Card className="verify-content">
