@@ -27,6 +27,7 @@ const VerifyGoogleLogin: React.FC = () => {
 
   const handleSignOut = () => {
     if (FrontEndUtils.isInsideIframe()) {
+      logout();
       ParentWindowUtils.sendSignOutData();
     } else {
       logout();

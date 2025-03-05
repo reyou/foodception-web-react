@@ -1,6 +1,7 @@
 import { FrontEndUtils } from "./FrontEndUtils";
 import EventBus from "./EventBus";
 import { EventTypes } from "./EventTypes";
+import { AuthenticationUtils } from "./AuthenticationUtils";
 
 interface JwtPayload {
   exp?: number;
@@ -28,7 +29,7 @@ export default class AuthUtils {
           localStorage.setItem('authToken', payload.authToken);
         }
         else {
-          localStorage.removeItem('authToken');
+          AuthenticationUtils.logout();
         }
       }
     }

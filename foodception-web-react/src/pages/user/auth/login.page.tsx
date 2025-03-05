@@ -42,16 +42,17 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (err) {
-      console.error('Logout error:', err);
+  const handleSignOut = () => {
+    if (FrontEndUtils.isInsideIframe()) {
+      logout();
+      ParentWindowUtils.sendSignOutData();
+    } else {
+      logout();
     }
   };
 
   const authenticatedView = (
-    <LoggedInView onLogout={handleLogout} />
+    <LoggedInView onLogout={handleSignOut} />
   );
 
   const unauthenticatedView = (
