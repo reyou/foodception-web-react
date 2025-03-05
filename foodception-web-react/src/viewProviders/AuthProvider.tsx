@@ -59,12 +59,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     };
 
-    const checkAuth = async () => {
+    const checkAuth = async (): Promise<boolean> => {
         setLoading(true);
+        let isAuthenticated = false;
+
         try {
             const isAuth = await AuthenticationUtils.isAuthenticated();
             if (isAuth) {
                 await refreshUser();
+                setAuthenticated(true);
+                isAuthenticated = true;
             } else {
                 setAuthenticated(false);
                 setUser(null);
@@ -76,6 +80,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } finally {
             setLoading(false);
         }
+
+        return isAuthenticated;
     };
 
     const value = {

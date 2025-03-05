@@ -4,12 +4,11 @@ import './VerifyGoogleLogin.page.styles.css';
 import ParentWindowUtils from '../../../../utils/ParentWindowUtils';
 import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
 import { AuthenticationUtils } from '../../../../utils/AuthenticationUtils';
+import { useAuth } from '../../../../contexts/AuthContext';
 
 const VerifyGoogleLogin: React.FC = () => {
-  // Mock data - would be replaced with actual user data in implementation
-
-
   const [user, setUser] = useState<any>(null);
+  const { logout } = useAuth();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -27,7 +26,11 @@ const VerifyGoogleLogin: React.FC = () => {
   }, []);
 
   const handleSignOut = () => {
-    ParentWindowUtils.sendSignOutData();
+    if (FrontEndUtils.isInsideIframe()) {
+      ParentWindowUtils.sendSignOutData();
+    } else {
+      logout();
+    }
   };
 
   const handleContinue = () => {

@@ -9,11 +9,13 @@ const VerifyGoogleCallback: React.FC = () => {
     const navigate = useNavigate();
     const { loginWithGoogle } = useAuth();
     const [error, setError] = useState<string | null>(null);
-    const [isVerifying, setIsVerifying] = useState(false);
+    const [authInitialized, setAuthInitialized] = useState<boolean>(false);
 
     const verifyCallback = useCallback(async () => {
-        if (isVerifying) return;
-        setIsVerifying(true);
+        if (authInitialized) {
+            return;
+        }
+        setAuthInitialized(true);
 
         try {
             const params = new URLSearchParams(location.search);
@@ -43,7 +45,7 @@ const VerifyGoogleCallback: React.FC = () => {
             setError(errorMessage);
             setTimeout(() => navigate(`/user/login?error=${errorMessage}`), 3000);
         }
-    }, [location.search, loginWithGoogle, navigate, isVerifying]);
+    }, [location.search, loginWithGoogle, navigate, authInitialized]);
 
     useEffect(() => {
         verifyCallback();

@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import './RedirectingToGoogle.page.styles.css';
+import { GoogleAuthUtils } from '../../../../utils/GoogleAuthUtils';
+import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
+
 
 const RedirectingToGoogle: React.FC = () => {
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const authUrl = GoogleAuthUtils.getAuthUrl();
+      FrontEndUtils.redirect(authUrl);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <div className="rtg-container">
       <Container fluid>
