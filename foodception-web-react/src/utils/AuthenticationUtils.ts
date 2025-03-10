@@ -34,7 +34,7 @@ export class AuthenticationUtils {
 
   static async loginWithGoogle(code: string): Promise<GoogleLoginResponse> {
     try {
-      const response = await HttpProvider.post('/authentication/login/google', { code });
+      const response = await HttpProvider.post('/authentication/login/google', { code, clientType: "WEB" });
       return response as GoogleLoginResponse;
     } catch (error) {
       throw error;
