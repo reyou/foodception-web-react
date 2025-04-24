@@ -16,7 +16,7 @@ const SplitImages: React.FC<SplitImagesProps> = ({
     rightOverlay
 }) => {
     return (
-        <Container fluid className="p-0 split-images-container">
+        <Container fluid className="p-0 foodception-split-images">
             <Row className="g-0">
                 <Col xs={12} md={6} className="p-0 split-image-col">
                     <div className="image-wrapper">
