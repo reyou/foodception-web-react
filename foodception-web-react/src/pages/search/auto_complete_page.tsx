@@ -13,7 +13,7 @@ export default function SearchAutoCompletePage() {
       setShowBreadcrumb(true);
       setShowHorizontalRule(true);
     };
-  }, [setShowBreadcrumb, setShowHorizontalRule]);
+  }, [setShowNavigation, setShowBreadcrumb, setShowHorizontalRule]);
 
   return (
     <div>

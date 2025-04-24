@@ -1,33 +1,52 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
+import './SplitImages.css';
 
 interface SplitImagesProps {
     leftImage: string;
     rightImage: string;
+    leftOverlay?: ReactNode;
+    rightOverlay?: ReactNode;
 }
 
 const SplitImages: React.FC<SplitImagesProps> = ({
     leftImage,
-    rightImage
+    rightImage,
+    leftOverlay,
+    rightOverlay
 }) => {
     return (
-        <Container fluid className="p-0">
+        <Container fluid className="p-0 split-images-container">
             <Row className="g-0">
-                <Col xs={12} md={6} className="p-0">
-                    <Image
-                        src={leftImage}
-                        alt="Left image"
-                        fluid
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                <Col xs={12} md={6} className="p-0 split-image-col">
+                    <div className="image-wrapper">
+                        <Image
+                            src={leftImage}
+                            alt="Left image"
+                            fluid
+                            className="split-image"
+                        />
+                        {leftOverlay && (
+                            <div className="overlay-container left-overlay">
+                                {leftOverlay}
+                            </div>
+                        )}
+                    </div>
                 </Col>
-                <Col xs={12} md={6} className="p-0">
-                    <Image
-                        src={rightImage}
-                        alt="Right image"
-                        fluid
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                <Col xs={12} md={6} className="p-0 split-image-col">
+                    <div className="image-wrapper">
+                        <Image
+                            src={rightImage}
+                            alt="Right image"
+                            fluid
+                            className="split-image"
+                        />
+                        {rightOverlay && (
+                            <div className="overlay-container right-overlay">
+                                {rightOverlay}
+                            </div>
+                        )}
+                    </div>
                 </Col>
             </Row>
         </Container>
