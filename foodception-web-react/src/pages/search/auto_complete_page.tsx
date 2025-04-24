@@ -4,8 +4,9 @@ import { Col, Row } from 'react-bootstrap';
 import SearchAutoComplete from '../../components/search_auto_complete';
 
 export default function SearchAutoCompletePage() {
-  const { setShowBreadcrumb, setShowHorizontalRule } = useLayout();
+  const { setShowNavigation, setShowBreadcrumb, setShowHorizontalRule } = useLayout();
   useEffect(() => {
+    setShowNavigation(false);
     setShowBreadcrumb(false);
     setShowHorizontalRule(false);
     return () => {
@@ -20,7 +21,7 @@ export default function SearchAutoCompletePage() {
         <Col xs={12} md={6} lg={4} xl={3}>
           <SearchAutoComplete
             initialSearchTerm={''}
-            onSearch={() => {}}
+            onSearch={() => { }}
             apiEndpoint='/search/autocomplete'
             baseUrl='/search'
           />

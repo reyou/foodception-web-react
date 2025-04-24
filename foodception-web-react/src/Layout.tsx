@@ -6,10 +6,10 @@ import { useLayout } from './contexts/layout-context';
 import FoodceptionNavbar from './components/navbar/Navbar';
 
 const Layout: React.FC = () => {
-  const { showBreadcrumb, showHorizontalRule } = useLayout();
+  const { showNavigation, showBreadcrumb, showHorizontalRule } = useLayout();
   return (
     <>
-      <FoodceptionNavbar />
+      {showNavigation && <FoodceptionNavbar />}
       {showBreadcrumb && <DynamicBreadcrumbs />}
       <Outlet />
       {showHorizontalRule && <hr />}
