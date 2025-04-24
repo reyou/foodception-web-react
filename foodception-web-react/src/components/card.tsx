@@ -22,7 +22,7 @@ const FoodceptionCard: React.FC<FoodceptionCardProps> = ({
   imageUrl
 }) => {
   return (
-    <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
+    <Col xs={12} md={6} lg={4} xl={2} className='mb-4'>
       <Card>
         <FoodceptionCardHrefImage
           url={url}

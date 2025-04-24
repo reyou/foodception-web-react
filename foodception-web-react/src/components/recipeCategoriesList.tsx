@@ -3,6 +3,7 @@ import { FrontEndUtils } from '../utils/FrontEndUtils';
 import FoodceptionCard from './card';
 import { Col, Container, Row } from 'react-bootstrap';
 import FoodceptionSelect from './core/foodception_select';
+import { WebRoutes } from '../constants/WebRoutes';
 
 interface RecipeCategoriesListProps {
   recipeCategories: any[];
@@ -41,8 +42,8 @@ const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
 
   const filteredCategories = selectedCategory
     ? recipeCategories.filter(
-        (category) => category.id === selectedCategory.value
-      )
+      (category) => category.id === selectedCategory.value
+    )
     : recipeCategories;
 
   return (
@@ -61,9 +62,7 @@ const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
       <Row className='justify-content-center'>
         {filteredCategories.map((category: any) => {
           const categoryImage = category.recipeCategoryImages[0];
-          const categoryLink = `/recipe-categories/${FrontEndUtils.slugify(
-            category.name
-          )}/${category.id}`;
+          const categoryLink = WebRoutes.Recipe.Categories.Details(FrontEndUtils.slugify(category.name), category.id);
 
           return (
             <FoodceptionCard

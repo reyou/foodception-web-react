@@ -9,6 +9,7 @@ import LoadingPanel from '../../components/loading_panel';
 import FoodceptionHeader from '../../components/header/header';
 import { useLayout } from '../../contexts/layout-context';
 import { useEffect } from 'react';
+import { WebRoutes } from '../../constants/WebRoutes';
 
 export default function HomeRecipeCategories() {
   const { setShowBreadcrumb } = useLayout();
@@ -55,7 +56,7 @@ export default function HomeRecipeCategories() {
       </Row>
       <Row className='text-center'>
         <Col>
-          <FoodceptionHrefButton url='/recipe-categories'>
+          <FoodceptionHrefButton url={WebRoutes.Recipe.Categories.Base}>
             View All Categories
           </FoodceptionHrefButton>
         </Col>

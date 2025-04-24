@@ -7,7 +7,7 @@ interface UseFetchResult {
   error: string | null;
 }
 
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_API_URL = process.env.REACT_APP_API_URL;
 
 function useFetch(url: string): UseFetchResult {
   const [data, setData] = useState<any>(null);
@@ -21,7 +21,7 @@ function useFetch(url: string): UseFetchResult {
     setData(null); // Optionally reset data (if needed)
     const fetchData = async () => {
       try {
-        const fullUrl = `${BASE_URL}${url}`;
+        const fullUrl = `${BASE_API_URL}${url}`;
         const response = await HttpProvider.get(fullUrl);
         setData(response); // Update data on success
       } catch (error) {

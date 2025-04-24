@@ -53,7 +53,7 @@
   <script>
     function createIframeWithQueryParams() {
       const iframeContainer = document.getElementById('iframeContainer');
-      const iframeBaseUrl = 'http://localhost:3000/user/auth/google/verify-login';
+      const iframeBaseUrl = 'http://localhost:3000/';
 
       // Get query parameters from the parent page's URL
       const parentUrl = new URL(window.location.href);
@@ -84,11 +84,10 @@
         return;
       } else if (event.data && event.data.type === 'redirect') {
         const url = new URL(event.data.url);
-        const queryParams = url.search;
 
         const currentUrl = new URL(window.location.href);
 
-        const updatedUrl = `${currentUrl.origin}${currentUrl.pathname}${queryParams}`;
+        const updatedUrl = `${currentUrl.origin}${currentUrl.pathname}?iframeRedirectTarget=${url}`;
 
         window.location.href = updatedUrl;
       }

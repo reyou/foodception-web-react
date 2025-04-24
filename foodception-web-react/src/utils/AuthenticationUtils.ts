@@ -3,12 +3,13 @@ import ParentWindowUtils from './ParentWindowUtils';
 import { ErrorDetails, ErrorType } from '../types/error.types';
 import HttpProvider from '../providers/HttpProvider';
 import { GoogleLoginResponse, User } from '../types/auth.types';
+import { ApiRoutes } from '../constants/ApiRoutes';
 
 export class AuthenticationUtils {
 
   static async isAuthenticated(): Promise<boolean> {
     try {
-      await HttpProvider.get('/authentication/authenticated');
+      await HttpProvider.get(ApiRoutes.Authentication.Status);
       return true;
     } catch (error) {
       return false;
@@ -17,7 +18,7 @@ export class AuthenticationUtils {
 
   static async getUser(): Promise<User | null> {
     try {
-      const userResponse = await HttpProvider.get('/authentication/user');
+      const userResponse = await HttpProvider.get(ApiRoutes.Authentication.CurrentUser);
       return userResponse.user;
     } catch (error) {
       return null;
@@ -26,7 +27,7 @@ export class AuthenticationUtils {
 
   static async login(email: string, password: string) {
     try {
-      await HttpProvider.post('/authentication/login', { email, password });
+      await HttpProvider.post(ApiRoutes.Authentication.Sessions, { email, password });
     } catch (error) {
       throw error;
     }
@@ -34,7 +35,7 @@ export class AuthenticationUtils {
 
   static async loginWithGoogle(code: string): Promise<GoogleLoginResponse> {
     try {
-      const response = await HttpProvider.post('/authentication/login/google', { code, clientType: "WEB" });
+      const response = await HttpProvider.post(ApiRoutes.Authentication.Google.Authenticate, { code, clientType: "WEB" });
       return response as GoogleLoginResponse;
     } catch (error) {
       throw error;
