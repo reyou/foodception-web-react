@@ -5,6 +5,8 @@
     .split-image-col {
         /* Ensure proper positioning for absolute elements inside */
         position: relative;
+        /* Fixed height of 600px to prevent iframe expansion issues */
+        height: 600px;
     }
 
     .image-wrapper {
@@ -43,10 +45,10 @@
     }
 
     /* Extra small devices (phones, less than 376px) */
-    @media (max-width: 375px) {
+    @media (max-width: 376px) {
         .split-image-col {
-            /* Adjust height for smaller screens */
-            height: 70vh;
+            /* Further reduce height for iPhone SE and similar small devices */
+            height: 400px;
         }
 
         .left-overlay h1 {
@@ -88,11 +90,11 @@
         }
     }
 
-    /* Small devices (phones, 376px to 767px) */
-    @media (min-width: 376px) and (max-width: 767.98px) {
+    /* Small devices (phones, 376px to 414px) */
+    @media (min-width: 376px) and (max-width: 414px) {
         .split-image-col {
-            /* Adjust height for small phones */
-            height: 60vh;
+            /* Reduce height for small phones */
+            height: 410px;
         }
 
         .left-overlay h1 {
@@ -117,8 +119,51 @@
         }
     }
 
+    /* Medium-sized phones (iPhone XR, etc., 415px to 767px) */
+    @media (min-width: 415px) and (max-width: 767.98px) {
+        .split-image-col {
+            /* Increase height for iPhone XR to show full content */
+            height: 420px;
+        }
+
+        .left-overlay h1 {
+            /* Adjust font size for better display */
+            font-size: 3.5rem !important;
+        }
+
+        .left-overlay {
+            /* Adjust padding for better spacing */
+            padding: 40px 30px !important;
+        }
+
+        .right-overlay {
+            /* Ensure content is properly aligned */
+            justify-content: flex-end !important;
+        }
+
+        .right-overlay>div {
+            /* Adjust padding and margin for better spacing */
+            padding: 20px !important;
+            margin-bottom: 30px !important;
+        }
+
+        .right-overlay p {
+            /* Adjust font size */
+            font-size: 1rem !important;
+            /* Adjust line height for better readability */
+            line-height: 1.4 !important;
+            /* Adjust bottom margin */
+            margin-bottom: 10px !important;
+        }
+    }
+
     /* Medium devices (tablets, 768px to 991px) */
     @media (min-width: 768px) and (max-width: 991.98px) {
+        .split-image-col {
+            /* Slightly shorter for tablets than desktop */
+            height: 450px;
+        }
+
         .left-overlay h1 {
             /* Adjust font size for tablets */
             font-size: 4rem !important;
@@ -142,10 +187,10 @@
     }
 
     /* On desktop, images are side by side */
-    @media (min-width: 768px) {
+    @media (min-width: 992px) {
         .split-image-col {
-            /* Taller images on desktop */
-            height: 80vh;
+            /* Full 600px height on desktop */
+            height: 600px;
         }
     }
 }
