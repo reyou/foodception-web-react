@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import './SplitImages.css';
+import './Overlays.css';
 
 interface SplitImagesProps {
     leftImage: string;

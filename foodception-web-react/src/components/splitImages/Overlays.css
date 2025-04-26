@@ -1,0 +1,72 @@
+.foodception-split-images {
+
+    /* Left overlay styles */
+    .left-overlay-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        padding: 80px 60px;
+        color: white;
+    }
+
+    .left-overlay-title {
+        font-size: clamp(3rem, 5vw, 5rem);
+        font-weight: 300;
+        line-height: 1.1;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .left-overlay-title:not(:last-child) {
+        margin-bottom: 0;
+    }
+
+    .left-overlay-tagline-container {
+        margin-top: 30px;
+    }
+
+    .left-overlay-tagline {
+        display: inline-block;
+        padding: clamp(8px, 1vw, 10px) clamp(15px, 2vw, 20px);
+        background-color: rgba(255, 255, 255, 0.85);
+        color: #333;
+        font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        border-radius: 2px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Right overlay styles */
+    .right-overlay-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100%;
+    }
+
+    .right-overlay-box {
+        color: white;
+        max-width: clamp(300px, 80%, 500px);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: clamp(15px, 3vw, 25px);
+        border-radius: 5px;
+        margin: 0 50px 20px;
+    }
+
+    .right-overlay-description {
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        line-height: 1.6;
+        margin-bottom: clamp(15px, 3vw, 20px);
+        font-weight: 400;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .right-overlay-button {
+        background-color: #b85a4d !important;
+        border: none !important;
+        padding: clamp(8px, 1.5vw, 10px) clamp(20px, 3vw, 30px) !important;
+        font-weight: 600 !important;
+        font-size: clamp(0.9rem, 1.2vw, 1rem) !important;
+    }
+}
