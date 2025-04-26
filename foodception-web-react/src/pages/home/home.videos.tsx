@@ -33,7 +33,7 @@ export default function TrendingRecipeVideos() {
 
     const subHeader = `Discover culinary inspiration from around the world with our hand-picked cooking videos. From traditional dishes to creative twists, there's a recipe to spark your taste buds and expand your kitchen skills`;
     return (
-      <Container fluid className='py-4'>
+      <Container fluid>
         <FoodceptionHeader subHeader={subHeader}>
           Cooking Videos For Every Taste
         </FoodceptionHeader>

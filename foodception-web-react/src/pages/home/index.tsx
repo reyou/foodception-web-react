@@ -20,7 +20,7 @@ export default function Home() {
                 leftOverlay={<LeftOverlay />}
                 rightOverlay={<RightOverlay buttonLink={WebRoutes.Recipe.Videos.Base} />}
             />
-            <Row>
+            <Row className="g-0">
                 <Col>
                     <Stack gap={5}>
                         <HomeRecipeCategories />
