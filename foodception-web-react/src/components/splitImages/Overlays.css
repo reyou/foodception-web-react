@@ -1,72 +1,126 @@
+/**
+ * Overlay styles for the SplitImages component
+ * These styles are nested under the parent .foodception-split-images class
+ * to maintain consistent namespacing and prevent style conflicts
+ */
 .foodception-split-images {
 
-    /* Left overlay styles */
+    /* 
+     * Left overlay styles 
+     * Controls the layout and appearance of the left side overlay content
+     */
     .left-overlay-content {
+        /* Use flexbox for vertical layout with space between top and bottom content */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
+        /* Add padding around content for better spacing and readability */
         padding: 80px 60px;
+        /* White text for better contrast against dark image backgrounds */
         color: white;
     }
 
+    /* Main heading text styling for the left overlay */
     .left-overlay-title {
+        /* Responsive font size using clamp (min, preferred, max) */
         font-size: clamp(3rem, 5vw, 5rem);
+        /* Lighter weight for elegant appearance */
         font-weight: 300;
+        /* Tighter line height for headings */
         line-height: 1.1;
+        /* Add subtle shadow to improve text readability on varied backgrounds */
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     }
 
+    /* Special handling for title lines that aren't the last line */
     .left-overlay-title:not(:last-child) {
+        /* Remove bottom margin from all but the last title line for tight spacing */
         margin-bottom: 0;
     }
 
+    /* Container for the tagline at the bottom of the left overlay */
     .left-overlay-tagline-container {
+        /* Add space above the tagline */
         margin-top: 30px;
     }
 
+    /* Styling for the tagline box */
     .left-overlay-tagline {
+        /* Make the tagline appear as an inline block element */
         display: inline-block;
+        /* Responsive padding using clamp for consistent appearance across screen sizes */
         padding: clamp(8px, 1vw, 10px) clamp(15px, 2vw, 20px);
+        /* Semi-transparent white background for contrast and readability */
         background-color: rgba(255, 255, 255, 0.85);
+        /* Dark text on light background */
         color: #333;
+        /* Responsive font size */
         font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+        /* Medium weight for better visibility */
         font-weight: 500;
+        /* Slight letter spacing for improved readability */
         letter-spacing: 0.5px;
+        /* Subtle rounded corners */
         border-radius: 2px;
+        /* Add subtle shadow for depth */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
-    /* Right overlay styles */
+    /* 
+     * Right overlay styles 
+     * Controls the layout and appearance of the right side overlay content
+     */
     .right-overlay-content {
+        /* Use flexbox for vertical layout */
         display: flex;
         flex-direction: column;
+        /* Position content at the bottom of the container */
         justify-content: flex-end;
         height: 100%;
     }
 
+    /* Container for the description and button */
     .right-overlay-box {
+        /* White text for better contrast against dark backgrounds */
         color: white;
+        /* Responsive width that scales with viewport but has min/max constraints */
         max-width: clamp(300px, 80%, 500px);
+        /* Semi-transparent dark background for better text readability */
         background-color: rgba(0, 0, 0, 0.4);
+        /* Responsive padding using clamp */
         padding: clamp(15px, 3vw, 25px);
+        /* Rounded corners for a softer appearance */
         border-radius: 5px;
+        /* Position the box with margins */
         margin: 0 50px 20px;
     }
 
+    /* Styling for the descriptive text */
     .right-overlay-description {
+        /* Responsive font size */
         font-size: clamp(1rem, 1.5vw, 1.2rem);
+        /* Increased line height for better readability of paragraph text */
         line-height: 1.6;
+        /* Space below the text before the button */
         margin-bottom: clamp(15px, 3vw, 20px);
+        /* Normal weight for paragraph text */
         font-weight: 400;
+        /* Text shadow improves readability against varied backgrounds */
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     }
 
+    /* Styling for the call-to-action button */
     .right-overlay-button {
+        /* Custom background color that matches the site's color scheme */
         background-color: #b85a4d !important;
+        /* Remove default button border */
         border: none !important;
+        /* Responsive padding for proper button sizing across devices */
         padding: clamp(8px, 1.5vw, 10px) clamp(20px, 3vw, 30px) !important;
+        /* Semi-bold text for better visibility */
         font-weight: 600 !important;
+        /* Responsive font size */
         font-size: clamp(0.9rem, 1.2vw, 1rem) !important;
     }
 }

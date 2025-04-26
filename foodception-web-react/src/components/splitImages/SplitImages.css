@@ -1,23 +1,30 @@
 .foodception-split-images {
+    /* Prevent any content from overflowing the container */
     overflow: hidden;
 
     .split-image-col {
+        /* Ensure proper positioning for absolute elements inside */
         position: relative;
     }
 
     .image-wrapper {
+        /* Container for both the image and overlay */
         position: relative;
         height: 100%;
+        /* Ensure images don't overflow their containers */
         overflow: hidden;
     }
 
     .split-image {
+        /* Make images fill their containers completely */
         width: 100%;
         height: 100%;
+        /* Maintain aspect ratio while filling the container */
         object-fit: cover;
     }
 
     .overlay-container {
+        /* Position overlays on top of images */
         position: absolute;
         top: 0;
         left: 0;
@@ -27,8 +34,10 @@
 
     /* Position the right overlay at the bottom by default */
     .right-overlay {
+        /* Use flexbox for vertical alignment */
         display: flex;
         flex-direction: column;
+        /* Push content to the bottom of the container */
         justify-content: flex-end;
         height: 100%;
     }
@@ -36,35 +45,43 @@
     /* Extra small devices (phones, less than 376px) */
     @media (max-width: 375px) {
         .split-image-col {
+            /* Adjust height for smaller screens */
             height: 70vh;
         }
 
         .left-overlay h1 {
+            /* Reduce font size on very small screens */
             font-size: 2.5rem !important;
         }
 
         .left-overlay {
+            /* Reduce padding on very small screens */
             padding: 30px 20px !important;
         }
 
         /* Center the right overlay for iPhone SE */
         .right-overlay {
+            /* Center content vertically instead of aligning to bottom */
             justify-content: center !important;
         }
 
         .right-overlay>div {
+            /* Adjust padding and margins for small screens */
             padding: 15px !important;
             margin: 0 20px !important;
+            /* Ensure content doesn't get too wide */
             max-width: 90% !important;
         }
 
         .right-overlay p {
+            /* Smaller text for better readability */
             font-size: 0.9rem !important;
             margin-bottom: 10px !important;
         }
 
         /* Prevent word breaks in the "Join The Food Conversation" box */
         .left-overlay span {
+            /* Keep text on a single line */
             white-space: nowrap;
             display: inline-block;
             margin-bottom: 10px;
@@ -74,23 +91,28 @@
     /* Small devices (phones, 376px to 767px) */
     @media (min-width: 376px) and (max-width: 767.98px) {
         .split-image-col {
+            /* Adjust height for small phones */
             height: 60vh;
         }
 
         .left-overlay h1 {
+            /* Adjust font size for small phones */
             font-size: 3.5rem !important;
         }
 
         .left-overlay {
+            /* Increase padding slightly from smallest screens */
             padding: 40px 30px !important;
         }
 
         .right-overlay>div {
+            /* Adjust padding for small phones */
             padding: 20px !important;
             margin-bottom: 50px !important;
         }
 
         .right-overlay p {
+            /* Adjust font size for small phones */
             font-size: 1rem !important;
         }
     }
@@ -98,19 +120,23 @@
     /* Medium devices (tablets, 768px to 991px) */
     @media (min-width: 768px) and (max-width: 991.98px) {
         .left-overlay h1 {
+            /* Adjust font size for tablets */
             font-size: 4rem !important;
         }
 
         .left-overlay {
+            /* More padding for tablets */
             padding: 50px 40px !important;
         }
 
         /* Ensure the "Join The Food Conversation" box doesn't break on medium screens */
         .left-overlay span {
+            /* Keep text on a single line */
             white-space: nowrap;
         }
 
         .right-overlay>div {
+            /* Add bottom margin for better spacing */
             margin-bottom: 50px !important;
         }
     }
@@ -118,6 +144,7 @@
     /* On desktop, images are side by side */
     @media (min-width: 768px) {
         .split-image-col {
+            /* Taller images on desktop */
             height: 80vh;
         }
     }
