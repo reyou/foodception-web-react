@@ -17,13 +17,9 @@ const SmartNavLink: React.FC<SmartNavLinkProps> = ({
     isDropdownItem = false
 }) => {
     const adjustedUrl = FrontEndUtils.getAdjustedUrl(to);
-    const isIframe = FrontEndUtils.isInsideIframe();
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        if (isIframe) {
-            event.preventDefault();
-            FrontEndUtils.handleLinkClick(event, adjustedUrl);
-        }
+        FrontEndUtils.handleLinkClick(event, adjustedUrl);
     };
 
     // For dropdown items
@@ -31,7 +27,7 @@ const SmartNavLink: React.FC<SmartNavLinkProps> = ({
         return (
             <NavDropdown.Item
                 as={Link}
-                to={to}
+                to={adjustedUrl}
                 onClick={handleClick}
                 className={className}
             >
@@ -44,11 +40,12 @@ const SmartNavLink: React.FC<SmartNavLinkProps> = ({
     return (
         <Nav.Link
             as={Link}
-            to={to}
+            to={adjustedUrl}
             onClick={handleClick}
             className={className}
         >
             {children}
+
         </Nav.Link>
     );
 };

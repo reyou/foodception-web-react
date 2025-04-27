@@ -26,6 +26,7 @@ export class FrontEndUtils {
     event.preventDefault();
 
     // Send a message to the parent window for redirection
+    console.log('Redirecting to 7b6f7e57-958f-4403-b88c-7a3b6cc51e3e:', url);
     ParentWindowUtils.postMessage({ type: 'redirect', url: url });
   }
 
