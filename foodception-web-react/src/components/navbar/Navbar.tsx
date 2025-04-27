@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { WebRoutes } from '../../constants/WebRoutes';
 import { ApiRoutes } from '../../constants/ApiRoutes';
-import HttpProvider from '../../providers/HttpProvider';
 import SmartNavLink from './SmartNavLink';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
+import useFetch from '../../hooks/useFetch';
 
 // Define types for menu items
 interface MenuItem {
@@ -15,35 +15,12 @@ interface MenuItem {
     menuItems: MenuItem[];
 }
 
-interface MenuResponse {
-    menuItems: MenuItem[];
-}
-
 const FoodceptionNavbar: React.FC = () => {
-    const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    // Use the useFetch hook to fetch menu items
+    const { data, loading, error } = useFetch(ApiRoutes.UserInterface.MENU.ITEMS);
 
-    useEffect(() => {
-        const fetchMenu = async () => {
-            try {
-                setLoading(true);
-                const response = await HttpProvider.get(ApiRoutes.UserInterface.MENU.ITEMS);
-                const menuData = response as MenuResponse;
-                setMenuItems(menuData.menuItems || []);
-                setError(null);
-            } catch (err) {
-                console.error('Error fetching menu:', err);
-                setError('Failed to load menu');
-                // Fallback to empty menu
-                setMenuItems([]);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchMenu();
-    }, []);
+    // Extract menuItems from the response data
+    const menuItems: MenuItem[] = data?.menuItems || [];
 
     // Render dropdown items (different from main items)
     const renderDropdownItems = (items: MenuItem[]) => {
