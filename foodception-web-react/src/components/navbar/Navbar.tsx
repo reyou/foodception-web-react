@@ -4,6 +4,7 @@ import { WebRoutes } from '../../constants/WebRoutes';
 import { ApiRoutes } from '../../constants/ApiRoutes';
 import HttpProvider from '../../providers/HttpProvider';
 import SmartNavLink from './SmartNavLink';
+import { FrontEndUtils } from '../../utils/FrontEndUtils';
 
 // Define types for menu items
 interface MenuItem {
@@ -46,20 +47,24 @@ const FoodceptionNavbar: React.FC = () => {
 
     // Render dropdown items (different from main items)
     const renderDropdownItems = (items: MenuItem[]) => {
-        return items.map((item, index) => (
-            <SmartNavLink
-                to={item.link}
+
+        return items.map((item, index) => {
+            const adjustedUrl = FrontEndUtils.getAdjustedUrl(item.link);
+            return <SmartNavLink
+                to={adjustedUrl}
                 key={`${item.label}-${index}`}
                 isDropdownItem={true}
             >
                 {item.label}
             </SmartNavLink>
-        ));
+        });
     };
 
     // Function to render top-level menu with one level of nesting
     const renderMenu = (items: MenuItem[]) => {
+
         return items.map((item, index) => {
+            const adjustedUrl = FrontEndUtils.getAdjustedUrl(item.link);
             if (item.menuItems && item.menuItems.length > 0) {
                 return (
                     <NavDropdown title={item.label} id={`nav-dropdown-${index}`} key={`${item.label}-${index}`}>
@@ -70,7 +75,7 @@ const FoodceptionNavbar: React.FC = () => {
 
             return (
                 <SmartNavLink
-                    to={item.link}
+                    to={adjustedUrl}
                     key={`${item.label}-${index}`}
                 >
                     {item.label}
