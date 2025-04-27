@@ -16,7 +16,7 @@
         justify-content: space-between;
         height: 100%;
         /* Add padding around content for better spacing and readability */
-        padding: 20px 60px;
+        padding: 20px 20px;
         /* White text for better contrast against dark image backgrounds */
         color: white;
     }
