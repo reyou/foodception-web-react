@@ -11,7 +11,6 @@ import Layout from './Layout';
 import Countries from './pages/countries/countries.page';
 import CountryDetails from './pages/countries/countryDetails.page';
 import IngredientsPage from './pages/ingredients/ingredients.page';
-import MealCategories from './pages/mealCategories.page';
 import MealRecipes from './pages/mealRecipes.page';
 import Meals from './pages/meals.page';
 import RecipeCategories from './pages/recipe-categories/recipeCategories.page';
@@ -20,10 +19,7 @@ import RecipeDetails from './pages/recipes/details/recipe.details.page';
 import RecipesPage from './pages/recipes/recipes.page';
 import Recipes from './pages/recipes/discover/recipes.discover.page';
 import RecipeVideos from './pages/recipes/videos/recipeVideos.page';
-import TrendingRecipeVideos from './pages/home/home.videos';
-import HomeRecipeCategories from './pages/home/home.recipeCategories';
 import Diets from './pages/diets/diets.page';
-import HomeDiets from './pages/home/home.diets';
 import DietDetail from './pages/diets/diet.details.page';
 import RecipeVideoDetailsPage from './pages/recipes/videos/recipeVideoDetails.page';
 import IngredientDetailsPage from './pages/ingredients/ingredient.details.page';
@@ -45,16 +41,6 @@ export default function FoodceptionRouter() {
     <>
       <Route path={WebRoutes.Home.Base} element={<Layout />} errorElement={<ErrorPage />}>
         <Route index element={<Home />} />
-        <Route
-          path={WebRoutes.Home.RecipeCategories.substring(1)} // Remove leading slash
-          element={<HomeRecipeCategories />}
-        />
-        <Route path={WebRoutes.Home.Diets.substring(1)} element={<HomeDiets />} />
-        <Route
-          path={WebRoutes.Recipe.Videos.Trending.substring(1)}
-          element={<TrendingRecipeVideos />}
-        />
-        <Route path={WebRoutes.Meal.Categories.substring(1)} element={<MealCategories />} />
         <Route path={WebRoutes.Diet.Base.substring(1)} element={<Diets />} />
         <Route path={`${WebRoutes.Diet.Base.substring(1)}/:slug/:id`} element={<DietDetail />} />
         <Route path={WebRoutes.Meal.Base.substring(1)} element={<Meals />} />

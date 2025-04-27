@@ -11,8 +11,6 @@ export class WebRoutes {
      */
     static Home = {
         Base: WebRoutes.AppBase + "/",
-        RecipeCategories: WebRoutes.AppBase + "/home/recipe-categories",
-        Diets: WebRoutes.AppBase + "/home/diets"
     };
 
     /**
@@ -63,7 +61,6 @@ export class WebRoutes {
         // Videos
         Videos: {
             Base: WebRoutes.AppBase + "/recipe-videos",
-            Trending: WebRoutes.AppBase + "/recipe-videos/trending",
             Details: (slug: string, id: string) => `${WebRoutes.AppBase}/recipe-videos/${slug}/${id}`
         }
     };
@@ -73,7 +70,6 @@ export class WebRoutes {
      */
     static Meal = {
         Base: WebRoutes.AppBase + "/meals",
-        Categories: WebRoutes.AppBase + "/meals/categories",
         Details: (slug: string, id: string) => `${WebRoutes.AppBase}/meals/${slug}/${id}`
     };
 
