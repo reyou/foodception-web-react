@@ -71,13 +71,13 @@ const FoodceptionNavbar: React.FC = () => {
                             // Show loading placeholders or fallback
                             <>
                                 <SmartNavLink to={WebRoutes.Home.Base}>Home</SmartNavLink>
-                                <SmartNavLink to={WebRoutes.Recipe.Base}>Recipes</SmartNavLink>
+                                <SmartNavLink to={WebRoutes.Recipes.Base}>Recipes</SmartNavLink>
                             </>
                         ) : error ? (
                             // Show fallback navigation on error
                             <>
                                 <SmartNavLink to={WebRoutes.Home.Base}>Home</SmartNavLink>
-                                <SmartNavLink to={WebRoutes.Recipe.Base}>Recipes</SmartNavLink>
+                                <SmartNavLink to={WebRoutes.Recipes.Base}>Recipes</SmartNavLink>
                             </>
                         ) : (
                             // Render dynamic menu

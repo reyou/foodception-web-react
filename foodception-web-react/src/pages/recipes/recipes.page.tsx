@@ -20,12 +20,10 @@ export default function RecipesPage() {
   const query = useQuery();
   const page = parseInt(query.get('page') || '1');
   const skip = (page - 1) * 20;
-  const searchTerm = query.get('query') || '';
+  const searchTerm: string | null = query.get('query') || null;
   const [localData, setLocalData] = useState<any>(null);
-
-  const { data, loading, error } = useFetch(
-    `/recipes/search?query=${searchTerm}&skip=${skip}`
-  );
+  const searchUrl = searchTerm ? `/recipes/search?query=${searchTerm}&skip=${skip}` : `/recipes/search`;
+  const { data, loading, error } = useFetch(searchUrl);
 
   useEffect(() => {
     setLocalData(data);
@@ -52,7 +50,7 @@ export default function RecipesPage() {
       />
 
       <Container fluid>
-        <LoadingPanel visible={loading} />
+
 
         {error && (
           <Container className='text-center'>
@@ -68,7 +66,7 @@ export default function RecipesPage() {
               </Col>
               <Col xs={12} md={6} lg={4} xl={3}>
                 <SearchAutoComplete
-                  initialSearchTerm={searchTerm}
+                  initialSearchTerm={searchTerm || ''}
                   onSearch={handleSearch}
                   apiEndpoint='/recipes/autocomplete'
                 />
@@ -82,6 +80,9 @@ export default function RecipesPage() {
               />
             )}
 
+            <LoadingPanel visible={loading} />
+
+
             <Row className='justify-content-center mt-4'>
               {/* search results */}
               {localData &&
@@ -93,33 +94,29 @@ export default function RecipesPage() {
                   </Container>
                 )}
               {/* No Search Results */}
-              {localData &&
-                localData.executed &&
+              {searchTerm && localData &&
                 localData.recipes.length === 0 && (
-                  <NoResults searchTerm={searchTerm} />
+                  <NoResults searchTerm={searchTerm || ''} />
                 )}
               {/* No More Results */}
               {localData && localData.recipes.length === 0 && page > 1 && (
-                <NoMoreItems searchTerm={searchTerm} />
+                <NoMoreItems searchTerm={searchTerm || ''} />
               )}
               {/* Initial Landing Page */}
-              {localData &&
-                !localData.executed &&
-                localData.recipes.length === 0 &&
-                searchTerm.length === 0 && (
-                  <>
-                    <Row className='justify-content-center mt-4'>
-                      <Col xs={12} className='text-center mb-3'>
-                        <FoodceptionHrefButton url='/recipes/discover'>
-                          Not Sure What to Cook? Discover Exciting Recipes Here!
-                        </FoodceptionHrefButton>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <RandomPicks></RandomPicks>
-                    </Row>
-                  </>
-                )}
+              {!searchTerm && (
+                <>
+                  <Row className='justify-content-center mt-4'>
+                    <Col xs={12} className='text-center mb-3'>
+                      <FoodceptionHrefButton url='/recipes/discover'>
+                        Not Sure What to Cook? Discover Exciting Recipes Here!
+                      </FoodceptionHrefButton>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <RandomPicks></RandomPicks>
+                  </Row>
+                </>
+              )}
             </Row>
           </Container>
         }

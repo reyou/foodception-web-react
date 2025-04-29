@@ -41,43 +41,43 @@ export default function FoodceptionRouter() {
     <>
       <Route path={WebRoutes.Home.Base} element={<Layout />} errorElement={<ErrorPage />}>
         <Route index element={<Home />} />
-        <Route path={WebRoutes.Diet.Base.substring(1)} element={<Diets />} />
-        <Route path={`${WebRoutes.Diet.Base.substring(1)}/:slug/:id`} element={<DietDetail />} />
-        <Route path={WebRoutes.Meal.Base.substring(1)} element={<Meals />} />
-        <Route path={`${WebRoutes.Meal.Base.substring(1)}/:slug/:id`} element={<MealRecipes />} />
-        <Route path={WebRoutes.Recipe.Base.substring(1)} element={<RecipesPage />} />
-        <Route path={WebRoutes.Recipe.Discover.substring(1)} element={<Recipes />} />
-        <Route path={`${WebRoutes.Recipe.Base.substring(1)}/:slug/:id`} element={<RecipeDetails />} />
-        <Route path={WebRoutes.Recipe.Categories.Base.substring(1)} element={<RecipeCategories />} />
+        <Route path={WebRoutes.Diets.Base} element={<Diets />} />
+        <Route path={`${WebRoutes.Diets.Base}/:slug/:id`} element={<DietDetail />} />
+        <Route path={WebRoutes.Meals.Base} element={<Meals />} />
+        <Route path={`${WebRoutes.Meals.Base}/:slug/:id`} element={<MealRecipes />} />
+        <Route path={WebRoutes.Recipes.Base} element={<RecipesPage />} />
+        <Route path={WebRoutes.Recipes.Discover} element={<Recipes />} />
+        <Route path={`${WebRoutes.Recipes.Base}/:slug/:id`} element={<RecipeDetails />} />
+        <Route path={WebRoutes.Recipes.Categories.Base} element={<RecipeCategories />} />
         <Route
-          path={`${WebRoutes.Recipe.Categories.Base.substring(1)}/:slug/:id`}
+          path={`${WebRoutes.Recipes.Categories.Base}/:slug/:id`}
           element={<RecipeCategoryRecipesPage />}
         />
-        <Route path={WebRoutes.Recipe.Videos.Base.substring(1)} element={<RecipeVideos />} />
+        <Route path={WebRoutes.Recipes.Videos.Base} element={<RecipeVideos />} />
         <Route
-          path={`${WebRoutes.Recipe.Videos.Base.substring(1)}/:slug/:id`}
+          path={`${WebRoutes.Recipes.Videos.Base}/:slug/:id`}
           element={<RecipeVideoDetailsPage />}
         />
-        <Route path={WebRoutes.Country.Base.substring(1)} element={<Countries />} />
-        <Route path={`${WebRoutes.Country.Base.substring(1)}/:slug/:id`} element={<CountryDetails />} />
-        <Route path={WebRoutes.Ingredient.Base.substring(1)} element={<IngredientsPage />} />
+        <Route path={WebRoutes.Countries.Base} element={<Countries />} />
+        <Route path={`${WebRoutes.Countries.Base}/:slug/:id`} element={<CountryDetails />} />
+        <Route path={WebRoutes.Ingredients.Base} element={<IngredientsPage />} />
         <Route
-          path={`${WebRoutes.Ingredient.Base.substring(1)}/:slug/:id`}
+          path={`${WebRoutes.Ingredients.Base}/:slug/:id`}
           element={<IngredientDetailsPage />}
         />
         <Route
-          path={WebRoutes.Search.Autocomplete.substring(1)}
+          path={WebRoutes.Search.Autocomplete}
           element={<SearchAutoCompletePage />}
         />
-        <Route path={WebRoutes.Search.Base.substring(1)} element={<SearchPage />} />
-        <Route path={WebRoutes.Legacy.Login.substring(1)} element={<Navigate to={WebRoutes.User.Login} replace />} />
-        <Route path={WebRoutes.User.Base.substring(1)} element={<Navigate to={WebRoutes.User.Login} replace />} />
-        <Route path={WebRoutes.User.Login.substring(1)} element={<LoginPage />} />
-        <Route path={WebRoutes.User.Google.Login.substring(1)} element={<LoginGooglePage />} />
-        <Route path={WebRoutes.User.Google.Callback.substring(1)} element={<VerifyGoogleCallback />} />
-        <Route path={WebRoutes.User.Signup.substring(1)} element={<SignupPage />} />
-        <Route path={WebRoutes.User.Favorites.Recipes.substring(1)} element={<FavoriteRecipesPage />} />
-        <Route path={WebRoutes.User.ForgotPassword.substring(1)} element={<ForgotPasswordPage />} />
+        <Route path={WebRoutes.Search.Base} element={<SearchPage />} />
+        <Route path={WebRoutes.Legacy.Login} element={<Navigate to={WebRoutes.User.Login} replace />} />
+        <Route path={WebRoutes.User.Base} element={<Navigate to={WebRoutes.User.Login} replace />} />
+        <Route path={WebRoutes.User.Login} element={<LoginPage />} />
+        <Route path={WebRoutes.User.Google.Login} element={<LoginGooglePage />} />
+        <Route path={WebRoutes.User.Google.Callback} element={<VerifyGoogleCallback />} />
+        <Route path={WebRoutes.User.Signup} element={<SignupPage />} />
+        <Route path={WebRoutes.User.Favorites.Recipes} element={<FavoriteRecipesPage />} />
+        <Route path={WebRoutes.User.ForgotPassword} element={<ForgotPasswordPage />} />
       </Route>
       {/* Standalone route outside of main layout for iframe usage */}
       <Route path={WebRoutes.User.Google.Redirecting} element={<RedirectingToGoogle />} />

@@ -47,7 +47,7 @@ export class WebRoutes {
     /**
      * Recipe related web routes
      */
-    static Recipe = {
+    static Recipes = {
         Base: WebRoutes.AppBase + "/recipes",
         Discover: WebRoutes.AppBase + "/recipes/discover",
         Details: (slug: string, id: string) => `${WebRoutes.AppBase}/recipes/${slug}/${id}`,
@@ -68,7 +68,7 @@ export class WebRoutes {
     /**
      * Meal related web routes
      */
-    static Meal = {
+    static Meals = {
         Base: WebRoutes.AppBase + "/meals",
         Details: (slug: string, id: string) => `${WebRoutes.AppBase}/meals/${slug}/${id}`
     };
@@ -76,7 +76,7 @@ export class WebRoutes {
     /**
      * Diet related web routes
      */
-    static Diet = {
+    static Diets = {
         Base: WebRoutes.AppBase + "/diets",
         Details: (slug: string, id: string) => `${WebRoutes.AppBase}/diets/${slug}/${id}`
     };
@@ -84,7 +84,7 @@ export class WebRoutes {
     /**
      * Country related web routes
      */
-    static Country = {
+    static Countries = {
         Base: WebRoutes.AppBase + "/countries",
         Details: (slug: string, id: string) => `${WebRoutes.AppBase}/countries/${slug}/${id}`
     };
@@ -92,7 +92,7 @@ export class WebRoutes {
     /**
      * Ingredient related web routes
      */
-    static Ingredient = {
+    static Ingredients = {
         Base: WebRoutes.AppBase + "/ingredients",
         Details: (slug: string, id: string) => `${WebRoutes.AppBase}/ingredients/${slug}/${id}`
     };

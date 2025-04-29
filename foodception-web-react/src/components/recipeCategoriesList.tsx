@@ -62,7 +62,7 @@ const RecipeCategoriesList: React.FC<RecipeCategoriesListProps> = ({
       <Row className='justify-content-center'>
         {filteredCategories.map((category: any) => {
           const categoryImage = category.recipeCategoryImages[0];
-          const categoryLink = WebRoutes.Recipe.Categories.Details(FrontEndUtils.slugify(category.name), category.id);
+          const categoryLink = WebRoutes.Recipes.Categories.Details(FrontEndUtils.slugify(category.name), category.id);
 
           return (
             <FoodceptionCard

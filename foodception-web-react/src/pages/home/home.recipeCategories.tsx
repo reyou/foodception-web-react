@@ -56,7 +56,7 @@ export default function HomeRecipeCategories() {
       </Row>
       <Row className='text-center'>
         <Col>
-          <FoodceptionHrefButton url={WebRoutes.Recipe.Categories.Base}>
+          <FoodceptionHrefButton url={WebRoutes.Recipes.Categories.Base}>
             View All Categories
           </FoodceptionHrefButton>
         </Col>

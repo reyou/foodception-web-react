@@ -18,7 +18,7 @@ export default function Home() {
                 leftImage={leftImageUrl}
                 rightImage={rightImageUrl}
                 leftOverlay={<LeftOverlay />}
-                rightOverlay={<RightOverlay buttonLink={WebRoutes.Recipe.Videos.Base} />}
+                rightOverlay={<RightOverlay buttonLink={WebRoutes.Recipes.Videos.Base} />}
             />
             <Row className="g-0">
                 <Col>
