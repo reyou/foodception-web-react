@@ -33,11 +33,30 @@ export class ApiRoutes {
     /**
      * Recipe related API routes
      */
-    static Recipe = {
+    static Recipes = {
         BASE: '/recipes',
         BY_ID: (id: string) => `/recipes/${id}`,
+        RELATED: (id: string) => `/recipes/${id}/related`,
+        RECOMMENDED: '/recipes/recommended',
+        RANDOM: '/recipes/random',
         SEARCH: '/recipes/search',
+        SUGGESTIONS: '/recipes/suggestions',
+        TOP: '/recipes/top',
+        FEATURED: '/recipes/featured',
         FAVORITES: '/recipes/favorites'
+    };
+
+    /**
+     * SEO related API routes
+     */
+    static Seo = {
+        BASE: '/seo',
+        RECIPE: (id: string) => `/seo/recipes/${id}`,
+        SEARCH: '/seo/recipes/search',
+        RECOMMENDED: '/seo/recipes/recommended',
+        RANDOM: '/seo/recipes/random',
+        INGREDIENT: (id: string) => `/seo/ingredients/${id}`,
+        VIDEO: (id: string) => `/seo/videos/${id}`
     };
 
     /**
