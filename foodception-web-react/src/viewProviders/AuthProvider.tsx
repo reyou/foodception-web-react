@@ -22,24 +22,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const refreshUser = async () => {
-        try {
-            const user = await AuthenticationUtils.getUser();
-            if (user) {
-                console.log('User:', user);
-                setUser(user);
-                setAuthenticated(true);
-            } else {
-                setUser(null);
-                setAuthenticated(false);
-            }
-        } catch (error) {
-            console.error('Error refreshing user:', error);
-            setUser(null);
-            setAuthenticated(false);
-        }
-    };
-
     const login = async (email: string, password: string) => {
         setLoading(true);
         try {
@@ -77,6 +59,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } catch (error) {
             console.error('Logout error:', error);
             throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const refreshUser = async () => {
+        setLoading(true);
+        try {
+            const user = await AuthenticationUtils.getUser();
+            if (user) {
+                setUser(user);
+                setAuthenticated(true);
+            } else {
+                setUser(null);
+                setAuthenticated(false);
+            }
+        } catch (error) {
+            console.error('Error refreshing user:', error);
+            setUser(null);
+            setAuthenticated(false);
         } finally {
             setLoading(false);
         }
@@ -127,7 +129,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         loginWithGoogle,
         logout,
         refreshUser,
-        checkAuth
     } as AuthContextType;
 
     return (

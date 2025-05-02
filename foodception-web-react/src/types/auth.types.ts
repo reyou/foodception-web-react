@@ -18,5 +18,4 @@ export interface AuthContextType {
     login: (email: string, password: string) => Promise<void>;
     loginWithGoogle: (code: string) => Promise<GoogleLoginResponse>;
     logout: () => Promise<void>;
-    checkAuth: () => Promise<boolean>;
 }

@@ -6,6 +6,7 @@ import SmartNavLink from './SmartNavLink';
 import { FrontEndUtils } from '../../utils/FrontEndUtils';
 import useFetch from '../../hooks/useFetch';
 import { useAuth } from '../../contexts/AuthContext';
+import ParentWindowUtils from '../../utils/ParentWindowUtils';
 
 // Define types for menu items
 interface MenuItem {
@@ -66,12 +67,13 @@ const FoodceptionNavbar: React.FC = () => {
     };
 
     // Handle logout click
-    const handleLogout = async () => {
-        try {
-            await logout();
-            FrontEndUtils.redirectToHome();
-        } catch (error) {
-            console.error('Logout failed:', error);
+    // TODO: make this logic centralized
+    const handleSignOut = () => {
+        if (FrontEndUtils.isInsideIframe()) {
+            logout();
+            ParentWindowUtils.sendSignOutData();
+        } else {
+            logout();
         }
     };
 
@@ -107,7 +109,7 @@ const FoodceptionNavbar: React.FC = () => {
                                         {user.firstName || user.email}
                                     </Nav.Link>
                                 )}
-                                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                                <Nav.Link onClick={handleSignOut}>Logout</Nav.Link>
                             </>
                         ) : (
                             <SmartNavLink to={WebRoutes.User.Login}>Login</SmartNavLink>
