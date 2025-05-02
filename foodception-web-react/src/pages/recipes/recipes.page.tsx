@@ -15,7 +15,7 @@ import FoodceptionHrefButton from '../../components/links/href_button';
 import RandomPicks from './components/random_picks';
 import { HEADER_IMAGES } from '../../constants/imageConstants';
 import RecipeList from '../../components/recipeList';
-
+import { ApiRoutes } from '../../constants/ApiRoutes';
 export default function RecipesPage() {
   const query = useQuery();
   const page = parseInt(query.get('page') || '1');
@@ -68,7 +68,7 @@ export default function RecipesPage() {
                 <SearchAutoComplete
                   initialSearchTerm={searchTerm || ''}
                   onSearch={handleSearch}
-                  apiEndpoint='/recipes/autocomplete'
+                  apiEndpoint={ApiRoutes.Recipes.SUGGESTIONS}
                 />
               </Col>
             </Row>
