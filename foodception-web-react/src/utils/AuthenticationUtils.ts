@@ -19,7 +19,7 @@ export class AuthenticationUtils {
   static async getUser(): Promise<User | null> {
     try {
       const userResponse = await HttpProvider.get(ApiRoutes.Authentication.CurrentUser);
-      return userResponse.user;
+      return userResponse;
     } catch (error) {
       return null;
     }
@@ -61,5 +61,14 @@ export class AuthenticationUtils {
 
   static setAuthToken(authToken: string) {
     localStorage.setItem('authToken', authToken);
+  }
+
+  static hasAuthToken(): boolean {
+    const token = localStorage.getItem('authToken');
+    return token !== null && token !== '';
+  }
+
+  static getAuthToken(): string | null {
+    return localStorage.getItem('authToken');
   }
 }

@@ -1,5 +1,6 @@
 import { NavigateFunction } from 'react-router-dom';
 import ParentWindowUtils from './ParentWindowUtils';
+import { WebRoutes } from '../constants/WebRoutes';
 
 export class FrontEndUtils {
   static getPageRoot(): URL {
@@ -41,6 +42,10 @@ export class FrontEndUtils {
     // Send a message to the parent window for redirection
     const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
     ParentWindowUtils.postMessage({ type: 'redirect', url: adjustedUrl });
+  }
+
+  static redirectToHome() {
+    FrontEndUtils.redirect(WebRoutes.Home.Base);
   }
 
   static isInsideIframe() {

@@ -26,16 +26,24 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const appContent = isSentryEnabled ? (
+  <Sentry.ErrorBoundary fallback={<ErrorFallback />}>
+    <App />
+  </Sentry.ErrorBoundary>
+) : (
+  <App />
+);
+
+const enableStrictMode = true;
+
 root.render(
-  <React.StrictMode>
-    {isSentryEnabled ? (
-      <Sentry.ErrorBoundary fallback={<ErrorFallback />}>
-        <App />
-      </Sentry.ErrorBoundary>
-    ) : (
-      <App />
-    )}
-  </React.StrictMode>
+  enableStrictMode ? (
+    <React.StrictMode>
+      {appContent}
+    </React.StrictMode>
+  ) : (
+    appContent
+  )
 );
 
 // If you want to start measuring performance in your app, pass a function
