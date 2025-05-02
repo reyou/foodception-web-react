@@ -10,7 +10,7 @@ const RedirectingToGoogle: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       const authUrl = GoogleAuthUtils.getAuthUrl();
-      FrontEndUtils.redirect(authUrl);
+      FrontEndUtils.redirect(authUrl, undefined, false);
     }, 3000);
 
     return () => {

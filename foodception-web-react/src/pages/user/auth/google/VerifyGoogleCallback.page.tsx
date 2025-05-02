@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Alert, Container, Spinner } from 'react-bootstrap';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { FoodceptionHttpException } from '../../../../exceptions/FoodceptionHttpException';
+import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
 
 const VerifyGoogleCallback: React.FC = () => {
     const location = useLocation();
@@ -24,26 +25,50 @@ const VerifyGoogleCallback: React.FC = () => {
             const storedState = sessionStorage.getItem('googleOAuthState');
 
             if (!state || state !== storedState) {
-                throw new Error('Invalid state parameter. Authentication failed.');
+                const stateError = new Error('Invalid state parameter. Authentication failed.');
+                console.error('Google OAuth state validation failed:', {
+                    receivedState: state,
+                    storedState: storedState
+                });
+                throw stateError;
             }
 
             if (!code) {
-                throw new Error('No authorization code present in the callback URL.');
+                const codeError = new Error('No authorization code present in the callback URL.');
+                console.error('Google OAuth code missing:', {
+                    searchParams: location.search
+                });
+                throw codeError;
             }
 
+            console.log('Attempting Google login with authorization code');
             await loginWithGoogle(code);
+            console.log('Google login successful');
             sessionStorage.removeItem('googleOAuthState');
-            navigate('/?logged_in=true');
+            FrontEndUtils.redirect('/?logged_in=true', navigate);
         } catch (err) {
+            // Log the original error with full details
+            console.error('Google authentication error:', err);
+
             let errorMessage = "";
             if (err instanceof FoodceptionHttpException) {
                 errorMessage = "Failed to verify Google login. Status code: " + err.statusCode;
+                console.error('HTTP Exception during Google login:', {
+                    statusCode: err.statusCode,
+                    message: err.message,
+                });
             }
             else {
                 errorMessage = 'Unknown error. Failed to verify Google login';
+                console.error('Unexpected error during Google login:', {
+                    error: err instanceof Error ? err.message : String(err)
+                });
             }
             setError(errorMessage);
-            setTimeout(() => navigate(`/user/login?error=${errorMessage}`), 3000);
+            setTimeout(() => {
+                const loginErrorUrl = `/user/login?error=${encodeURIComponent(errorMessage)}`;
+                FrontEndUtils.redirect(loginErrorUrl, navigate);
+            }, 5000);
         }
     }, [location.search, loginWithGoogle, navigate, authInitialized]);
 

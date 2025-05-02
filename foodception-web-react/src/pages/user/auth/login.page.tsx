@@ -42,6 +42,7 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  // TODO: make this logic centralized
   const handleSignOut = () => {
     if (FrontEndUtils.isInsideIframe()) {
       logout();

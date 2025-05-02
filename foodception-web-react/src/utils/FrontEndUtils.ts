@@ -30,7 +30,7 @@ export class FrontEndUtils {
     ParentWindowUtils.postMessage({ type: 'redirect', url: url });
   }
 
-  static redirect(url: string, navigate?: NavigateFunction): void {
+  static redirect(url: string, navigate?: NavigateFunction, adjustUrl: boolean = true): void {
     if (!FrontEndUtils.isInsideIframe()) {
       if (navigate) {
         navigate(url);
@@ -40,7 +40,7 @@ export class FrontEndUtils {
       return;
     }
     // Send a message to the parent window for redirection
-    const adjustedUrl = FrontEndUtils.getAdjustedUrl(url);
+    const adjustedUrl = adjustUrl ? FrontEndUtils.getAdjustedUrl(url) : url;
     ParentWindowUtils.postMessage({ type: 'redirect', url: adjustedUrl });
   }
 
