@@ -8,6 +8,7 @@ export interface User {
 export interface GoogleLoginResponse {
     message: string;
     userId: string;
+    email: string;
     token: string;
 }
 

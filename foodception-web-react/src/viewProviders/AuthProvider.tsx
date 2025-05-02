@@ -35,7 +35,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     };
 
-    const loginWithGoogle = async (code: string) => {
+    const loginWithGoogle = async (code: string): Promise<GoogleLoginResponse> => {
         setLoading(true);
         try {
             const response: GoogleLoginResponse = await AuthenticationUtils.loginWithGoogle(code);

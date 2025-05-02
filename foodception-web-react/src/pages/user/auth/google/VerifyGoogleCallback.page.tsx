@@ -4,6 +4,9 @@ import { Alert, Container, Spinner } from 'react-bootstrap';
 import { useAuth } from '../../../../contexts/AuthContext';
 import { FoodceptionHttpException } from '../../../../exceptions/FoodceptionHttpException';
 import { FrontEndUtils } from '../../../../utils/FrontEndUtils';
+import ParentWindowUtils from '../../../../utils/ParentWindowUtils';
+import { EventTypes } from '../../../../utils/EventTypes';
+import { GoogleLoginResponse } from '../../../../types/auth.types';
 
 const VerifyGoogleCallback: React.FC = () => {
     const location = useLocation();
@@ -42,10 +45,15 @@ const VerifyGoogleCallback: React.FC = () => {
             }
 
             console.log('Attempting Google login with authorization code');
-            await loginWithGoogle(code);
+            const response: GoogleLoginResponse = await loginWithGoogle(code);
             console.log('Google login successful');
             sessionStorage.removeItem('googleOAuthState');
-            FrontEndUtils.redirect('/?logged_in=true', navigate);
+            if (FrontEndUtils.isInsideIframe()) {
+                ParentWindowUtils.postMessage({ type: EventTypes.LOGIN_SUCCESS, action: 'login', data: response });
+            }
+            else {
+                FrontEndUtils.redirect('/?logged_in=true', navigate);
+            }
         } catch (err) {
             // Log the original error with full details
             console.error('Google authentication error:', err);
