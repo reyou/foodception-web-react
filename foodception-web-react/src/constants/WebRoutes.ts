@@ -23,6 +23,7 @@ export class WebRoutes {
         Login: WebRoutes.AppBase + "/user/login",
         Signup: WebRoutes.AppBase + "/user/signup",
         ForgotPassword: WebRoutes.AppBase + "/user/forgot-password",
+        AuthStatus: WebRoutes.AppBase + "/user/auth-status",
 
         // Profile routes
         Profile: WebRoutes.AppBase + "/user/profile",

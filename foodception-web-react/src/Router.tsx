@@ -36,6 +36,7 @@ import LoginGooglePage from './pages/user/auth/google/LoginGoogle.page';
 import VerifyGoogleCallback from './pages/user/auth/google/VerifyGoogleCallback.page';
 import { WebRoutes } from './constants/WebRoutes';
 import Home from './pages/home/index';
+import AuthStatusPage from './pages/user/auth/authStatus.page';
 export default function FoodceptionRouter() {
   const routes = createRoutesFromElements(
     <>
@@ -72,6 +73,7 @@ export default function FoodceptionRouter() {
         <Route path={WebRoutes.Search.Base} element={<SearchPage />} />
         <Route path={WebRoutes.Legacy.Login} element={<Navigate to={WebRoutes.User.Login} replace />} />
         <Route path={WebRoutes.User.Base} element={<Navigate to={WebRoutes.User.Login} replace />} />
+        <Route path={WebRoutes.User.AuthStatus} element={<AuthStatusPage />} />
         <Route path={WebRoutes.User.Login} element={<LoginPage />} />
         <Route path={WebRoutes.User.Google.Login} element={<LoginGooglePage />} />
         <Route path={WebRoutes.User.Google.Callback} element={<VerifyGoogleCallback />} />

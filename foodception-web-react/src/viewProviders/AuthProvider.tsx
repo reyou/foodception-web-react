@@ -2,6 +2,9 @@ import React, { ReactNode, useState, useEffect } from 'react';
 import { AuthenticationUtils } from '../utils/AuthenticationUtils';
 import { AuthContextType, GoogleLoginResponse, User } from '../types/auth.types';
 import { AuthContext } from '../contexts/AuthContext';
+import ParentWindowUtils from '../utils/ParentWindowUtils';
+import { EventTypes } from '../utils/EventTypes';
+import { FrontEndUtils } from '../utils/FrontEndUtils';
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -39,6 +42,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setLoading(true);
         try {
             const response: GoogleLoginResponse = await AuthenticationUtils.loginWithGoogle(code);
+            if (FrontEndUtils.isInsideIframe()) {
+                ParentWindowUtils.postMessage({ type: EventTypes.LOGIN_SUCCESS, action: 'login', data: response });
+            }
             AuthenticationUtils.setAuthToken(response.token);
             await refreshUser();
             return response;
@@ -84,9 +90,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     };
 
-    const checkAuth = async (): Promise<boolean> => {
+    const checkAuth = async (): Promise<void> => {
         setLoading(true);
-        let isAuthenticated = false;
 
         try {
             // First check if we have a token before making API calls
@@ -94,7 +99,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 // No token, so we're definitely not authenticated
                 setAuthenticated(false);
                 setUser(null);
-                return false;
             }
 
             // We have a token, now verify if it's valid with the server
@@ -102,7 +106,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             if (isAuth) {
                 await refreshUser();
                 setAuthenticated(true);
-                isAuthenticated = true;
             } else {
                 // Token exists but is invalid
                 setAuthenticated(false);
@@ -117,8 +120,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } finally {
             setLoading(false);
         }
-
-        return isAuthenticated;
     };
 
     const value = {
