@@ -4,12 +4,13 @@ import HeaderLayout from '../components/header/headerLayout';
 import FoodceptionHrefButton from '../components/links/href_button';
 import LoadingPanel from '../components/loading_panel';
 import RecipeList from '../components/recipeList';
+import { ApiRoutes } from '../constants/ApiRoutes';
 import useFetch from '../hooks/useFetch';
 import { FrontEndUtils } from '../utils/FrontEndUtils';
 import { Container, Row, Col } from 'react-bootstrap';
 
 export default function Meals() {
-  const { data, loading, error } = useFetch('/meals');
+  const { data, loading, error } = useFetch(ApiRoutes.MealRecipes.Top);
 
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;
@@ -40,9 +41,8 @@ export default function Meals() {
       <Container fluid>
         {meals.map((meal: any) => {
           const recipes = meal.mealRecipes.map((q: any) => q.recipe);
-          const mealLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${
-            meal.id
-          }`;
+          const mealLink = `/meals/${FrontEndUtils.slugify(meal.name)}/${meal.id
+            }`;
 
           return (
             <div key={meal.id} className='mb-4'>
