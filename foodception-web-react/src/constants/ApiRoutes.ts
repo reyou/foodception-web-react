@@ -80,7 +80,8 @@ export class ApiRoutes {
     static Ingredients = {
         List: ApiRoutes.ApiBase + "/ingredients",
         Get: (id: string) => `${ApiRoutes.ApiBase}/ingredients/${id}`,
-        Search: ApiRoutes.ApiBase + "/ingredients/search"
+        Search: ApiRoutes.ApiBase + "/ingredients/search",
+        Suggestions: ApiRoutes.ApiBase + "/ingredients/suggestions"
     };
 
     /**

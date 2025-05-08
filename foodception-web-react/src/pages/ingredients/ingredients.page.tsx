@@ -19,6 +19,7 @@ import NoResults from '../recipes/components/no_results';
 import LoadingPanel from '../../components/loading_panel';
 import FoodceptionHrefButton from '../../components/links/href_button';
 import IngredientCard from '../../components/ingredients/ingredientCard';
+import { ApiRoutes } from '../../constants/ApiRoutes';
 
 function IngredientsPage() {
   const query = useQuery();
@@ -84,7 +85,7 @@ function IngredientsPage() {
               <SearchAutoComplete
                 initialSearchTerm={searchTerm}
                 onSearch={handleSearch}
-                apiEndpoint='/ingredients/autocomplete'
+                apiEndpoint={ApiRoutes.Ingredients.Suggestions}
               />
             </Col>
           </Row>
