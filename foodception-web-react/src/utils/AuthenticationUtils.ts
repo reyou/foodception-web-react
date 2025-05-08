@@ -18,8 +18,9 @@ export class AuthenticationUtils {
 
   static async getUser(): Promise<User | null> {
     try {
-      const userResponse = await HttpProvider.get(ApiRoutes.Authentication.CurrentUser);
-      return userResponse;
+      const userResponse = await HttpProvider.get(ApiRoutes.Authentication.Current);
+      const user = userResponse.user;
+      return user;
     } catch (error) {
       return null;
     }
@@ -35,7 +36,7 @@ export class AuthenticationUtils {
 
   static async loginWithGoogle(code: string): Promise<GoogleLoginResponse> {
     try {
-      const response = await HttpProvider.post(ApiRoutes.Authentication.Google.Authenticate, { code, clientType: "WEB" });
+      const response = await HttpProvider.post(ApiRoutes.Authentication.Google.Login, { code, clientType: "WEB" });
       return response as GoogleLoginResponse;
     } catch (error) {
       throw error;

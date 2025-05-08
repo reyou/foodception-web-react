@@ -68,7 +68,7 @@ export default function RecipesPage() {
                 <SearchAutoComplete
                   initialSearchTerm={searchTerm || ''}
                   onSearch={handleSearch}
-                  apiEndpoint={ApiRoutes.Recipes.SUGGESTIONS}
+                  apiEndpoint={ApiRoutes.Recipes.Suggestions}
                 />
               </Col>
             </Row>

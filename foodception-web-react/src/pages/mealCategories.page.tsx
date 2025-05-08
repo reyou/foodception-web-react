@@ -7,6 +7,7 @@ import MealCategoriesList from '../components/mealCategoriesList';
 import useFetch from '../hooks/useFetch';
 import { useLayout } from '../contexts/layout-context';
 import { useEffect } from 'react';
+import { ApiRoutes } from '../constants/ApiRoutes';
 
 export default function MealCategories() {
   const { setShowBreadcrumb } = useLayout();
@@ -16,7 +17,7 @@ export default function MealCategories() {
       setShowBreadcrumb(true);
     };
   }, [setShowBreadcrumb]);
-  const { data, loading, error } = useFetch('/meals/categories');
+  const { data, loading, error } = useFetch(ApiRoutes.Meals.List);
 
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;

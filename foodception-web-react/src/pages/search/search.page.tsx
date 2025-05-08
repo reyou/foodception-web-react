@@ -14,6 +14,7 @@ import TopCountries from '../recipes/components/top_countries';
 import TopDiets from '../recipes/components/top_diets';
 import NoMoreItems from '../recipes/components/no_more_items';
 import SearchResults from '../../components/search/search_results';
+import { ApiRoutes } from '../../constants/ApiRoutes';
 
 export function SearchPage() {
   const query = useQuery();
@@ -47,7 +48,7 @@ export function SearchPage() {
             <SearchAutoComplete
               initialSearchTerm={searchTerm}
               onSearch={handleSearch}
-              apiEndpoint='/search/autocomplete'
+              apiEndpoint={ApiRoutes.Search.Suggestions}
               baseUrl='/search'
             />
           </Col>

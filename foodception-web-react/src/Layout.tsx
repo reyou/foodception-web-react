@@ -7,6 +7,7 @@ import { useLayout } from './contexts/layout-context';
 import FoodceptionNavbar from './components/navbar/Navbar';
 import SearchAutoComplete from './components/search_auto_complete';
 import { HideOnRoutes } from './components/core/HideOnRoutes';
+import { ApiRoutes } from './constants/ApiRoutes';
 
 
 
@@ -23,7 +24,7 @@ const Layout: React.FC = () => {
               <SearchAutoComplete
                 initialSearchTerm={''}
                 onSearch={() => { }}
-                apiEndpoint='/search/autocomplete'
+                apiEndpoint={ApiRoutes.Search.Suggestions}
                 baseUrl='/search'
               />
             </Col>

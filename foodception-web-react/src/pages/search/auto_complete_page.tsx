@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLayout } from '../../contexts/layout-context';
 import { Col, Row } from 'react-bootstrap';
 import SearchAutoComplete from '../../components/search_auto_complete';
+import { ApiRoutes } from '../../constants/ApiRoutes';
 
 export default function SearchAutoCompletePage() {
   const { setShowNavigation, setShowBreadcrumb, setShowHorizontalRule } = useLayout();
@@ -22,7 +23,7 @@ export default function SearchAutoCompletePage() {
           <SearchAutoComplete
             initialSearchTerm={''}
             onSearch={() => { }}
-            apiEndpoint='/search/autocomplete'
+            apiEndpoint={ApiRoutes.Search.Suggestions}
             baseUrl='/search'
           />
         </Col>

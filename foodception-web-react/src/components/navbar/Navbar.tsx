@@ -19,7 +19,7 @@ interface MenuItem {
 
 const FoodceptionNavbar: React.FC = () => {
     // Use the useFetch hook to fetch menu items
-    const { data, loading, error } = useFetch(ApiRoutes.UserInterface.MENU.ITEMS);
+    const { data, loading, error } = useFetch(ApiRoutes.UserInterface.Menu.Items);
 
     // Use the auth context to get authentication status
     const { authenticated, logout, user } = useAuth();
