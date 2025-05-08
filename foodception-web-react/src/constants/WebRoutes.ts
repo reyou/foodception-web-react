@@ -61,8 +61,8 @@ export class WebRoutes {
 
         // Videos
         Videos: {
-            Base: WebRoutes.AppBase + "/recipe-videos",
-            Details: (slug: string, id: string) => `${WebRoutes.AppBase}/recipe-videos/${slug}/${id}`
+            Base: WebRoutes.AppBase + "/recipes/videos",
+            Details: (slug: string, id: string) => `${WebRoutes.AppBase}/recipes/videos/${slug}/${id}`
         }
     };
 

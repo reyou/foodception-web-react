@@ -13,6 +13,7 @@ import SearchAutoComplete from '../../../components/search_auto_complete';
 import RecipeVideosList from '../../../components/recipeVideosList';
 import { HEADER_IMAGES } from '../../../constants/imageConstants';
 import FoodceptionHeader from '../../../components/header/header';
+import { ApiRoutes } from '../../../constants/ApiRoutes';
 
 export default function RecipeVideosPage() {
   const query = useQuery();
@@ -65,7 +66,7 @@ export default function RecipeVideosPage() {
                 <SearchAutoComplete
                   initialSearchTerm={searchTerm}
                   onSearch={handleSearch}
-                  apiEndpoint='/recipes/videos/autocomplete'
+                  apiEndpoint={ApiRoutes.RecipeVideos.Suggestions}
                 />
               </Col>
             </Row>
@@ -81,9 +82,9 @@ export default function RecipeVideosPage() {
             </Container>
             <Row className='justify-content-center mt-4'>
               {localData &&
-              localData.recipeVideos &&
-              localData.recipeVideos.length === 0 &&
-              page > 1 ? (
+                localData.recipeVideos &&
+                localData.recipeVideos.length === 0 &&
+                page > 1 ? (
                 <NoMoreItems searchTerm={searchTerm} />
               ) : localData &&
                 localData.executed &&

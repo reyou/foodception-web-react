@@ -99,6 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 // No token, so we're definitely not authenticated
                 setAuthenticated(false);
                 setUser(null);
+                return;
             }
 
             // We have a token, now verify if it's valid with the server
