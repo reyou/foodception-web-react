@@ -15,7 +15,7 @@ const FoodceptionRecipeVideoCardBody: React.FC<
   FoodceptionRecipeVideoCardBodyProps
 > = ({ recipeVideo, youTubeChannelVideo, onWatchClicked }) => {
   const slug = FrontEndUtils.slugify(recipeVideo.recipe.title);
-  const recipeVideoUrl = `/recipe-videos/${slug}/${recipeVideo.id}`;
+  const recipeVideoUrl = `/recipes/videos/${slug}/${recipeVideo.id}`;
   const recipeUrl = `/recipes/${slug}/${recipeVideo.recipe.id}`;
   return (
     <Card.Body>

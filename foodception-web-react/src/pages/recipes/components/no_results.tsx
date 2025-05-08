@@ -9,7 +9,7 @@ interface NoResultsProps {
 const NoResults: React.FC<NoResultsProps> = ({ searchTerm }) => {
   // Define the list of button data
   const buttonData = [
-    { label: 'Videos', href: '/recipe-videos' },
+    { label: 'Videos', href: '/recipes/videos' },
     { label: 'Categories', href: '/recipe-categories' },
     { label: 'Diets', href: '/diets' },
     { label: 'Cuisines', href: '/countries' },
