@@ -11,6 +11,7 @@ import Pagination from '../components/pagination';
 import { useQuery } from '../hooks/useQuery';
 import SearchAutoComplete from '../components/search_auto_complete';
 import SearchStatus from '../components/search_status';
+import { ApiRoutes } from '../constants/ApiRoutes';
 
 const RecipeCategoryRecipesPage: React.FC = () => {
   const query = useQuery();
@@ -20,6 +21,11 @@ const RecipeCategoryRecipesPage: React.FC = () => {
   const limit = parseInt(query.get('limit') || '20');
   const skip = (page - 1) * limit;
   const { data, loading, error } = useFetch(`/recipe-categories/${id}/recipes?query=${searchTerm}&skip=${skip}&limit=${limit}`);
+
+  if (!id) {
+    return <ErrorPanel errorMessage="Recipe category ID is missing"></ErrorPanel>;
+  }
+
   if (loading) {
     return <LoadingPanel visible={loading}></LoadingPanel>;
   }
@@ -62,8 +68,8 @@ const RecipeCategoryRecipesPage: React.FC = () => {
           <Col xs={12} md={6} lg={4} xl={3} className='mb-4'>
             <SearchAutoComplete
               initialSearchTerm={searchTerm}
-              onSearch={() => {}}
-              apiEndpoint={`/recipe-categories/${id}/recipes/autocomplete`}
+              onSearch={() => { }}
+              apiEndpoint={ApiRoutes.RecipeCategoryRecipes.Suggestions(id)}
             />
           </Col>
         </Row>
@@ -72,7 +78,7 @@ const RecipeCategoryRecipesPage: React.FC = () => {
             {searchTerm && (
               <SearchStatus
                 searchTerm={searchTerm}
-                onClearSearch={ () => {} }
+                onClearSearch={() => { }}
               />
             )}
           </Col>
